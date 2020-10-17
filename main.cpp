@@ -1,5 +1,6 @@
-#include "init_bot.hpp"
+#include "src/long_poll/long_poll.hpp"
 
 int main(void) {
-    init_bot();
+  Lp lp;
+  lp.init_bot();
 }

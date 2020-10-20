@@ -1,19 +1,43 @@
 #include "curl.hpp"
 
-string Curl::urlencode(string& url) { //костыль
-  string urlen;
+namespace {
+  constexpr char lookup_table[] = "0123456789abcdef";
+
+  inline bool is_spec_symb(const char c) {
+    return
+        c == '-' ||
+        c == '_' ||
+        c == '.' ||
+        c == '~' ||
+        c == '/' ||
+        c == ':' ||
+        c == '&' ||
+        c == '?' ||
+        c == '=' ;
+  }
+
+  inline bool is_alpha(const char c) {
+    return
+      (/* 0 */ 48 <= c && c <= /* 9 */  57) ||
+      (/* A */ 65 <= c && c <= /* Z */  90) ||
+      (/* a */ 97 <= c && c <= /* z */ 122) ;
+  }
+}
+
+string Curl::urlencode(string& url) {
+  string encoded;
+  std::stringstream stream;
   for (char c : url) {
-    if (c == ' ') {
-      urlen += "%20";
-    } else if (c == '\n') {
-      urlen += "%0a";
-    } else if (c == '+') {
-      urlen += "%2b";
+    if (is_alpha(c) || is_spec_symb(c))
+    {
+      stream << c;
     } else {
-      urlen += c;
+      stream << '%';
+      stream << lookup_table[(c & 0xF0) >> 4];
+      stream << lookup_table[(c & 0x0F)     ];
     }
   }
-  return urlen;
+  return stream.str();
 }
 
 size_t Curl::write_callback(void* contents, size_t size, size_t nmemb, void* userp) {
@@ -32,28 +56,18 @@ string Curl::request(string url) {
     curl_easy_setopt(curl, CURLOPT_TIMEOUT, 600L);
     curl_easy_perform(curl);
   }
-  curl_easy_reset(curl);
- #ifdef LOG
-  std::cout << url << std::endl;
- #endif
+  curl_easy_cleanup(curl);
   return buffer;
 }
 
-string Curl::generate_vk_query(string method, const map<string, string>& query) {
-  string result = api_url;
-  result += method + "?";
-  result += "access_token=" + access_token + "&";
-  result += "v=" + api_version + "&";
-  for (const auto& element : query) {
+string Curl::curl_gen(const string& url, const map<string, string>& params) {
+  string result = url;
+  for (const auto& element : params) {
     result += element.first + "=" + element.second + "&";
   }
   return result;
 }
 
-string Curl::generate_query(string url, const map<string, string>& query) {
-  string result = url;
-  for (const auto& element : query) {
-    result += element.first + "=" + element.second + "&";
-  }
-  return result;
+string Curl::send_request(const string& method, const map<string, string>& params) {
+  return Curl::request(Curl::curl_gen(method, params));
 }

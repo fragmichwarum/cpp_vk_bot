@@ -1,5 +1,5 @@
 TEMPLATE = app
-CONFIG += console c++14
+CONFIG += console c++17
 CONFIG -= app_bundle
 CONFIG -= qt
 QMAKE_CXXFLAGS += -lcurl -Wall -Wextra -O2
@@ -14,13 +14,13 @@ SOURCES += \
         src/cmd_holder/commands/lib/crc32.cpp \
         src/cmd_holder/commands/lib/sha256.cpp \
         src/cmd_holder/commands/nickname.cpp \
-        src/cmd_holder/commands/_resolve_screen_name.cpp \
         src/cmd_holder/commands/_media_search.cpp \
         src/cmd_holder/commands/crc.cpp \
         src/cmd_holder/commands/sha.cpp \
         src/cmd_holder/commands/vk_media.cpp \
         src/cmd_holder/commands/help.cpp \
         src/cmd_holder/commands/weather.cpp \
+        src/cmd_holder/vkapi_wrap.cpp \
         src/cmd_handler/cmd_handler.cpp \
         src/logger/logger.cpp \
         src/long_poll/error_handler.cpp \

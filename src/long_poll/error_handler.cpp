@@ -30,7 +30,7 @@ void Lp::errors_handle(long error_code) {
   for (auto error : errors) {
     if (std::get<errcode>(error) == error_code) {
       if (std::get<errfatal>(error) == fatal) {
-        throw std::runtime_error(std::get<1>(error));
+        throw std::runtime_error(std::get<errmsg>(error));
       } else {
         std::cerr << std::get<errmsg>(error) << std::endl;
         get_lp_server();

@@ -15,9 +15,9 @@ private:
 
 public:
   Curl& operator=(Curl&) = delete;
-  static string generate_vk_query(string server, const map<string, string>& query);
-  static string generate_query(string server, const map<string, string>& query);
-  static string request(string url);
+  static string curl_gen    (const string& server, const map<string, string>& query);
+  static string request     (string url);
+  static string send_request(const string& method, const map<string, string>& params);
 };
 
 #endif // CURL_HPP

@@ -1,6 +1,6 @@
 #include "../cmd_holder.hpp"
 
-void cmd_holder::help_command() {
+void cmd_holder::help_cmd() {
   string help_info =
     "Список команд:\n"
     "⚠+crc32 {...} - сгенерить CRC-32 хеш-сумму строки\n"

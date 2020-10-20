@@ -1,7 +1,7 @@
 #include "../cmd_holder.hpp"
 #include "../commands/lib/crc32.hpp"
 
-void cmd_holder::crc32_command() {
+void cmd_holder::crc32_cmd() {
   if (_message == "+crc32") {
     _empty_query();
   } else {
@@ -14,7 +14,6 @@ void cmd_holder::crc32_command() {
       );
     std::stringstream stream;
     stream << "0x" << std::hex << crc32;
-    string crc32_str(stream.str());
-    _message_send(crc32_str, USE_NICKNAME);
+    _message_send(stream.str(), USE_NICKNAME);
   }
 }

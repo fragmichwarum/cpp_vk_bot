@@ -17,7 +17,6 @@ private:
   static int callback(void* not_used, int argc, char* argv[], char** col_name);
 
 public:
-  Database& operator=(Database&) = delete;
   void open();
   void init_table();
   void insert_nickname(const long& user_id, const string& prefix);

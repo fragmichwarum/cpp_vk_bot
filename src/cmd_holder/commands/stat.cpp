@@ -1,7 +1,6 @@
 #include "../cmd_holder.hpp"
 
-void cmd_holder::stat_command() { //в топку сжечь
-
+void cmd_holder::stat_cmd() {
   system("./process_uptime.sh vk > stat.txt");
   std::ifstream file;
   char* stat = nullptr;

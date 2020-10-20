@@ -1,6 +1,6 @@
 #include "../cmd_holder.hpp"
 
-void cmd_holder::document_command() {
+void cmd_holder::document_cmd() {
   if (_message == "+документ" or
       _message == "+доки")
   {
@@ -10,7 +10,7 @@ void cmd_holder::document_command() {
   }
 }
 
-void cmd_holder::picture_command() {
+void cmd_holder::picture_cmd() {
   if (_message == "+пикча" or
       _message == "+фото")
   {
@@ -20,7 +20,7 @@ void cmd_holder::picture_command() {
   }
 }
 
-void cmd_holder::video_command() {
+void cmd_holder::video_cmd() {
   if (_message == "+видео" or
       _message == "+видос")
   {

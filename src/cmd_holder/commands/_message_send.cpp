@@ -10,5 +10,6 @@ void cmd_holder::_message_send(string text, bool use_nickname) {
   } else {
     params["message"] = text;
   }
-  Curl::request(Curl::generate_vk_query("messages.send", params));
+   append_vkparams(params);
+  Curl::send_request(append_vkurl("messages.send"), params);
 }

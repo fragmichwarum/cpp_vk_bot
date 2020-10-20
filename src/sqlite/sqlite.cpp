@@ -1,8 +1,8 @@
 #include "sqlite.hpp"
 
 int Database::callback(
-  void* not_used,
-  int argc,
+  void*  not_used,
+  int    argc,
   char** argv,
   char** col_name)
 {
@@ -47,12 +47,16 @@ void Database::insert_nickname(const long& user_id, const string& prefix) {
 }
 
 string Database::return_nickname(const long& user_id) {
-  vector<string> result;
+  string result;
   sqlite3_stmt* stmt;
   char query[255];
 
   open();
-  snprintf (query, sizeof query - 1, "SELECT PREFIX FROM USERS WHERE USER_ID = %s;", std::to_string(user_id).c_str());
+  snprintf(
+    query,
+    sizeof query - 1,
+    "SELECT PREFIX FROM USERS WHERE USER_ID = %s;",
+    std::to_string(user_id).c_str());
   rc =
   sqlite3_prepare(
     database,       /* An open database         */
@@ -63,12 +67,12 @@ string Database::return_nickname(const long& user_id) {
   );
   if (rc == 0) {
     while ((rc = sqlite3_step(stmt)) == SQLITE_ROW) {
-      result.push_back((const char*)sqlite3_column_text(stmt, 0));
+      result += (const char*)sqlite3_column_text(stmt, 0);
     }
   }
-  if (result.size() == EMPTY) {
+  if (result.empty()) {
     return "";
   } else {
-    return result[0];
+    return result;
   }
 }

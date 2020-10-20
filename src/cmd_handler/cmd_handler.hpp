@@ -12,12 +12,10 @@ private:
   string  _message;
   long    _peer_id;
   long    _from_id;
-  cmd_handler() = delete;
-  cmd_handler& operator=(cmd_handler&) = delete;
 
 public:
   cmd_handler(nlohmann::json& json);
-  void init_commands();
+  void init_cmds();
 };
 
 #endif // COMMAND_HANDLER_HPP

@@ -1,6 +1,6 @@
 #include "../cmd_holder.hpp"
 
-void cmd_holder::repeat_command() {
+void cmd_holder::repeat_cmd() {
   if (_message != "+!") {
   string to_repeat =
     _message.substr(

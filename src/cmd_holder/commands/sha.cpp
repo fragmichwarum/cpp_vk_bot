@@ -1,7 +1,7 @@
 #include "../cmd_holder.hpp"
 #include "../commands/lib/sha256.hpp"
 
-void cmd_holder::sha256_command() {
+void cmd_holder::sha256_cmd() {
   if (_message == "+sha256") {
     _empty_query();
   } else {

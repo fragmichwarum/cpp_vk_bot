@@ -1,20 +1,21 @@
 #include "./long_poll.hpp"
 #define LOG
 
-
 void Lp::get_lp_server() {
-  map<string, string> lp_parameters;
-  lp_parameters["group_id"] = group_id;
+  map<string, string>  params;
+  params["group_id"] = group_id;
+  cmd_holder::append_vkparams(params);
 
-  string response = Curl::generate_vk_query("groups.getLongPollServer", lp_parameters);
-  auto lp = nlohmann::json::parse(Curl::request(response));
+  string method   = cmd_holder::append_vkurl("groups.getLongPollServer");
+  string lp_query = Curl::curl_gen(method, params);
+  json   poll     = json::parse(Curl::request(lp_query));
 
-  if (not lp["error"]["error_code"].is_null()) {
-    errors_handle(lp["error"]["error_code"].get<long>());
+  if (not poll["error"]["error_code"].is_null()) {
+    errors_handle(poll["error"]["error_code"].get<long>());
   }
-  this->server  = lp["response"]["server"];
-  this->key     = lp["response"]["key"];
-  this->ts      = to_string((long)lp["response"]["ts"]);
+  server = poll["response"]["server"];
+  key    = poll["response"]["key"   ];
+  ts     = to_string((long)poll["response"]["ts"]);
 }
 
 void Lp::loop() {
@@ -26,7 +27,7 @@ void Lp::loop() {
       { "ts",    this->ts  },
       { "wait", "60"       }
     };
-    nlohmann::json lp = nlohmann::json::parse(Curl::request(Curl::generate_query(server + "?", lp_event)));
+    json lp = json::parse(Curl::send_request(server +  "?", lp_event));
   #ifdef LOG
     std::cout << lp << std::endl;
   #endif
@@ -37,7 +38,7 @@ void Lp::loop() {
       for (auto update : lp["updates"]) {
         if (update["object"]["message"]["text"] != "") {
           cmd_handler handler(lp);
-          handler.init_commands();
+          handler.init_cmds();
         }
       }
     }

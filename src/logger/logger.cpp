@@ -2,7 +2,7 @@
 
 std::string Logger::_gen_time() {
   std::time_t time = std::time(0);
-  std::tm* now = std::localtime(&time);
+  std::tm*    now  = std::localtime(&time);
   std::string month;
   std::string weekday;
   switch (now->tm_mon + 1) {
@@ -75,8 +75,6 @@ std::string Logger::_gen_time() {
          std::to_string(now->tm_year  + 1900);
 }
 
-
 void Logger::write_log(const std::string& message) {
-  std::ofstream out(_path, std::ios::app);
-  out << _gen_time() << " -> " << message << '\n';
+  _out << _gen_time() << " -> " << message << '\n';
 }

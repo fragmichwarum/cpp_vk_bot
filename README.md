@@ -2,7 +2,7 @@
 
 ## How to start?
 
-You need to fill some fields in `token.hpp`:
+You need to fill some fields in `src/long_poll/token.hpp`:
 
 ```
 const static std::string access_token
@@ -21,7 +21,7 @@ const static std::string group_id
 
 ```
 const static int admin_id
-	= your user id;
+    = your user id;
 ```
 
 ```

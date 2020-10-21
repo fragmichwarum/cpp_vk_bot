@@ -20,7 +20,6 @@ SOURCES += \
         src/cmd_holder/commands/vk_media.cpp \
         src/cmd_holder/commands/help.cpp \
         src/cmd_holder/commands/weather.cpp \
-        src/cmd_holder/vkapi_wrap.cpp \
         src/cmd_handler/cmd_handler.cpp \
         src/logger/logger.cpp \
         src/long_poll/error_handler.cpp \

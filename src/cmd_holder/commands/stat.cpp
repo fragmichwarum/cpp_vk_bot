@@ -1,34 +1,33 @@
 #include "../cmd_holder.hpp"
 
-void cmd_holder::stat_cmd() {
-  system("./process_uptime.sh vk > stat.txt");
-  std::ifstream file;
-  char* stat = nullptr;
-  if (file) {
-    file.open("stat.txt");
-    file.seekg(0, std::ios::end);
-    int length = file.tellg();
-    file.seekg(0, std::ios::beg);
-    stat = new char[length];
-    file.read(stat, length);
-    file.close();
+namespace {
+  string lineparse(const string& line) {
+    string result;
+    for (char c : line) {
+      if (isdigit(c)) {
+        result += c;
+      }
+    }
+    return result;
   }
-  string bot_info = "Аптайм: ";
-  bot_info += stat;
-  bot_info += "\n";
 
-  system("./mem.sh vk > mem.txt");
-  char* memusage = nullptr;
-  if (file) {
-    file.open("mem.txt");
-    file.seekg(0, std::ios::end);
-    int length = file.tellg();
-    file.seekg(0, std::ios::beg);
-    memusage = new char[length];
-    file.read(memusage, length);
-    file.close();
+  string memusage() {
+    FILE* file = fopen("/proc/self/status", "r");
+    string result;
+    char line[128];
+
+    while (fgets(line, 128, file) != NULL) {
+      if (strncmp(line, "VmRSS:", 6) == 0) {
+        return lineparse(line);
+      }
+    }
+    fclose(file);
+    return "";
   }
-  bot_info += "Общая статистика: \n";
-  bot_info += memusage;
-  _message_send(bot_info, NOT_USE_NICKNAME);
+}
+
+void cmd_holder::stat_cmd() {
+  _message_send("Использовано ОЗУ: " + memusage() + " KiB.", NOT_USE_NICKNAME);
+  /* cpuinfo... */
+  /* uptime.... */
 }

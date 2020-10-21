@@ -2,32 +2,27 @@
 #define LOG
 
 void Lp::get_lp_server() {
-  map<string, string>  params;
-  params["group_id"] = group_id;
-  cmd_holder::append_vkparams(params);
-
-  string method   = cmd_holder::append_vkurl("groups.getLongPollServer");
-  string lp_query = Curl::curl_gen(method, params);
-  json   poll     = json::parse(Curl::request(lp_query));
-
+  params body{{ "group_id", group_id }};
+  append_vkparams(body);
+  json poll = http_processing(append_vkurl("groups.getLongPollServer"), body);
   if (not poll["error"]["error_code"].is_null()) {
-    errors_handle(poll["error"]["error_code"].get<long>());
+    errors_handle(poll["error"]["error_code"]);
   }
   server = poll["response"]["server"];
-  key    = poll["response"]["key"   ];
-  ts     = to_string((long)poll["response"]["ts"]);
+  key    = poll["response"]["key"];
+  ts     = to_string(poll["response"]["ts"].get<long>());
 }
 
 void Lp::loop() {
   get_lp_server();
   while (true) {
-    map<string, string> lp_event = {
+    params lp_body = {
       { "act",  "a_check"  },
       { "key",   this->key },
       { "ts",    this->ts  },
       { "wait", "60"       }
     };
-    json lp = json::parse(Curl::send_request(server +  "?", lp_event));
+    json lp = http_processing(server + "?", lp_body);
   #ifdef LOG
     std::cout << lp << std::endl;
   #endif

@@ -1,11 +1,5 @@
 #include "cmd_handler.hpp"
 
-namespace {
-  bool starts_with(const std::string& str, char ch) {
-    return str[0] == ch;
-  }
-}
-
 cmd_handler::cmd_handler(nlohmann::json& json)
 {
   auto response = json["updates"][0]["object"]["message"];
@@ -14,14 +8,14 @@ cmd_handler::cmd_handler(nlohmann::json& json)
   _from_id = response["from_id"];
 
   Logger logger(logfile);
-  if (starts_with(_message, '+')) {
+  if (_message[0] == '+') {
     logger.write_log(_message);
   }
 }
 
 void cmd_handler::init_cmds()
 {
-  map<string, void(cmd_holder::*)()> cmds;
+  map<string, void(cmd_holder::*)(void)> cmds;
 
   cmds = {
     { "+помощь",   &cmd_holder::help_cmd },
@@ -43,9 +37,9 @@ void cmd_handler::init_cmds()
     cmds["+!"]  = &cmd_holder::repeat_cmd;
   }
   cmd_holder holder(_message, _peer_id, _from_id);
-  const vector<string> splitted_message = split(_message);
+  const vector<string> splitted = split(_message);
   for (const auto& cmd : cmds) {
-    if (splitted_message[0] == cmd.first) {
+    if (splitted[0] == cmd.first) {
       (holder.*cmds[cmd.first])();
     }
   }

@@ -8,14 +8,14 @@ void cmd_holder::weather_cmd() {
   if (_message == "+погода") {
     _empty_query();
   } else {
-    map<string, string> query;
+    params body;
 
-    query["lang"]   = "ru";
-    query["units"]  = "metric";
-    query["APPID"]  = "ef23e5397af13d705cfb244b33d04561";
-    query["q"]      = _splitted_message[1];
+    body["lang"]   = "ru";
+    body["units"]  = "metric";
+    body["APPID"]  = "ef23e5397af13d705cfb244b33d04561";
+    body["q"]      = _splitted_message[1];
 
-    json parsed = json::parse(Curl::send_request("http://api.openweathermap.org/data/2.5/weather?", query));
+    json parsed = http_processing("http://api.openweathermap.org/data/2.5/weather?", body);
 
     if (not parsed["weather"].is_null()) {
 

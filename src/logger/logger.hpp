@@ -8,8 +8,8 @@
 
 class Logger {
 private:
-  std::string _gen_time();
-  std::string _path;
+  std::string   _gen_time();
+  std::string   _path;
   std::ofstream _out;
 
 public:

@@ -33,10 +33,6 @@ public:
     , _from_id(from_id)
   { }
 
-  static void append_vkparams(map<string, string>& map);
-
-  static string append_vkurl(const string& method);
-
   void crc32_cmd();
 
   void sha256_cmd();

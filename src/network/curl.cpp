@@ -1,43 +1,27 @@
 #include "curl.hpp"
 
 namespace {
-  constexpr char lookup_table[] = "0123456789abcdef";
-
-  inline bool is_spec_symb(const char c) {
-    return
-        c == '-' ||
-        c == '_' ||
-        c == '.' ||
-        c == '~' ||
-        c == '/' ||
-        c == ':' ||
-        c == '&' ||
-        c == '?' ||
-        c == '=' ;
-  }
-
-  inline bool is_alpha(const char c) {
-    return
-      (/* 0 */ 48 <= c && c <= /* 9 */  57) ||
-      (/* A */ 65 <= c && c <= /* Z */  90) ||
-      (/* a */ 97 <= c && c <= /* z */ 122) ;
+  string char_to_hex(const char c) {
+    std::stringstream stream;
+    if (static_cast<int>(c) < 0x10) {
+      stream << "0";
+    }
+    stream << std::hex << static_cast<int>(c);
+    return "%" + stream.str();
   }
 }
 
 string Curl::urlencode(string& url) {
-  string encoded;
-  std::stringstream stream;
+  string urlen;
   for (char c : url) {
-    if (is_alpha(c) || is_spec_symb(c))
+    if (c == ' ' || c == '\n' || c == '+' || c == '\\')
     {
-      stream << c;
+      urlen += char_to_hex(c);
     } else {
-      stream << '%';
-      stream << lookup_table[(c & 0xF0) >> 4];
-      stream << lookup_table[(c & 0x0F)     ];
+      urlen += c;
     }
   }
-  return stream.str();
+  return urlen;
 }
 
 size_t Curl::write_callback(void* contents, size_t size, size_t nmemb, void* userp) {
@@ -57,10 +41,11 @@ string Curl::request(string url) {
     curl_easy_perform(curl);
   }
   curl_easy_cleanup(curl);
+  std::cout << buffer << std::endl;
   return buffer;
 }
 
-string Curl::curl_gen(const string& url, const map<string, string>& params) {
+string Curl::curl_gen(const string& url, const params& params) {
   string result = url;
   for (const auto& element : params) {
     result += element.first + "=" + element.second + "&";
@@ -68,6 +53,19 @@ string Curl::curl_gen(const string& url, const map<string, string>& params) {
   return result;
 }
 
-string Curl::send_request(const string& method, const map<string, string>& params) {
+string Curl::send_request(const string& method, const params& params) {
   return Curl::request(Curl::curl_gen(method, params));
+}
+
+void append_vkparams(params& map) {
+  map["access_token"] = access_token;
+  map["v"] = api_version;
+}
+
+string append_vkurl(const string &method) {
+  return api_url + method + "?";
+}
+
+json http_processing(const string& method, const params& params) {
+  return json::parse(Curl::send_request(method, params));
 }

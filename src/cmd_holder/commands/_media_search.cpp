@@ -33,13 +33,13 @@ void cmd_holder::_empty_query() {
 void cmd_holder::_media_search(const vector<string>& tokenized_message, const string& method)
 {
   string query = _message.substr(tokenized_message[0].size() + 1, _message.size() - 1);
-  map<string, string> params = {
-    { "q",            query       },
-    { "access_token", user_token  },
-    { "count",        "100"       },
-    { "v",            api_version },
-  };
-  auto parsed = json::parse(Curl::send_request(append_vkurl(method), params));
+  params search_body;
+  search_body["q"]             = query;
+  search_body["access_token"]  = user_token;
+  search_body["count"]         = "100";
+  search_body["v"]             = api_version;
+
+  json parsed = http_processing(append_vkurl(method), search_body);
   long size = parsed["response"]["items"].size();
   long index;
 
@@ -50,12 +50,11 @@ void cmd_holder::_media_search(const vector<string>& tokenized_message, const st
     index = 0;
   }
   index           = rand() % size - 1;
-  string owner_id = to_string((long)parsed["response"]["items"][index]["owner_id"]);
-  string id       = to_string((long)parsed["response"]["items"][index][      "id"]);
-  map<string, string> attachment_params = {
-    { "attachment", _attachment_type(method) + owner_id + "_" + id },
-    { "peer_id",    to_string(_peer_id)                            }
-  };
-  append_vkparams(attachment_params);
-  Curl::send_request(append_vkurl("messages.send"), attachment_params);
+  string owner_id = to_string(parsed["response"]["items"][index]["owner_id"].get<long>());
+  string id       = to_string(parsed["response"]["items"][index][      "id"].get<long>());
+  params attachment_body;
+  attachment_body["attachment"] = _attachment_type(method) + owner_id + "_" + id;
+  attachment_body["peer_id"] = to_string(_peer_id);
+  append_vkparams(attachment_body);
+  Curl::send_request(append_vkurl("messages.send"), attachment_body);
 }

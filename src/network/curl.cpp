@@ -1,17 +1,19 @@
+#include <curl/curl.h>
 #include "curl.hpp"
 
+using std::string;
+
 namespace {
-  string char_to_hex(const char c) {
-    std::stringstream stream;
-    if (static_cast<int>(c) < 0x10) {
-      stream << "0";
-    }
-    stream << std::hex << static_cast<int>(c);
-    return "%" + stream.str();
+string char_to_hex(const char c) {
+  std::stringstream stream;
+  if (static_cast<int>(c) < 0x10) {
+    stream << "0";
   }
+  stream << std::hex << static_cast<int>(c);
+  return '%' + stream.str();
 }
 
-string Curl::urlencode(string& url) {
+string urlencode(string& url) {
   string urlen;
   for (char c : url) {
     if (c == ' ' || c == '\n' || c == '+' || c == '\\')
@@ -24,48 +26,47 @@ string Curl::urlencode(string& url) {
   return urlen;
 }
 
-size_t Curl::write_callback(void* contents, size_t size, size_t nmemb, void* userp) {
+size_t write_callback(
+  void* contents,
+  size_t size,
+  size_t nmemb,
+  void* userp)
+{
   ((string*)userp)->append((char*)contents, size * nmemb);
   return size * nmemb;
 }
+} /* namespace */
 
-string Curl::request(string url) {
+string cURL::request(string method, const params& body) {
+  string url = method;
+  url += genparams(body);
   string buffer;
-  CURL* curl;
+  CURL*  curl;
   curl = curl_easy_init();
   if (curl) {
-    curl_easy_setopt(curl, CURLOPT_URL, Curl::urlencode(url).c_str());
+    curl_easy_setopt(curl, CURLOPT_URL, urlencode(url).c_str());
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
     curl_easy_setopt(curl, CURLOPT_TIMEOUT, 600L);
     curl_easy_perform(curl);
   }
   curl_easy_cleanup(curl);
-  std::cout << buffer << std::endl;
   return buffer;
 }
 
-string Curl::curl_gen(const string& url, const params& params) {
-  string result = url;
-  for (const auto& element : params) {
-    result += element.first + "=" + element.second + "&";
+string cURL::genparams(const params& body) {
+  string result;
+  for (const auto& element : body) {
+    result += element.first + '=' + element.second + '&';
   }
   return result;
 }
 
-string Curl::send_request(const string& method, const params& params) {
-  return Curl::request(Curl::curl_gen(method, params));
-}
-
-void append_vkparams(params& map) {
+void cURL::append_vkparams(params& map) {
   map["access_token"] = access_token;
   map["v"] = api_version;
 }
 
-string append_vkurl(const string &method) {
-  return api_url + method + "?";
-}
-
-json http_processing(const string& method, const params& params) {
-  return json::parse(Curl::send_request(method, params));
+string cURL::append_vkurl(const string &method) {
+  return api_url + method + '?';
 }

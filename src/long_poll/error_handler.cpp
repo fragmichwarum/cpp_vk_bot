@@ -1,17 +1,23 @@
 #include "./long_poll.hpp"
 
+using std::runtime_error;
+using std::vector;
+using std::tuple;
+using std::cerr;
+using std::endl;
+using std::get;
 
 namespace {
-  const bool     fatal =  true;
+  const bool     fatal = true;
   const bool non_fatal = false;
   const int    errcode = 0;
   const int     errmsg = 1;
   const int   errfatal = 2;
 
-  static const vector<std::tuple<
-        /* Error code   */ long,
-        /* Error message*/ string,
-        /* Is fatal?    */ bool>> errors
+  const vector<tuple<
+  /* Error code   */ long,
+  /* Error message*/ string,
+  /* Is fatal?    */ bool>> errors
   {
     {  1, "Unknown error",                       non_fatal },
     {  2, "App disabled",                            fatal },
@@ -28,11 +34,11 @@ namespace {
 
 void Lp::errors_handle(long error_code) {
   for (auto error : errors) {
-    if (std::get<errcode>(error) == error_code) {
-      if (std::get<errfatal>(error) == fatal) {
-        throw std::runtime_error(std::get<errmsg>(error));
+    if (get<errcode>(error) == error_code) {
+      if (get<errfatal>(error) == fatal) {
+        throw runtime_error(get<errmsg>(error));
       } else {
-        std::cerr << std::get<errmsg>(error) << std::endl;
+        cerr << get<errmsg>(error) << endl;
         get_lp_server();
       }
     }

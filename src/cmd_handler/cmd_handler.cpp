@@ -1,21 +1,22 @@
 #include "cmd_handler.hpp"
 
-cmd_handler::cmd_handler(nlohmann::json& json)
-{
-  auto response = json["updates"][0]["object"]["message"];
-  _message = response["text"];
-  _peer_id = response["peer_id"];
-  _from_id = response["from_id"];
+using holder::cmd_holder;
+using std::unordered_map;
+using std::vector;
 
+cmd_handler::cmd_handler(const json& vkjson)
+  : _message(vkjson["updates"][0]["object"]["message"]["text"])
+  , _peer_id(vkjson["updates"][0]["object"]["message"]["peer_id"])
+  , _from_id(vkjson["updates"][0]["object"]["message"]["from_id"])
+{
   Logger logger(logfile);
   if (_message[0] == '+') {
     logger.write_log(_message);
   }
 }
 
-void cmd_handler::init_cmds()
-{
-  map<string, void(cmd_holder::*)(void)> cmds;
+void cmd_handler::init_cmds() {
+  unordered_map<string, void(cmd_holder::*)(void)> cmds;
 
   cmds = {
     { "+помощь",   &cmd_holder::help_cmd },
@@ -30,6 +31,7 @@ void cmd_handler::init_cmds()
     { "+видос",    &cmd_holder::video_cmd },
     { "+погода",   &cmd_holder::weather_cmd },
     { "+никнейм",  &cmd_holder::nickname_cmd },
+    { "+пинг",     &cmd_holder::ping_cmd }
   };
 
   if (_from_id == admin_id) {

@@ -1,30 +1,36 @@
-#ifndef cmd_holder_HPP
-#define cmd_holder_HPP
+#pragma once
 
-
-#include <fstream> //stat cmd
 #include "../network/curl.hpp"
 #include "../sqlite/sqlite.hpp"
 #include "../splitter/split.hpp"
 
+namespace holder {
+using namespace cURL;
 using std::to_string;
 using std::string;
+using std::vector;
+using std::array;
+using std::unique_ptr;
+using std::runtime_error;
+using std::stringstream;
+using nlohmann::json;
 const bool     USE_NICKNAME = true;
 const bool NOT_USE_NICKNAME = false;
 
 class cmd_holder {
 private:
-  void          _empty_query();
-  inline string _attachment_type(const string& method);
-  inline void   _media_not_found(const string& type);
-  void          _message_send(string text, bool use_nickname);
-  void          _media_search(const vector<string>& tokenized_message, const string& method);
-  Database      _database;
-  const string  _message;
-  const long    _peer_id;
-  const long    _from_id;
-  const string  _nickname = _database.return_nickname(_from_id);
-  const vector<string> _splitted_message = split(_message);
+  Database       _database;
+  string         _message;
+  long           _peer_id;
+  long           _from_id;
+  string         _nickname = _database.return_nickname(_from_id);
+  vector<string> _splitted_message = split(_message);
+  void           _empty_query    ();
+  string         _get_cmd_body   ();
+  string         _attachment_type(const string& method);
+  void           _media_not_found(const string& type);
+  void           _message_send   (const string& text, bool use_nickname);
+  void           _media_search   (const vector<string>& tokenized_message, const string& method);
 
 public:
   cmd_holder(const string& message, const long& peer_id, const long& from_id)
@@ -32,6 +38,7 @@ public:
     , _peer_id(peer_id)
     , _from_id(from_id)
   { }
+
 
   void crc32_cmd();
 
@@ -58,6 +65,7 @@ public:
   void stat_cmd();
 
   void os_cmd();
-};
 
-#endif //cmd_holder_HPP
+  void ping_cmd();
+};
+} // namespace holder

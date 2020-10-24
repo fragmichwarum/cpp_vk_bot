@@ -1,13 +1,10 @@
-#ifndef SQLITE_HPP
-#define SQLITE_HPP
+#pragma once
+
 #define EMPTY 0
 
 #include <sqlite3.h>
-#include <vector>
-#include <iostream>
-
-using std::string;
-using std::vector;
+#include <string>
+#include <stdexcept>
 
 class Database {
 private:
@@ -19,8 +16,6 @@ private:
 public:
   void open();
   void init_table();
-  void insert_nickname(const long& user_id, const string& prefix);
-  string return_nickname(const long& user_id);
+  void insert_nickname(const long& user_id, const std::string& prefix);
+  std::string return_nickname(const long& user_id);
 };
-
-#endif //SQLITE_HPP

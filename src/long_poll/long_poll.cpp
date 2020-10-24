@@ -1,10 +1,13 @@
 #include "./long_poll.hpp"
-#define LOG
+
+using namespace cURL;
+using std::to_string;
 
 void Lp::get_lp_server() {
   params body{{ "group_id", group_id }};
   append_vkparams(body);
-  json poll = http_processing(append_vkurl("groups.getLongPollServer"), body);
+  string url = append_vkurl("groups.getLongPollServer");
+  json poll  = json::parse(request(url, body));
   if (not poll["error"]["error_code"].is_null()) {
     errors_handle(poll["error"]["error_code"]);
   }
@@ -16,16 +19,13 @@ void Lp::get_lp_server() {
 void Lp::loop() {
   get_lp_server();
   while (true) {
-    params lp_body = {
-      { "act",  "a_check"  },
-      { "key",   this->key },
-      { "ts",    this->ts  },
-      { "wait", "60"       }
-    };
-    json lp = http_processing(server + "?", lp_body);
-  #ifdef LOG
-    std::cout << lp << std::endl;
-  #endif
+    params lp_body;
+    lp_body["act"]  = "a_check";
+    lp_body["key"]  = key;
+    lp_body["ts"]   = ts;
+    lp_body["wait"] = "60";
+
+    json lp = json::parse(request(server + "?", lp_body));
     if (lp["updates"][0].is_null()) {
       get_lp_server();
     } else {

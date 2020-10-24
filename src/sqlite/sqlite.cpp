@@ -1,5 +1,9 @@
 #include "sqlite.hpp"
 
+using std::string;
+using std::invalid_argument;
+using std::to_string;
+
 int Database::callback(
   void*  not_used,
   int    argc,
@@ -12,7 +16,7 @@ int Database::callback(
 void Database::open() {
   rc = sqlite3_open("users.db", &database);
   if (rc) {
-    throw std::invalid_argument(sqlite3_errmsg(database));
+    throw invalid_argument(sqlite3_errmsg(database));
   }
 }
 
@@ -35,7 +39,7 @@ void Database::insert_nickname(const long& user_id, const string& prefix) {
   open();
   string query =
       "REPLACE INTO USERS ('USER_ID', 'PREFIX') "
-      "VALUES ('" + std::to_string(user_id) + "','" + prefix  + "');";
+      "VALUES ('" + to_string(user_id) + "','" + prefix  + "');";
   rc =
   sqlite3_exec(
     database,      /* An open database         */
@@ -56,7 +60,7 @@ string Database::return_nickname(const long& user_id) {
     query,
     sizeof query - 1,
     "SELECT PREFIX FROM USERS WHERE USER_ID = %s;",
-    std::to_string(user_id).c_str());
+    to_string(user_id).c_str());
   rc =
   sqlite3_prepare(
     database,       /* An open database         */

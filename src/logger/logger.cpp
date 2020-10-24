@@ -1,10 +1,16 @@
 #include "logger.hpp"
 
-std::string Logger::_gen_time() {
-  std::time_t time = std::time(0);
-  std::tm*    now  = std::localtime(&time);
-  std::string month;
-  std::string weekday;
+using std::string;
+using std::ofstream;
+using std::time_t;
+using std::tm;
+using std::to_string;
+
+string Logger::_gen_time() {
+  time_t time = std::time(0);
+  tm*    now  = std::localtime(&time);
+  string month;
+  string weekday;
   switch (now->tm_mon + 1) {
     case 1:
       month = "Jan";
@@ -68,13 +74,13 @@ std::string Logger::_gen_time() {
       break;
   }
   return weekday + " " + month + " " +
-         std::to_string(now->tm_mday) + " " +
-         std::to_string(now->tm_hour) + ":" +
-         std::to_string(now->tm_min)  + ":" +
-         std::to_string(now->tm_sec)  + " " +
-         std::to_string(now->tm_year  + 1900);
+         to_string(now->tm_mday) + " " +
+         to_string(now->tm_hour) + ":" +
+         to_string(now->tm_min)  + ":" +
+         to_string(now->tm_sec)  + " " +
+         to_string(now->tm_year  + 1900);
 }
 
-void Logger::write_log(const std::string& message) {
+void Logger::write_log(const string& message) {
   _out << _gen_time() << " -> " << message << '\n';
 }

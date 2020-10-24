@@ -1,11 +1,10 @@
-#ifndef COMMAND_HANDLER_HPP
-#define COMMAND_HANDLER_HPP
+#pragma once
 
 #include "../cmd_holder/cmd_holder.hpp"
 #include "../logger/logger.hpp"
 
+using nlohmann::json;
 using std::string;
-using std::to_string;
 
 class cmd_handler {
 private:
@@ -14,8 +13,6 @@ private:
   long    _from_id;
 
 public:
-  cmd_handler(nlohmann::json& json);
+  explicit cmd_handler(const json& json);
   void init_cmds();
 };
-
-#endif // COMMAND_HANDLER_HPP

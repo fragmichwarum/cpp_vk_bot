@@ -1,11 +1,11 @@
 #include "sha256.hpp"
 
-#define ROTR(w, n) (((w) >> (n)) | ((w) << ((sizeof(w) * 8) - (n))))
-#define DOS0(x) (ROTR(x, 7) ^ ROTR(x, 18) ^ ((x) >> 3))
-#define DOS1(x) (ROTR(x, 17) ^ ROTR(x, 19) ^ ((x) >> 10))
-#define DOSS1(x) (ROTR(x, 6) ^ ROTR(x, 11) ^ (ROTR(x, 25)))
-#define DOSS0(x) (ROTR(x, 2) ^ ROTR(x, 13) ^ ((ROTR(x, 22))))
-#define CH(x, y, z) (((x) & (y)) ^ (~(x) & (z)))
+#define ROTR(w, n)        (((w) >> (n)) | ((w) << ((sizeof(w) * 8) - (n))))
+#define DOS0(x)           (ROTR(x, 7) ^ ROTR(x, 18) ^ ((x) >> 3))
+#define DOS1(x)           (ROTR(x, 17) ^ ROTR(x, 19) ^ ((x) >> 10))
+#define DOSS1(x)          (ROTR(x, 6) ^ ROTR(x, 11) ^ (ROTR(x, 25)))
+#define DOSS0(x)          (ROTR(x, 2) ^ ROTR(x, 13) ^ ((ROTR(x, 22))))
+#define CH(x, y, z)       (((x) & (y)) ^ (~(x) & (z)))
 #define MAJORITY(x, y, z) (((x) & (y)) ^ ((x) & (z)) ^ ((y) & (z)))
 
 SHA256::SHA256(const char* msg)
@@ -51,7 +51,7 @@ void SHA256::process_512_chunks() {
     0x1f83d9ab,
     0x5be0cd19
   };
-  uint32_t constants[64] = {
+  constexpr uint32_t constants[64] = {
     0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
     0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
     0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
@@ -82,7 +82,6 @@ void SHA256::process_512_chunks() {
       wcopy[i+3] = chunkPtr[i  ];
     }
     chunkPtr += 64;
-#pragma omp parallel for
     for (j = 16; j < 64; j++) {
       w[j] = w[j-16] + DOS0(w[j-15]) + w[j-7]	+ DOS1(w[j-2]);
     }

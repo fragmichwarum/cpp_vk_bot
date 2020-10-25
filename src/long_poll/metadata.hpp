@@ -14,3 +14,5 @@ inline const static std::string api_url
   = "https://api.vk.com/method/";
 inline const static std::string logfile
   = "/path/to/logfile";
+inline const static std::string errfile
+  = "/path/to/error/logfile";

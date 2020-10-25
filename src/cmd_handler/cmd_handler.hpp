@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../cmd_holder/cmd_holder.hpp"
-#include "../logger/logger.hpp"
 
 using nlohmann::json;
 using std::string;

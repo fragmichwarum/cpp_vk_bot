@@ -3,6 +3,7 @@
 #include "../network/curl.hpp"
 #include "../sqlite/sqlite.hpp"
 #include "../splitter/split.hpp"
+#include "../logger/logger.hpp"
 
 namespace holder {
 using namespace cURL;
@@ -19,6 +20,7 @@ const bool NOT_USE_NICKNAME = false;
 
 class cmd_holder {
 private:
+  Logger         _logger{logfile, errfile};
   Database       _database;
   string         _message;
   long           _peer_id;
@@ -30,7 +32,9 @@ private:
   string         _attachment_type(const string& method);
   void           _media_not_found(const string& type);
   void           _message_send   (const string& text, bool use_nickname);
-  void           _media_search   (const vector<string>& tokenized_message, const string& method);
+  void           _media_search   (const string& method);
+  void           _add_nickname   ();
+  void           _remove_nickname();
 
 public:
   cmd_holder(const string& message, const long& peer_id, const long& from_id)
@@ -39,10 +43,7 @@ public:
     , _from_id(from_id)
   { }
 
-
   void crc32_cmd();
-
-  void sha256_cmd();
 
   void picture_cmd();
 
@@ -52,11 +53,9 @@ public:
 
   void weather_cmd();
 
+  void wiki_cmd();
+
   void help_cmd();
-
-  void add_nickname_cmd();
-
-  void remove_nickname_cmd();
 
   void nickname_cmd();
 

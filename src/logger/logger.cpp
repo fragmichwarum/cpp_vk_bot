@@ -82,5 +82,15 @@ string Logger::_gen_time() {
 }
 
 void Logger::write_log(const string& message) {
-  _out << _gen_time() << " -> " << message << '\n';
+  _log << _gen_time() << ":\t" << message << '\n';
+}
+
+void Logger::write_err(
+    long        line,
+    const char* file,
+    const char* func,
+    const char* what
+) {
+  _err << _gen_time() << "\t" << file << ':' << to_string(line)
+       << " in " << func << " -\t" << what << '\n';
 }

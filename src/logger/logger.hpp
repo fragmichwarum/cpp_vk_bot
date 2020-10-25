@@ -9,14 +9,20 @@
 class Logger {
 private:
   std::string   _gen_time();
-  std::string   _path;
-  std::ofstream _out;
+  std::ofstream _log;
+  std::ofstream _err;
 
 public:
-  Logger(const std::string& path)
-    : _path(path)
-    , _out (_path, std::ios::app)
+  Logger(const std::string& logpath, const std::string& errpath)
+    : _log (logpath, std::ios::app)
+    , _err (errpath, std::ios::app)
   { }
   void write_log(const std::string& message);
+  void write_err(
+    long        line,
+    const char* file,
+    const char* func,
+    const char* what
+  );
 };
 

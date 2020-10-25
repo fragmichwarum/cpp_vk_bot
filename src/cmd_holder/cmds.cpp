@@ -1,6 +1,5 @@
 #include "cmd_holder.hpp"
 #include "lib/crc32.hpp"
-#include "lib/sha256.hpp"
 
 using namespace holder;
 
@@ -105,7 +104,7 @@ void cmd_holder::document_cmd() {
   {
     _empty_query();
   } else {
-    _media_search(_splitted_message, "docs.search");
+    _media_search("docs.search");
   }
 }
 
@@ -115,7 +114,7 @@ void cmd_holder::picture_cmd() {
   {
     _empty_query();
   } else {
-    _media_search(_splitted_message, "photos.search");
+    _media_search("photos.search");
   }
 }
 
@@ -125,15 +124,14 @@ void cmd_holder::video_cmd() {
   {
     _empty_query();
   } else {
-    _media_search(_splitted_message, "video.search");
+    _media_search("video.search");
   }
 }
 
-void cmd_holder::_media_search(const vector<string>& tokenized_message, const string& method)
+void cmd_holder::_media_search(const string& method)
 {
-  string query = _message.substr(tokenized_message[0].size() + 1, _message.size() - 1);
   params search_body;
-  search_body["q"]             = query;
+  search_body["q"]             = _get_cmd_body();
   search_body["access_token"]  = user_token;
   search_body["count"]         = "100";
   search_body["v"]             = api_version;
@@ -157,7 +155,7 @@ void cmd_holder::_media_search(const vector<string>& tokenized_message, const st
     string owner_id = to_string(parsed["response"]["items"][index]["owner_id"].get<long>());
     string id       = to_string(parsed["response"]["items"][index][      "id"].get<long>());
     attachments     += _attachment_type(method) + owner_id + '_' + id + ',';
-  }
+   }
   attachment_body["attachment"] = attachments;
   attachment_body["peer_id"] = to_string(_peer_id);
   append_vkparams(attachment_body);
@@ -194,17 +192,56 @@ void cmd_holder::weather_cmd() {
   }
 }
 
+/*
+ * косяк: обрабатывает только запросы на английском
+ */
+void cmd_holder::wiki_cmd() {
+  if (_message == "+вики") {
+    _empty_query();
+  } else {
+    string page;
+    json   parsed;
+    params body;
+    body["titles"] = _get_cmd_body();
+    body["action"] = "query";
+    body["format"] = "json";
+    body["prop"]   = "extracts";
+    try {
+      parsed = json::parse(request("https://ru.wikipedia.org/w/api.php?exintro&explaintext&", body));
+
+      for (auto i : parsed["query"]["pages"].get<json::object_t>()) {
+        page = i.first;
+        break;
+      }
+    }
+    catch (json::parse_error parse_error) {
+      _logger.write_err(__LINE__, __FILE__, __FUNCTION__, parse_error.what());
+      return;
+    }
+    catch (nlohmann::detail::type_error type_error) {
+      _logger.write_err(__LINE__, __FILE__, __FUNCTION__, type_error.what());
+      return;
+    }
+    if (page != "-1") {
+      _message_send(parsed["query"]["pages"][page]["extract"], USE_NICKNAME);
+    } else {
+      _message_send("Такой статьи не найдено.", NOT_USE_NICKNAME);
+    }
+  }
+}
+
 void cmd_holder::help_cmd() {
   string help_info =
     "Список команд:\n"
-    "⚠+crc32 {...} - сгенерить CRC-32 хеш-сумму строки\n"
-    "⚠+sha256 {...} - сгенерить SHA-256 хеш-сумму строки\n"
-    "⚠+пикча, +фото {...} - найти картинку среди просторов ВК\n"
-    "⚠+видео, +видос {...} - поиск видеозаписей\n"
-    "⚠+документ, +доки {...} - поиск документов\n"
-    "⚠+погода {...} - показать погоду\n"
-    "⚠+никнейм {...} - установить никнейм\n"
-    "⚠+никнейм удалить - удалить никнейм\n";
+    "+crc32 {...} - сгенерить CRC-32 хеш-сумму строки\n"
+    "+пикча, +фото {...} - найти картинку среди просторов ВК\n"
+    "+видео, +видос {...} - поиск видеозаписей\n"
+    "+документ, +доки {...} - поиск документов\n"
+    "+погода {...} - показать погоду\n"
+    "+вики {...} - поиск статьи в Википедии\n"
+    "+никнейм {...} - установить никнейм\n"
+    "+никнейм удалить - удалить никнейм\n"
+    "+пинг - проверить время ответа\n";
   _message_send(help_info, NOT_USE_NICKNAME);
 }
 
@@ -219,21 +256,12 @@ void cmd_holder::crc32_cmd() {
   }
 }
 
-void cmd_holder::sha256_cmd() {
-  if (_message == "+sha256") {
-    _empty_query();
-  } else {
-    SHA256 sha(_get_cmd_body().c_str());
-    _message_send(sha.hash(), USE_NICKNAME);
-  }
-}
-
-void cmd_holder::add_nickname_cmd() {
+void cmd_holder::_add_nickname() {
   _database.insert_nickname(_from_id, _splitted_message[1]);
   _message_send("Никнейм успешно установлен\n", NOT_USE_NICKNAME);
 }
 
-void cmd_holder::remove_nickname_cmd() {
+void cmd_holder::_remove_nickname() {
   _database.insert_nickname(_from_id, "");
   if (_nickname != "") {
     _message_send("Никнейм успешно удалён", NOT_USE_NICKNAME);
@@ -246,9 +274,9 @@ void cmd_holder::nickname_cmd() {
   if (_message == "+никнейм") {
     _empty_query();
   } else if (_splitted_message[1] == "удалить") {
-    remove_nickname_cmd();
+    _remove_nickname();
   } else {
-    add_nickname_cmd();
+    _add_nickname();
   }
 }
 
@@ -258,17 +286,15 @@ void cmd_holder::os_cmd() {
 }
 
 void cmd_holder::repeat_cmd() {
-  if (_message != "+!") {
-  string to_repeat = _get_cmd_body();
-  _message_send(to_repeat, NOT_USE_NICKNAME);
-  } else {
-    _empty_query();
-  }
+  _message_send(_get_cmd_body(), NOT_USE_NICKNAME);
 }
 
+/*
+  официально говнокод
+*/
 void cmd_holder::stat_cmd() {
-  _message_send("Использовано ОЗУ: " + memusage() + " KiB.\n" +
-                "Аптайм: " + os_exec("ps -eo lstart,etime,args | grep vk | awk '{print $6}' | head -1"), NOT_USE_NICKNAME);
+  _message_send("Использовано ОЗУ: " + memusage() + " KiB.\nАптайм: " +
+                os_exec("ps -eo lstart,etime,args | grep vk | awk '{print $6}' | head -1"), NOT_USE_NICKNAME);
 }
 
 void cmd_holder::ping_cmd() {

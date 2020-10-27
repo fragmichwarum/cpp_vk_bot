@@ -2,12 +2,19 @@
 
 using namespace cURL;
 using std::to_string;
+using nlohmann::json;
 
 void Lp::get_lp_server() {
   params body{{ "group_id", group_id }};
   append_vkparams(body);
   string url = append_vkurl("groups.getLongPollServer");
-  json poll  = json::parse(request(url, body));
+  json poll;
+  try {
+    poll  = json::parse(request(url, body));
+  }
+  catch(json::parse_error& parse_error) {
+    logger.write_err(__LINE__, __FILE__, __FUNCTION__, parse_error.what());
+  }
   if (not poll["error"]["error_code"].is_null()) {
     errors_handle(poll["error"]["error_code"]);
   }
@@ -32,8 +39,11 @@ void Lp::loop() {
       ts = lp["ts"];
       for (auto update : lp["updates"]) {
         if (update["object"]["message"]["text"] != "") {
-          cmd_handler handler(lp);
-          handler.init_cmds();
+          handler.init_cmds(
+            update["object"]["message"]["text"],
+            update["object"]["message"]["peer_id"],
+            update["object"]["message"]["from_id"]
+          );
         }
       }
     }

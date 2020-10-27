@@ -2,6 +2,7 @@
 
 using std::runtime_error;
 using std::vector;
+using std::string;
 using std::tuple;
 using std::cerr;
 using std::endl;

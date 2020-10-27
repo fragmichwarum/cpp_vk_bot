@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include "sqlite.hpp"
 
 using std::string;
@@ -77,6 +78,7 @@ string Database::return_nickname(const long& user_id) {
   if (result.empty()) {
     return "";
   } else {
+    printf("result: %s", result.c_str());
     return result;
   }
 }

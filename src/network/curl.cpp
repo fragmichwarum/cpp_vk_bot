@@ -1,11 +1,13 @@
+#include <sstream>
 #include <curl/curl.h>
 #include "curl.hpp"
 
 using std::string;
+using std::stringstream;
 
 namespace {
 string char_to_hex(const char c) {
-  std::stringstream stream;
+  stringstream stream;
   if (static_cast<int>(c) < 0x10) {
     stream << "0";
   }

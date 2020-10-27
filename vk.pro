@@ -8,8 +8,8 @@ LIBS += -lcurl -lsqlite3
 SOURCES += \
         main.cpp \
         src/cmd_handler/cmd_handler.cpp \
-        src/cmd_holder/cmds.cpp \
-        src/cmd_holder/lib/crc32.cpp \
+        src/cmd_handler/cmds.cpp \
+        src/cmd_handler/lib/crc32.cpp \
         src/logger/logger.cpp \
         src/long_poll/error_handler.cpp \
         src/long_poll/long_poll.cpp \
@@ -18,10 +18,8 @@ SOURCES += \
         src/splitter/split.cpp \
 
 HEADERS += \
-        src/cmd_holder/lib/crc32.hpp \
-        src/cmd_holder/lib/json.hpp \
-        src/cmd_holder/cmd_handler.hpp \
-        src/cmd_holder/cmd_holder.hpp \
+        src/cmd_handler/lib/crc32.hpp \
+        src/cmd_handler/lib/json.hpp \
         src/cmd_handler/cmd_handler.hpp \
     	src/long_poll/long_poll.hpp \
         src/long_poll/metadata.hpp \

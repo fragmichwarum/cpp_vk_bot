@@ -1,10 +1,8 @@
 #pragma once
 
-#include <string>
 #include <ctime>
 #include <fstream>
-#include <ios>
-
+#include <iosfwd>
 
 class Logger {
 private:

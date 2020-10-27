@@ -1,17 +1,19 @@
 #pragma once
 
-#define EMPTY 0
-
 #include <sqlite3.h>
 #include <string>
-#include <stdexcept>
 
 class Database {
 private:
   sqlite3*   database;
   int rc     = 0;
   char* err  = nullptr;
-  static int callback(void* not_used, int argc, char* argv[], char** col_name);
+  static int callback(
+    void* not_used,
+    int argc,
+    char* argv[],
+    char** col_name
+  );
 
 public:
   void open();

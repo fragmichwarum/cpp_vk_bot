@@ -1,5 +1,7 @@
 #include <string>
 
+inline const static std::string yandex_key
+  = "";
 inline const static std::string access_token
   = "";
 inline const static std::string user_token
@@ -15,4 +17,4 @@ inline const static std::string api_url
 inline const static std::string logfile
   = "/path/to/logfile";
 inline const static std::string errfile
-  = "/path/to/error/logfile";
+  = "/path/to/errfile";

@@ -1,47 +1,44 @@
-#include "cmd_handler.hpp"
+#include "../cmd_handler/cmd_handler.hpp"
 
-using holder::cmd_holder;
-using std::unordered_map;
-using std::vector;
+using handler::Cmd_handler;
 
-cmd_handler::cmd_handler(const json& vkjson)
-  : _message(vkjson["updates"][0]["object"]["message"]["text"])
-  , _peer_id(vkjson["updates"][0]["object"]["message"]["peer_id"])
-  , _from_id(vkjson["updates"][0]["object"]["message"]["from_id"])
+void Cmd_handler::init_cmds(
+  const string& message,
+  const long&   peer_id,
+  const long&   from_id)
 {
-  Logger logger(logfile, errfile);
-  if (_message[0] == '+') {
-    logger.write_log(_message);
-  }
-}
+  _message          = message;
+  _peer_id          = peer_id;
+  _from_id          = from_id;
+  _splitted_message = split(_message);
+  _nickname         = _database.return_nickname(_from_id);
 
-void cmd_handler::init_cmds() {
-  unordered_map<string, void(cmd_holder::*)(void)> cmds;
+  unordered_map<string, void(Cmd_handler::*)(void)> cmds;
 
   cmds = {
-    { "+помощь",   &cmd_holder::help_cmd },
-    { "+стат",     &cmd_holder::stat_cmd },
-    { "+crc32",    &cmd_holder::crc32_cmd },
-    { "+пикча",    &cmd_holder::picture_cmd },
-    { "+фото",     &cmd_holder::picture_cmd },
-    { "+документ", &cmd_holder::document_cmd },
-    { "+доки",     &cmd_holder::document_cmd },
-    { "+видео",    &cmd_holder::video_cmd },
-    { "+видос",    &cmd_holder::video_cmd },
-    { "+погода",   &cmd_holder::weather_cmd },
-    { "+никнейм",  &cmd_holder::nickname_cmd },
-    { "+пинг",     &cmd_holder::ping_cmd },
-    { "+вики",     &cmd_holder::wiki_cmd },
+    { "+помощь",     &Cmd_handler::help_cmd },
+    { "+стат",       &Cmd_handler::stat_cmd },
+    { "+crc32",      &Cmd_handler::crc32_cmd },
+    { "+пикча",      &Cmd_handler::picture_cmd },
+    { "+фото",       &Cmd_handler::picture_cmd },
+    { "+документ",   &Cmd_handler::document_cmd },
+    { "+доки",       &Cmd_handler::document_cmd },
+    { "+видео",      &Cmd_handler::video_cmd },
+    { "+видос",      &Cmd_handler::video_cmd },
+    { "+погода",     &Cmd_handler::weather_cmd },
+    { "+никнейм",    &Cmd_handler::nickname_cmd },
+    { "+пинг",       &Cmd_handler::ping_cmd },
+    { "+вики",       &Cmd_handler::wiki_cmd },
+    { "+переводчик", &Cmd_handler::translate_cmd }
   };
   if (_from_id == admin_id) {
-    cmds["+os"] = &cmd_holder::os_cmd;
-    cmds["+!"]  = &cmd_holder::repeat_cmd;
+    cmds["+os"] = &Cmd_handler::os_cmd;
+    cmds["+!"]  = &Cmd_handler::repeat_cmd;
   }
-  cmd_holder holder(_message, _peer_id, _from_id);
   const vector<string> splitted = split(_message);
   for (const auto& cmd : cmds) {
-    if (splitted[0] == cmd.first) {
-      (holder.*cmds[cmd.first])();
+    if (cmd.first == splitted[0]) {
+      (this->*cmds[cmd.first])();
     }
   }
 }

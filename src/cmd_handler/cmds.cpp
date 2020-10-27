@@ -1,7 +1,7 @@
-#include "cmd_holder.hpp"
+#include "cmd_handler.hpp"
 #include "lib/crc32.hpp"
 
-using namespace holder;
+using namespace handler;
 
 namespace {
 string os_exec(const string& cmd) {
@@ -42,7 +42,7 @@ string memusage() {
 }
 } //namespace
 
-string cmd_holder::_get_cmd_body() {
+string Cmd_handler::_get_cmd_body() {
   bool isspace = false;
   string param;
   for (char c : _message) {
@@ -56,7 +56,7 @@ string cmd_holder::_get_cmd_body() {
   return param;
 }
 
-void cmd_holder::_message_send(const string& text, bool use_nickname) {
+void Cmd_handler::_message_send(const string& text, bool use_nickname) {
   bool   is_nickname = _nickname != "" and use_nickname;
   string peer_id     = to_string(_peer_id);
   string vkurl       = append_vkurl("messages.send");
@@ -72,7 +72,7 @@ void cmd_holder::_message_send(const string& text, bool use_nickname) {
   request(vkurl, body);
 }
 
-string cmd_holder::_attachment_type(const string& method) {
+string Cmd_handler::_attachment_type(const string& method) {
   if (method == "photos.search") {
     return "photo";
   } else if (method == "video.search") {
@@ -84,7 +84,7 @@ string cmd_holder::_attachment_type(const string& method) {
   }
 }
 
-void cmd_holder::_media_not_found(const string& type) {
+void Cmd_handler::_media_not_found(const string& type) {
   if (type == "photo") {
     _message_send("Не найдено фотографий!",       NOT_USE_NICKNAME);
   } else if (type == "video") {
@@ -94,11 +94,11 @@ void cmd_holder::_media_not_found(const string& type) {
   }
 }
 
-void cmd_holder::_empty_query() {
+void Cmd_handler::_empty_query() {
   _message_send("Задана пустая строка.", NOT_USE_NICKNAME);
 }
 
-void cmd_holder::document_cmd() {
+void Cmd_handler::document_cmd() {
   if (_message == "+документ" or
       _message == "+доки")
   {
@@ -108,7 +108,7 @@ void cmd_holder::document_cmd() {
   }
 }
 
-void cmd_holder::picture_cmd() {
+void Cmd_handler::picture_cmd() {
   if (_message == "+пикча" or
       _message == "+фото")
   {
@@ -118,7 +118,7 @@ void cmd_holder::picture_cmd() {
   }
 }
 
-void cmd_holder::video_cmd() {
+void Cmd_handler::video_cmd() {
   if (_message == "+видео" or
       _message == "+видос")
   {
@@ -128,7 +128,7 @@ void cmd_holder::video_cmd() {
   }
 }
 
-void cmd_holder::_media_search(const string& method)
+void Cmd_handler::_media_search(const string& method)
 {
   params search_body;
   search_body["q"]             = _get_cmd_body();
@@ -162,7 +162,7 @@ void cmd_holder::_media_search(const string& method)
   request(vkurl, attachment_body);
 }
 
-void cmd_holder::weather_cmd() {
+void Cmd_handler::weather_cmd() {
   if (_message == "+погода") {
     _empty_query();
   } else {
@@ -195,7 +195,7 @@ void cmd_holder::weather_cmd() {
 /*
  * косяк: обрабатывает только запросы на английском
  */
-void cmd_holder::wiki_cmd() {
+void Cmd_handler::wiki_cmd() {
   if (_message == "+вики") {
     _empty_query();
   } else {
@@ -214,11 +214,11 @@ void cmd_holder::wiki_cmd() {
         break;
       }
     }
-    catch (json::parse_error parse_error) {
+    catch (json::parse_error& parse_error) {
       _logger.write_err(__LINE__, __FILE__, __FUNCTION__, parse_error.what());
       return;
     }
-    catch (nlohmann::detail::type_error type_error) {
+    catch (nlohmann::detail::type_error& type_error) {
       _logger.write_err(__LINE__, __FILE__, __FUNCTION__, type_error.what());
       return;
     }
@@ -230,22 +230,38 @@ void cmd_holder::wiki_cmd() {
   }
 }
 
-void cmd_holder::help_cmd() {
+void Cmd_handler::translate_cmd() {
+ if (_message == "+переводчик") {
+   _empty_query();
+ } else {
+   params body;
+   body["text"] = _get_cmd_body();
+   body["key" ] = yandex_key;
+   body["lang"] = "ru";
+
+   json parsed = request("https://translate.yandex.net/api/v1.5/tr.json/translate?", body);
+   if (parsed["code"].is_null()) {
+     _message_send(parsed["text"][1], NOT_USE_NICKNAME);
+   }
+ }
+}
+
+void Cmd_handler::help_cmd() {
   string help_info =
     "Список команд:\n"
     "+crc32 {...} - сгенерить CRC-32 хеш-сумму строки\n"
     "+пикча, +фото {...} - найти картинку среди просторов ВК\n"
     "+видео, +видос {...} - поиск видеозаписей\n"
     "+документ, +доки {...} - поиск документов\n"
-    "+погода {...} - показать погоду\n"
     "+вики {...} - поиск статьи в Википедии\n"
+    "+погода {...} - показать погоду\n"
     "+никнейм {...} - установить никнейм\n"
     "+никнейм удалить - удалить никнейм\n"
     "+пинг - проверить время ответа\n";
   _message_send(help_info, NOT_USE_NICKNAME);
 }
 
-void cmd_holder::crc32_cmd() {
+void Cmd_handler::crc32_cmd() {
   if (_message == "+crc32") {
     _empty_query();
   } else {
@@ -256,12 +272,12 @@ void cmd_holder::crc32_cmd() {
   }
 }
 
-void cmd_holder::_add_nickname() {
+void Cmd_handler::_add_nickname() {
   _database.insert_nickname(_from_id, _splitted_message[1]);
   _message_send("Никнейм успешно установлен\n", NOT_USE_NICKNAME);
 }
 
-void cmd_holder::_remove_nickname() {
+void Cmd_handler::_remove_nickname() {
   _database.insert_nickname(_from_id, "");
   if (_nickname != "") {
     _message_send("Никнейм успешно удалён", NOT_USE_NICKNAME);
@@ -270,7 +286,7 @@ void cmd_holder::_remove_nickname() {
   }
 }
 
-void cmd_holder::nickname_cmd() {
+void Cmd_handler::nickname_cmd() {
   if (_message == "+никнейм") {
     _empty_query();
   } else if (_splitted_message[1] == "удалить") {
@@ -280,24 +296,24 @@ void cmd_holder::nickname_cmd() {
   }
 }
 
-void cmd_holder::os_cmd() {
+void Cmd_handler::os_cmd() {
   string cmd = _get_cmd_body();
   _message_send(os_exec(cmd), NOT_USE_NICKNAME);
 }
 
-void cmd_holder::repeat_cmd() {
+void Cmd_handler::repeat_cmd() {
   _message_send(_get_cmd_body(), NOT_USE_NICKNAME);
 }
 
 /*
-  официально говнокод
-*/
-void cmd_holder::stat_cmd() {
+ * официально говнокод
+ */
+void Cmd_handler::stat_cmd() {
   _message_send("Использовано ОЗУ: " + memusage() + " KiB.\nАптайм: " +
                 os_exec("ps -eo lstart,etime,args | grep vk | awk '{print $6}' | head -1"), NOT_USE_NICKNAME);
 }
 
-void cmd_holder::ping_cmd() {
+void Cmd_handler::ping_cmd() {
   clock_t now = clock();
   request(append_vkurl("groups.getLongPollServer"), {
             { "group_id",     group_id     },

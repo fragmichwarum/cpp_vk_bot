@@ -2,31 +2,46 @@
 
 ## How to start?
 
-You need to fill some fields in `src/long_poll/token.hpp`:
+You need to fill some fields in `src/long_poll/metadata.hpp`:
 
 ```
-const static std::string access_token
+...std::string yandex_key
+    = "your Yandex API key";
+```
+
+```
+...std::string access_token
     = "your group token";
 ```
 
 ```
-const static std::string user_token
+...std::string user_token
     = "your user token";
 ```
 
 ```
-const static std::string group_id
+...std::string group_id
     = "id of your group";
 ```
 
 ```
-const static int admin_id
+...int admin_id
     = your user id;
 ```
 
 ```
-static std::string api_version
+...std::string api_version
     = "5.80";
+```
+
+```
+...std::string logfile
+    = "/path/to/logfile";
+```
+
+```
+...std::string errfile
+    = "/path/to/errfile";
 ```
 
 Next please do in `cpp_vk_bot` directory:

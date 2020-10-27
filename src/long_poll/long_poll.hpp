@@ -2,6 +2,8 @@
 
 #include "../cmd_handler/cmd_handler.hpp"
 
+using handler::Cmd_handler;
+
 class Lp {
 private:
   void        loop         ();
@@ -10,8 +12,8 @@ private:
   std::string server;
   std::string key;
   std::string ts;
-  Logger logger{logfile, errfile};
-  handler::Cmd_handler handler;
+  Logger      _logger{logfile, errfile};
+  Cmd_handler handler;
 
 public:
   void init_bot();

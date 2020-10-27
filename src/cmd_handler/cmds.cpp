@@ -4,13 +4,11 @@
 using namespace handler;
 
 namespace {
-string os_exec(const string& cmd) {
-  array<char, 128> buffer;
+string os_exec(string const& cmd)
+{
   string result;
-  unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd.c_str(), "r"), pclose);
-  if (not pipe) {
-    throw runtime_error("popen() failure");
-  }
+  array<char, 128> buffer;
+  unique_ptr<FILE, decltype (&pclose)> pipe(popen(cmd.c_str(), "r"), pclose);
   while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
     result += buffer.data();
   }
@@ -58,7 +56,6 @@ string Cmd_handler::_get_cmd_body() {
 
 void Cmd_handler::_message_send(const string& text, bool use_nickname) {
   bool   is_nickname = _nickname != "" and use_nickname;
-  string peer_id     = to_string(_peer_id);
   string vkurl       = append_vkurl("messages.send");
   params body;
 
@@ -67,7 +64,7 @@ void Cmd_handler::_message_send(const string& text, bool use_nickname) {
   } else {
     body["message"] = text;
   }
-  body["peer_id"] = peer_id;
+  body["peer_id"] = to_string(_peer_id);
   append_vkparams(body);
   request(vkurl, body);
 }
@@ -130,35 +127,36 @@ void Cmd_handler::video_cmd() {
 
 void Cmd_handler::_media_search(const string& method)
 {
-  params search_body;
-  search_body["q"]             = _get_cmd_body();
-  search_body["access_token"]  = user_token;
-  search_body["count"]         = "100";
-  search_body["v"]             = api_version;
-
-  long index;
-  json parsed  = json::parse(request(append_vkurl(method), search_body));
-  long size    = parsed["response"]["items"].size();
-  string vkurl = append_vkurl("messages.send");
-  string attachments;
-  params attachment_body;
-
+  json parsed = json::parse(request(append_vkurl(method), {
+                                      { "q",            _get_cmd_body() },
+                                      { "access_token", user_token      },
+                                      { "count",        "100"           },
+                                      { "v",            api_version     }
+                                    }));
+  long size = parsed["response"]["items"].size();
   if (size == 0) {
     _media_not_found(_attachment_type(method));
     return;
   }
+
+  string attachments;
+  long index;
+
   for (int i = 0; i < size; i++) {
     if (i == 10) {
       break;
     }
-    index           = rand() % size;
+    index = rand() % size;
     string owner_id = to_string(parsed["response"]["items"][index]["owner_id"].get<long>());
     string id       = to_string(parsed["response"]["items"][index][      "id"].get<long>());
-    attachments     += _attachment_type(method) + owner_id + '_' + id + ',';
-   }
-  attachment_body["attachment"] = attachments;
-  attachment_body["peer_id"] = to_string(_peer_id);
+    attachments    += _attachment_type(method) + owner_id + '_' + id + ',';
+  }
+  params attachment_body = {
+    {"attachment", attachments},
+    {"peer_id",    to_string(_peer_id)}
+  };
   append_vkparams(attachment_body);
+  string vkurl = append_vkurl("messages.send");
   request(vkurl, attachment_body);
 }
 
@@ -166,13 +164,13 @@ void Cmd_handler::weather_cmd() {
   if (_message == "+погода") {
     _empty_query();
   } else {
-    params body;
-    body["lang"]  = "ru";
-    body["units"] = "metric";
-    body["APPID"] = "ef23e5397af13d705cfb244b33d04561";
-    body["q"]     = _splitted_message[1];
-    json parsed   = json::parse(request("http://api.openweathermap.org/data/2.5/weather?", body));
-
+    string open_weather_url = "http://api.openweathermap.org/data/2.5/weather?";
+    json parsed = json::parse(request(open_weather_url, {
+                                        {"lang", "ru"                                },
+                                        {"units", "metric"                           },
+                                        {"APPID", "ef23e5397af13d705cfb244b33d04561" },
+                                        {"q",     _splitted_message[1]               }
+                                      }));
     if (not parsed["weather"].is_null()) {
       string description = parsed["weather"][0]["description"];
       int temp           = parsed["main"]["temp"];
@@ -199,16 +197,16 @@ void Cmd_handler::wiki_cmd() {
   if (_message == "+вики") {
     _empty_query();
   } else {
+    string wiki_url = "https://ru.wikipedia.org/w/api.php?exintro&explaintext&";
     string page;
-    json   parsed;
-    params body;
-    body["titles"] = _get_cmd_body();
-    body["action"] = "query";
-    body["format"] = "json";
-    body["prop"]   = "extracts";
+    json parsed;
     try {
-      parsed = json::parse(request("https://ru.wikipedia.org/w/api.php?exintro&explaintext&", body));
-
+      parsed = json::parse(request(wiki_url, {
+                                     { "titles", _get_cmd_body() },
+                                     { "action", "query"         },
+                                     { "format", "json"          },
+                                     { "prop",   "extracts"      }
+                                   }));
       for (auto i : parsed["query"]["pages"].get<json::object_t>()) {
         page = i.first;
         break;
@@ -218,7 +216,7 @@ void Cmd_handler::wiki_cmd() {
       _logger.write_err(__LINE__, __FILE__, __FUNCTION__, parse_error.what());
       return;
     }
-    catch (nlohmann::detail::type_error& type_error) {
+    catch(nlohmann::detail::type_error& type_error) {
       _logger.write_err(__LINE__, __FILE__, __FUNCTION__, type_error.what());
       return;
     }
@@ -234,14 +232,14 @@ void Cmd_handler::translate_cmd() {
  if (_message == "+переводчик") {
    _empty_query();
  } else {
-   params body;
-   body["text"] = _get_cmd_body();
-   body["key" ] = yandex_key;
-   body["lang"] = "ru";
-
-   json parsed = request("https://translate.yandex.net/api/v1.5/tr.json/translate?", body);
+   string translate_url = "https://translate.yandex.net/api/v1.5/tr.json/translate?";
+   json parsed = request(translate_url, {
+                           {"text", _get_cmd_body() },
+                           {"key",  yandex_key      },
+                           {"lang", "ru"            }
+                         });
    if (parsed["code"].is_null()) {
-     _message_send(parsed["text"][1], NOT_USE_NICKNAME);
+     _message_send(parsed["text"][1], USE_NICKNAME);
    }
  }
 }

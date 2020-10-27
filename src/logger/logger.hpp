@@ -6,14 +6,14 @@
 
 class Logger {
 private:
-  std::string   _gen_time();
-  std::ofstream _log;
-  std::ofstream _err;
+  std::string _gen_time();
+  std::string _logpath;
+  std::string _errpath;
 
 public:
-  Logger(const std::string& logpath, const std::string& errpath)
-    : _log (logpath, std::ios::app)
-    , _err (errpath, std::ios::app)
+  Logger(std::string const& logpath, std::string const& errpath)
+    : _logpath(logpath)
+    , _errpath(errpath)
   { }
   void write_log(const std::string& message);
   void write_err(

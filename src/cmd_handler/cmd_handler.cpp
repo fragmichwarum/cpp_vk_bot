@@ -13,6 +13,10 @@ void Cmd_handler::init_cmds(
   _splitted_message = split(_message);
   _nickname         = _database.return_nickname(_from_id);
 
+  if (_message[0] == '+') {
+    _logger.write_log(_message);
+  }
+
   unordered_map<string, void(Cmd_handler::*)(void)> cmds;
 
   cmds = {

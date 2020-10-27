@@ -82,7 +82,9 @@ string Logger::_gen_time() {
 }
 
 void Logger::write_log(const string& message) {
+  std::ofstream _log (_logpath, std::ios::app);
   _log << _gen_time() << ":\t" << message << '\n';
+  _log.close();
 }
 
 void Logger::write_err(
@@ -91,6 +93,8 @@ void Logger::write_err(
     const char* func,
     const char* what
 ) {
+  std::ofstream _err (_errpath, std::ios::app);
   _err << _gen_time() << "\t" << file << ':' << to_string(line)
        << " in " << func << " -\t" << what << '\n';
+  _err.close();
 }

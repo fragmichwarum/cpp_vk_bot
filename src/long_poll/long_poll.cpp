@@ -13,7 +13,7 @@ void Lp::get_lp_server() {
     poll  = json::parse(request(url, body));
   }
   catch(json::parse_error& parse_error) {
-    logger.write_err(__LINE__, __FILE__, __FUNCTION__, parse_error.what());
+    _logger.write_err(__LINE__, __FILE__, __FUNCTION__, parse_error.what());
   }
   if (not poll["error"]["error_code"].is_null()) {
     errors_handle(poll["error"]["error_code"]);

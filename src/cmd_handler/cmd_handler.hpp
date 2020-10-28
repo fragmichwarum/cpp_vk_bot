@@ -1,12 +1,12 @@
 #pragma once
 
 #include "../cmd_handler/lib/json.hpp"
-#include "../network/curl.hpp"
 #include "../sqlite/sqlite.hpp"
 #include "../splitter/split.hpp"
 #include "../logger/logger.hpp"
+#include "../network/curl.hpp"
 
-namespace handler {
+namespace bot {
 
 using namespace cURL;
 using std::to_string;
@@ -25,16 +25,29 @@ constexpr bool USER             = false;
 
 class Cmd_handler;
 
-using cmds_t =
-unordered_map<
-  string,                       /* Command          */
-  tuple<
-    string,                     /* Description      */
-    void(Cmd_handler::*)(void), /* Funcion pointer  */
-    bool                        /* Is for admin only*/
-  >
->;
+using command     = string;
+using description = string;
+using cmd_pointer = void (Cmd_handler::*)(void);
+using access      = bool;
+using cmds_t      = unordered_map<command, tuple<description, cmd_pointer, access>>;
+
 extern cmds_t cmds;
+
+class Cmd_backend {
+private:
+  Cmd_handler*   _handler;
+public:
+  Cmd_backend    (Cmd_handler&);
+ ~Cmd_backend    ();
+  void           _empty_query    ();
+  void           _add_nickname   ();
+  void           _remove_nickname();
+  string         _get_cmd_body   ();
+  string         _attachment_type(const string& method);
+  void           _media_not_found(const string& type);
+  void           _message_send   (const string& text, bool use_nickname);
+  void           _media_search   (const string& method);
+};
 
 class Cmd_handler {
 private:
@@ -45,16 +58,11 @@ private:
   long           _from_id;
   string         _nickname;
   vector<string> _splitted_message;
-  string         _attachment_type(const string& method);
-  void           _media_not_found(const string& type);
-  void           _message_send   (const string& text, bool use_nickname);
-  void           _media_search   (const string& method);
-  void           _empty_query    ();
-  void           _add_nickname   ();
-  void           _remove_nickname();
-  string         _get_cmd_body   ();
+  Cmd_backend    _backend{*this};
 
 public:
+  friend class Cmd_backend;
+
   void init_cmds(
     const string& message,
     const long&   peer_id,

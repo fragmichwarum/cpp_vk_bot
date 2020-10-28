@@ -1,8 +1,8 @@
 #include "../cmd_handler/cmd_handler.hpp"
 
-using namespace handler;
+using namespace bot;
 
-cmds_t handler::cmds =
+cmds_t bot::cmds =
 {
   { "+помощь",     { "показать помощь",                   &Cmd_handler::help_cmd,      USER  } },
   { "+стат",       { "показать статистику бота",          &Cmd_handler::stat_cmd,      USER  } },

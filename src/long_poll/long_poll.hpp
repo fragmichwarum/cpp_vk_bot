@@ -2,7 +2,7 @@
 
 #include "../cmd_handler/cmd_handler.hpp"
 
-using handler::Cmd_handler;
+using bot::Cmd_handler;
 
 class Lp {
 private:

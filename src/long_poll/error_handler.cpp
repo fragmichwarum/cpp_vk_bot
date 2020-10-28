@@ -36,11 +36,10 @@ const vector<tuple<
 void Lp::errors_handle(long error_code) {
   for (auto error : errors) {
     if (get<errcode>(error) == error_code) {
+      _logger.write_err(__LINE__, __FILE__, __FUNCTION__, get<errmsg>(error).c_str());
       if (get<errfatal>(error) == FATAL) {
-        _logger.write_err(__LINE__, __FILE__, __FUNCTION__, get<errmsg>(error).c_str());
         throw runtime_error(get<errmsg>(error));
       } else {
-        _logger.write_err(__LINE__, __FILE__, __FUNCTION__, get<errmsg>(error).c_str());
         get_lp_server();
       }
     }

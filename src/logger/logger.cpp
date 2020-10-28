@@ -83,7 +83,7 @@ string Logger::_gen_time() {
 
 void Logger::write_log(const string& message) {
   std::ofstream _log (_logpath, std::ios::app);
-  _log << _gen_time() << ":\t" << message << '\n';
+  _log << _gen_time() << " :\t" << message << '\n';
   _log.close();
 }
 

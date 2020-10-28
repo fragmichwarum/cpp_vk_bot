@@ -1,6 +1,26 @@
 #include "../cmd_handler/cmd_handler.hpp"
 
-using handler::Cmd_handler;
+using namespace handler;
+
+cmds_t handler::cmds =
+{
+  { "+помощь",     { "показать помощь",                   &Cmd_handler::help_cmd,      USER  } },
+  { "+стат",       { "показать статистику бота",          &Cmd_handler::stat_cmd,      USER  } },
+  { "+crc32",      { "сгенерить CRC-32 хеш-сумму строки", &Cmd_handler::crc32_cmd,     USER  } },
+  { "+пикча",      { "найти картинку среди просторов ВК", &Cmd_handler::picture_cmd,   USER  } },
+  { "+фото",       { "найти картинку среди просторов ВК", &Cmd_handler::picture_cmd,   USER  } },
+  { "+документ",   { "поиск документов",                  &Cmd_handler::document_cmd,  USER  } },
+  { "+доки",       { "поиск документов",                  &Cmd_handler::document_cmd,  USER  } },
+  { "+видео",      { "поиск видеозаписей",                &Cmd_handler::video_cmd,     USER  } },
+  { "+видос",      { "поиск видеозаписей",                &Cmd_handler::video_cmd,     USER  } },
+  { "+погода",     { "показать погоду",                   &Cmd_handler::weather_cmd,   USER  } },
+  { "+никнейм",    { "установить/удалить никнейм",        &Cmd_handler::nickname_cmd,  USER  } },
+  { "+пинг",       { "проверить время ответа",            &Cmd_handler::ping_cmd,      USER  } },
+  { "+вики",       { "поиск статьи в Википедии",          &Cmd_handler::wiki_cmd,      USER  } },
+  { "+переводчик", { "перевести текст(сломано)",          &Cmd_handler::translate_cmd, USER  } },
+  { "+os",         { "(админ)выполнить команду bash",     &Cmd_handler::os_cmd,        ADMIN } },
+  { "+!",          { "(админ)повтор текста",              &Cmd_handler::repeat_cmd,    ADMIN } }
+};
 
 void Cmd_handler::init_cmds(
   const string& message,
@@ -13,36 +33,16 @@ void Cmd_handler::init_cmds(
   _splitted_message = split(_message);
   _nickname         = _database.return_nickname(_from_id);
 
-  if (_message[0] == '+') {
+  if (_message.at(0) == '+') {
     _logger.write_log(_message);
   }
 
-  unordered_map<string, void(Cmd_handler::*)(void)> cmds;
-
-  cmds = {
-    { "+помощь",     &Cmd_handler::help_cmd },
-    { "+стат",       &Cmd_handler::stat_cmd },
-    { "+crc32",      &Cmd_handler::crc32_cmd },
-    { "+пикча",      &Cmd_handler::picture_cmd },
-    { "+фото",       &Cmd_handler::picture_cmd },
-    { "+документ",   &Cmd_handler::document_cmd },
-    { "+доки",       &Cmd_handler::document_cmd },
-    { "+видео",      &Cmd_handler::video_cmd },
-    { "+видос",      &Cmd_handler::video_cmd },
-    { "+погода",     &Cmd_handler::weather_cmd },
-    { "+никнейм",    &Cmd_handler::nickname_cmd },
-    { "+пинг",       &Cmd_handler::ping_cmd },
-    { "+вики",       &Cmd_handler::wiki_cmd },
-    { "+переводчик", &Cmd_handler::translate_cmd }
-  };
-  if (_from_id == admin_id) {
-    cmds["+os"] = &Cmd_handler::os_cmd;
-    cmds["+!"]  = &Cmd_handler::repeat_cmd;
-  }
-  const vector<string> splitted = split(_message);
-  for (const auto& cmd : cmds) {
-    if (cmd.first == splitted[0]) {
-      (this->*cmds[cmd.first])();
+  for (auto cmd : cmds) {
+    if (std::get<2>(cmd.second) == ADMIN and _from_id != admin_id) {
+      continue;
+    }
+    if (cmd.first == split(_message)[0]) {
+      (this->*std::get<void(Cmd_handler::*)()>(cmd.second))();
     }
   }
 }

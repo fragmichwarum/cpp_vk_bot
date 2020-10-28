@@ -5,45 +5,33 @@
 You need to fill some fields in `src/long_poll/metadata.hpp`:
 
 ```
-...std::string yandex_key
-    = "your Yandex API key";
+inline const static int admin_id
+  = your id;
 ```
-
 ```
-...std::string access_token
-    = "your group token";
+inline const static std::string group_id
+  = "";
 ```
-
 ```
-...std::string user_token
-    = "your user token";
+inline const static std::string logfile
+  = "/path/to/logfile";
 ```
-
 ```
-...std::string group_id
-    = "id of your group";
+inline const static std::string errfile
+  = "/path/to/errfile";
 ```
-
 ```
-...int admin_id
-    = your user id;
+inline const static std::string yandex_key
+  = "";
 ```
-
 ```
-...std::string api_version
-    = "5.80";
+inline const static std::string access_token
+  = "";
 ```
-
 ```
-...std::string logfile
-    = "/path/to/logfile";
+inline const static std::string user_token
+  = "";
 ```
-
-```
-...std::string errfile
-    = "/path/to/errfile";
-```
-
 Next please do in `cpp_vk_bot` directory:
 
 ```

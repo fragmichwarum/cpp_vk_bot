@@ -7,17 +7,34 @@
 #include "../logger/logger.hpp"
 
 namespace handler {
+
 using namespace cURL;
 using std::to_string;
 using std::string;
 using std::vector;
 using std::array;
+using std::tuple;
 using std::unique_ptr;
 using std::runtime_error;
 using std::stringstream;
 using nlohmann::json;
-constexpr bool     USE_NICKNAME = true;
+constexpr bool USE_NICKNAME     = true;
 constexpr bool NOT_USE_NICKNAME = false;
+constexpr bool ADMIN            = true;
+constexpr bool USER             = false;
+
+class Cmd_handler;
+
+using cmds_t =
+unordered_map<
+  string,                       /* Command          */
+  tuple<
+    string,                     /* Description      */
+    void(Cmd_handler::*)(void), /* Funcion pointer  */
+    bool                        /* Is for admin only*/
+  >
+>;
+extern cmds_t cmds;
 
 class Cmd_handler {
 private:
@@ -28,17 +45,16 @@ private:
   long           _from_id;
   string         _nickname;
   vector<string> _splitted_message;
-  void           _empty_query    ();
-  string         _get_cmd_body   ();
   string         _attachment_type(const string& method);
   void           _media_not_found(const string& type);
   void           _message_send   (const string& text, bool use_nickname);
   void           _media_search   (const string& method);
+  void           _empty_query    ();
   void           _add_nickname   ();
   void           _remove_nickname();
+  string         _get_cmd_body   ();
 
 public:
-
   void init_cmds(
     const string& message,
     const long&   peer_id,

@@ -47,12 +47,12 @@ public:
   void           _media_not_found(const string& type);
   void           _message_send   (const string& text, bool use_nickname);
   void           _media_search   (const string& method);
+  Logger         _logger{logfile, errfile};
+  Database       _database;
 };
 
 class Cmd_handler {
 private:
-  Logger         _logger{logfile, errfile};
-  Database       _database;
   string         _message;
   long           _peer_id;
   long           _from_id;

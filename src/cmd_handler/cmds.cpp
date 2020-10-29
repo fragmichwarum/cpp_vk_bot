@@ -7,7 +7,7 @@ Cmd_backend::Cmd_backend(Cmd_handler& handler)
 { _handler = &handler; }
 
 Cmd_backend::~Cmd_backend()
-{ _handler = nullptr, delete _handler; }
+{ delete _handler; }
 
 string Cmd_backend::_get_cmd_body() {
   bool isspace = false;
@@ -71,13 +71,13 @@ void Cmd_backend::_media_search(const string& method) {
 }
 
 void Cmd_backend::_add_nickname() {
-  _handler->_database.insert_nickname(_handler->_from_id,
+  _database.insert(_handler->_from_id,
                                       _handler->_splitted_message[1]);
   _message_send("Никнейм успешно установлен\n", NOT_USE_NICKNAME);
 }
 
 void Cmd_backend::_remove_nickname() {
-  _handler->_database.insert_nickname(_handler->_from_id, "");
+  _database.insert(_handler->_from_id, "");
   if (_handler->_nickname != "") {
     _message_send("Никнейм успешно удалён", NOT_USE_NICKNAME);
   } else {
@@ -185,10 +185,10 @@ void Cmd_handler::wiki_cmd() {
         break;
       }
     } catch (json::parse_error& parse_error) {
-      _logger.write_err(__LINE__, __FILE__, __FUNCTION__, parse_error.what());
+      _backend._logger.write_err(__LINE__, __FILE__, __FUNCTION__, parse_error.what());
       return;
     } catch (nlohmann::detail::type_error& type_error) {
-      _logger.write_err(__LINE__, __FILE__, __FUNCTION__, type_error.what());
+      _backend._logger.write_err(__LINE__, __FILE__, __FUNCTION__, type_error.what());
       return;
     }
     if (page != "-1") {

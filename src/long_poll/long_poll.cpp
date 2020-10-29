@@ -38,11 +38,12 @@ void Lp::loop() {
     } else {
       ts = lp["ts"];
       for (auto update : lp["updates"]) {
-        if (update["object"]["message"]["text"] != "") {
+        auto event = update["object"]["message"];
+        if (not event.is_null() and event["text"] != "") {
           handler.init_cmds(
-            update["object"]["message"]["text"],
-            update["object"]["message"]["peer_id"],
-            update["object"]["message"]["from_id"]
+            event["text"],
+            event["peer_id"],
+            event["from_id"]
           );
         }
       }

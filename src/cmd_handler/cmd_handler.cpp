@@ -31,10 +31,10 @@ void Cmd_handler::init_cmds(
   _peer_id          = peer_id;
   _from_id          = from_id;
   _splitted_message = split(_message);
-  _nickname         = _database.return_nickname(_from_id);
+  _nickname         = _backend._database.get(_from_id);
 
   if (_message.at(0) == '+') {
-    _logger.write_log(_message);
+    _backend._logger.write_log(_message);
     ++_msg_counter;
   }
 

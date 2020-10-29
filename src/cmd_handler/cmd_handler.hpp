@@ -31,7 +31,7 @@ using cmd_pointer = void (Cmd_handler::*)(void);
 using access      = bool;
 using cmds_t      = unordered_map<command, tuple<description, cmd_pointer, access>>;
 
-extern cmds_t cmds;
+extern cmds_t const cmds;
 
 class Cmd_backend {
 private:
@@ -57,6 +57,7 @@ private:
   long           _peer_id;
   long           _from_id;
   string         _nickname;
+  long           _msg_counter{0};
   vector<string> _splitted_message;
   Cmd_backend    _backend{*this};
 
@@ -81,7 +82,7 @@ public:
 
   void wiki_cmd();
 
-  void translate_cmd();
+//  void translate_cmd();
 
   void help_cmd();
 

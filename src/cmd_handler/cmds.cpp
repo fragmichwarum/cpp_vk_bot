@@ -3,47 +3,11 @@
 
 using namespace bot;
 
-namespace {
-string os_exec(string const& cmd) {
-  string result;
-  array<char, 128> buffer;
-  unique_ptr<FILE, decltype (&pclose)> pipe(popen(cmd.c_str(), "r"), pclose);
-  while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
-    result += buffer.data();
-  }
-  return result;
-}
-
-string lineparse(const string& line) {
-  string result;
-  for (char c : line) {
-    if (isdigit(c)) {
-      result += c;
-    }
-  }
-  return result;
-}
-
-string memusage() {
-  FILE* file = fopen("/proc/self/status", "r");
-  string result;
-  array<char, 128> line;
-
-  while (fgets(line.data(), 128, file) != NULL) {
-    if (strncmp(line.data(), "VmRSS:", 6) == 0) {
-      return lineparse(line.data());
-    }
-  }
-  fclose(file);
-  return "";
-}
-} //namespace
-
 Cmd_backend::Cmd_backend(Cmd_handler& handler)
 { _handler = &handler; }
 
 Cmd_backend::~Cmd_backend()
-{ delete _handler; }
+{ _handler = nullptr, delete _handler; }
 
 string Cmd_backend::_get_cmd_body() {
   bool isspace = false;
@@ -235,20 +199,21 @@ void Cmd_handler::wiki_cmd() {
   }
 }
 
-void Cmd_handler::translate_cmd() {
-  if (_message == "+переводчик") {
-    _backend._empty_query();
-  } else {
-    string translate_url =
-        "https://translate.yandex.net/api/v1.5/tr.json/translate?";
-    json parsed = request(translate_url, {{"text", _backend._get_cmd_body()},
-                                          {"key", yandex_key},
-                                          {"lang", "ru"}});
-    if (parsed["code"].is_null()) {
-      _backend._message_send(parsed["text"][1], USE_NICKNAME);
-    }
-  }
-}
+//void Cmd_handler::translate_cmd() {
+//  if (_message == "+переводчик") {
+//    _backend._empty_query();
+//  } else {
+//    string translate_url =
+//        "https://translate.yandex.net/api/v1.5/tr.json/translate?";
+//    json parsed = request(translate_url, {{"text", _backend._get_cmd_body()},
+//                                          {"key", yandex_key},
+//                                          {"lang", "ru"}});
+//    if (parsed["code"].is_null()) {
+//      _backend._message_send(parsed["text"][1], USE_NICKNAME);
+//    }
+//  }
+//}
+
 void Cmd_handler::help_cmd() {
   string help_info = "Список команд:\n";
   for (auto cmd : cmds) {
@@ -278,6 +243,16 @@ void Cmd_handler::nickname_cmd() {
   }
 }
 
+static string os_exec(string const& cmd) {
+  string result;
+  array<char, 128> buffer;
+  unique_ptr<FILE, decltype (&pclose)> pipe(popen(cmd.c_str(), "r"), pclose);
+  while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+    result += buffer.data();
+  }
+  return result;
+}
+
 void Cmd_handler::os_cmd() {
   string cmd = _backend._get_cmd_body();
   _backend._message_send(os_exec(cmd), NOT_USE_NICKNAME);
@@ -287,12 +262,38 @@ void Cmd_handler::repeat_cmd() {
   _backend._message_send( _backend._get_cmd_body(), NOT_USE_NICKNAME);
 }
 
-/*
- * официально говнокод
- */
+static string lineparse(const string& line) {
+  string result;
+  for (char c : line) {
+    if (isdigit(c)) {
+      result += c;
+    }
+  }
+  return result;
+}
+
+static string procinfo(const string& filename, const string& param) {
+  FILE* file = fopen(filename.c_str(), "r");
+  string result;
+  array<char, 128> line;
+
+  while (fgets(line.data(), 128, file) != NULL) {
+    if (strncmp(line.data(), param.c_str(), param.size()) == 0) {
+      return lineparse(line.data());
+    }
+  }
+  fclose(file);
+  return "";
+}
+
 void Cmd_handler::stat_cmd() {
-  _backend._message_send("Использовано ОЗУ: " + memusage() + " KiB.\nАптайм: " +
-     os_exec("ps -eo lstart,etime,args | grep vk | awk '{print $6}' | head -1"), NOT_USE_NICKNAME);
+  string stat =
+    "Всего памяти: "      + procinfo("/proc/meminfo", "MemTotal:") + "KiB.\n"
+    "Использовано ОЗУ: "  + procinfo("/proc/self/status", "VmRSS:") + "KiB.\n"
+    "Потоков занято: "    + procinfo("/proc/self/status", "Threads:") + '\n' +
+    "Аптайм: "            + os_exec("ps -eo lstart,etime,args | grep vk | awk '{print $6}' | head -1") +
+    "Команд обработано: " + to_string(_msg_counter);
+  _backend._message_send(stat, NOT_USE_NICKNAME);
 }
 
 void Cmd_handler::ping_cmd() {

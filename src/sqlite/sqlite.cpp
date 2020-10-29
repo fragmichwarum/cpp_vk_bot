@@ -15,8 +15,7 @@ int Database::callback(
 }
 
 void Database::open() {
-  rc = sqlite3_open("users.db", &database);
-  if (rc) {
+  if (rc = sqlite3_open("users.db", &database); rc) {
     throw invalid_argument(sqlite3_errmsg(database));
   }
 }

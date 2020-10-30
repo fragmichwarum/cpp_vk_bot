@@ -41,10 +41,10 @@ void Cmd_backend::_message_send(const string& text, bool use_nickname) {
 void Cmd_backend::_media_search(const string& method) {
   json parsed =
       json::parse(request(append_vkurl(method),
-                          {{"q", _get_cmd_body()       },
-                           {"access_token", user_token },
-                           {"count", "100"             },
-                           {"v", api_version           }}));
+        {{ "q",            _get_cmd_body() },
+         { "access_token", user_token      },
+         { "count",        "100"           },
+         { "v",            api_version     }}));
   long size = parsed["response"]["items"].size();
   if (size == 0) {
     _media_not_found(_attachment_type(method));
@@ -140,11 +140,12 @@ void Cmd_handler::weather_cmd() {
     _backend._empty_query();
   } else {
     string open_weather_url = "http://api.openweathermap.org/data/2.5/weather?";
-    json parsed = json::parse(request(
-        open_weather_url, {{"lang", "ru"},
-                           {"units", "metric"},
-                           {"APPID", "ef23e5397af13d705cfb244b33d04561"},
-                           {"q", _splitted_message[1]}}));
+    json parsed =
+        json::parse(request(open_weather_url,
+         {{ "lang", "ru"                                },
+          { "units", "metric"                           },
+          { "APPID", "ef23e5397af13d705cfb244b33d04561" },
+          { "q",     _splitted_message[1]               }}));
     if (not parsed["weather"].is_null()) {
       string description = parsed["weather"][0]["description"];
       int temp           = parsed["main"]["temp"];
@@ -171,15 +172,19 @@ void Cmd_handler::wiki_cmd() {
   if (_message == "+вики") {
     _backend._empty_query();
   } else {
-    string wiki_url = "https://ru.wikipedia.org/w/api.php?exintro&explaintext&";
+    string wiki_url = "https://ru.wikipedia.org/w/api.php?";
     string page;
     json parsed;
     try {
       parsed =
-          json::parse(request(wiki_url, {{"titles", _backend._get_cmd_body()},
-                                         {"action", "query"},
-                                         {"format", "json"},
-                                         {"prop", "extracts"}}));
+        json::parse(request(wiki_url,
+         {{"titles",      _backend._get_cmd_body() },
+          {"action",      "query"    },
+          {"format",      "json"     },
+          {"prop",        "extracts" },
+          {"exintro",     ""         },
+          {"explaintext", ""         },
+          {"redirects",   "1"        }}));
       for (auto i : parsed["query"]["pages"].get<json::object_t>()) {
         page = i.first;
         break;
@@ -196,6 +201,44 @@ void Cmd_handler::wiki_cmd() {
     } else {
       _backend._message_send("Такой статьи не найдено.", NOT_USE_NICKNAME);
     }
+  }
+}
+
+namespace {
+string laugh(size_t len = 10) {
+  srand(time(NULL));
+  vector<string> alphabet = {
+    "а", "А",
+    "х", "Х",
+    "ж", "Ж",
+    "п", "П",
+    "ы", "Ы",
+    "ъ", "Ъ"
+  };
+  string result;
+  for (size_t i = 0; i < len; i++) {
+    result += alphabet[rand() % alphabet.size()];
+  }
+  return result;
+}
+} //namespace
+
+void Cmd_handler::laugh_cmd() {
+  if (_splitted_message.size() == 1) {
+    _backend._message_send(laugh(), NOT_USE_NICKNAME);
+  } else {
+    if (_splitted_message[1] == "-s" && _splitted_message.size() >= 3) {
+      _backend._message_send(laugh(std::stoi(_splitted_message[2])), USE_NICKNAME);
+    }
+  }
+}
+
+void Cmd_handler::reverse_cmd() {
+  setlocale(LC_CTYPE, "");
+  if (_message == "+реверс") {
+    _backend._empty_query();
+  } else {
+    _backend._message_send(reverse(_backend._get_cmd_body().c_str()), USE_NICKNAME);
   }
 }
 

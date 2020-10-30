@@ -11,9 +11,9 @@ using std::get;
 namespace {
 const bool     FATAL = true;
 const bool NOT_FATAL = false;
-const int    errcode = 0;
-const int     errmsg = 1;
-const int   errfatal = 2;
+//const int    errcode = 0;
+//const int     errmsg = 1;
+//const int   errfatal = 2;
 
 const vector<tuple<
 /* Error code   */ long,
@@ -35,10 +35,10 @@ const vector<tuple<
 
 void Lp::errors_handle(long error_code) {
   for (auto error : errors) {
-    if (get<errcode>(error) == error_code) {
-      _logger.write_err(__LINE__, __FILE__, __FUNCTION__, get<errmsg>(error).c_str());
-      if (get<errfatal>(error) == FATAL) {
-        throw runtime_error(get<errmsg>(error));
+    if (get<long>(error) == error_code) {
+      _logger.write_err(__LINE__, __FILE__, __FUNCTION__, get<string>(error).c_str());
+      if (get<bool>(error) == FATAL) {
+        throw runtime_error(get<string>(error));
       } else {
         get_lp_server();
       }

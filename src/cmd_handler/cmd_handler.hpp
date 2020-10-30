@@ -5,6 +5,7 @@
 #include "../splitter/split.hpp"
 #include "../logger/logger.hpp"
 #include "../network/curl.hpp"
+#include "../cmd_handler/lib/wchar.hpp"
 
 namespace bot {
 
@@ -81,6 +82,10 @@ public:
   void weather_cmd();
 
   void wiki_cmd();
+
+  void laugh_cmd();
+
+  void reverse_cmd();
 
 //  void translate_cmd();
 

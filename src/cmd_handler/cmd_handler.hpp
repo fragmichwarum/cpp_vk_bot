@@ -18,6 +18,7 @@ using std::tuple;
 using std::unique_ptr;
 using std::runtime_error;
 using std::stringstream;
+using std::invalid_argument;
 using nlohmann::json;
 constexpr bool USE_NICKNAME     = true;
 constexpr bool NOT_USE_NICKNAME = false;
@@ -30,7 +31,7 @@ using command     = string;
 using description = string;
 using cmd_pointer = void (Cmd_handler::*)(void);
 using access      = bool;
-using cmds_t      = unordered_map<command, tuple<description, cmd_pointer, access>>;
+using cmds_t      = map<command, tuple<description, cmd_pointer, access>>;
 
 extern cmds_t const cmds;
 
@@ -48,8 +49,10 @@ public:
   void           _media_not_found(const string& type);
   void           _message_send   (const string& text, bool use_nickname);
   void           _media_search   (const string& method);
+  string         _ret_id         (const string& nickname);
   Logger         _logger{logfile, errfile};
   Database       _database;
+  string         _build_time = _logger._gen_time();
 };
 
 class Cmd_handler {
@@ -87,9 +90,15 @@ public:
 
   void reverse_cmd();
 
-//  void translate_cmd();
+  void currency_cmd();
 
   void help_cmd();
+
+  void about_cmd();
+
+  void online_cmd();
+
+  void kick_cmd();
 
   void nickname_cmd();
 

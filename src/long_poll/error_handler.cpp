@@ -11,9 +11,6 @@ using std::get;
 namespace {
 const bool     FATAL = true;
 const bool NOT_FATAL = false;
-//const int    errcode = 0;
-//const int     errmsg = 1;
-//const int   errfatal = 2;
 
 const vector<tuple<
 /* Error code   */ long,

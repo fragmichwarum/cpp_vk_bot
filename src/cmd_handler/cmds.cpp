@@ -34,6 +34,7 @@ void Cmd_backend::_message_send(const string& text, bool use_nickname) {
     body["message"] = text;
   }
   body["peer_id"] = to_string(_handler->_peer_id);
+  body["disable_mentions"] = "1";
   append_vkparams(body);
   request(vkurl, body);
 }
@@ -63,8 +64,7 @@ void Cmd_backend::_media_search(const string& method) {
     string id       = to_string(parsed["response"]["items"][index]["id"].get<long>());
     attachments    += _attachment_type(method) + owner_id + '_' + id + ',';
   }
-  params attachment_body = {{"attachment", attachments },
-                            {"peer_id", to_string(_handler->_peer_id)}};
+  params attachment_body = {{"attachment", attachments },{"peer_id", to_string(_handler->_peer_id)}};
   append_vkparams(attachment_body);
   string vkurl = append_vkurl("messages.send");
   request(vkurl, attachment_body);
@@ -207,7 +207,7 @@ void Cmd_handler::wiki_cmd() {
 namespace {
 string laugh(size_t len = 10) {
   srand(time(NULL));
-  vector<string> alphabet = {
+  const vector<string> alphabet = {
     "а", "А",
     "х", "Х",
     "ж", "Ж",
@@ -225,10 +225,14 @@ string laugh(size_t len = 10) {
 
 void Cmd_handler::laugh_cmd() {
   if (_splitted_message.size() == 1) {
-    _backend._message_send(laugh(), NOT_USE_NICKNAME);
+    _backend._message_send(laugh(), USE_NICKNAME);
   } else {
     if (_splitted_message[1] == "-s" && _splitted_message.size() >= 3) {
-      _backend._message_send(laugh(std::stoi(_splitted_message[2])), USE_NICKNAME);
+      try {
+        _backend._message_send(laugh(std::stoi(_splitted_message[2])), USE_NICKNAME);
+      } catch(invalid_argument&) {
+         _backend._message_send("Неверный параметр. Используй -s <число>.", USE_NICKNAME);
+      }
     }
   }
 }
@@ -242,20 +246,29 @@ void Cmd_handler::reverse_cmd() {
   }
 }
 
-//void Cmd_handler::translate_cmd() {
-//  if (_message == "+переводчик") {
-//    _backend._empty_query();
-//  } else {
-//    string translate_url =
-//        "https://translate.yandex.net/api/v1.5/tr.json/translate?";
-//    json parsed = request(translate_url, {{"text", _backend._get_cmd_body()},
-//                                          {"key", yandex_key},
-//                                          {"lang", "ru"}});
-//    if (parsed["code"].is_null()) {
-//      _backend._message_send(parsed["text"][1], USE_NICKNAME);
-//    }
-//  }
-//}
+void Cmd_handler::currency_cmd() {
+  json parsed = json::parse(request("https://www.cbr-xml-daily.ru/daily_json.js", {}));
+  string result;
+  vector<string> currency_list = {
+    "GBP",
+    "BYN",
+    "USD",
+    "EUR",
+    "KZT",
+    "PLN",
+    "UAH",
+    "JPY"
+  };
+  result += "Курс валют:\n";
+  for (string currency : currency_list) {
+    result += to_string(parsed["Valute"][currency]["Nominal"].get<long>());
+    result += ' ';
+    result += parsed["Valute"][currency]["Name"];
+    result += " -> ";
+    result += to_string(parsed["Valute"][currency]["Value"].get<double>()) + "₽\n";
+  }
+  _backend._message_send(result, NOT_USE_NICKNAME);
+}
 
 void Cmd_handler::help_cmd() {
   string help_info = "Список команд:\n";
@@ -263,6 +276,16 @@ void Cmd_handler::help_cmd() {
     help_info += cmd.first + " - " + std::get<string>(cmd.second) + '\n';
   }
   _backend._message_send(help_info, NOT_USE_NICKNAME);
+}
+
+void Cmd_handler::about_cmd() {
+  string about =
+    "C++ bot,\n"
+    "сурсы лежат тут: https://github.com/oxfffffe/cpp_vk_bot\n"
+    "бота создал: @jijijijijijijijijijijijji (он)\n"
+    "версия VK API: " + api_version + '\n' +
+    "собран: " + _backend._build_time;
+  _backend._message_send(about, NOT_USE_NICKNAME);
 }
 
 void Cmd_handler::crc32_cmd() {
@@ -349,4 +372,50 @@ void Cmd_handler::ping_cmd() {
   _backend._message_send("Сообщение обработано за: " +
                 to_string((float)(clock() - now)/CLOCKS_PER_SEC * 10000) +
                 " ms.", NOT_USE_NICKNAME);
+}
+
+void Cmd_handler::online_cmd() {
+  uint16_t access_err = 917;
+  string vkurl = append_vkurl("messages.getConversationMembers");
+  params body  = {{"fields", "online"},{"peer_id", to_string(_peer_id)}};
+  append_vkparams(body);
+
+  json parsed = json::parse(request(vkurl, body));
+  if (not parsed["error"].is_null() and
+          parsed["error"]["error_code"] == access_err)
+  {
+    _backend._message_send(
+      "Упс, кажется у бота нет админки.",
+      NOT_USE_NICKNAME
+    );
+    return;
+  }
+  string people;
+  for (auto profile : parsed["response"]["profiles"]) {
+    if (profile["online"] == 1) {
+      people += "@id" + to_string(profile["id"].get<long>()) + "(";
+      people += profile["first_name"].get<string>() + " " + profile["last_name"].get<string>() + ")\n";
+    }
+  }
+  _backend._message_send(people, NOT_USE_NICKNAME);
+}
+
+string Cmd_backend::_ret_id(const string& nickname) {
+  long id_len = 9;
+  return nickname.substr(3, id_len);
+}
+
+void Cmd_handler::kick_cmd() {
+  if (_message == "+кик") {
+    _backend._empty_query();
+    return;
+  }
+  params body = {{"chat_id", to_string(_peer_id - 2000000000)},{"user_id", _backend._ret_id(_backend._get_cmd_body())}};
+  append_vkparams(body);
+  json response = json::parse(request(append_vkurl("messages.removeChatUser"), body));
+  if (not response["error"].is_null() and
+          response["error"]["error_code"] == 100)
+  {
+    _backend._message_send("Что-то пошло не так.", NOT_USE_NICKNAME);
+  }
 }

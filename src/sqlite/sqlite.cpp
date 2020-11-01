@@ -25,8 +25,9 @@ void Database::open() {
 void Database::init_table() {
   string query =
       "CREATE TABLE IF NOT EXISTS USERS ("
-      "USER_ID INTEGER NOT NULL UNIQUE, "
-      "PREFIX  TEXT NOT NULL);";
+      "USER_ID INTEGER NOT NULL, "
+      "PEER_ID INTEGER NOT NULL, "
+      "ROLE TEXT NOT NULL);";
   sqlite3_exec(
     database,      /* An open database         */
     query.c_str(), /* SQL to be evaluated      */
@@ -36,49 +37,64 @@ void Database::init_table() {
   );
 }
 
-void Database::insert(const long& user_id, const string& prefix) {
-  string query =
-      "REPLACE INTO USERS ('USER_ID', 'PREFIX') "
-      "VALUES ('" + to_string(user_id) + "','" + prefix  + "');";
-  sqlite3_exec(
-    database,      /* An open database         */
-    query.c_str(), /* SQL to be evaluated      */
-    callback,      /* Callback function        */
-    0,             /* 1st argument to callback */
-    &err           /* Error msg written here   */
-  );
-}
-
-string Database::get(const long& user_id) {
-  string result;
-  sqlite3_stmt* stmt;
-  char query[255];
-
+/*
+  Временный костыль по причине того,
+  что я не умею пользоваться СУБД.
+*/
+void Database::insert_role(const long& user_id, const long& peer_id, const std::string& role) {
   if (not is_opened) {
     open();
   }
-  snprintf(
-    query,
-    sizeof query - 1,
-    "SELECT PREFIX FROM USERS WHERE USER_ID = %s;",
-    to_string(user_id).c_str());
+  string delete_query =
+    "DELETE FROM USERS WHERE USER_ID = " + to_string(user_id) + " AND PEER_ID = " + to_string(peer_id) + ";";
+
+  sqlite3_exec(
+    database,             /* An open database         */
+    delete_query.c_str(), /* SQL to be evaluated      */
+    callback,             /* Callback function        */
+    0,                    /* 1st argument to callback */
+    &err                  /* Error msg written here   */
+  );
+
+  string role_query =
+    "INSERT INTO USERS('USER_ID','PEER_ID','ROLE') "
+    "SELECT USER_ID,PEER_ID,ROLE "
+    "FROM (SELECT '" + to_string(user_id) + "' AS USER_ID, "
+    "'" + to_string(peer_id) + "' AS PEER_ID, "
+    "'" + role + "' AS ROLE) T "
+    "WHERE NOT EXISTS (SELECT 1 FROM USERS WHERE USERS.USER_ID = T.USER_ID AND USERS.PEER_ID = T.PEER_ID);";
+
+  sqlite3_exec(
+    database,           /* An open database         */
+    role_query.c_str(), /* SQL to be evaluated      */
+    callback,           /* Callback function        */
+    0,                  /* 1st argument to callback */
+    &err                /* Error msg written here   */
+  );
+}
+
+
+std::vector<uint32_t> Database::get_roles(const long& peer_id, const std::string& role) {
+  string result;
+  sqlite3_stmt* stmt;
+  std::vector<uint32_t> moderators;
+  std::string query = "SELECT USER_ID FROM USERS WHERE ROLE = '" + role + "' AND PEER_ID = '" + to_string(peer_id) + "';";
+  if (not is_opened) {
+    open();
+  }
   rc =
   sqlite3_prepare(
     database,       /* An open database         */
-    query,          /* SQL to be evaluated      */
-    sizeof (query), /* Callback function        */
+    query.c_str(),  /* SQL to be evaluated      */
+    query.size(),   /* Callback function        */
     &stmt,          /* 1st argument to callback */
     NULL            /* Error msg written here   */
   );
   if (not rc) {
     while ((rc = sqlite3_step(stmt)) == SQLITE_ROW) {
-      result += (const char*)sqlite3_column_text(stmt, 0);
+      moderators.push_back(std::stoul(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0))));
     }
     sqlite3_finalize(stmt);
   }
-  if (result.empty()) {
-    return "";
-  } else {
-    return result;
-  }
+  return moderators;
 }

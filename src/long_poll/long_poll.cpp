@@ -40,7 +40,7 @@ void Lp::loop() {
       for (auto update : lp["updates"]) {
         auto event = update["object"]["message"];
         if (not event.is_null() and event["text"] != "") {
-          handler.init_cmds(
+          handler.init_cmds( ///< костыль: нужно передать весь объект event.
             event["text"],
             event["peer_id"],
             event["from_id"]

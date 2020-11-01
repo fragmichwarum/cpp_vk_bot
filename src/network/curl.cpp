@@ -45,7 +45,6 @@ string cURL::request(string method, const params& body) {
   string buffer;
   CURL*  curl;
   curl = curl_easy_init();
-  printf("%s\n", url.c_str());
   if (curl) {
     curl_easy_setopt(curl, CURLOPT_URL, urlencode(url).c_str());
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);

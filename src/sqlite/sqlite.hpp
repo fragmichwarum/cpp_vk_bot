@@ -2,6 +2,7 @@
 
 #include <sqlite3.h>
 #include <string>
+#include <vector>
 
 class Database {
 private:
@@ -18,7 +19,17 @@ private:
 
 public:
   void open();
+
   void init_table();
-  void insert(const long& user_id, const std::string& prefix);
-  std::string get(const long& user_id);
+
+  void insert_role(
+    const long&        user_id,
+    const long&        peer_id,
+    const std::string& role
+  );
+
+  std::vector<uint32_t> get_roles(
+    const long&        peer_id,
+    const std::string& role
+  );
 };

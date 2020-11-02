@@ -125,7 +125,7 @@ void Cmd_handler::weather_cmd() {
          {{ "lang", "ru"                                },
           { "units", "metric"                           },
           { "APPID", "ef23e5397af13d705cfb244b33d04561" },
-          { "q",     _splitted_message[1]               }}));
+          { "q",     _args[1]                           }}));
     if (not parsed["weather"].is_null()) {
       string description = parsed["weather"][0]["description"];
       int temp           = parsed["main"]["temp"];
@@ -204,17 +204,46 @@ string laugh(size_t len = 10) {
 } //namespace
 
 void Cmd_handler::laugh_cmd() {
-  if (_splitted_message.size() == 1) {
+  if (_args.size() == 1) {
     _backend._message_send(laugh());
-  } else {
-    if (_splitted_message[1] == "-s" && _splitted_message.size() >= 3) {
-      try {
-        _backend._message_send(laugh(std::stoi(_splitted_message[2])));
-      } catch(invalid_argument&) {
-         _backend._message_send("Неверный параметр. Используй -s <число>.");
-      }
-    }
+    return;
   }
+  if (_args[1] == "-s" and _args.size() == 2) {
+    _backend._message_send("Введи количество символов.");
+    return;
+  }
+
+  if (_args[1] != "-s" and _args.size() >= 3) {
+    return;
+  }
+  if (_args[2][0] == '-') {
+    _backend._message_send("Отрицательное количество символов, серьёзно?");
+    return;
+  }
+
+  if (not std::all_of(_args[2].begin(), _args[2].end(), ::isdigit)) {
+    _backend._message_send("Аргумент не является целым числом.");
+    return;
+  }
+
+  if (_args[2].size() >= 6) {
+    _backend._message_send("Слишком большое число.");
+   return;
+  }
+
+  short length = std::stoi(_args[2]);
+
+  if (length > 500) {
+    _backend._message_send("Слишком большое число.");
+    return;
+  }
+
+  if (length <= 0) {
+    _backend._message_send("Длина строки 0?");
+    return;
+  }
+
+  _backend._message_send(laugh(length));
 }
 
 void Cmd_handler::reverse_cmd() {
@@ -393,8 +422,9 @@ void Cmd_handler::role_cmd() {
     _backend._empty_query();
     return;
   }
-  if (_splitted_message.size() == 3) {
-    _backend._database.insert_role(std::stol(_backend._ret_id(_splitted_message[1])), _peer_id, _splitted_message[2]);
+  if (_args.size() == 3) {
+    long id = std::stol(_backend._ret_id(_args[1]));
+    _backend._database.insert_role(id, _peer_id, _args[2]);
     _backend._message_send("Роль успешно установлена.");
   } else {
     _backend._message_send("Что-то пошло не так, проверь правильность аргументов.");
@@ -402,8 +432,8 @@ void Cmd_handler::role_cmd() {
 }
 
 void Cmd_handler::get_roles_cmd() {
-  if (_splitted_message.size() > 1) {
-    vector<uint32_t> roles = _backend._database.get_roles(_peer_id, _splitted_message[1]);
+  if (_args.size() > 1) {
+    vector<uint32_t> roles = _backend._database.get_roles(_peer_id, _args[1]);
     if (roles.size() == 0) {
       _backend._message_send("В этом чате нет участников с данной ролью.");
       return;
@@ -417,5 +447,16 @@ void Cmd_handler::get_roles_cmd() {
     _backend._message_send(moderators);
   } else {
     _backend._message_send("Что-то пошло не так, проверь правильность аргументов.");
+  }
+}
+
+void Cmd_handler::complete_cmd() {
+  if (_message == "+дополни") {
+    _backend._empty_query();
+  } else {
+    json parsed =
+        json::parse(requestdata(
+          "https://pelevin.gpt.dobro.ai/generate/",to_json({{"prompt",_backend._get_cmd_body()},{"length","50"}})));
+    _backend._message_send(_backend._get_cmd_body() + parsed["replies"][0].get<string>());
   }
 }

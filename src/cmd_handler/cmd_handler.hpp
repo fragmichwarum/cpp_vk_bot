@@ -59,7 +59,7 @@ private:
   long           _peer_id;
   long           _from_id;
   long           _msg_counter{0};
-  vector<string> _splitted_message;
+  vector<string> _args;
   Cmd_backend    _backend{*this};
 
 public:
@@ -102,6 +102,8 @@ public:
   void get_roles_cmd();
 
   void repeat_cmd();
+
+  void complete_cmd();
 
   void stat_cmd();
 

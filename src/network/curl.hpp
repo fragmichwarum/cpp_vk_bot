@@ -14,5 +14,7 @@ using params = map<string, string>;
 void   append_vkparams(params& map);
 string append_vkurl   (const string& method);
 string genparams      (const params& body);
+string to_json        (const params& body);
 string request        (string method, const params& body);
+string requestdata    (string method, const string& data);
 }

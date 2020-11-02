@@ -26,6 +26,7 @@ cmds_t const bot::cmds =
   { "+курс",     { "показать курс валют",                     &Cmd_handler::currency_cmd, user  } },
   { "+оботе",    { "показать информацию о боте",              &Cmd_handler::about_cmd,    user  } },
   { "+роли",     { "посмотреть роли участников",              &Cmd_handler::get_roles_cmd,user  } },
+  { "+дополни",  { "закончить текст",                         &Cmd_handler::complete_cmd, user  } },
   { "+онлайн",   { "показать юзеров онлайн(модератор)",       &Cmd_handler::online_cmd,   moderator } },
   { "+кик",      { "кикнуть юзера(модератор)",                &Cmd_handler::kick_cmd,     moderator } },
   { "+роль",     { "установить роль участника(модератор,...)",&Cmd_handler::role_cmd,     creator } }, ///< костыль
@@ -47,10 +48,10 @@ void Cmd_handler::init_cmds(
   const long&   peer_id,
   const long&   from_id)
 {
-  _message           = message;
-  _peer_id           = peer_id;
-  _from_id           = from_id;
-  _splitted_message  = split(_message);
+  _message  = message;
+  _peer_id  = peer_id;
+  _from_id  = from_id;
+  _args     = split(_message);
   _backend._init_moderators();
 
   if (_message.at(0) == '+') {

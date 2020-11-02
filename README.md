@@ -5,7 +5,7 @@
 You need to fill some fields in `src/long_poll/metadata.hpp`:
 
 ```
-inline const static int admin_id
+inline const static int creator_id
   = your id;
 ```
 ```
@@ -19,10 +19,6 @@ inline const static std::string logfile
 ```
 inline const static std::string errfile
   = "/path/to/errfile";
-```
-```
-inline const static std::string yandex_key
-  = "";
 ```
 ```
 inline const static std::string access_token

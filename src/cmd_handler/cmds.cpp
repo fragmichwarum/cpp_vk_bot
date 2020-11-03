@@ -145,9 +145,10 @@ void Cmd_handler::weather_cmd() {
   }
 }
 
-/*
- * косяк: обрабатывает только запросы на английском
- */
+json wiki_search(const string& wiki_url, const params& text) {
+  return json::parse(request(wiki_url, text));
+}
+
 void Cmd_handler::wiki_cmd() {
   if (_message == "+вики") {
     _backend._empty_query();
@@ -155,31 +156,45 @@ void Cmd_handler::wiki_cmd() {
     string wiki_url = "https://ru.wikipedia.org/w/api.php?";
     string page;
     json parsed;
+
     try {
       parsed =
-        json::parse(request(wiki_url,
+        wiki_search(wiki_url,
          {{"titles",      _backend._get_cmd_body() },
           {"action",      "query"    },
           {"format",      "json"     },
           {"prop",        "extracts" },
           {"exintro",     ""         },
           {"explaintext", ""         },
-          {"redirects",   "1"        }}));
+          {"redirects",   "1"        }});
       for (auto i : parsed["query"]["pages"].get<json::object_t>()) {
         page = i.first;
         break;
       }
-    } catch (json::parse_error& parse_error) {
-      _backend._logger.write_err(__LINE__, __FILE__, __FUNCTION__, parse_error.what());
-      return;
-    } catch (nlohmann::detail::type_error& type_error) {
-      _backend._logger.write_err(__LINE__, __FILE__, __FUNCTION__, type_error.what());
-      return;
+
+      if (page != "-1") {
+        _backend._message_send(parsed["query"]["pages"][page]["extract"]);
+        return;
+      } else {
+        _backend._message_send("Такой статьи не найдено");
+      }
+    } catch(nlohmann::json::parse_error) {
+
+    } catch (nlohmann::json::type_error) {
+
     }
-    if (page != "-1") {
-      _backend._message_send(parsed["query"]["pages"][page]["extract"]);
-    } else {
-      _backend._message_send("Такой статьи не найдено.");
+
+    try {
+      parsed = wiki_search(wiki_url,
+       {{"action", "query"},
+        {"list", "search"},
+        {"format","json"},
+        {"srsearch", curl_easy_escape(NULL, _backend._get_cmd_body().c_str(), _backend._get_cmd_body().length())}});
+        _backend._message_send(parsed["query"]["search"][0]["snippet"]);
+    } catch(nlohmann::json::parse_error) {
+
+    } catch (nlohmann::json::type_error) {
+
     }
   }
 }
@@ -203,11 +218,18 @@ string laugh(size_t len = 10) {
 }
 } //namespace
 
+//смех -5
 void Cmd_handler::laugh_cmd() {
   if (_args.size() == 1) {
     _backend._message_send(laugh());
     return;
   }
+
+  if (_args[1] != "-s" and _args.size() > 1) {
+    _backend._message_send("Неверный параметр.");
+    return;
+  }
+
   if (_args[1] == "-s" and _args.size() == 2) {
     _backend._message_send("Введи количество символов.");
     return;
@@ -216,6 +238,7 @@ void Cmd_handler::laugh_cmd() {
   if (_args[1] != "-s" and _args.size() >= 3) {
     return;
   }
+
   if (_args[2][0] == '-') {
     _backend._message_send("Отрицательное количество символов, серьёзно?");
     return;
@@ -430,21 +453,53 @@ void Cmd_handler::role_cmd() {
     _backend._message_send("Что-то пошло не так, проверь правильность аргументов.");
   }
 }
-
 void Cmd_handler::get_roles_cmd() {
-  if (_args.size() > 1) {
-    vector<uint32_t> roles = _backend._database.get_roles(_peer_id, _args[1]);
+  if (_args.size() < 1) {
+    _backend._message_send("Что-то пошло не так, проверь правильность аргументов.");
+  } else {
+    vector<uint32_t> roles = _backend._database.get_by_role(_peer_id, _args[1]);
     if (roles.size() == 0) {
       _backend._message_send("В этом чате нет участников с данной ролью.");
       return;
     }
+    string persons;
+    bool is_comma = false;
+    for (uint32_t person : roles) {
+      if (is_comma) {
+        persons += ',';
+      }
+      is_comma = true;
+      persons += to_string(person);
+    }
+    json parsed =
+      json::parse(request(append_vkurl("users.get"),
+       {{"user_ids",     persons           },
+        {"access_token", user_token        },
+        {"v",            api_version      }}));
     string moderators = "Список участников с данной ролью:\n";
-    for (auto person : roles) {
+    for (uint8_t i = 0; i < roles.size(); i++) {
       moderators += "@id";
-      moderators += to_string(person);
+      moderators += to_string(roles.at(i));
+      moderators += " (";
+      moderators += parsed["response"][i]["first_name"];
+      moderators += " ";
+      moderators += parsed["response"][i]["last_name"];
+      moderators += ")";
       moderators += '\n';
     }
     _backend._message_send(moderators);
+  }
+}
+
+void Cmd_handler::blacklist_cmd() {
+  if (_message == "+мут") {
+    _backend._empty_query();
+    return;
+  }
+  if (_args.size() == 2) {
+    long id = std::stol(_backend._ret_id(_args[1]));
+    _backend._database.insert_role(id, _peer_id, "мут");
+    _backend._message_send("Готово.");
   } else {
     _backend._message_send("Что-то пошло не так, проверь правильность аргументов.");
   }

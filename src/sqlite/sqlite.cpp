@@ -74,7 +74,7 @@ void Database::insert_role(const long& user_id, const long& peer_id, const std::
 }
 
 
-std::vector<uint32_t> Database::get_roles(const long& peer_id, const std::string& role) {
+std::vector<uint32_t> Database::get_by_role(const long& peer_id, const std::string& role) {
   string result;
   sqlite3_stmt* stmt;
   std::vector<uint32_t> moderators;

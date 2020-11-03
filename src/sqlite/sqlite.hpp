@@ -28,7 +28,7 @@ public:
     const std::string& role
   );
 
-  std::vector<uint32_t> get_roles(
+  std::vector<uint32_t> get_by_role(
     const long&        peer_id,
     const std::string& role
   );

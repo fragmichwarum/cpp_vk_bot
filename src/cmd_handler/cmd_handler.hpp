@@ -1,5 +1,7 @@
 #pragma once
 
+#include <codecvt>
+
 #include "../cmd_handler/lib/json.hpp"
 #include "../sqlite/sqlite.hpp"
 #include "../splitter/split.hpp"
@@ -12,6 +14,7 @@ namespace bot {
 using namespace cURL;
 using std::to_string;
 using std::string;
+using std::wstring;
 using std::vector;
 using std::array;
 using std::tuple;
@@ -20,8 +23,6 @@ using std::runtime_error;
 using std::stringstream;
 using std::invalid_argument;
 using nlohmann::json;
-constexpr bool USE_NICKNAME     = true;
-constexpr bool NOT_USE_NICKNAME = false;
 
 class Cmd_handler;
 
@@ -33,34 +34,42 @@ using cmds_t      = map<command, tuple<description, cmd_pointer, access>>;
 
 extern cmds_t const cmds;
 
+template <class T>
+bool             _any_of(vector<T>& vec, T id);
+vector<string>   _words_from_file(const string& filename);
+string           _cyrillic_to_lower(const string& text);
+
 class Cmd_backend {
 private:
   Cmd_handler*   _handler;
 public:
-  Cmd_backend    (Cmd_handler&);
- ~Cmd_backend    ();
-  void           _empty_query    ();
-  string         _get_cmd_body   ();
-  string         _attachment_type(const string& method);
-  void           _media_not_found(const string& type);
-  void           _message_send   (const string& text);
-  void           _media_search   (const string& method);
-  string         _ret_id         (const string& nickname);
-  void           _init_moderators();
+  Cmd_backend      (Cmd_handler&);
+ ~Cmd_backend      ();
+  void             _empty_query    ();
+  string           _get_cmd_body   ();
+  string           _attachment_type(const string& method);
+  void             _media_not_found(const string& type);
+  void             _message_send   (const string& text);
+  void             _media_search   (const string& method);
+  string           _ret_id         (const string& nickname);
+  void             _init_roles();
+  void             _init_words_blacklist();
   vector<uint32_t> _moderators;
-  Logger         _logger{logfile, errfile};
-  Database       _database;
-  string         _build_time = _logger._gen_time();
+  vector<uint32_t> _blacklist;
+  vector<string>   _words_blacklist;
+  Logger           _logger{logfile, errfile};
+  Database         _database;
+  string           _build_time = _logger._gen_time();
 };
 
 class Cmd_handler {
 private:
-  string         _message;
-  long           _peer_id;
-  long           _from_id;
-  long           _msg_counter{0};
-  vector<string> _args;
-  Cmd_backend    _backend{*this};
+  string           _message;
+  long             _peer_id;
+  long             _from_id;
+  long             _msg_counter{0};
+  vector<string>   _args;
+  Cmd_backend      _backend{*this};
 
 public:
   friend class Cmd_backend;
@@ -100,6 +109,8 @@ public:
   void role_cmd();
 
   void get_roles_cmd();
+
+  void blacklist_cmd();
 
   void repeat_cmd();
 

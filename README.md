@@ -21,6 +21,10 @@ inline const static std::string errfile
   = "/path/to/errfile";
 ```
 ```
+inline const static std::string word_blacklist
+  = "/path/to/blacklist";
+```
+```
 inline const static std::string access_token
   = "";
 ```

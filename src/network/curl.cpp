@@ -1,12 +1,11 @@
 #include <sstream>
-#include <curl/curl.h>
 #include "curl.hpp"
 
 using std::string;
 using std::stringstream;
 
-namespace {
-string char_to_hex(const char c) {
+//namespace {
+string cURL::char_to_hex(const char c) {
   stringstream stream;
   if (static_cast<int>(c) < 0x10) {
     stream << "0";
@@ -15,7 +14,7 @@ string char_to_hex(const char c) {
   return '%' + stream.str();
 }
 
-string urlencode(string& url) {
+string cURL::urlencode(const string& url) {
   string urlen;
   for (char c : url) {
     if (c == ' ' || c == '\n' || c == '+' || c == '\\')
@@ -37,7 +36,7 @@ size_t write_callback(
   ((string*)userp)->append((char*)contents, size * nmemb);
   return size * nmemb;
 }
-} /* namespace */
+//} /* namespace */
 
 string cURL::to_json(const params& body) {
   string result;

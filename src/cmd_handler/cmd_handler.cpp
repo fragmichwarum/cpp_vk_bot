@@ -8,14 +8,14 @@ uint8_t const creator   = 0x10;
 
 vector<string> bot::_words_from_file(const string& filename) {
   std::ifstream file(filename);
-  vector<string> result;
+  vector<string> words;
   for (string line; std::getline(file, line); ) {
-    result.push_back(line);
+    words.push_back(line);
   }
-  return result;
+  return words;
 }
 
-string bot::_cyrillic_to_lower(const string& text) {
+string bot::_utf8_to_lower(const string& text) {
   wstring wide_string = std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t>().from_bytes(text);
   std::transform(
     wide_string.begin(),
@@ -37,27 +37,28 @@ void Cmd_backend::_init_words_blacklist() {
 
 cmds_t const bot::cmds =
 {
-  { "+помощь",   { "показать помощь",                         &Cmd_handler::help_cmd,      user  } },
-  { "+стат",     { "показать статистику бота",                &Cmd_handler::stat_cmd,      user  } },
-  { "+crc32",    { "сгенерить CRC-32 хеш-сумму строки",       &Cmd_handler::crc32_cmd,     user  } },
-  { "+пикча",    { "найти картинку среди просторов ВК",       &Cmd_handler::picture_cmd,   user  } },
-  { "+доки",     { "поиск документов",                        &Cmd_handler::document_cmd,  user  } },
-  { "+видео",    { "поиск видеозаписей",                      &Cmd_handler::video_cmd,     user  } },
-  { "+погода",   { "показать погоду",                         &Cmd_handler::weather_cmd,   user  } },
-  { "+пинг",     { "проверить время ответа",                  &Cmd_handler::ping_cmd,      user  } },
-  { "+вики",     { "поиск статьи в Википедии",                &Cmd_handler::wiki_cmd,      user  } },
-  { "+смех",     { "смех, параметр -s - количество символов", &Cmd_handler::laugh_cmd,     user  } },
-  { "+реверс",   { "перевернуть строку",                      &Cmd_handler::reverse_cmd,   user  } },
-  { "+курс",     { "показать курс валют",                     &Cmd_handler::currency_cmd,  user  } },
-  { "+оботе",    { "показать информацию о боте",              &Cmd_handler::about_cmd,     user  } },
-  { "+роли",     { "посмотреть роли участников",              &Cmd_handler::get_roles_cmd, user  } },
-  { "+дополни",  { "закончить текст",                         &Cmd_handler::complete_cmd,  user  } },
-  { "+онлайн",   { "показать юзеров онлайн(модератор)",       &Cmd_handler::online_cmd,    moderator } },
-  { "+кик",      { "кикнуть юзера(модератор)",                &Cmd_handler::kick_cmd,      moderator } },
-  { "+мут",      { "ограничить доступ к командам бота",       &Cmd_handler::blacklist_cmd, moderator } },
-  { "+роль",     { "установить роль участника(модератор,...)",&Cmd_handler::role_cmd,      creator } }, ///< костыль
-  { "+!",        { "(админ)повтор текста",                    &Cmd_handler::repeat_cmd,    creator } },
-  { "+os",       { "(админ)выполнить команду bash",           &Cmd_handler::os_cmd,        creator } },
+  { "+помощь",   { "показать помощь",                         &Cmd_handler::help_cmd,        user  } },
+  { "+стат",     { "показать статистику бота",                &Cmd_handler::stat_cmd,        user  } },
+  { "+crc32",    { "сгенерить CRC-32 хеш-сумму строки",       &Cmd_handler::crc32_cmd,       user  } },
+  { "+пикча",    { "найти картинку среди просторов ВК",       &Cmd_handler::picture_cmd,     user  } },
+  { "+доки",     { "поиск документов",                        &Cmd_handler::document_cmd,    user  } },
+  { "+видео",    { "поиск видеозаписей",                      &Cmd_handler::video_cmd,       user  } },
+  { "+погода",   { "показать погоду",                         &Cmd_handler::weather_cmd,     user  } },
+  { "+пинг",     { "проверить время ответа",                  &Cmd_handler::ping_cmd,        user  } },
+  { "+вики",     { "поиск статьи в Википедии",                &Cmd_handler::wiki_cmd,        user  } },
+  { "+смех",     { "смех, параметр -s - количество символов", &Cmd_handler::laugh_cmd,       user  } },
+  { "+курс",     { "показать курс валют",                     &Cmd_handler::currency_cmd,    user  } },
+  { "+оботе",    { "показать информацию о боте",              &Cmd_handler::about_cmd,       user  } },
+  { "+роли",     { "посмотреть роли участников",              &Cmd_handler::get_roles_cmd,   user  } },
+  { "+дополни",  { "закончить текст",                         &Cmd_handler::complete_cmd,    user  } },
+  { "+реверс",   { "перевернуть строку(модератор)",           &Cmd_handler::reverse_cmd,     moderator } },
+  { "+онлайн",   { "показать юзеров онлайн(модератор)",       &Cmd_handler::online_cmd,      moderator } },
+  { "+кик",      { "кикнуть юзера(модератор)",                &Cmd_handler::kick_cmd,        moderator } },
+  { "+мут",      { "ограничить доступ к командам бота",       &Cmd_handler::blacklist_cmd,   moderator } },
+  { "+запрети",  { "добавить слово в список запрещённых",     &Cmd_handler::forbid_word_cmd, moderator } },
+  { "+роль",     { "установить роль участника(модератор,...)",&Cmd_handler::role_cmd,        creator } }, ///< костыль
+  { "+!",        { "(админ)повтор текста",                    &Cmd_handler::repeat_cmd,      creator } },
+  { "+os",       { "(админ)выполнить команду bash",           &Cmd_handler::os_cmd,          creator } },
 };
 
 template <class T>
@@ -82,10 +83,11 @@ void Cmd_handler::init_cmds(
     ++_msg_counter;
   }
 
-  if (_any_of<string>(_backend._words_blacklist, _cyrillic_to_lower(_message))) {
-    return;
+  for (auto word : _args) {
+    if (_any_of<string>(_backend._words_blacklist, _utf8_to_lower(word))) {
+      return;
+    }
   }
-
   for (auto cmd : cmds) {
     if (std::get<uint8_t>(cmd.second) == creator and _from_id != creator_id) {
       continue;

@@ -7,7 +7,7 @@ Cmd_backend::Cmd_backend(Cmd_handler& handler)
 { _handler = &handler; }
 
 Cmd_backend::~Cmd_backend()
-{ delete _handler; }
+{ delete _handler, _handler = nullptr; }
 
 string Cmd_backend::_get_cmd_body() {
   bool isspace = false;
@@ -178,9 +178,9 @@ void Cmd_handler::wiki_cmd() {
       } else {
         _backend._message_send("Такой статьи не найдено");
       }
-    } catch(nlohmann::json::parse_error) {
+    } catch(nlohmann::json::parse_error&) {
 
-    } catch (nlohmann::json::type_error) {
+    } catch (nlohmann::json::type_error&) {
 
     }
 
@@ -191,9 +191,9 @@ void Cmd_handler::wiki_cmd() {
         {"format","json"},
         {"srsearch", curl_easy_escape(NULL, _backend._get_cmd_body().c_str(), _backend._get_cmd_body().length())}});
         _backend._message_send(parsed["query"]["search"][0]["snippet"]);
-    } catch(nlohmann::json::parse_error) {
+    } catch(nlohmann::json::parse_error&) {
 
-    } catch (nlohmann::json::type_error) {
+    } catch (nlohmann::json::type_error&) {
 
     }
   }
@@ -515,3 +515,28 @@ void Cmd_handler::complete_cmd() {
     _backend._message_send(_backend._get_cmd_body() + parsed["replies"][0].get<string>());
   }
 }
+
+void Cmd_handler::forbid_word_cmd() {
+  if (_message == "+запрети") {
+    _backend._empty_query();
+  } else {
+    ofstream _log (word_blacklist, std::ios::app);
+    _log << _args[1] << "\n";
+    _log.close();
+
+    _backend._message_send("Слово было запрещено.");
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

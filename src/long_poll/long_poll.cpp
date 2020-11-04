@@ -2,25 +2,32 @@
 
 using namespace cURL;
 using std::to_string;
+using std::thread;
 using nlohmann::json;
 
 void Lp::get_lp_server() {
-  params body{{ "group_id", group_id }};
+  params body;
+  body["group_id"] = group_id;
   append_vkparams(body);
-  string url = append_vkurl("groups.getLongPollServer");
-  json poll;
-  try {
-    poll  = json::parse(request(url, body));
-  }
-  catch(json::parse_error& parse_error) {
-    _logger.write_err(__LINE__, __FILE__, __FUNCTION__, parse_error.what());
-  }
+
+  json poll = json::parse(request(append_vkurl("groups.getLongPollServer"), body));
+
   if (not poll["error"]["error_code"].is_null()) {
-    errors_handle(poll["error"]["error_code"]);
+    long errcode = poll["error"]["error_code"];
+    errors_handle(errcode);
   }
+
   server = poll["response"]["server"];
   key    = poll["response"]["key"];
   ts     = to_string(poll["response"]["ts"].get<long>());
+}
+
+thread Cmd_handler::init_thread(
+  const string& message,
+  const long&   peer_id,
+  const long&   from_id)
+{
+  return thread([=]{ init_cmds(message, peer_id, from_id); });
 }
 
 void Lp::loop() {
@@ -37,14 +44,36 @@ void Lp::loop() {
       get_lp_server();
     } else {
       ts = lp["ts"];
-      for (auto update : lp["updates"]) {
-        auto event = update["object"]["message"];
-        if (not event.is_null() and event["text"] != "") {
-          handler.init_cmds( ///< костыль: нужно передать весь объект event.
-            event["text"],
-            event["peer_id"],
-            event["from_id"]
+
+      std::vector<std::thread> threads;
+      uint32_t updates_count = lp["updates"].size();
+
+      if (updates_count == 1) {
+        json update = lp["updates"][0]["object"]["message"];
+        if (update["text"] != "") {
+          handler.init_cmds(
+            update["text"],
+            update["peer_id"],
+            update["from_id"]
           );
+          continue;
+        }
+      }
+
+      for (uint8_t i = 0; i < updates_count; i++) {
+        json update = lp["updates"][i]["object"]["message"];
+        if (not update.is_null() and update["text"] != "") {
+          threads.push_back(handler.init_thread(
+            update["text"],
+            update["peer_id"],
+            update["from_id"]
+          ));
+        }
+      }
+
+      for (uint8_t i = 0; i < updates_count; i++) {
+        if (lp["updates"][i]["object"]["message"]["text"] != "") {
+          threads[i].join();
         }
       }
     }

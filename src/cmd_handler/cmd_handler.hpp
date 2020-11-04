@@ -1,6 +1,7 @@
 #pragma once
 
 #include <codecvt>
+#include <thread>
 
 #include "../cmd_handler/lib/json.hpp"
 #include "../sqlite/sqlite.hpp"
@@ -22,6 +23,8 @@ using std::unique_ptr;
 using std::runtime_error;
 using std::stringstream;
 using std::invalid_argument;
+using std::ofstream;
+using std::thread;
 using nlohmann::json;
 
 class Cmd_handler;
@@ -37,7 +40,7 @@ extern cmds_t const cmds;
 template <class T>
 bool             _any_of(vector<T>& vec, T id);
 vector<string>   _words_from_file(const string& filename);
-string           _cyrillic_to_lower(const string& text);
+string           _utf8_to_lower(const string& text);
 
 class Cmd_backend {
 private:
@@ -52,7 +55,7 @@ public:
   void             _message_send   (const string& text);
   void             _media_search   (const string& method);
   string           _ret_id         (const string& nickname);
-  void             _init_roles();
+  void             _init_roles     ();
   void             _init_words_blacklist();
   vector<uint32_t> _moderators;
   vector<uint32_t> _blacklist;
@@ -74,11 +77,18 @@ private:
 public:
   friend class Cmd_backend;
 
+  thread init_thread(
+    const string& message,
+    const long&   peer_id,
+    const long&   from_id);
+
   void init_cmds(
     const string& message,
     const long&   peer_id,
     const long&   from_id
   );
+
+  void operator,(int);
 
   void crc32_cmd();
 
@@ -111,6 +121,8 @@ public:
   void get_roles_cmd();
 
   void blacklist_cmd();
+
+  void forbid_word_cmd();
 
   void repeat_cmd();
 

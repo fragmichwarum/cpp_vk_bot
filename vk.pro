@@ -3,7 +3,7 @@ CONFIG += console c++17
 CONFIG -= app_bundle
 CONFIG -= qt
 QMAKE_CXXFLAGS += -Wall -Wextra
-LIBS += -lcurl -lsqlite3
+LIBS += -lcurl -lsqlite3 -lpthread
 
 SOURCES += \
         main.cpp \

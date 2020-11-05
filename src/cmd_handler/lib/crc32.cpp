@@ -69,10 +69,8 @@ unsigned long crc32_lookup_table[256] = {
 
 unsigned long crc32gen(const char* buffer) {
   int length = 0;
-  do {
-    ++length;
-  } while (buffer[length] != '\0');
-  long crc32 = 0xFFFFFFFF;
+  while (buffer[++length] != '\0');
+  unsigned long crc32 = 0xFFFFFFFF;
   while (length--) {
     crc32 = (crc32 >> 8) ^ crc32_lookup_table[(crc32 ^ *buffer++) & 0xFF];
   }

@@ -13,6 +13,7 @@
 namespace bot {
 
 using namespace cURL;
+using std::thread;
 using std::to_string;
 using std::string;
 using std::wstring;
@@ -24,7 +25,6 @@ using std::runtime_error;
 using std::stringstream;
 using std::invalid_argument;
 using std::ofstream;
-using std::thread;
 using nlohmann::json;
 
 class Cmd_handler;
@@ -38,31 +38,31 @@ using cmds_t      = map<command, tuple<description, cmd_pointer, access>>;
 extern cmds_t const cmds;
 
 template <class T>
-bool             _any_of(vector<T>& vec, T id);
-vector<string>   _words_from_file(const string& filename);
-string           _utf8_to_lower(const string& text);
+bool               _any_of(vector<T>& vec, T id);
+vector<string>     _words_from_file(const string& filename);
+string             _utf8_to_lower(const string& text);
 
 class Cmd_backend {
 private:
-  Cmd_handler*   _handler;
+  Cmd_handler*     _handler;
 public:
   Cmd_backend      (Cmd_handler&);
  ~Cmd_backend      ();
-  void             _empty_query    ();
-  string           _get_cmd_body   ();
-  string           _attachment_type(const string& method);
-  void             _media_not_found(const string& type);
-  void             _message_send   (const string& text);
-  void             _media_search   (const string& method);
-  string           _ret_id         (const string& nickname);
-  void             _init_roles     ();
-  void             _init_words_blacklist();
-  vector<uint32_t> _moderators;
-  vector<uint32_t> _blacklist;
-  vector<string>   _words_blacklist;
-  Logger           _logger{logfile, errfile};
-  Database         _database;
-  string           _build_time = _logger._gen_time();
+  void             empty_args          ();
+  string           get_cmd_body        ();
+  string           attachment_type     (const string& method);
+  void             media_not_found     (const string& type);
+  void             message_send        (const string& text);
+  void             media_search        (const string& method);
+  string           ret_id              (const string& nickname);
+  void             init_roles          ();
+  void             init_words_blacklist();
+  vector<uint32_t> moderators;
+  vector<uint32_t> blacklist;
+  vector<string>   words_blacklist;
+  Logger           logger{logfile, errfile};
+  Database         database;
+  string           build_time = logger._gen_time();
 };
 
 class Cmd_handler {
@@ -88,7 +88,7 @@ public:
     const long&   from_id
   );
 
-  void operator,(int);
+  void stress_test(const string& peer_id);
 
   void crc32_cmd();
 
@@ -127,6 +127,8 @@ public:
   void repeat_cmd();
 
   void complete_cmd();
+
+  void github_info_cmd();
 
   void stat_cmd();
 

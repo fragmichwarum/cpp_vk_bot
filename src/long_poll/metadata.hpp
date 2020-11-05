@@ -13,10 +13,16 @@ inline const static std::string errfile
   = "/path/to/errfile";
 
 inline const static std::string word_blacklist
-  = "/path/to/blacklist";
+  = "/path/to/word_blacklist";
+
+inline const static std::string yandex_key
+  = "";
 
 inline const static std::string access_token
   = "";
 
 inline const static std::string user_token
+  = "";
+
+inline const static std::string stress_test_token
   = "";

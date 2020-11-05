@@ -2,7 +2,12 @@
 
 #include "../cmd_handler/cmd_handler.hpp"
 
+using namespace cURL;
 using bot::Cmd_handler;
+using std::to_string;
+using std::vector;
+using std::thread;
+using nlohmann::json;
 
 class Lp {
 private:

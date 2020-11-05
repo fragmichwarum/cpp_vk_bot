@@ -12950,7 +12950,7 @@ scan_number_done:
                     error_msg += "unexpected " + std::string(lexer::token_type_name(last_token));
                 }
 
-                JSON_THROW(parse_error::create(101, m_lexer.get_position(), error_msg));
+                  JSON_THROW(parse_error::create(101, m_lexer.get_position(), error_msg));
             }
         }
 

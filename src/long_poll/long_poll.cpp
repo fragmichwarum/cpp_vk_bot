@@ -1,9 +1,7 @@
 #include "./long_poll.hpp"
 
-using namespace cURL;
-using std::to_string;
-using std::thread;
-using nlohmann::json;
+#define BOT
+//#define STRESS_TEST
 
 void Lp::get_lp_server() {
   params body;
@@ -30,6 +28,17 @@ thread Cmd_handler::init_thread(
   return thread([=]{ init_cmds(message, peer_id, from_id); });
 }
 
+#ifdef STRESS_TEST
+void Lp::loop() {
+  while (true) {
+    params lp_body;
+    std::this_thread::sleep_for (std::chrono::milliseconds(750));
+    handler.stress_test("2000000001");
+  }
+}
+#endif //STRESS_TEST
+
+#ifdef BOT
 void Lp::loop() {
   get_lp_server();
   while (true) {
@@ -45,10 +54,11 @@ void Lp::loop() {
     } else {
       ts = lp["ts"];
 
-      std::vector<std::thread> threads;
+      vector<std::thread> threads;
       uint32_t updates_count = lp["updates"].size();
 
       if (updates_count == 1) {
+        ts = lp["ts"];
         json update = lp["updates"][0]["object"]["message"];
         if (update["text"] != "") {
           handler.init_cmds(
@@ -60,7 +70,7 @@ void Lp::loop() {
         }
       }
 
-      for (uint8_t i = 0; i < updates_count; i++) {
+      for (uint32_t i = 0; i < updates_count; i++) {
         json update = lp["updates"][i]["object"]["message"];
         if (not update.is_null() and update["text"] != "") {
           threads.push_back(handler.init_thread(
@@ -71,14 +81,20 @@ void Lp::loop() {
         }
       }
 
-      for (uint8_t i = 0; i < updates_count; i++) {
-        if (lp["updates"][i]["object"]["message"]["text"] != "") {
+      for (uint32_t i = 0; i < updates_count; i++) {
+        long __ts = std::stol(lp["ts"].get<string>());
+        __ts -= updates_count - i - 1;
+        ts = to_string(__ts);
+//        ts = lp["ts"];
+        /* ПОШЁЛ НАХУЙ ЭТОТ ЛОНГ ПОЛЛ Я ЕГО РОТ НАОБОРОТ */
+        if (threads.size() > 0 and lp["updates"][i]["object"]["message"]["text"] != "") {
           threads[i].join();
         }
       }
     }
   }
 }
+#endif //BOT
 
 void Lp::init_bot() {
   Database db;

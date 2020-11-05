@@ -78,15 +78,17 @@ string cURL::request(string method, const params& body) {
   url += genparams(body);
   string buffer;
   CURL*  curl;
+//  printf("%s\n", url.c_str());
   curl = curl_easy_init();
   if (curl) {
     curl_easy_setopt(curl, CURLOPT_URL, urlencode(url).c_str());
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
+    curl_easy_setopt(curl, CURLOPT_USERAGENT, "oxfffffe");
     curl_easy_setopt(curl, CURLOPT_TIMEOUT, 600L);
-      curl_easy_perform(curl);
+    curl_easy_perform(curl);
   }
-  printf("%s\n", buffer.c_str());
+//  printf("%s\n", buffer.c_str());
   curl_easy_cleanup(curl);
   return buffer;
 }

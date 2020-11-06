@@ -4,7 +4,6 @@
 using std::string;
 using std::stringstream;
 
-//namespace {
 string cURL::char_to_hex(const char c) {
   stringstream stream;
   if (static_cast<int>(c) < 0x10) {
@@ -36,7 +35,6 @@ size_t write_callback(
   ((string*)userp)->append((char*)contents, size * nmemb);
   return size * nmemb;
 }
-//} /* namespace */
 
 string cURL::to_json(const params& body) {
   string result;
@@ -78,7 +76,6 @@ string cURL::request(string method, const params& body) {
   url += genparams(body);
   string buffer;
   CURL*  curl;
-//  printf("%s\n", url.c_str());
   curl = curl_easy_init();
   if (curl) {
     curl_easy_setopt(curl, CURLOPT_URL, urlencode(url).c_str());
@@ -88,7 +85,6 @@ string cURL::request(string method, const params& body) {
     curl_easy_setopt(curl, CURLOPT_TIMEOUT, 600L);
     curl_easy_perform(curl);
   }
-//  printf("%s\n", buffer.c_str());
   curl_easy_cleanup(curl);
   return buffer;
 }

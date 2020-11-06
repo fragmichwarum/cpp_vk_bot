@@ -3,22 +3,22 @@
 #include "../cmd_handler/cmd_handler.hpp"
 
 using namespace cURL;
-using bot::Cmd_handler;
+using bot::Vk_cmd_handler;
+using bot::Cmds;
 using std::to_string;
 using std::vector;
-using std::thread;
 using nlohmann::json;
 
 class Lp {
 private:
-  void        loop         ();
-  void        get_lp_server();
-  void        errors_handle(long error_code);
-  std::string server;
-  std::string key;
-  std::string ts;
-  Logger      _logger{logfile, errfile};
-  Cmd_handler handler;
+  void         _loop         ();
+  void         _get_lp_server();
+  void         _errors_handle(long error_code);
+  std::string  _server;
+  std::string  _key;
+  std::string  _ts;
+  Logger       _logger{logfile, errfile};
+  Cmds         _handler;
 
 public:
   void init_bot();

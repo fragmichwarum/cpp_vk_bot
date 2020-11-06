@@ -15,9 +15,6 @@ inline const static std::string errfile
 inline const static std::string word_blacklist
   = "/path/to/word_blacklist";
 
-inline const static std::string yandex_key
-  = "";
-
 inline const static std::string access_token
   = "";
 

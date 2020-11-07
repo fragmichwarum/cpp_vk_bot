@@ -74,11 +74,36 @@ void Database::insert_role(const long& user_id, const long& peer_id, const std::
 }
 
 
-std::vector<uint32_t> Database::get_by_role(const long& peer_id, const std::string& role) {
+std::vector<long> Database::get_by_role(const long& peer_id, const std::string& role) {
   string result;
   sqlite3_stmt* stmt;
-  std::vector<uint32_t> moderators;
+  std::vector<long> moderators;
   std::string query = "SELECT USER_ID FROM USERS WHERE ROLE = '" + role + "' AND PEER_ID = '" + to_string(peer_id) + "';";
+  if (not is_opened) {
+    open();
+  }
+  rc =
+  sqlite3_prepare(
+    database,       /* An open database         */
+    query.c_str(),  /* SQL to be evaluated      */
+    query.size(),   /* Callback function        */
+    &stmt,          /* 1st argument to callback */
+    NULL            /* Error msg written here   */
+  );
+  if (not rc) {
+    while ((rc = sqlite3_step(stmt)) == SQLITE_ROW) {
+      moderators.push_back(std::stoul(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0))));
+    }
+    sqlite3_finalize(stmt);
+  }
+  return moderators;
+}
+
+std::vector<long> Database::get_peer_ids() {
+  string result;
+  sqlite3_stmt* stmt;
+  std::vector<long> moderators;
+  std::string query = "SELECT PEER_ID FROM USERS GROUP BY PEER_ID";
   if (not is_opened) {
     open();
   }

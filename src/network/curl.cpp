@@ -16,8 +16,10 @@ string cURL::char_to_hex(const char c) {
 string cURL::urlencode(const string& url) {
   string urlen;
   for (char c : url) {
-    if (c == ' ' || c == '\n' || c == '+' || c == '\\')
-    {
+    if (c == '\r') {
+      urlen += "";
+    }
+    if (c == ' ' || c == '\n' || c == '+' || c == '\\' || c == '&') {
       urlen += char_to_hex(c);
     } else {
       urlen += c;
@@ -32,7 +34,7 @@ size_t write_callback(
   size_t nmemb,
   void* userp)
 {
-  ((string*)userp)->append((char*)contents, size * nmemb);
+  (static_cast<string*>(userp))->append(static_cast<char*>(contents), size * nmemb);
   return size * nmemb;
 }
 
@@ -77,13 +79,15 @@ string cURL::request(string method, const params& body) {
   string buffer;
   CURL*  curl;
   curl = curl_easy_init();
+  printf("%s\n", url.c_str());
   if (curl) {
-    curl_easy_setopt(curl, CURLOPT_URL, urlencode(url).c_str());
+    curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
     curl_easy_setopt(curl, CURLOPT_USERAGENT, "oxfffffe");
     curl_easy_setopt(curl, CURLOPT_TIMEOUT, 600L);
     curl_easy_perform(curl);
+    printf("%s\n", buffer.c_str());
   }
   curl_easy_cleanup(curl);
   return buffer;
@@ -92,12 +96,13 @@ string cURL::request(string method, const params& body) {
 string cURL::genparams(const params& body) {
   string result;
   for (const auto& element : body) {
-    result += element.first + '=' + element.second + '&';
+    result += urlencode(element.first) + '=' + urlencode(element.second) + '&';
   }
   return result;
 }
 
 void cURL::append_vkparams(params& map) {
+  map["random_id"] = "0";
   map["access_token"] = access_token;
   map["v"] = api_version;
 }

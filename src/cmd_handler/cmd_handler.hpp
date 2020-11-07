@@ -33,16 +33,19 @@ using cmd_pointer = string (Cmds::*)(void);
 using access      = uint8_t;
 using cmds_t      = map<command, tuple<description, cmd_pointer, access>>;
 
-extern cmds_t const cmds;
+extern cmds_t const vk_cmds;
+extern cmds_t const tg_cmds;
 
-template <class T>
-bool               any_of(vector<T>& vec, T id);
+template <typename T = long>
+bool               any_of         (vector<T>& vec, T id);
 vector<string>     words_from_file(const string& filename);
-string             utf8_to_lower(const string& text);
+string             utf8_to_lower  (const string& text);
+bool               exists         (const json& object, const string& key);
 
 class Vk_cmd_handler {
 private:
   Cmds*            _handler;
+
 public:
   Vk_cmd_handler   (Cmds&);
  ~Vk_cmd_handler   ();
@@ -55,9 +58,11 @@ public:
   string           ret_id              (const string& nickname);
   void             init_roles          ();
   void             init_words_blacklist();
-  vector<uint32_t> moderators;
-  vector<uint32_t> blacklist;
+  void             init_conservations  ();
+  vector<long>     moderators;
+  vector<long>     blacklist;
   vector<string>   words_blacklist;
+  vector<long>     conservations;
   Logger           logger{logfile, errfile};
   Database         database;
   string           build_time = logger._gen_time();
@@ -70,18 +75,17 @@ private:
   long             _from_id;
   long             _msg_counter{0};
   vector<string>   _args;
-  Vk_cmd_handler   _backend{*this};
+  json             _reply;
+  Vk_cmd_handler   _vk_handler{*this};
 
 public:
   friend class Vk_cmd_handler;
 
-  void init_cmds(
-    const string& message,
-    const long&   peer_id,
-    const long&   from_id
-  );
+  void init_cmds(const json& update);
 
   void stress_test(const string& peer_id);
+
+  void new_post_event(const long& from_id, const long& id);
 
   string crc32_cmd();
 
@@ -122,6 +126,10 @@ public:
   string complete_cmd();
 
   string github_info_cmd();
+
+  string genius_cmd();
+
+  string google_cmd();
 
   string stat_cmd();
 

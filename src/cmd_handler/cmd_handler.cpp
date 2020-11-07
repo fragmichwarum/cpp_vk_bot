@@ -32,11 +32,15 @@ void Vk_cmd_handler::init_roles() {
   blacklist = database.get_by_role(_handler->_peer_id, "мут");
 }
 
+void Vk_cmd_handler::init_conservations() {
+  conservations = database.get_peer_ids();
+}
+
 void Vk_cmd_handler::init_words_blacklist() {
   words_blacklist = words_from_file(word_blacklist);
 }
 
-cmds_t const bot::cmds =
+cmds_t const bot::vk_cmds =
 {
   { "+помощь",  { "показать помощь",                         &Cmds::help_cmd,        user } },
   { "+стат",    { "показать статистику бота",                &Cmds::stat_cmd,        user } },
@@ -53,6 +57,8 @@ cmds_t const bot::cmds =
   { "+роли",    { "посмотреть роли участников",              &Cmds::get_roles_cmd,   user } },
   { "+дополни", { "закончить текст",                         &Cmds::complete_cmd,    user } },
   { "+гитхаб",  { "различная инфа о юзерах с GitHub",        &Cmds::github_info_cmd, user } },
+  { "+трек",    { "получить ссылки на треки из Genius",      &Cmds::genius_cmd,      user } },
+  { "+гугл",    { "редирект сложнейшено вопроса в гугл",     &Cmds::google_cmd,      user } },
   { "+реверс",  { "перевернуть строку(модератор)",           &Cmds::reverse_cmd,     moderator } },
   { "+онлайн",  { "показать юзеров онлайн(модератор)",       &Cmds::online_cmd,      moderator } },
   { "+кик",     { "кикнуть юзера(модератор)",                &Cmds::kick_cmd,        moderator } },
@@ -68,39 +74,60 @@ bool bot::any_of(vector<T>& vec, T id) {
   return std::find(vec.begin(), vec.end(), id) != vec.end();
 }
 
-void Cmds::init_cmds(
-  const string& message,
-  const long&   peer_id,
-  const long&   from_id)
-{
-  _message = message;
-  _peer_id = peer_id;
-  _from_id = from_id;
-  _args    = split(_message);
-  _backend.init_roles();
+bool bot::exists(const json& object, const string& key) {
+    return object.find(key) != object.end();
+}
 
-  if (_message.at(0) == '+') {
-    _backend.logger.write_log(_message);
-    ++_msg_counter;
+void Cmds::init_cmds(const json& update)
+{
+  if (update["type"] == "wall_post_new") {
+    new_post_event(
+      update["object"]["from_id"].get<long>(),
+      update["object"]["id"].get<long>()
+    );
+    return;
   }
 
+  if (update["object"]["message"]["text"] == "") {
+    return;
+  }
+
+  if (exists(update["object"]["message"], "reply_message")) {
+    _reply = update["object"]["message"]["reply_message"];
+  }
+
+  if (update["type"] == "message_new") {
+    json event = update["object"]["message"];
+    _message = event["text"];
+    _peer_id = event["peer_id"];
+    _from_id = event["from_id"];
+
+    if (_message.at(0) == '+') {
+      _vk_handler.logger.write_log(_message);
+      ++_msg_counter;
+    }
+  }
+  _args    = split(_message);
+  _vk_handler.init_roles();
+
+
   for (auto word : _args) {
-    if (any_of<string>(_backend.words_blacklist, word)) {
+    if (any_of<string>(_vk_handler.words_blacklist, word)) {
       return;
     }
   }
-  for (auto cmd : cmds) {
+  for (auto cmd : vk_cmds) {
     if (std::get<uint8_t>(cmd.second) == creator and _from_id != creator_id) {
       continue;
     }
-    if (std::get<uint8_t>(cmd.second) == moderator and not any_of<uint32_t>(_backend.moderators, _from_id)) {
+    if (std::get<uint8_t>(cmd.second) == moderator and not any_of(_vk_handler.moderators, _from_id)) {
       continue;
     }
-    if (any_of<uint32_t>(_backend.blacklist, _from_id)) {
+    if (any_of(_vk_handler.blacklist, _from_id)) {
       continue;
     }
     if (cmd.first == split(_message)[0]) {
-      _backend.message_send((this->*std::get<string(Cmds::*)()>(cmd.second))());
+      _vk_handler.message_send((this->*std::get<string(Cmds::*)()>(cmd.second))());
     }
   }
 }
@@ -138,6 +165,7 @@ void Cmds::stress_test(const string& peer_id) {
   body["peer_id"] = peer_id;
   body["disable_mentions"] = "1";
   body["access_token"] = stress_test_token;
+  body["random_id"] = "0";
   body["v"] = api_version;
   request(vkurl, body);
 }

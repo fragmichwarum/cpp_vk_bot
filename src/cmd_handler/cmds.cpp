@@ -8,21 +8,22 @@ Vk_cmd_handler::Vk_cmd_handler(Cmds& handler) {
   init_words_blacklist();
 }
 
-Vk_cmd_handler::~Vk_cmd_handler()
-{ delete _handler, _handler = nullptr; }
+Vk_cmd_handler::~Vk_cmd_handler() {
+  delete _handler;
+  _handler = nullptr;
+}
 
 string Vk_cmd_handler::get_cmd_body() {
-  bool isspace = false;
-  string param;
-  for (char c : _handler->_message) {
-    if (isspace) {
-      param += c;
+  string cmd_body;
+  bool first_word = false;
+  for (string arg : split(_handler->_message)) {
+    if (not first_word) {
+      first_word = true;
+      continue;
     }
-    if (c == ' ') {
-      isspace = true;
-    }
+    cmd_body += arg + " ";
   }
-  return param;
+  return cmd_body;
 }
 
 void Vk_cmd_handler::message_send(const string& text) {
@@ -33,19 +34,22 @@ void Vk_cmd_handler::message_send(const string& text) {
   body["message"] = text;
   body["peer_id"] = to_string(_handler->_peer_id);
   body["disable_mentions"] = "1";
+  body["random_id"] = "0";
   request(vkurl, body);
 }
 
 string Vk_cmd_handler::media_search(const string& method) {
   json parsed =
-      json::parse(request(append_vkurl(method),
-        {{ "q",            get_cmd_body() },
-         { "access_token", user_token      },
-         { "count",        "50"            },
-         { "v",            api_version     }}));
+    json::parse(request(append_vkurl(method),
+      {{ "q",            get_cmd_body() },
+       { "access_token", user_token      },
+       { "count",        "50"            },
+       { "v",            api_version     }}));
+
   long size = parsed["response"]["items"].size();
   if (size == 0) {
-    return media_not_found(attachment_type(method));
+    message_send(media_not_found(attachment_type(method)));
+    return "";
   }
 
   string attachments;
@@ -56,11 +60,13 @@ string Vk_cmd_handler::media_search(const string& method) {
       break;
     }
     index = rand() % size;
-    string owner_id = to_string(parsed["response"]["items"][index]["owner_id"].get<long>());
-    string id       = to_string(parsed["response"]["items"][index]["id"].get<long>());
+    json media = parsed["response"]["items"][index];
+    string owner_id = to_string(media["owner_id"].get<long>());
+    string id       = to_string(media["id"].get<long>());
     attachments    += attachment_type(method) + owner_id + '_' + id + ',';
   }
-  params attachment_body = {{"attachment", attachments },{"peer_id", to_string(_handler->_peer_id)}};
+  params attachment_body = {{"attachment", attachments },
+                            {"peer_id", to_string(_handler->_peer_id)}};
   append_vkparams(attachment_body);
   string vkurl = append_vkurl("messages.send");
   return request(vkurl, attachment_body);
@@ -94,35 +100,32 @@ string Vk_cmd_handler::empty_args() {
 }
 
 string Cmds::document_cmd() {
-  if (_message == "+документ" or _message == "+доки") {
-    return _backend.empty_args();
-  } else {
-    _backend.media_search("docs.search");
+  if (_message == "+доки") {
+    return _vk_handler.empty_args();
   }
+  _vk_handler.media_search("docs.search");
   return "";
 }
 
 string Cmds::picture_cmd() {
-  if (_message == "+пикча" or _message == "+фото") {
-    return _backend.empty_args();
-  } else {
-    _backend.media_search("photos.search");
+  if (_message == "+пикча") {
+    return _vk_handler.empty_args();
   }
+  _vk_handler.media_search("photos.search");
   return "";
 }
 
 string Cmds::video_cmd() {
-  if (_message == "+видео" or _message == "+видос") {
-    return _backend.empty_args();
-  } else {
-   _backend.media_search("video.search");
+  if (_message == "+видео") {
+    return _vk_handler.empty_args();
   }
+  _vk_handler.media_search("video.search");
   return "";
 }
 
 string Cmds::weather_cmd() {
   if (_message == "+погода") {
-    return _backend.empty_args();
+    return _vk_handler.empty_args();
   }
   string open_weather_url = "http://api.openweathermap.org/data/2.5/weather?";
   json parsed =
@@ -131,23 +134,21 @@ string Cmds::weather_cmd() {
         { "units", "metric"                           },
         { "APPID", "ef23e5397af13d705cfb244b33d04561" },
         { "q",     _args[1]                           }}));
-  if (not parsed["weather"].is_null()) {
-    string description = parsed["weather"][0]["description"];
-    int temp           = parsed["main"]["temp"];
-    int feels_like     = parsed["main"]["feels_like"];
-    int humidity       = parsed["main"]["humidity"];
-    string city_name   = parsed["name"];
-    string weather =
-        "Сейчас в  " + city_name + " " + to_string(temp) +
-        "°C, " + description + "\nОщущается как " +
-        to_string(feels_like) + "°C\nВлажность: " +
-        to_string(humidity) + "%";
-
-    return weather;
-  } else {
+  if (parsed["weather"].is_null()) {
     return "Нет такого города.";
   }
-  return "";
+  string description = parsed["weather"][0]["description"];
+  int temp           = parsed["main"]["temp"];
+  int feels_like     = parsed["main"]["feels_like"];
+  int humidity       = parsed["main"]["humidity"];
+  string city_name   = parsed["name"];
+  string weather =
+    "Сейчас в  " + city_name + " " + to_string(temp) +
+    "°C, " + description + "\nОщущается как " +
+    to_string(feels_like) + "°C\nВлажность: " +
+    to_string(humidity) + "%";
+
+  return weather;
 }
 
 json wiki_search(const string& wiki_url, const params& text) {
@@ -156,52 +157,52 @@ json wiki_search(const string& wiki_url, const params& text) {
 
 string Cmds::wiki_cmd() {
   if (_message == "+вики") {
-    return _backend.empty_args();
-  } else {
-    string wiki_url = "https://ru.wikipedia.org/w/api.php?";
-    string page;
-    json parsed;
+    return _vk_handler.empty_args();
+  }
+  string wiki_url = "https://ru.wikipedia.org/w/api.php?";
+  string page;
+  json parsed;
 
-    try {
-      parsed =
-        wiki_search(wiki_url,
-         {{"titles",      _backend.get_cmd_body() },
-          {"action",      "query"    },
-          {"format",      "json"     },
-          {"prop",        "extracts" },
-          {"exintro",     ""         },
-          {"explaintext", ""         },
-          {"redirects",   "1"        }});
-      for (auto i : parsed["query"]["pages"].get<json::object_t>()) {
-        page = i.first;
-        break;
-      }
-
-      if (page != "-1") {
-        return parsed["query"]["pages"][page]["extract"];
-      }
-    } catch(nlohmann::json::parse_error&) {
-
-    } catch (nlohmann::json::type_error&) {
-
+  try {
+    parsed =
+      wiki_search(wiki_url,
+       {{"titles",      _vk_handler.get_cmd_body() },
+        {"action",      "query"    },
+        {"format",      "json"     },
+        {"prop",        "extracts" },
+        {"exintro",     ""         },
+        {"explaintext", ""         },
+        {"redirects",   "1"        }});
+    for (auto i : parsed["query"]["pages"].get<json::object_t>()) {
+      page = i.first;
+     break;
     }
 
-    try {
-      parsed = wiki_search(wiki_url,
-       {{"action", "query"},
-        {"list", "search"},
-        {"format","json"},
-        {"srsearch", curl_easy_escape(NULL, _backend.get_cmd_body().c_str(), _backend.get_cmd_body().length())}});
-      if (parsed["query"]["search"].size() == 0) {
-        _backend.message_send("Такой статьи не найдено.");
-        return "Такой статьи не найдено.";
-      }
-      return parsed["query"]["search"][0]["snippet"];
-    } catch(nlohmann::json::parse_error&) {
-
-    } catch (nlohmann::json::type_error&) {
-
+    if (page != "-1") {
+      return parsed["query"]["pages"][page]["extract"];
     }
+  } catch(nlohmann::json::parse_error&) {
+
+  } catch (nlohmann::json::type_error&) {
+
+  }
+
+  try {
+    parsed = wiki_search(wiki_url,
+     {{"action", "query"},
+      {"list", "search"},
+      {"format","json"},
+      {"srsearch", curl_easy_escape(NULL, _vk_handler.get_cmd_body().c_str(), _vk_handler.get_cmd_body().length())}});
+    if (parsed["query"]["search"].size() == 0) {
+      _vk_handler.message_send("Такой статьи не найдено.");
+      return "Такой статьи не найдено.";
+    }
+    return parsed["query"]["search"][0]["snippet"];
+
+  } catch(nlohmann::json::parse_error&) {
+
+  } catch (nlohmann::json::type_error&) {
+
   }
   return "";
 }
@@ -270,10 +271,9 @@ string Cmds::laugh_cmd() {
 string Cmds::reverse_cmd() {
   setlocale(LC_CTYPE, "");
   if (_message == "+реверс") {
-    return _backend.empty_args();
-  } else {
-    return reverse(_backend.get_cmd_body().c_str());
+    return _vk_handler.empty_args();
   }
+  return reverse(_vk_handler.get_cmd_body().c_str());
 }
 
 string Cmds::currency_cmd() {
@@ -302,7 +302,7 @@ string Cmds::currency_cmd() {
 
 string Cmds::help_cmd() {
   string help_info = "Список команд:\n";
-  for (auto cmd : cmds) {
+  for (auto cmd : vk_cmds) {
     help_info += cmd.first + " - " + std::get<string>(cmd.second) + '\n';
   }
   return help_info;
@@ -314,14 +314,14 @@ string Cmds::about_cmd() {
     "сурсы лежат тут: https://github.com/oxfffffe/cpp_vk_bot\n"
     "бота создал: @jijijijijijijijijijijijji (он)\n"
     "версия VK API: " + api_version + '\n' +
-    "собран: " + _backend.build_time;
+    "собран: " + _vk_handler.build_time;
 }
 
 string Cmds::crc32_cmd() {
   if (_message == "+crc32") {
-    return _backend.empty_args();
+    return _vk_handler.empty_args();
   }
-  unsigned long crc32 = crc32gen(_backend.get_cmd_body().c_str());
+  unsigned long crc32 = crc32gen(_vk_handler.get_cmd_body().c_str());
   stringstream stream;
   stream << "0x" << std::hex << crc32;
   return stream.str();
@@ -338,12 +338,12 @@ static string os_exec(string const& cmd) {
 }
 
 string Cmds::os_cmd() {
-  string cmd = _backend.get_cmd_body();
+  string cmd = _vk_handler.get_cmd_body();
   return os_exec(cmd);
 }
 
 string Cmds::repeat_cmd() {
-  return _backend.get_cmd_body();
+  return _vk_handler.get_cmd_body();
 }
 
 static string lineparse(const string& line) {
@@ -394,7 +394,7 @@ string Cmds::ping_cmd() {
 string Cmds::online_cmd() {
   uint16_t access_err = 917;
   string vkurl = append_vkurl("messages.getConversationMembers");
-  params body  = {{"fields", "online"},{"peer_id", to_string(_peer_id)}};
+  params body  = {{"fields", "online"}, {"peer_id", to_string(_peer_id)}};
   append_vkparams(body);
 
   json parsed = json::parse(request(vkurl, body));
@@ -420,10 +420,10 @@ string Vk_cmd_handler::ret_id(const string& id) {
 
 string Cmds::kick_cmd() {
   if (_message == "+кик") {
-    return _backend.empty_args();
+    return _vk_handler.empty_args();
   }
   params body = {{"chat_id", to_string(_peer_id - 2000000000)},
-                 {"user_id", _backend.ret_id(_backend.get_cmd_body())}};
+                 {"user_id", _vk_handler.ret_id(_vk_handler.get_cmd_body())}};
   append_vkparams(body);
   json response = json::parse(request(append_vkurl("messages.removeChatUser"), body));
   if (not response["error"].is_null() and
@@ -436,61 +436,59 @@ string Cmds::kick_cmd() {
 
 string Cmds::role_cmd() {
   if (_message == "+роль") {
-    return _backend.empty_args();
+    return _vk_handler.empty_args();
   }
   if (_args.size() == 3) {
-    long id = std::stol(_backend.ret_id(_args[1]));
-    _backend.database.insert_role(id, _peer_id, _args[2]);
+    long id = std::stol(_vk_handler.ret_id(_args[1]));
+    _vk_handler.database.insert_role(id, _peer_id, _args[2]);
     return "Роль успешно установлена.";
   } else {
     return "Что-то пошло не так, проверь правильность аргументов.";
   }
 }
 string Cmds::get_roles_cmd() {
-  if (_args.size() < 1) {
-    _backend.message_send("Что-то пошло не так, проверь правильность аргументов.");
-  } else {
-    vector<uint32_t> roles = _backend.database.get_by_role(_peer_id, _args[1]);
-    if (roles.size() == 0) {
-      return "В этом чате нет участников с данной ролью.";
-    }
-    string persons;
-    bool is_comma = false;
-    for (uint32_t person : roles) {
-      if (is_comma) {
-        persons += ',';
-      }
-      is_comma = true;
-      persons += to_string(person);
-    }
-    json parsed =
-      json::parse(request(append_vkurl("users.get"),
-       {{"user_ids",     persons           },
-        {"access_token", user_token        },
-        {"v",            api_version      }}));
-    string moderators = "Список участников с данной ролью:\n";
-    for (uint8_t i = 0; i < roles.size(); i++) {
-      moderators += "@id";
-      moderators += to_string(roles.at(i));
-      moderators += " (";
-      moderators += parsed["response"][i]["first_name"];
-      moderators += " ";
-      moderators += parsed["response"][i]["last_name"];
-      moderators += ")";
-      moderators += '\n';
-    }
-    return moderators;
+  if (_args.size() == 1) {
+    return "Что-то пошло не так, проверь правильность аргументов.";
   }
-  return "";
+  vector<long> roles = _vk_handler.database.get_by_role(_peer_id, _args[1]);
+  if (roles.size() == 0) {
+    return "В этом чате нет участников с данной ролью.";
+  }
+  string persons;
+  bool is_comma = false;
+  for (uint32_t person : roles) {
+    if (is_comma) {
+      persons += ',';
+    }
+    is_comma = true;
+    persons += to_string(person);
+  }
+  json parsed =
+    json::parse(request(append_vkurl("users.get"),
+     {{"user_ids",     persons           },
+      {"access_token", user_token        },
+      {"v",            api_version      }}));
+  string moderators = "Список участников с данной ролью:\n";
+  for (uint8_t i = 0; i < roles.size(); i++) {
+    moderators += "@id";
+    moderators += to_string(roles.at(i));
+    moderators += " (";
+    moderators += parsed["response"][i]["first_name"];
+    moderators += " ";
+    moderators += parsed["response"][i]["last_name"];
+    moderators += ")";
+    moderators += '\n';
+  }
+  return moderators;
 }
 
 string Cmds::blacklist_cmd() {
   if (_message == "+мут") {
-    return _backend.empty_args();
+    return _vk_handler.empty_args();
   }
   if (_args.size() == 2) {
-    long id = std::stol(_backend.ret_id(_args[1]));
-    _backend.database.insert_role(id, _peer_id, "мут");
+    long id = std::stol(_vk_handler.ret_id(_args[1]));
+    _vk_handler.database.insert_role(id, _peer_id, "мут");
     return "Готово.";
   } else {
     return "Что-то пошло не так, проверь правильность аргументов.";
@@ -499,23 +497,25 @@ string Cmds::blacklist_cmd() {
 
 string Cmds::complete_cmd() {
   if (_message == "+дополни") {
-    return _backend.empty_args();
-  } else {
-    json parsed =
-        json::parse(requestdata(
-          "https://pelevin.gpt.dobro.ai/generate/",to_json({{"prompt",_backend.get_cmd_body()},{"length","50"}})));
-    return _backend.get_cmd_body() + parsed["replies"][0].get<string>();
+    return _vk_handler.empty_args();
   }
+  string AIurl = "https://pelevin.gpt.dobro.ai/generate/";
+  string body = _vk_handler.get_cmd_body();
+  json parsed =
+    json::parse(requestdata(
+                  AIurl, to_json({{"prompt", body}, {"length", "50"}})));
+
+  return body + parsed["replies"][0].get<string>();
 }
 
 string Cmds::forbid_word_cmd() {
   if (_message == "+запрети") {
-    return _backend.empty_args();
+    return _vk_handler.empty_args();
   }
   ofstream _log (word_blacklist, std::ios::app);
   _log << _args[1] << "\n";
   _log.close();
-  _backend.init_words_blacklist();
+  _vk_handler.init_words_blacklist();
   return "Слово было запрещено.";
 }
 
@@ -624,7 +624,7 @@ string github_get_user_followers(const string& user) {
 
 string Cmds::github_info_cmd() {
   if (_message == "+гитхаб") {
-    return _backend.empty_args();
+    return _vk_handler.empty_args();
   }
 
   string option = _args[1];
@@ -638,15 +638,11 @@ string Cmds::github_info_cmd() {
     return "Недопустимые символы.";
   }
 
-  vector<string> options = {
-    "-репо",
-    "-подписчики",
-    "-юзер",
-    "-помощь"
-  };
+  vector<string> options = { "-репо", "-подписчики", "-юзер", "-помощь" };
 
   if (not any_of(options, option)) {
-    return "Неверный параметр. Напиши \"+гитхаб -помощь\", чтобы узнать о параметрах.";
+    return "Неверный параметр. Напиши \"+гитхаб -помощь\", чтобы узнать о "
+           "параметрах.";
   }
 
   if (_args.size() == 4 and option == "-репо") {
@@ -666,11 +662,71 @@ string Cmds::github_info_cmd() {
   }
 
   if (_args.size() == 2 and option == "-помощь") {
-    return
-      "+гитхаб -репо <никнейм> - получить информацию о репозиториях(до 5 шт.) пользователя,\n"
-      "+гитхаб -репо <никнейм> <репозиторий> - получить информацию о конкретном пользователя,\n"
-      "+гитхаб -подписчики <никнейм> - получить список людей, подписанных на <никнейм>,\n"
-      "+гитхаб -юзер <никнейм> - получить информацию о аккаунте GitHub.";
+    return "+гитхаб -репо <никнейм> - получить информацию о репозиториях(до 5 шт.) пользователя,\n"
+           "+гитхаб -репо <никнейм> <репозиторий> - получить информацию о конкретном пользователя,\n"
+           "+гитхаб -подписчики <никнейм> - получить список людей, подписанных на <никнейм>,\n"
+           "+гитхаб -юзер <никнейм> - получить информацию о аккаунте GitHub.";
+  }
+  return "";
+}
+
+string Cmds::genius_cmd() {
+  if (_message == "+трек") {
+    return _vk_handler.empty_args();
+  }
+  string genius_token = "JSgH4gUYSn3S2C6Wd4BUhGuV1FWaKSET9DQVl-HBqlqeQ3isoW5bXSllR90VKvQF";
+  json songs =
+    json::parse(request("https://api.genius.com/search?",
+     {{"q",            _vk_handler.get_cmd_body() },
+      {"access_token", genius_token               }}));
+
+  if (songs["response"]["hits"].size() == 0) {
+    return "Кажется такого исполнителя нет.";
+  }
+  string songs_message;
+  long resp_size = 0;
+  for (json song : songs["response"]["hits"]) {
+    if (resp_size++ == 10) {
+      break;
+    }
+    songs_message += song["result"]["full_title"];
+    songs_message += "\nСcылка: ";
+    songs_message += song["result"]["url"];
+    songs_message += "\n\n";
+  }
+
+  return songs_message;
+}
+
+void Cmds::new_post_event(const long& from_id, const long& id) {
+  _vk_handler.init_conservations();
+  for (long conservation : _vk_handler.conservations) {
+    string attachment = to_string(from_id) + '_' + to_string(id);
+    request(append_vkurl("messages.send"),
+     {{"message",      "Таки новый пост в группе🌚" },
+      {"random_id",    "0"                         },
+      {"peer_id",      to_string(conservation)     },
+      {"attachment",   "wall" + attachment         },
+      {"access_token", access_token                },
+      {"v",            api_version                 }});
+  }
+}
+
+string google_urlencode(const string& str) {
+  string res;
+  for (char c : str) {
+    if (c == ' ') {
+      res += '+';
+    } else {
+      res += c;
+    }
+  }
+  return res;
+}
+
+string Cmds::google_cmd() {
+  if (not _reply.is_null()) {
+    return "https://www.google.com/search?q=" + google_urlencode(_reply["text"].get<string>());
   }
   return "";
 }

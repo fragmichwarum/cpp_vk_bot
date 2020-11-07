@@ -17,14 +17,14 @@ void Lp::_get_lp_server() {
 
   _server = poll["response"]["server"];
   _key    = poll["response"]["key"];
-  _ts     = to_string(poll["response"]["ts"].get<long>());
+  _ts     = poll["response"]["ts"];
 }
 
 #ifdef STRESS_TEST
+#include <thread>
 void Lp::_loop() {
   while (true) {
-    params lp_body;
-//    std::this_thread::sleep_for (std::chrono::milliseconds(500));
+    std::this_thread::sleep_for (std::chrono::milliseconds(500));
     _handler.stress_test("2000000001");
   }
 }
@@ -47,14 +47,9 @@ void Lp::_loop() {
       _ts = lp["ts"];
 
       for (auto update : lp["updates"]) {
-        json event = update["object"]["message"];
-        if (event["text"] != "") {
-          _handler.init_cmds(
-            event["text"],
-            event["peer_id"],
-            event["from_id"]
-          );
-        }
+        _handler.init_cmds(
+          update
+        );
       }
     }
   }

@@ -7,13 +7,13 @@ inline const static std::string group_id
   = "";
 
 inline const static std::string logfile
-  = "/path/to/logfile";
+  = "/path/to/log";
 
 inline const static std::string errfile
-  = "/path/to/errfile";
+  = "/path/to/errlog";
 
 inline const static std::string word_blacklist
-  = "/path/to/word_blacklist";
+  = "/path/to/blacklist";
 
 inline const static std::string access_token
   = "";

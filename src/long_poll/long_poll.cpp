@@ -21,16 +21,18 @@ void Lp::_get_lp_server() {
 }
 
 #ifdef STRESS_TEST
-#include <thread>
 void Lp::_loop() {
   while (true) {
-    std::this_thread::sleep_for (std::chrono::milliseconds(500));
     _handler.stress_test("2000000001");
   }
 }
 #endif //STRESS_TEST
 
 #ifdef BOT
+thread Lp::_init_thread(const json &update) {
+  return thread([=]{ _handler.init_cmds(update); });
+}
+
 void Lp::_loop() {
   _get_lp_server();
   while (true) {
@@ -46,10 +48,18 @@ void Lp::_loop() {
     } else {
       _ts = lp["ts"];
 
-      for (auto update : lp["updates"]) {
-        _handler.init_cmds(
-          update
-        );
+      if (lp["updates"].size() == 1) {
+        _handler.init_cmds(lp["updates"][0]);
+        continue;
+      }
+
+      vector<std::thread> threads;
+      for (const json& update : lp["updates"]) {
+        threads.push_back(_init_thread(update));
+      }
+
+      for (std::thread& th : threads) {
+        th.join();
       }
     }
   }

@@ -12,8 +12,7 @@ namespace {
 const bool     fatal = true;
 const bool non_fatal = false;
 
-template <typename... _Traits>
-vector<tuple<_Traits...>> errors =
+vector<tuple<long, string, bool>> errors =
 {
   {  1, "Unknown error",                       non_fatal },
   {  2, "App disabled",                            fatal },
@@ -29,7 +28,7 @@ vector<tuple<_Traits...>> errors =
 } //namespace
 
 void Lp::_errors_handle(long errcode) {
-  for (auto error : errors<long, string, bool>) {
+  for (auto error : errors) {
     if (not (get<long>(error) == errcode)) {
       return;
     }

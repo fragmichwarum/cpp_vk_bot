@@ -1,6 +1,12 @@
 #include "./cmd_handler.hpp"
 
 using namespace bot;
+using namespace cURL;
+
+using nlohmann::json;
+
+using std::string;
+using std::vector;
 
 uint8_t const user      = 0x00;
 uint8_t const moderator = 0x01;
@@ -47,19 +53,23 @@ vector<string> bot::words_from_file(const string& filename) {
 }
 
 string bot::utf8_to_lower(const string& text) {
-  wstring wide_string = std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t>().from_bytes(text);
+  using std::wstring;
+  using std::wstring_convert;
+  using std::codecvt_utf8;
+  using std::bind2nd;
+  using std::tolower;
+
+  wstring wide_string = wstring_convert<codecvt_utf8<wchar_t>, wchar_t>().from_bytes(text);
   std::transform(
-    wide_string.begin(),
-    wide_string.end(),
-    wide_string.begin(),
-    std::bind2nd(std::ptr_fun(&std::tolower<wchar_t>), std::locale(""))
+    wide_string.begin(), wide_string.end(), wide_string.begin(),
+    bind2nd(std::ptr_fun(&tolower<wchar_t>), std::locale(""))
   );
-  return std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t>().to_bytes(wide_string);
+  return wstring_convert<codecvt_utf8<wchar_t>, wchar_t>().to_bytes(wide_string);
 }
 
 void Vk_cmd_handler::init_roles(const long& peer_id) {
   moderators = database.get_by_role(peer_id, "модератор");
-  blacklist = database.get_by_role(peer_id, "мут");
+  blacklist  = database.get_by_role(peer_id, "мут");
 }
 
 void Vk_cmd_handler::init_conservations() {
@@ -77,12 +87,16 @@ bool bot::exists(const json& object, const string& key) {
 void Vk_cmd_handler::log(const string& message) {
   if (message.at(0) == '+') {
     logger.write_log(message);
-    _msg_counter++;
+    msg_counter++;
   }
 }
 
-void Cmds::init_cmds(const json& update)
+void Cmds::init_cmds(const json &update)
 {
+  if (exists(update["object"]["message"],"reply_message")) {
+    _reply = update["object"]["message"]["reply_message"];
+  }
+
   if (update["type"] == "wall_post_new") {
     new_post_event(update["object"]);
     return;
@@ -96,24 +110,20 @@ void Cmds::init_cmds(const json& update)
     return;
   }
 
-  if (exists(update["object"]["message"],"reply_message")) {
-    _reply = update["object"]["message"]["reply_message"];
-  }
-
   string message;
   long peer_id;
   long from_id;
   if (update["type"] == "message_new") {
-    json event = update["object"]["message"];
-    message = event["text"];
-    peer_id = event["peer_id"];
-    from_id = event["from_id"];
+    message = update["object"]["message"][   "text"];
+    peer_id = update["object"]["message"]["peer_id"];
+    from_id = update["object"]["message"]["from_id"];
 
     _vk_handler.log(message);
     _vk_handler.init_roles(peer_id);
   }
 
   for (const auto& arg : split(message)) {
+
     if (std::any_of(
           _vk_handler.words_blacklist.begin(),
           _vk_handler.words_blacklist.end(),
@@ -122,6 +132,7 @@ void Cmds::init_cmds(const json& update)
       return;
     }
   }
+
 
   bool any_of_blacklisted =
     any_of(_vk_handler.blacklist.begin(),
@@ -140,12 +151,15 @@ void Cmds::init_cmds(const json& update)
     if (any_of_blacklisted) {
       continue;
     }
+
     if (is_not_moderator) {
       continue;
     }
+
     if (is_not_creator) {
       continue;
     }
+
     if (cmd.first == split(message)[0]) {
       _vk_handler.message_send((this->*std::get<cmd_pointer>(cmd.second))({ message, peer_id }), peer_id);
     }

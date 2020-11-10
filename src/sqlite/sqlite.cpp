@@ -6,10 +6,10 @@ using std::invalid_argument;
 using std::to_string;
 
 int Database::callback(
-  void*  not_used,
-  int    argc,
-  char** argv,
-  char** col_name)
+  [[maybe_unused]] void*  not_used,
+  [[maybe_unused]] int    argc,
+  [[maybe_unused]] char** argv,
+  [[maybe_unused]] char** col_name)
 {
   return 0;
 }

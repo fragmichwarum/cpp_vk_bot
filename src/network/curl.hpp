@@ -12,12 +12,11 @@ using std::string;
 using std::map;
 using params = map<string, string>;
 
-string char_to_hex    (const char c);
 string urlencode      (const string& url);
 void   append_vkparams(params& map);
 string append_vkurl   (const string& method);
 string genparams      (const params& body);
 string to_json        (const params& body);
-string request        (string method, const params& body);
+string request        (const string& method, const params& body);
 string requestdata    (string method, const string& data);
 }

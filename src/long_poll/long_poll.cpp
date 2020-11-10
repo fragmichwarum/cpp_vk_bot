@@ -1,14 +1,17 @@
+#include <thread>
+
 #include "./long_poll.hpp"
 
 #define BOT
 //#define STRESS_TEST
 
 void Lp::_get_lp_server() {
-  params body;
-  body["group_id"] = group_id;
-  append_vkparams(body);
-
-  json poll = json::parse(request(append_vkurl("groups.getLongPollServer"), body));
+  json poll =
+    json::parse(request(append_vkurl("groups.getLongPollServer"),
+     {{"group_id",     group_id     },
+      {"random_id",    "0"          },
+      {"access_token", access_token },
+      {"v",            api_version  }}));
 
   if (not poll["error"]["error_code"].is_null()) {
     long errcode = poll["error"]["error_code"];
@@ -36,13 +39,12 @@ thread Lp::_init_thread(const json &update) {
 void Lp::_loop() {
   _get_lp_server();
   while (true) {
-    params lp_body;
-    lp_body["act"]  = "a_check";
-    lp_body["key"]  = _key;
-    lp_body["ts"]   = _ts;
-    lp_body["wait"] = "60";
-
-    json lp = json::parse(request(_server + "?", lp_body));
+    json lp =
+      json::parse(request(_server + "?",
+       {{"act", "a_check" },
+        {"key",  _key     },
+        {"ts",   _ts      },
+        {"wait", "90"     }}));
     if (lp["updates"][0].is_null()) {
       _get_lp_server();
     } else {
@@ -53,12 +55,12 @@ void Lp::_loop() {
         continue;
       }
 
-      vector<std::thread> threads;
+      vector<thread> threads;
       for (const json& update : lp["updates"]) {
         threads.push_back(_init_thread(update));
       }
 
-      for (std::thread& th : threads) {
+      for (thread& th : threads) {
         th.join();
       }
     }

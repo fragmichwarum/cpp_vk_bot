@@ -2,14 +2,22 @@
 
 #include "../cmd_handler/cmd_handler.hpp"
 
+namespace std
+  {
+    class thread;
+  }
+
 using namespace cURL;
+
+using nlohmann::json;
+
 using bot::Vk_cmd_handler;
 using bot::Cmds;
 using std::to_string;
 using std::vector;
-using nlohmann::json;
-using std::thread;
 using std::string;
+using std::thread;
+
 
 class Lp {
 private:

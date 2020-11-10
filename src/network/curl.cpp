@@ -1,31 +1,9 @@
-#include <sstream>
 #include "curl.hpp"
 
 using std::string;
-using std::stringstream;
-
-string cURL::char_to_hex(const char c) {
-  stringstream stream;
-  if (static_cast<int>(c) < 0x10) {
-    stream << "0";
-  }
-  stream << std::hex << static_cast<int>(c);
-  return '%' + stream.str();
-}
 
 string cURL::urlencode(const string& url) {
-  string urlen;
-  for (char c : url) {
-    if (c == '\r') {
-      urlen += "";
-    }
-    if (c == ' ' || c == '\n' || c == '+' || c == '\\' || c == '&') {
-      urlen += char_to_hex(c);
-    } else {
-      urlen += c;
-    }
-  }
-  return urlen;
+  return curl_easy_escape(NULL, url.c_str(), url.length());
 }
 
 size_t write_callback(
@@ -73,7 +51,7 @@ string cURL::requestdata(string method, const string& data) {
   return buffer;
 }
 
-string cURL::request(string method, const params& body) {
+string cURL::request(const string& method, const params& body) {
   string url = method;
   url += genparams(body);
   string buffer;

@@ -1,7 +1,5 @@
 #pragma once
 
-#include <codecvt>
-
 #include "../cmd_handler/lib/json.hpp"
 #include "../sqlite/sqlite.hpp"
 #include "../splitter/split.hpp"
@@ -29,7 +27,6 @@ using cmds_t      = std::map<command, std::tuple<description, cmd_pointer, acces
 extern cmds_t const vk_cmds;
 
 std::vector<std::string> words_from_file(const std::string& filename);
-std::string              utf8_to_lower  (const std::string& text);
 bool                     exists         (const nlohmann::json& object, const std::string& key);
 
 class Vk_cmd_handler {
@@ -40,19 +37,16 @@ public:
   explicit
   Vk_cmd_handler    (Cmds&);
  ~Vk_cmd_handler    () {};
-  std::string       empty_args          () noexcept(true);
-  std::string       get_args            (const std::string& message);
-  std::string       attachment_type     (const std::string& method);
-  std::string       media_not_found     (const std::string& type);
-  std::string       media_search        (const std::string& method, const std::string& text, const long& peer_id);
-  void              message_send        (const std::string& text, const long& peer_id);
-  void              log                 (const std::string& message);
-  void              init_roles          (const long& peer_id);
-  void              init_words_blacklist();
-  void              init_conservations  ();
+  std::string       empty_args     () noexcept(true);
+  std::string       get_args       (const std::string& message);
+  std::string       attachment_type(const std::string& method);
+  std::string       media_not_found(const std::string& type);
+  std::string       media_search   (const std::string& method, const std::string& text, const long& peer_id);
+  void              message_send   (const std::string& text, const long& peer_id);
+  void              log            (const std::string& message, const long& from_id);
+  void              init_roles     (const long& peer_id);
   std::vector<long> moderators;
   std::vector<long> blacklist;
-  std::vector<std::string> words_blacklist;
   std::vector<long> conservations;
   Logger            logger{logfile, errfile};
   Database          database;
@@ -98,8 +92,6 @@ public:
   std::string get_roles_cmd(_Cmd_ref args);
 
   std::string blacklist_cmd(_Cmd_ref args);
-
-  std::string forbid_word_cmd(_Cmd_ref args);
 
   std::string repeat_cmd(_Cmd_ref args);
 

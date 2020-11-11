@@ -30,7 +30,7 @@ vector<tuple<long, string, bool>> errors =
 void Lp::_errors_handle(long errcode) {
   for (auto error : errors) {
     if (not (get<long>(error) == errcode)) {
-      return;
+      continue;
     }
     _logger.write_err(__LINE__, __FILE__, __FUNCTION__, get<string>(error).c_str());
 

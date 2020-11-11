@@ -81,6 +81,21 @@ string Logger::_gen_time() {
          to_string(now->tm_year  + 1900);
 }
 
+void Logger::print_log(const string& message, const string& from) {
+  printf(
+    "%s%s%s -> %s\n %s*%s from id %s%s%s\n\n",
+    yellow,
+    _gen_time().c_str(),
+    eoc,
+    message.c_str(),
+    red,
+    eoc,
+    mint,
+    from.c_str(),
+    eoc
+  );
+}
+
 void Logger::write_log(const string& message) {
   std::ofstream _log (_logpath, std::ios::app);
   _log << _gen_time() << " :\t" << message << '\n';

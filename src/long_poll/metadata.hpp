@@ -1,19 +1,16 @@
 #include <string>
 
 inline const static int creator_id
-  = 123;
+  = 499047616;
 
 inline const std::string group_id
-  = "";
+  = "192764727";
 
 inline const std::string logfile
-  = "/path/to/logfile";
+  = "/path/to/log";
 
 inline const std::string errfile
-  = "/path/to/errfile";
-
-inline const std::string word_blacklist
-  = "/path/to/word_blacklist";
+  = "/path/to/error/log";
 
 inline const std::string access_token
   = "";

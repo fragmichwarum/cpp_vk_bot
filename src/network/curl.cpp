@@ -3,7 +3,10 @@
 using std::string;
 
 string cURL::urlencode(const string& url) {
-  return curl_easy_escape(NULL, url.c_str(), url.length());
+  char* encoded = curl_easy_escape(NULL, url.c_str(), url.length());
+  string res{encoded};
+  curl_free(encoded);
+  return res;
 }
 
 size_t write_callback(
@@ -25,11 +28,7 @@ string cURL::to_json(const params& body) {
       result += ",";
     }
     iscomma = true;
-    result += "\"";
-    result += element.first;
-    result += "\":\"";
-    result += element.second;
-    result += "\"";
+    result += string{ "\"" + element.first + "\":\"" + element.second + "\"" };
   }
   result += '}';
   return result;
@@ -57,7 +56,6 @@ string cURL::request(const string& method, const params& body) {
   string buffer;
   CURL*  curl;
   curl = curl_easy_init();
-  printf("%s\n", url.c_str());
   if (curl) {
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
@@ -65,7 +63,6 @@ string cURL::request(const string& method, const params& body) {
     curl_easy_setopt(curl, CURLOPT_USERAGENT, "oxfffffe");
     curl_easy_setopt(curl, CURLOPT_TIMEOUT, 600L);
     curl_easy_perform(curl);
-    printf("%s\n", buffer.c_str());
   }
   curl_easy_cleanup(curl);
   return buffer;

@@ -12,7 +12,6 @@ using std::to_string;
 
 Vk_cmd_handler::Vk_cmd_handler(Cmds& handler) {
   _handler = &handler;
-  init_words_blacklist();
 }
 
 string Vk_cmd_handler::get_args(const string& message) {
@@ -221,15 +220,15 @@ string Cmds::laugh_cmd(_Cmd_ref cmd) {
     return laugh();
   }
 
-  if (_args[1] != "-s" and _args.size() > 1) {
+  if (_args[1] != "-s" && _args.size() > 1) {
     return "Неверный параметр.";
   }
 
-  if (_args[1] == "-s" and _args.size() == 2) {
+  if (_args[1] == "-s" && _args.size() == 2) {
     return "Введи количество символов.";
   }
 
-  if (_args[1] != "-s" and _args.size() >= 3) {
+  if (_args[1] != "-s" && _args.size() >= 3) {
     return "";
   }
 
@@ -291,11 +290,40 @@ string Cmds::currency_cmd([[maybe_unused]] _Cmd_ref cmd) {
 }
 
 string Cmds::help_cmd([[maybe_unused]] _Cmd_ref cmd) {
+  uint8_t PAGE_SIZE = 15;
+  uint8_t count_of_pages = vk_cmds.size() / PAGE_SIZE;
+
+  if (cmd.message == "+помощь") {
+    return
+      "+помощь <номер страницы>\n"
+      "Индексация, конечно, начинается с нуля :)\n"
+      "Максимальное количество страниц: " +
+      to_string(count_of_pages + 1);
+  }
+
+  vector<string> args = split(cmd.message);
+
+  if (not std::all_of(args[1].begin(), args[1].end(), ::isdigit)) {
+    return "Аргумет не является числом.";
+  }
+
+  unsigned long page_number = stol(args[1]);
+
+  if (page_number > count_of_pages) {
+    return "Такой страницы ещё нет.";
+  }
+
   string help_info = "Список команд:\n";
 
-  for (cmds_t::const_iterator iterator = vk_cmds.begin(); iterator != vk_cmds.end(); iterator++) {
-    help_info += iterator->first + " - " + std::get<string>(iterator->second) + '\n';
+  cmds_t::const_iterator iterator = vk_cmds.begin();
+  std::advance(iterator, page_number * PAGE_SIZE);
+
+  for (uint8_t runner = 0; iterator != vk_cmds.end() && runner++ < PAGE_SIZE; iterator++) {
+    help_info += iterator->first + " - " + std::get<string>(iterator->second) + "\n";
   }
+
+  help_info += "\n...\nСтраница " + to_string(page_number) + " из " + to_string(count_of_pages);
+
   return help_info;
 }
 
@@ -308,8 +336,8 @@ string Cmds::about_cmd([[maybe_unused]] _Cmd_ref cmd) {
     "собран: " + _vk_handler.build_time;
 }
 
-static inline string long_to_hex_str(unsigned long digit) noexcept {
-  char constexpr alphabet[0x10] = {
+static inline string long_to_hex_str(unsigned long digit) noexcept(true) {
+  static constexpr char const alphabet[0x10] = {
     '0', '1', '2', '3',
     '4', '5', '6', '7',
     '8', '9', 'a', 'b',
@@ -408,7 +436,7 @@ string Cmds::online_cmd(_Cmd_ref cmd) {
       { "random_id",    "0"          },
       { "access_token", access_token },
       { "v",            api_version  }}));
-  if (not parsed["error"].is_null() and
+  if (not parsed["error"].is_null() &&
           parsed["error"]["error_code"] == 917L)
   {
     return "Упс, кажется у бота нет админки.";
@@ -432,7 +460,7 @@ static inline string ret_id(const string& id) {
 }
 
 string Cmds::kick_cmd(_Cmd_ref cmd) {
-  if (cmd.message == "+кик" and _reply.is_null()) {
+  if (cmd.message == "+кик" && _reply.is_null()) {
     return _vk_handler.empty_args();
   }
 
@@ -448,12 +476,12 @@ string Cmds::kick_cmd(_Cmd_ref cmd) {
 
   append_vkparams(body);
   json response = json::parse(request(append_vkurl("messages.removeChatUser"), body));
-  if (not response["error"].is_null() and
+  if (not response["error"].is_null() &&
           response["error"]["error_code"] == 100)
   {
     return "Что-то пошло не так.";
   }
-  if (not response["error"].is_null() and
+  if (not response["error"].is_null() &&
           response["error"]["error_code"] == 15)
   {
     return "Не могу кикнуть этого юзера/группу.";
@@ -555,19 +583,6 @@ string Cmds::complete_cmd(_Cmd_ref cmd) {
       to_json({{"prompt", body}, {"length", "50"}})));
 
   return body + parsed["replies"][0].get<string>();
-}
-
-string Cmds::forbid_word_cmd(_Cmd_ref cmd) {
-  if (cmd.message == "+запрети") {
-    return _vk_handler.empty_args();
-  }
-
-  std::ofstream log (word_blacklist, std::ios::app);
-  log << split(cmd.message)[1] << '\n';
-  log.close();
-
-  _vk_handler.init_words_blacklist();
-  return "Слово было запрещено.";
 }
 
 struct non_alpha {
@@ -698,23 +713,23 @@ string Cmds::github_info_cmd(_Cmd_ref cmd) {
            "параметрах.";
   }
 
-  if (_args.size() == 4 and option == "-репо") {
+  if (_args.size() == 4 && option == "-репо") {
     return github_get_user_repo(user, _args[3]);
   }
 
-  if (_args.size() == 3 and option == "-репо") {
+  if (_args.size() == 3 && option == "-репо") {
     return github_get_user_repos(user);
   }
 
-  if (_args.size() == 3 and option == "-юзер") {
+  if (_args.size() == 3 && option == "-юзер") {
     return github_get_user_info(user);
   }
 
-  if (_args.size() == 3 and option == "-подписчики") {
+  if (_args.size() == 3 && option == "-подписчики") {
     return github_get_user_followers(user);
   }
 
-  if (_args.size() == 2 and option == "-помощь") {
+  if (_args.size() == 2 && option == "-помощь") {
     return "+гитхаб -репо <никнейм> - получить информацию о репозиториях(до 5 шт.) пользователя,\n"
            "+гитхаб -репо <никнейм> <репозиторий> - получить информацию о конкретном пользователя,\n"
            "+гитхаб -подписчики <никнейм> - получить список людей, подписанных на <никнейм>,\n"
@@ -752,10 +767,11 @@ string Cmds::genius_cmd(_Cmd_ref cmd) {
 }
 
 void Cmds::new_post_event(const json& event) {
+  _vk_handler.conservations = _vk_handler.database.get_peer_ids();
+
   long from_id = event["from_id"].get<long>();
   long id = event["id"].get<long>();
 
-  _vk_handler.init_conservations();
   for (long conservation : _vk_handler.conservations) {
     string attachment = to_string(from_id) + '_' + to_string(id);
     request(append_vkurl("messages.send"),

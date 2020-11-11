@@ -24,7 +24,7 @@ private:
   void    _loop         ();
   void    _get_lp_server();
   void    _errors_handle(long error_code);
-  thread  _init_thread(const json& update);
+  thread  _init_thread  (const json& update);
   string  _server;
   string  _key;
   string  _ts;
@@ -33,5 +33,4 @@ private:
 
 public:
   void init_bot();
-  Lp(){};
 };

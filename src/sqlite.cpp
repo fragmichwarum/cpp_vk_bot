@@ -1,9 +1,11 @@
 #include <stdexcept>
+
 #include "sqlite.hpp"
 
 using std::string;
 using std::invalid_argument;
 using std::to_string;
+using bot::Database;
 
 int Database::callback(
   [[maybe_unused]] void*  not_used,
@@ -17,9 +19,8 @@ int Database::callback(
 void Database::open() {
   if (rc = sqlite3_open("users.db", &database); rc) {
     throw invalid_argument(sqlite3_errmsg(database));
-  } else {
-    is_opened = true;
   }
+  is_opened = true;
 }
 
 void Database::init_table() {

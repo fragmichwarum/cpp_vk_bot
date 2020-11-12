@@ -1,12 +1,10 @@
 #include "logger.hpp"
 
 using std::string;
-using std::ofstream;
-using std::time_t;
-using std::tm;
 using std::to_string;
+using bot::Logger;
 
-string Logger::_gen_time() {
+string Logger::gen_time() {
   time_t time = std::time(0);
   tm*    now  = std::localtime(&time);
   string month;
@@ -81,35 +79,39 @@ string Logger::_gen_time() {
          to_string(now->tm_year  + 1900);
 }
 
-void Logger::print_log(const string& message, const string& from) {
-  printf(
-    "%s%s%s -> %s\n %s*%s from id %s%s%s\n\n",
-    yellow,
-    _gen_time().c_str(),
-    eoc,
-    message.c_str(),
-    red,
-    eoc,
-    mint,
-    from.c_str(),
-    eoc
-  );
+void Logger::print(uint8_t type, const std::string& message, const std::string& from)
+{
+  if (type == LOGTYPE::LOG) {
+    printf(
+      "%s%s%s -> %s%s%s\n %s*%s from id %s%s%s\n\n",
+      yellow, gen_time().c_str(),   eoc,
+      dim,    message.c_str(),      eoc,
+      red,                          eoc,
+      mint,   from.c_str(),         eoc
+    );
+  }
+  if (type == LOGTYPE::ERROR) {
+    printf(
+      "%s%s%s -> %sERROR%s\n %s***%s %s\n\n",
+      red, gen_time().c_str(),      eoc,
+      red,                          eoc,
+      red,                          eoc,
+           message.c_str()
+    );
+  }
 }
 
-void Logger::write_log(const string& message) {
-  std::ofstream _log (_logpath, std::ios::app);
-  _log << _gen_time() << " :\t" << message << '\n';
-  _log.close();
-}
+void Logger::write(uint8_t type, const std::string& message)
+{
+  if (type == LOGTYPE::LOG) {
+    std::ofstream _log(_log_path, std::fstream::app);
+    _log << gen_time() << " :\t" << message << '\n';
+    _log.close();
+  }
 
-void Logger::write_err(
-    long        line,
-    const char* file,
-    const char* func,
-    const char* what
-) {
-  std::ofstream _err (_errpath, std::ios::app);
-  _err << _gen_time() << "\t" << file << ':' << to_string(line)
-       << " in " << func << " -\t" << what << '\n';
-  _err.close();
+  if (type == LOGTYPE::ERROR) {
+    std::ofstream _errlog(_error_path, std::fstream::app);
+    _errlog << gen_time() << " ERROR: " << message << '\n';
+    _errlog.close();
+  }
 }

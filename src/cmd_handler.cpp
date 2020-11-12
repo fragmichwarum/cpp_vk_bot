@@ -1,4 +1,4 @@
-#include "./cmd_handler.hpp"
+#include "cmd_handler.hpp"
 
 using namespace bot;
 using namespace cURL;
@@ -8,9 +8,9 @@ using nlohmann::json;
 using std::string;
 using std::vector;
 
-uint8_t const user      = 0x00;
-uint8_t const moderator = 0x01;
-uint8_t const creator   = 0x10;
+static uint8_t const user      = 0x00;
+static uint8_t const moderator = 0x01;
+static uint8_t const creator   = 0x10;
 
 cmds_t const bot::vk_cmds =
 {
@@ -41,41 +41,31 @@ cmds_t const bot::vk_cmds =
   { "+офф",     { "(админ) завершить работу бота",            &Cmds::turn_off_cmd,    creator } }
 };
 
-vector<string> bot::words_from_file(const string& filename) {
-  std::ifstream file(filename);
-  vector<string> words;
-  string word;
-  while (file >> word) {
-    words.push_back(word);
-  }
-  return words;
-}
-
 void Vk_cmd_handler::init_roles(const long& peer_id) {
   moderators = database.get_by_role(peer_id, "модератор");
   blacklist  = database.get_by_role(peer_id, "мут");
 }
 
-bool bot::exists(const json& object, const string& key) {
+bool exists(const json& object, const string& key) {
     return object.find(key) != object.end();
 }
 
 void Vk_cmd_handler::log(const string& message, const long& from_id) {
   msg_counter++;
-  logger.write_log(message);
 
-  logger.print_log(
+  logger.print(
+    LOGTYPE::LOG,
     message,
     std::to_string(from_id)
+  );
+  logger.write(
+    LOGTYPE::LOG,
+    message
   );
 }
 
 void Cmds::init_cmds(const json &update)
 {
-  if (exists(update["object"]["message"],"reply_message")) {
-    _reply = update["object"]["message"]["reply_message"];
-  }
-
   if (update["type"] == "wall_post_new") {
     new_post_event(update["object"]);
     return;
@@ -87,6 +77,10 @@ void Cmds::init_cmds(const json &update)
 
   if (update["object"]["message"]["text"] == "") {
     return;
+  }
+
+  if (exists(update["object"]["message"],"reply_message")) {
+    _reply = update["object"]["message"]["reply_message"];
   }
 
   string message;
@@ -130,7 +124,7 @@ void Cmds::init_cmds(const json &update)
     }
 
     if (cmd.first == split(message)[0]) {
-      _vk_handler.message_send((this->*std::get<cmd_pointer>(cmd.second))({ message, peer_id }), peer_id);
+      _utils.message_send((this->*std::get<cmd_pointer>(cmd.second))({ message, peer_id }), peer_id);
     }
   }
 }
@@ -149,7 +143,12 @@ void Cmds::stress_test(const string& peer_id) {
 //    "+реверс",
     "+вики",
   };
-  vector<string> words = words_from_file("/home/machen/words.txt");
+  vector<string> words = {
+    "понятие",
+    "в",
+    "Москва",
+    "раз"
+  };
 
   body["message"] = cmd[rand() % cmd.size()] + ' ' + words[rand() % words.size()];
   body["peer_id"] = peer_id;

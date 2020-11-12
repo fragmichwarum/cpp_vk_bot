@@ -1,6 +1,12 @@
 #include <thread>
 
-#include "./long_poll.hpp"
+#include "long_poll.hpp"
+
+using bot::Lp;
+using namespace bot::cURL;
+using nlohmann::json;
+using std::thread;
+using std::vector;
 
 #define BOT
 //#define STRESS_TEST
@@ -14,8 +20,7 @@ void Lp::_get_lp_server() {
       {"v",            api_version  }}));
 
   if (not poll["error"]["error_code"].is_null()) {
-    long errcode = poll["error"]["error_code"];
-    _errors_handle(errcode);
+    throw Vk_error(poll["error"]["error_code"].get<long>());
   }
 
   _server = poll["response"]["server"];

@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <wchar.h>
 
-#include "wchar.hpp"
+#include "lib/include/wchar.hpp"
 
 static bool is_comb(wchar_t c)
 {

@@ -1,25 +1,22 @@
 #include "curl.hpp"
 
+using namespace bot::cURL;
 using std::string;
 
-string cURL::urlencode(const string& url) {
+string bot::cURL::urlencode(const string& url) {
   char* encoded = curl_easy_escape(NULL, url.c_str(), url.length());
   string res{encoded};
   curl_free(encoded);
   return res;
 }
 
-size_t write_callback(
-  void* contents,
-  size_t size,
-  size_t nmemb,
-  void* userp)
+static size_t write_callback(void* contents, size_t size, size_t nmemb, void* userp)
 {
   (static_cast<string*>(userp))->append(static_cast<char*>(contents), size * nmemb);
   return size * nmemb;
 }
 
-string cURL::to_json(const params& body) {
+string bot::cURL::to_json(const params& body) {
   string result;
   result += '{';
   bool iscomma = false;
@@ -34,7 +31,7 @@ string cURL::to_json(const params& body) {
   return result;
 }
 
-string cURL::requestdata(string method, const string& data) {
+string bot::cURL::requestdata(string method, const string& data) {
   string buffer;
   CURL*  curl;
   curl = curl_easy_init();
@@ -50,7 +47,7 @@ string cURL::requestdata(string method, const string& data) {
   return buffer;
 }
 
-string cURL::request(const string& method, const params& body) {
+string bot::cURL::request(const string& method, const params& body) {
   string url = method;
   url += genparams(body);
   string buffer;
@@ -68,7 +65,7 @@ string cURL::request(const string& method, const params& body) {
   return buffer;
 }
 
-string cURL::genparams(const params& body) {
+string bot::cURL::genparams(const params& body) {
   string result;
   for (const auto& element : body) {
     result += urlencode(element.first) + '=' + urlencode(element.second) + '&';
@@ -76,12 +73,12 @@ string cURL::genparams(const params& body) {
   return result;
 }
 
-void cURL::append_vkparams(params& map) {
+void bot::cURL::append_vkparams(params& map) {
   map["random_id"] = "0";
   map["access_token"] = access_token;
   map["v"] = api_version;
 }
 
-string cURL::append_vkurl(const string &method) {
+string bot::cURL::append_vkurl(const string &method) {
   return api_url + method + '?';
 }

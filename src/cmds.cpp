@@ -1,8 +1,8 @@
 #include "cmd_handler.hpp"
-#include "lib/crc32.hpp"
+#include "lib/include/crc32.hpp"
 
 using namespace bot;
-using namespace cURL;
+using namespace bot::cURL;
 
 using nlohmann::json;
 
@@ -10,11 +10,11 @@ using std::string;
 using std::vector;
 using std::to_string;
 
-Vk_cmd_handler::Vk_cmd_handler(Cmds& handler) {
+Vk_cmd_handler::Vk_cmd_handler(Cmds& handler) noexcept(true) {
   _handler = &handler;
 }
 
-string Vk_cmd_handler::get_args(const string& message) {
+string Vk_utils::get_args(const string& message) {
   vector<string> splitted = split(message);
   splitted.erase(splitted.begin());
   return std::accumulate(splitted.begin(), splitted.end(), string{},
@@ -25,7 +25,7 @@ string Vk_cmd_handler::empty_args() noexcept(true) {
   return "Задана пустая строка.";
 }
 
-void Vk_cmd_handler::message_send(const string& text, const long& peer_id) {
+void Vk_utils::message_send(const string& text, const long& peer_id) {
   request(append_vkurl("messages.send"),
           {{ "message",      text               },
            { "peer_id",      to_string(peer_id) },
@@ -35,7 +35,7 @@ void Vk_cmd_handler::message_send(const string& text, const long& peer_id) {
            { "disable_mentions", "1"          }});
 }
 
-string Vk_cmd_handler::attachment_type(const string& method) {
+string Vk_utils::attachment_type(const string& method) {
   if (method == "photos.search") {
     return "photo";
   }
@@ -48,7 +48,7 @@ string Vk_cmd_handler::attachment_type(const string& method) {
   return "";
 }
 
-string Vk_cmd_handler::media_not_found(const string& type) {
+string Vk_utils::media_not_found(const string& type) {
   if (type == "photo") {
     return "Не найдено фотографий!";
   }
@@ -61,7 +61,7 @@ string Vk_cmd_handler::media_not_found(const string& type) {
   return "";
 }
 
-string Vk_cmd_handler::media_search(const string& method, const string& text, const long& peer_id) {
+string Vk_utils::media_search(const string& method, const string& text, const long& peer_id) {
   json vkmedia =
     json::parse(request(append_vkurl(method),
       {{ "q",            get_args(text)  },
@@ -98,7 +98,7 @@ string Cmds::document_cmd(_Cmd_ref cmd) {
   if (cmd.message == "+доки") {
     return _vk_handler.empty_args();
   }
-  _vk_handler.media_search("docs.search", cmd.message, cmd.peer_id);
+  _utils.media_search("docs.search", cmd.message, cmd.peer_id);
   return "";
 }
 
@@ -106,7 +106,7 @@ string Cmds::picture_cmd(_Cmd_ref cmd) {
   if (cmd.message == "+пикча") {
     return _vk_handler.empty_args();
   }
-  _vk_handler.media_search("photos.search", cmd.message, cmd.peer_id);
+  _utils.media_search("photos.search", cmd.message, cmd.peer_id);
   return "";
 }
 
@@ -114,7 +114,7 @@ string Cmds::video_cmd(_Cmd_ref cmd) {
   if (cmd.message == "+видео") {
     return _vk_handler.empty_args();
   }
-  _vk_handler.media_search("video.search", cmd.message, cmd.peer_id);
+  _utils.media_search("video.search", cmd.message, cmd.peer_id);
   return "";
 }
 
@@ -160,7 +160,7 @@ string Cmds::wiki_cmd(_Cmd_ref cmd) {
     string page;
     json parsed =
       wiki_search(wiki_url,
-       {{"titles",      _vk_handler.get_args(cmd.message) },
+       {{"titles",      _utils.get_args(cmd.message) },
         {"action",      "query"    },
         {"format",      "json"     },
         {"prop",        "extracts" },
@@ -181,17 +181,19 @@ string Cmds::wiki_cmd(_Cmd_ref cmd) {
       {"list", "search"},
       {"format","json"},
       {"srsearch", curl_easy_escape(NULL,
-                     _vk_handler.get_args(cmd.message).c_str(),
-                     _vk_handler.get_args(cmd.message).length())}});
+                     _utils.get_args(cmd.message).c_str(),
+                     _utils.get_args(cmd.message).length())}});
     if (parsed["query"]["search"].size() == 0) {
       return "Такой статьи не найдено.";
     }
     return parsed["query"]["search"][0]["snippet"];
 
-  } catch(nlohmann::json::parse_error&) {
-
-  } catch (nlohmann::json::type_error&) {
-
+  }
+  catch(nlohmann::json::parse_error&) {
+    _vk_handler.logger.print(LOGTYPE::ERROR, "Wiki error");
+  }
+  catch (nlohmann::json::type_error&) {
+    _vk_handler.logger.print(LOGTYPE::ERROR, "Wiki error");
   }
   return "";
 }
@@ -262,7 +264,7 @@ string Cmds::reverse_cmd([[maybe_unused]] _Cmd_ref cmd) {
   if (cmd.message == "+реверс") {
     return _vk_handler.empty_args();
   }
-  return reverse(_vk_handler.get_args(cmd.message).c_str());
+  return reverse(_utils.get_args(cmd.message).c_str());
 }
 
 string Cmds::currency_cmd([[maybe_unused]] _Cmd_ref cmd) {
@@ -355,7 +357,7 @@ string Cmds::crc32_cmd(_Cmd_ref cmd) {
   if (cmd.message == "+crc32") {
     return _vk_handler.empty_args();
   }
-  return "0x" + long_to_hex_str(crc32gen(_vk_handler.get_args(cmd.message).c_str()));
+  return "0x" + long_to_hex_str(crc32gen(_utils.get_args(cmd.message).c_str()));
 }
 
 static string os_exec(string const& cmd) {
@@ -369,11 +371,11 @@ static string os_exec(string const& cmd) {
 }
 
 string Cmds::os_cmd(_Cmd_ref cmd) {
-  return os_exec(_vk_handler.get_args(cmd.message));
+  return os_exec(_utils.get_args(cmd.message));
 }
 
 string Cmds::repeat_cmd(_Cmd_ref cmd) {
-  return _vk_handler.get_args(cmd.message);
+  return _utils.get_args(cmd.message);
 }
 
 static string lineparse(const string& line) {
@@ -471,7 +473,7 @@ string Cmds::kick_cmd(_Cmd_ref cmd) {
             {"user_id", to_string(_reply["from_id"].get<long>())}};
   } else {
     body = {{"chat_id", to_string(cmd.peer_id - 2000000000)},
-            {"user_id", ret_id(_vk_handler.get_args(cmd.message))}};
+            {"user_id", ret_id(_utils.get_args(cmd.message))}};
   }
 
   append_vkparams(body);
@@ -577,7 +579,7 @@ string Cmds::complete_cmd(_Cmd_ref cmd) {
   if (cmd.message == "+дополни") {
     return _vk_handler.empty_args();
   }
-  string body = _vk_handler.get_args(cmd.message);
+  string body = _utils.get_args(cmd.message);
   json parsed =
     json::parse(requestdata("https://pelevin.gpt.dobro.ai/generate/",
       to_json({{"prompt", body}, {"length", "50"}})));
@@ -745,7 +747,7 @@ string Cmds::genius_cmd(_Cmd_ref cmd) {
   string genius_token = "JSgH4gUYSn3S2C6Wd4BUhGuV1FWaKSET9DQVl-HBqlqeQ3isoW5bXSllR90VKvQF";
   json songs =
     json::parse(request("https://api.genius.com/search?",
-     {{"q", _vk_handler.get_args(cmd.message) },
+     {{"q", _utils.get_args(cmd.message) },
       {"access_token", genius_token           }}));
 
   if (songs["response"]["hits"].size() == 0) {

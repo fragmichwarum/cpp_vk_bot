@@ -1,14 +1,19 @@
 #pragma once
 
-#include "../cmd_handler/lib/json.hpp"
-#include "../sqlite/sqlite.hpp"
-#include "../splitter/split.hpp"
-#include "../logger/logger.hpp"
-#include "../network/curl.hpp"
-#include "../cmd_handler/lib/wchar.hpp"
+#include <chrono>
 
-namespace bot {
+#include "lib/include/json.hpp"
+#include "lib/include/wchar.hpp"
+#include "curl.hpp"
+#include "logger.hpp"
+#include "split.hpp"
+#include "sqlite.hpp"
 
+/*
+  Паттерны проектирования? Что это?
+*/
+namespace bot
+{
 typedef struct {
   std::string message;
   long peer_id;
@@ -26,43 +31,43 @@ using cmds_t      = std::map<command, std::tuple<description, cmd_pointer, acces
 
 extern cmds_t const vk_cmds;
 
-std::vector<std::string> words_from_file(const std::string& filename);
-bool                     exists         (const nlohmann::json& object, const std::string& key);
+class Vk_utils {
+public:
+  std::string       get_args       (const std::string& message);
+  std::string       media_not_found(const std::string& type);
+  std::string       attachment_type(const std::string& method);
+  std::string       media_search   (const std::string& method, const std::string& text, const long& peer_id);
+  void              message_send   (const std::string& message, const long& peer_id);
+};
 
 class Vk_cmd_handler {
 private:
-  Cmds*            _handler;
+  Cmds*             _handler;
 
 public:
   explicit
-  Vk_cmd_handler    (Cmds&);
- ~Vk_cmd_handler    () {};
-  std::string       empty_args     () noexcept(true);
-  std::string       get_args       (const std::string& message);
-  std::string       attachment_type(const std::string& method);
-  std::string       media_not_found(const std::string& type);
-  std::string       media_search   (const std::string& method, const std::string& text, const long& peer_id);
-  void              message_send   (const std::string& text, const long& peer_id);
-  void              log            (const std::string& message, const long& from_id);
-  void              init_roles     (const long& peer_id);
+  Vk_cmd_handler    (Cmds&) noexcept(true);
+ ~Vk_cmd_handler    ()
+  { }
+  std::string       empty_args() noexcept(true);
+  void              init_roles(const long& peer_id);
+  void              log(const std::string& message, const long& from_id);
   std::vector<long> moderators;
   std::vector<long> blacklist;
   std::vector<long> conservations;
   Logger            logger{logfile, errfile};
   Database          database;
-  std::string       build_time = logger._gen_time();
+  std::string       build_time = std::string{__DATE__} + " " + std::string{__TIME__};
   long              msg_counter{};
-  nlohmann::json    parsed;
 };
 
 class Cmds {
 private:
   nlohmann::json   _reply;
   Vk_cmd_handler   _vk_handler{*this};
+  Vk_utils         _utils;
 
 public:
-  friend class Vk_cmd_handler;
-
   void init_cmds(const nlohmann::json& update);
 
   void stress_test(const std::string& peer_id);

@@ -13,7 +13,7 @@ using std::string;
 using std::vector;
 using std::to_string;
 
-string Cmd_handler::document_cmd(_Cmd_ref cmd) {
+string Cmd_handler::document_cmd(cmd_type cmd) {
   if (cmd.message == "+доки") {
     return empty_args();
   }
@@ -22,7 +22,7 @@ string Cmd_handler::document_cmd(_Cmd_ref cmd) {
   return "";
 }
 
-string Cmd_handler::picture_cmd(_Cmd_ref cmd) {
+string Cmd_handler::picture_cmd(cmd_type cmd) {
   if (cmd.message == "+пикча") {
     return empty_args();
   }
@@ -31,7 +31,7 @@ string Cmd_handler::picture_cmd(_Cmd_ref cmd) {
   return "";
 }
 
-string Cmd_handler::video_cmd(_Cmd_ref cmd) {
+string Cmd_handler::video_cmd(cmd_type cmd) {
   if (cmd.message == "+видео") {
     return empty_args();
   }
@@ -40,17 +40,17 @@ string Cmd_handler::video_cmd(_Cmd_ref cmd) {
   return "";
 }
 
-string Cmd_handler::weather_cmd(_Cmd_ref cmd) {
+string Cmd_handler::weather_cmd(cmd_type cmd) {
   if (cmd.message == "+погода") {
     return empty_args();
   }
 
   json weather =
     json::parse(request("http://api.openweathermap.org/data/2.5/weather?",
-     {{"lang",  "ru"               },
-      {"units", "metric"           },
-      {"APPID", "ef23e5397af13d705cfb244b33d04561"},
-      {"q",      split(cmd.message)[1]}}));
+     {{ "lang",  "ru"               },
+      { "units", "metric"           },
+      { "APPID", "ef23e5397af13d705cfb244b33d04561" },
+      { "q",      split(cmd.message)[1] }}));
 
   if (weather["weather"].is_null()) {
     return "Нет такого города.";
@@ -72,7 +72,7 @@ json wiki_search(const string& wiki_url, const map<string, string>& text) {
   return json::parse(request(wiki_url, text));
 }
 
-string Cmd_handler::wiki_cmd(_Cmd_ref cmd) {
+string Cmd_handler::wiki_cmd(cmd_type cmd) {
   if (cmd.message == "+вики") {
     return empty_args();
   }
@@ -138,7 +138,7 @@ static string laugh(size_t len = 10) {
   return result;
 }
 
-string Cmd_handler::laugh_cmd(_Cmd_ref cmd) {
+string Cmd_handler::laugh_cmd(cmd_type cmd) {
   vector<string> _args = split(cmd.message);
   if (_args.size() == 1) {
     return laugh();
@@ -181,7 +181,7 @@ string Cmd_handler::laugh_cmd(_Cmd_ref cmd) {
   return laugh(length);
 }
 
-string Cmd_handler::reverse_cmd([[maybe_unused]] _Cmd_ref cmd) {
+string Cmd_handler::reverse_cmd([[maybe_unused]] cmd_type cmd) {
   setlocale(LC_CTYPE, "");
   if (cmd.message == "+реверс") {
     return empty_args();
@@ -189,7 +189,7 @@ string Cmd_handler::reverse_cmd([[maybe_unused]] _Cmd_ref cmd) {
   return reverse(get_args(cmd.message).c_str());
 }
 
-string Cmd_handler::currency_cmd([[maybe_unused]] _Cmd_ref cmd) {
+string Cmd_handler::currency_cmd([[maybe_unused]] cmd_type cmd) {
   json parsed = json::parse(request("https://www.cbr-xml-daily.ru/daily_json.js", {}));
   string result;
   vector<string> currency_list = {
@@ -213,7 +213,7 @@ string Cmd_handler::currency_cmd([[maybe_unused]] _Cmd_ref cmd) {
   return result;
 }
 
-string Cmd_handler::help_cmd([[maybe_unused]] _Cmd_ref cmd) {
+string Cmd_handler::help_cmd([[maybe_unused]] cmd_type cmd) {
   uint8_t PAGE_SIZE = 15;
   uint8_t count_of_pages = vk_cmds.size() / PAGE_SIZE;
 
@@ -243,39 +243,36 @@ string Cmd_handler::help_cmd([[maybe_unused]] _Cmd_ref cmd) {
   std::advance(iterator, page_number * PAGE_SIZE);
 
   for (uint8_t runner = 0; iterator != vk_cmds.end() && runner++ < PAGE_SIZE; iterator++) {
-    help_info += iterator->first + " - " + std::get<string>(iterator->second) + "\n";
+    help_info += iterator->first;
+    help_info += " - ";
+    switch (std::get<_Access>(iterator->second)) {
+      case moderator:
+        help_info += "(модератор) ";
+        break;
+
+      case creator:
+        help_info += "(создатель) ";
+        break;
+
+      default:
+        break;
+    }
+    help_info += std::get<_Description>(iterator->second) + "\n";
   }
 
-  help_info += "\n...\nСтраница " + to_string(page_number) + " из " + to_string(count_of_pages);
-
-  return help_info;
+  return help_info + "\n...\nСтраница " + to_string(page_number) + " из " + to_string(count_of_pages);
 }
 
-string Cmd_handler::about_cmd([[maybe_unused]] _Cmd_ref cmd) {
+string Cmd_handler::about_cmd([[maybe_unused]] cmd_type cmd) {
   return
     "C++ bot,\n"
-    "сурсы лежат тут: https://github.com/oxfffffe/cpp_vk_bot\n"
-    "бота создал: @jijijijijijijijijijijijji (он)\n"
-    "версия VK API: " + api_version + '\n' +
-    "собран: " + _build_time;
+    "Cурсы лежат тут: https://github.com/oxfffffe/cpp_vk_bot\n"
+    "Бота создал: @jijijijijijijijijijijijji (он)\n"
+    "Версия VK API: " + api_version + '\n' +
+    "Собран: " + _build_time;
 }
 
-static inline string long_to_hex_str(unsigned long digit) noexcept(true) {
-  static constexpr char const alphabet[0x10] = {
-    '0', '1', '2', '3',
-    '4', '5', '6', '7',
-    '8', '9', 'a', 'b',
-    'c', 'd', 'e', 'f'
-  };
-
-  string hex;
-  do {
-    hex.insert(hex.begin(), alphabet[ digit % 0x10 ] );
-  } while ((digit /= 0x10) > 0);
-  return hex;
-}
-
-string Cmd_handler::crc32_cmd(_Cmd_ref cmd) {
+string Cmd_handler::crc32_cmd(cmd_type cmd) {
   if (cmd.message == "+crc32") {
     return empty_args();
   }
@@ -292,11 +289,11 @@ static string os_exec(string const& cmd) {
   return result;
 }
 
-string Cmd_handler::os_cmd(_Cmd_ref cmd) {
+string Cmd_handler::os_cmd(cmd_type cmd) {
   return os_exec(get_args(cmd.message));
 }
 
-string Cmd_handler::repeat_cmd(_Cmd_ref cmd) {
+string Cmd_handler::repeat_cmd(cmd_type cmd) {
   return get_args(cmd.message);
 }
 
@@ -324,7 +321,7 @@ static string procinfo(const string& filename, const string& param) {
   return "";
 }
 
-string Cmd_handler::stat_cmd([[maybe_unused]] _Cmd_ref cmd) {
+string Cmd_handler::stat_cmd([[maybe_unused]] cmd_type cmd) {
   return
     "Всего памяти: "      + procinfo("/proc/meminfo", "MemTotal:") + "KiB.\n"
     "Использовано ОЗУ: "  + procinfo("/proc/self/status", "VmRSS:") + "KiB.\n"
@@ -333,7 +330,7 @@ string Cmd_handler::stat_cmd([[maybe_unused]] _Cmd_ref cmd) {
     "Команд обработано: " + to_string(_msg_counter);
 }
 
-string Cmd_handler::ping_cmd([[maybe_unused]] _Cmd_ref cmd) {
+string Cmd_handler::ping_cmd([[maybe_unused]] cmd_type cmd) {
   string ping = "Pinging users.get\n";
   float total = 0;
   for (uint8_t iter = 1; iter < 11; iter++) {
@@ -352,7 +349,7 @@ string Cmd_handler::ping_cmd([[maybe_unused]] _Cmd_ref cmd) {
   return ping;
 }
 
-string Cmd_handler::online_cmd(_Cmd_ref cmd) {
+string Cmd_handler::online_cmd(cmd_type cmd) {
   json parsed =
     json::parse(request(append_vkurl("messages.getConversationMembers"),
      {{ "fields",       "online"     },
@@ -360,6 +357,7 @@ string Cmd_handler::online_cmd(_Cmd_ref cmd) {
       { "random_id",    "0"          },
       { "access_token", access_token },
       { "v",            api_version  }}));
+
   if (not parsed["error"].is_null() &&
           parsed["error"]["error_code"] == 917L)
   {
@@ -368,9 +366,9 @@ string Cmd_handler::online_cmd(_Cmd_ref cmd) {
   string people = "Список людей онлайн:\n";
   for (const auto& profile : parsed["response"]["profiles"]) {
     if (profile["online"] == 1) {
-      people += "@id" + to_string(profile["id"].get<long>()) + "(";
-      people += profile["first_name"].get<string>() + " " +
-                profile["last_name"].get<string>() + ")\n";
+      people += "@id" + to_string(profile["id"].get<long>()) + '('
+             + profile["first_name"].get<string>() + ' '
+             + profile["last_name"].get<string>() + ")\n";
     }
   }
   return people;
@@ -383,7 +381,7 @@ static inline long ret_id(const string& id) {
   return stol(id.substr(3, 9));
 }
 
-string Cmd_handler::kick_cmd(_Cmd_ref cmd) {
+string Cmd_handler::kick_cmd(cmd_type cmd) {
   if (cmd.message == "+кик" && _reply.is_null()) {
     return empty_args();
   }
@@ -395,7 +393,7 @@ string Cmd_handler::kick_cmd(_Cmd_ref cmd) {
   }
 }
 
-string Cmd_handler::blacklist_cmd(_Cmd_ref cmd) {
+string Cmd_handler::blacklist_cmd(cmd_type cmd) {
   if (cmd.message == "+мут") {
     return empty_args();
   }
@@ -409,7 +407,7 @@ string Cmd_handler::blacklist_cmd(_Cmd_ref cmd) {
   return "Готово.";
 }
 
-string Cmd_handler::role_cmd(_Cmd_ref cmd) {
+string Cmd_handler::role_cmd(cmd_type cmd) {
   if (cmd.message == "+мут") {
     return empty_args();
   }
@@ -428,7 +426,7 @@ string Cmd_handler::role_cmd(_Cmd_ref cmd) {
   return "Роль успешно установлена";
 }
 
-string Cmd_handler::get_roles_cmd(_Cmd_ref cmd) {
+string Cmd_handler::get_roles_cmd(cmd_type cmd) {
   if (cmd.message == "+роли") {
     return "Что-то пошло не так, проверь правильность аргументов.";
   }
@@ -456,21 +454,20 @@ string Cmd_handler::get_roles_cmd(_Cmd_ref cmd) {
      {{"user_ids",     persons           },
       {"access_token", user_token        },
       {"v",            api_version      }}));
+
   string moderators = "Список участников с данной ролью:\n";
+
   for (uint8_t i = 0; i < roles.size(); i++) {
-    moderators += "@id";
-    moderators += to_string(roles.at(i));
-    moderators += " (";
-    moderators += parsed["response"][i]["first_name"];
-    moderators += " ";
-    moderators += parsed["response"][i]["last_name"];
-    moderators += ")";
-    moderators += '\n';
+    moderators += string {
+      "@id" + to_string(roles.at(i)) + " (" +
+      parsed["response"][i]["first_name"].get<string>() + " " +
+      parsed["response"][i]["last_name"].get<string>() + ")\n"
+    };
   }
   return moderators;
 }
 
-string Cmd_handler::complete_cmd(_Cmd_ref cmd) {
+string Cmd_handler::complete_cmd(cmd_type cmd) {
   if (cmd.message == "+дополни") {
     return empty_args();
   }
@@ -586,7 +583,7 @@ string github_get_user_followers(const string& user) {
   return github_followers;
 }
 
-string Cmd_handler::github_info_cmd(_Cmd_ref cmd) {
+string Cmd_handler::github_info_cmd(cmd_type cmd) {
   if (cmd.message == "+гитхаб") {
     return empty_args();
   }
@@ -635,7 +632,7 @@ string Cmd_handler::github_info_cmd(_Cmd_ref cmd) {
   return "";
 }
 
-string Cmd_handler::genius_cmd(_Cmd_ref cmd) {
+string Cmd_handler::genius_cmd(cmd_type cmd) {
   if (cmd.message == "+трек") {
     return empty_args();
   }
@@ -681,13 +678,13 @@ string google_urlencode(const string& str) {
   return encoded;
 }
 
-string Cmd_handler::google_cmd([[maybe_unused]] _Cmd_ref cmd) {
+string Cmd_handler::google_cmd([[maybe_unused]] cmd_type cmd) {
   if (not _reply.is_null()) {
     return "https://www.google.com/search?q=" + google_urlencode(_reply["text"].get<string>());
   }
   return "";
 }
 
-string Cmd_handler::turn_off_cmd([[maybe_unused]] _Cmd_ref cmd) {
+string Cmd_handler::turn_off_cmd([[maybe_unused]] cmd_type cmd) {
   exit(0);
 }

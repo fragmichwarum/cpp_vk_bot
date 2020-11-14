@@ -49,6 +49,14 @@ string bot::cURL::requestdata(string method, const string& data) {
   return buffer;
 }
 
+static string genparams(const map<string, string>& body) {
+  string result;
+  for (const auto& element : body) {
+    result += urlencode(element.first) + '=' + urlencode(element.second) + '&';
+  }
+  return result;
+}
+
 string bot::cURL::request(const string& method, const map<string, string>& body) {
   string url = method;
   url += genparams(body);
@@ -65,20 +73,6 @@ string bot::cURL::request(const string& method, const map<string, string>& body)
   }
   curl_easy_cleanup(curl);
   return buffer;
-}
-
-string bot::cURL::genparams(const map<string, string>& body) {
-  string result;
-  for (const auto& element : body) {
-    result += urlencode(element.first) + '=' + urlencode(element.second) + '&';
-  }
-  return result;
-}
-
-void bot::cURL::append_vkparams(map<string, string>& map) {
-  map["random_id"] = "0";
-  map["access_token"] = access_token;
-  map["v"] = api_version;
 }
 
 string bot::cURL::append_vkurl(const string &method) {

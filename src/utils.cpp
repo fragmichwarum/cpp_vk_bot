@@ -1,5 +1,3 @@
-#include <numeric>
-
 #include "utils.hpp"
 
 using namespace bot::util;
@@ -25,4 +23,19 @@ string bot::util::get_args(const string& message)
 string bot::util::empty_args()
 {
   return "Задана пустая строка.";
+}
+
+string bot::util::long_to_hex_str(unsigned long digit) noexcept(true) {
+  static constexpr char const alphabet[0x10] = {
+    '0', '1', '2', '3',
+    '4', '5', '6', '7',
+    '8', '9', 'a', 'b',
+    'c', 'd', 'e', 'f'
+  };
+
+  string hex;
+  do {
+    hex.insert(hex.begin(), alphabet[ digit % 0x10 ] );
+  } while ((digit /= 0x10) > 0);
+  return hex;
 }

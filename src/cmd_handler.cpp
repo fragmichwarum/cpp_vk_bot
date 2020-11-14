@@ -8,10 +8,6 @@ using std::string;
 using std::vector;
 using nlohmann::json;
 
-static uint8_t const user      = 0x00;
-static uint8_t const moderator = 0x01;
-static uint8_t const creator   = 0x10;
-
 cmds_t const bot::vk_cmds =
 {
   { "+пинг",    { "проверить время ответа",                   &Cmd_handler::ping_cmd,        user } },
@@ -31,14 +27,14 @@ cmds_t const bot::vk_cmds =
   { "+трек",    { "получить ссылки на треки из Genius",       &Cmd_handler::genius_cmd,      user } },
   { "+гугл",    { "редирект сложнейшено вопроса в гугл",      &Cmd_handler::google_cmd,      user } },
   { "+доки",    { "поиск документов",                         &Cmd_handler::document_cmd,    user } },
-  { "+реверс",  { "перевернуть строку(модератор)",            &Cmd_handler::reverse_cmd,     moderator } },
-  { "+онлайн",  { "показать юзеров онлайн(модератор)",        &Cmd_handler::online_cmd,      moderator } },
-  { "+кик",     { "кикнуть юзера(модератор)",                 &Cmd_handler::kick_cmd,        moderator } },
-  { "+мут",     { "ограничить доступ к командам бота",        &Cmd_handler::blacklist_cmd,   moderator } },
-  { "+роль",    { "установить роль участника(модератор,...)", &Cmd_handler::role_cmd,        creator } }, ///< костыль
-  { "+!",       { "(админ) повтор текста",                    &Cmd_handler::repeat_cmd,      creator } },
-  { "+os",      { "(админ) выполнить команду bash",           &Cmd_handler::os_cmd,          creator } },
-  { "+офф",     { "(админ) завершить работу бота",            &Cmd_handler::turn_off_cmd,    creator } }
+  { "+реверс",  { "перевернуть строку",                       &Cmd_handler::reverse_cmd,     moderator } },
+  { "+онлайн",  { "показать юзеров онлайн",                   &Cmd_handler::online_cmd,      moderator } },
+  { "+кик",     { "кикнуть юзера",                            &Cmd_handler::kick_cmd,        moderator } },
+  { "+мут",     { "ограничить доступ к боту",                 &Cmd_handler::blacklist_cmd,   moderator } },
+  { "+роль",    { "установить роль участника",                &Cmd_handler::role_cmd,        creator } }, ///< костыль
+  { "+!",       { "повтор текста",                            &Cmd_handler::repeat_cmd,      creator } },
+  { "+os",      { "выполнить команду bash",                   &Cmd_handler::os_cmd,          creator } },
+  { "+офф",     { "завершить работу бота",                    &Cmd_handler::turn_off_cmd,    creator } }
 };
 
 static bool exists(const json& object, const string& key) {
@@ -72,12 +68,12 @@ void Cmd_handler::init_cmds(const nlohmann::json& update)
   vector<long> moderators;
   vector<long> blacklist;
   string message;
-  long peer_id;
-  long from_id;
-  if (update["type"] == "message_new") {
-    message = update["object"]["message"][   "text"];
-    peer_id = update["object"]["message"]["peer_id"];
-    from_id = update["object"]["message"]["from_id"];
+  long peer_id   = 0;
+  long from_id   = 0;
+  if (json event = update["object"]["message"]; update["type"] == "message_new") {
+    message = event[   "text"];
+    peer_id = event["peer_id"];
+    from_id = event["from_id"];
 
     if (message.at(0) == '+') {
       ++_msg_counter;
@@ -86,6 +82,7 @@ void Cmd_handler::init_cmds(const nlohmann::json& update)
       blacklist  = _database.get_by_role(peer_id, "мут");
     }
   }
+
   bool any_of_blacklisted =
       any_of(blacklist.begin(),
              blacklist.end  (), [&](long id){ return id == from_id; });
@@ -95,16 +92,18 @@ void Cmd_handler::init_cmds(const nlohmann::json& update)
              moderators.end  (), [&](long id){ return id == from_id; });
 
   for (auto cmd : vk_cmds) {
-    bool is_not_moderator = not any_of_moderators && std::get<access>(cmd.second) == moderator;
+    bool is_not_moderator = not any_of_moderators && std::get<_Access>(cmd.second) == moderator;
 
-    bool is_not_creator = std::get<access>(cmd.second) == creator && from_id != creator_id;
+    bool is_not_creator = std::get<_Access>(cmd.second) == creator && from_id != creator_id;
 
     if (any_of_blacklisted || is_not_moderator || is_not_creator) {
       continue;
     }
     if (cmd.first == split(message)[0]) {
-      _api.send_message((this->*std::get<cmd_pointer>(cmd.second))({ message, peer_id }), peer_id);
+      string text = (this->*std::get<_Cmd_pointer>(cmd.second))({ message, peer_id });
+      if (text != "") {
+        _api.send_message(text, peer_id);
+      }
     }
   }
-
 }

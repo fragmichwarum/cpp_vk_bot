@@ -2,7 +2,7 @@ TEMPLATE = app
 CONFIG += console c++17
 CONFIG -= app_bundle
 CONFIG -= qt
-QMAKE_CXXFLAGS += -Wall -Wextra -Os
+QMAKE_CXXFLAGS += -Wall -Wextra -pipe -Os
 LIBS += -lcurl -lsqlite3 -lpthread
 
 INCLUDEPATH += \
@@ -16,10 +16,10 @@ SOURCES += \
         src/logger.cpp            \
         src/long_poll.cpp         \
         src/main.cpp              \
+        src/utils.cpp             \
+        src/vk_api.cpp            \
         lib/src/crc32.cpp         \
         lib/src/wchar.cpp         \
-        src/utils.cpp             \
-        src/vk_api.cpp
 
 HEADERS += \
         include/cmd_handler.hpp   \

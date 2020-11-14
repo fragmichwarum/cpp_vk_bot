@@ -74,8 +74,8 @@ std::string Vk_api::kick_user(const long& chat_id, const long& user_id)
     json::parse(request(append_vkurl("messages.removeChatUser"),
      {{ "chat_id",      to_string(chat_id) },
       { "user_id",      to_string(user_id) },
-      { "access_token", access_token       },
       { "random_id",    "0"                },
+      { "access_token", access_token       },
       { "v",            api_version        }}));
 
   if (not response["error"].is_null() &&

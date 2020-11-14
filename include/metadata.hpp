@@ -6,7 +6,7 @@ inline const static int creator_id
   = 0;
 
 inline const std::string group_id
-  = "";
+  = "0";
 
 inline const std::string logfile
   = "/path/to/log";

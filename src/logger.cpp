@@ -9,7 +9,8 @@ string Logger::gen_time() {
   tm*    now  = std::localtime(&time);
   string month;
   string weekday;
-  switch (now->tm_mon + 1) {
+  switch (now->tm_mon + 1)
+  {
     case 1:
       month = "Jan";
       break;
@@ -48,7 +49,8 @@ string Logger::gen_time() {
       break;
   }
 
-  switch (now->tm_wday) {
+  switch (now->tm_wday)
+  {
     case 1:
       weekday = "Mon";
       break;
@@ -79,7 +81,7 @@ string Logger::gen_time() {
          to_string(now->tm_year  + 1900);
 }
 
-void Logger::print(uint8_t type, const std::string& message, const std::string& from)
+/* kill me plz */void Logger::print(uint8_t type, const std::string& message, const std::string& from)
 {
   if (type == LOGTYPE::LOG) {
     printf(
@@ -104,14 +106,10 @@ void Logger::print(uint8_t type, const std::string& message, const std::string& 
 void Logger::write(uint8_t type, const std::string& message)
 {
   if (type == LOGTYPE::LOG) {
-    std::ofstream _log(_log_path, std::fstream::app);
-    _log << gen_time() << " :\t" << message << '\n';
-    _log.close();
+    std::ofstream{_log_path, std::fstream::app} << gen_time() << " :\t" << message << '\n';
   }
 
   if (type == LOGTYPE::ERROR) {
-    std::ofstream _errlog(_error_path, std::fstream::app);
-    _errlog << gen_time() << " ERROR: " << message << '\n';
-    _errlog.close();
+    std::ofstream{_error_path, std::fstream::app} << gen_time() << " ERROR: " << message << '\n';
   }
 }

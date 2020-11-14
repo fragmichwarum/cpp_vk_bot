@@ -6,7 +6,8 @@
 
 namespace bot
 {
-class Database {
+class Database
+{
 private:
   sqlite3* database;
   int      rc        = 0;

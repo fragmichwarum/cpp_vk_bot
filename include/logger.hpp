@@ -2,7 +2,6 @@
 
 #include <ctime>
 #include <fstream>
-#include <iosfwd>
 
 namespace bot
 {
@@ -11,7 +10,8 @@ typedef enum : uint8_t {
   ERROR
 } LOGTYPE;
 
-class Logger {
+class Logger
+{
 public:
   Logger(const std::string& log_path, const std::string& error_path)
     : _log_path  (log_path)

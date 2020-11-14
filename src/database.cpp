@@ -1,6 +1,6 @@
 #include <stdexcept>
 
-#include "sqlite.hpp"
+#include "database.hpp"
 
 using std::string;
 using std::invalid_argument;

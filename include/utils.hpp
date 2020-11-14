@@ -6,5 +6,10 @@
 
 namespace bot
 {
+namespace util
+{
 std::vector<std::string> split(const std::string& text);
-} //namespace bot
+std::string get_args(const std::string& message);
+std::string empty_args();
+} // util
+} // bot

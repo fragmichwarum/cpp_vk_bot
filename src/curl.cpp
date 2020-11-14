@@ -1,7 +1,9 @@
 #include "curl.hpp"
 
 using namespace bot::cURL;
+
 using std::string;
+using std::map;
 
 string bot::cURL::urlencode(const string& url) {
   char* encoded = curl_easy_escape(NULL, url.c_str(), url.length());
@@ -16,7 +18,7 @@ static size_t write_callback(void* contents, size_t size, size_t nmemb, void* us
   return size * nmemb;
 }
 
-string bot::cURL::to_json(const params& body) {
+string bot::cURL::to_json(const map<string, string>& body) {
   string result;
   result += '{';
   bool iscomma = false;
@@ -47,7 +49,7 @@ string bot::cURL::requestdata(string method, const string& data) {
   return buffer;
 }
 
-string bot::cURL::request(const string& method, const params& body) {
+string bot::cURL::request(const string& method, const map<string, string>& body) {
   string url = method;
   url += genparams(body);
   string buffer;
@@ -65,7 +67,7 @@ string bot::cURL::request(const string& method, const params& body) {
   return buffer;
 }
 
-string bot::cURL::genparams(const params& body) {
+string bot::cURL::genparams(const map<string, string>& body) {
   string result;
   for (const auto& element : body) {
     result += urlencode(element.first) + '=' + urlencode(element.second) + '&';
@@ -73,7 +75,7 @@ string bot::cURL::genparams(const params& body) {
   return result;
 }
 
-void bot::cURL::append_vkparams(params& map) {
+void bot::cURL::append_vkparams(map<string, string>& map) {
   map["random_id"] = "0";
   map["access_token"] = access_token;
   map["v"] = api_version;

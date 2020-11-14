@@ -1,17 +1,9 @@
 #pragma once
 
-#include <chrono>
-
-#include "lib/include/json.hpp"
-#include "lib/include/wchar.hpp"
-#include "curl.hpp"
+#include "database.hpp"
 #include "logger.hpp"
-#include "split.hpp"
-#include "sqlite.hpp"
+#include "vk_api.hpp"
 
-/*
-  Паттерны проектирования? Что это?
-*/
 namespace bot
 {
 typedef struct {
@@ -21,56 +13,30 @@ typedef struct {
 
 using _Cmd_ref = const cmd_args&;
 
-class Cmds;
+class Cmd_handler;
 
 using command     = std::string;
 using description = std::string;
-using cmd_pointer = std::string (Cmds::*)(_Cmd_ref);
+using cmd_pointer = std::string (Cmd_handler::*)(_Cmd_ref);
 using access      = uint8_t;
 using cmds_t      = std::map<command, std::tuple<description, cmd_pointer, access>>;
 
 extern cmds_t const vk_cmds;
 
-class Vk_utils {
-public:
-  std::string       get_args       (const std::string& message);
-  std::string       media_not_found(const std::string& type);
-  std::string       attachment_type(const std::string& method);
-  std::string       media_search   (const std::string& method, const std::string& text, const long& peer_id);
-  void              message_send   (const std::string& message, const long& peer_id);
-};
-
-class Vk_cmd_handler {
+class Cmd_handler
+{
 private:
-  Cmds*             _handler;
-
-public:
-  explicit
-  Vk_cmd_handler    (Cmds&) noexcept(true);
- ~Vk_cmd_handler    ()
-  { }
-  std::string       empty_args() noexcept(true);
-  void              init_roles(const long& peer_id);
-  void              log(const std::string& message, const long& from_id);
-  std::vector<long> moderators;
-  std::vector<long> blacklist;
-  std::vector<long> conservations;
-  Logger            logger{logfile, errfile};
-  Database          database;
-  std::string       build_time = std::string{__DATE__} + " " + std::string{__TIME__};
-  long              msg_counter{};
-};
-
-class Cmds {
-private:
-  nlohmann::json   _reply;
-  Vk_cmd_handler   _vk_handler{*this};
-  Vk_utils         _utils;
+  nlohmann::json    _reply;
+  Vk_api            _api;
+  Database          _database;
+  Logger            _logger{logfile, errfile};
+  void              _log(const std::string& message, const long& from_id);
+  void              _init_roles(const long& peer_id);
+  long              _msg_counter{};
+  std::string const _build_time = std::string{__DATE__} + " " + std::string{__TIME__};
 
 public:
   void init_cmds(const nlohmann::json& update);
-
-  void stress_test(const std::string& peer_id);
 
   void new_post_event(const nlohmann::json& event);
 
@@ -124,4 +90,4 @@ public:
 
   std::string ping_cmd([[maybe_unused]] _Cmd_ref args);
 };
-} // namespace bot
+} //namespace bot

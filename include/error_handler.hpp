@@ -10,14 +10,14 @@ protected:
   long _code;
 
 public:
-  explicit Vk_error(long code) noexcept(true)
+  explicit Vk_error(long code) noexcept
     : _code(code)
   { }
 
-  virtual ~Vk_error() noexcept(true)
+  virtual ~Vk_error() noexcept
   { }
 
-  virtual const char* what() const noexcept(true) override
+  virtual const char* what() const noexcept override
   {
     switch (_code)
     {

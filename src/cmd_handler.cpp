@@ -1,14 +1,14 @@
 #include "cmd_handler.hpp"
 
 using namespace bot::util;
-using bot::cmds_t;
 using bot::Cmd_handler;
+using bot::Cmd_traits;
 
 using std::string;
 using std::vector;
 using nlohmann::json;
 
-cmds_t const bot::vk_cmds =
+Cmd_traits::cmds_t const Cmd_handler::vk_cmds =
 {
   { "+пинг",    { "проверить время ответа",                   &Cmd_handler::ping_cmd,        user } },
   { "+помощь",  { "показать помощь",                          &Cmd_handler::help_cmd,        user } },
@@ -43,7 +43,7 @@ static bool exists(const json& object, const string& key) {
 
 void Cmd_handler::_log(const string& message, const long& from_id) {
   _logger.print(LOGTYPE::LOG, message, std::to_string(from_id));
-  _logger.write(LOGTYPE::LOG, message);
+  _logger.log(LOGTYPE::LOG, message);
 }
 
 void Cmd_handler::init_cmds(const nlohmann::json& update)
@@ -70,6 +70,7 @@ void Cmd_handler::init_cmds(const nlohmann::json& update)
   string message;
   long peer_id   = 0;
   long from_id   = 0;
+
   if (json event = update["object"]["message"]; update["type"] == "message_new") {
     message = event[   "text"];
     peer_id = event["peer_id"];
@@ -78,9 +79,18 @@ void Cmd_handler::init_cmds(const nlohmann::json& update)
     if (message.at(0) == '+') {
       ++_msg_counter;
       _log(message, from_id);
-      moderators = _database.get_by_role(peer_id, "модератор");
-      blacklist  = _database.get_by_role(peer_id, "мут");
+      moderators = _database.get(peer_id, "модератор");
+      blacklist  = _database.get(peer_id, "мут");
     }
+  }
+
+  /* рандомная генерация цитат */
+  if (rand() % 100 < 30 && split(message).size() > 1 && message.at(0) != '+') {
+    _api.send_message(complete_cmd({ message, peer_id }), peer_id);
+  }
+
+  if (message.at(0) != '+') {
+    return;
   }
 
   bool any_of_blacklisted =
@@ -92,15 +102,15 @@ void Cmd_handler::init_cmds(const nlohmann::json& update)
              moderators.end  (), [&](long id){ return id == from_id; });
 
   for (auto cmd : vk_cmds) {
-    bool is_not_moderator = not any_of_moderators && std::get<_Access>(cmd.second) == moderator;
+    bool is_not_moderator = not any_of_moderators && std::get<Cmd_traits::access>(cmd.second) == moderator;
 
-    bool is_not_creator = std::get<_Access>(cmd.second) == creator && from_id != creator_id;
+    bool is_not_creator = std::get<Cmd_traits::access>(cmd.second) == creator && from_id != creator_id;
 
     if (any_of_blacklisted || is_not_moderator || is_not_creator) {
       continue;
     }
     if (cmd.first == split(message)[0]) {
-      string text = (this->*std::get<_Cmd_pointer>(cmd.second))({ message, peer_id });
+      string text = (this->*std::get<Cmd_traits::cmd_pointer>(cmd.second))({ message, peer_id });
       if (text != "") {
         _api.send_message(text, peer_id);
       }

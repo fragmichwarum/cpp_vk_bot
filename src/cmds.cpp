@@ -18,6 +18,9 @@ string Cmd_handler::document_cmd(cmd_type cmd) {
     return empty_args();
   }
   string docs = _api.media_search("docs.search", cmd.message);
+  if (docs == "") {
+    return "Не найдено документов.";
+  }
   _api.send_message("", cmd.peer_id, {{"attachment", docs}});
   return "";
 }
@@ -27,6 +30,9 @@ string Cmd_handler::picture_cmd(cmd_type cmd) {
     return empty_args();
   }
   string pics = _api.media_search("photos.search", cmd.message);
+  if (pics == "") {
+    return "Не найдено картинок.";
+  }
   _api.send_message("", cmd.peer_id, {{"attachment", pics}});
   return "";
 }
@@ -36,6 +42,9 @@ string Cmd_handler::video_cmd(cmd_type cmd) {
     return empty_args();
   }
   string videos = _api.media_search("video.search", cmd.message);
+  if (videos == "") {
+    return "Не найдено видеозаписей.";
+  }
   _api.send_message("", cmd.peer_id, {{"attachment", videos}});
   return "";
 }
@@ -213,6 +222,28 @@ string Cmd_handler::currency_cmd([[maybe_unused]] cmd_type cmd) {
   return result;
 }
 
+static string help_gen(uint8_t page_size, Cmd_traits::cmds_t::const_iterator& iterator) {
+  string help_info{};
+  for (uint8_t runner = 0; iterator != Cmd_handler::vk_cmds.end() && runner++ < page_size; iterator++) {
+    help_info += iterator->first;
+    help_info += " - ";
+    switch (std::get<Cmd_traits::access>(iterator->second)) {
+      case Cmd_handler::moderator:
+        help_info += "(модератор) ";
+        break;
+
+      case Cmd_handler::creator:
+        help_info += "(создатель) ";
+        break;
+
+      default:
+        break;
+    }
+    help_info += std::get<Cmd_traits::description>(iterator->second) + "\n";
+  }
+  return help_info;
+}
+
 string Cmd_handler::help_cmd([[maybe_unused]] cmd_type cmd) {
   uint8_t PAGE_SIZE = 15;
   uint8_t count_of_pages = vk_cmds.size() / PAGE_SIZE;
@@ -237,30 +268,12 @@ string Cmd_handler::help_cmd([[maybe_unused]] cmd_type cmd) {
     return "Такой страницы ещё нет.";
   }
 
-  string help_info = "Список команд:\n";
 
-  cmds_t::const_iterator iterator = vk_cmds.begin();
+  Cmd_traits::cmds_t::const_iterator iterator = vk_cmds.begin();
   std::advance(iterator, page_number * PAGE_SIZE);
 
-  for (uint8_t runner = 0; iterator != vk_cmds.end() && runner++ < PAGE_SIZE; iterator++) {
-    help_info += iterator->first;
-    help_info += " - ";
-    switch (std::get<_Access>(iterator->second)) {
-      case moderator:
-        help_info += "(модератор) ";
-        break;
-
-      case creator:
-        help_info += "(создатель) ";
-        break;
-
-      default:
-        break;
-    }
-    help_info += std::get<_Description>(iterator->second) + "\n";
-  }
-
-  return help_info + "\n...\nСтраница " + to_string(page_number) + " из " + to_string(count_of_pages);
+  return "Список команд:\n" + help_gen(PAGE_SIZE, iterator) +
+         "\n...\nСтраница " + to_string(page_number) + " из " + to_string(count_of_pages);
 }
 
 string Cmd_handler::about_cmd([[maybe_unused]] cmd_type cmd) {
@@ -426,45 +439,59 @@ string Cmd_handler::role_cmd(cmd_type cmd) {
   return "Роль успешно установлена";
 }
 
-string Cmd_handler::get_roles_cmd(cmd_type cmd) {
-  if (cmd.message == "+роли") {
-    return "Что-то пошло не так, проверь правильность аргументов.";
-  }
-
-  vector<string> args = split(cmd.message);
-
-  vector<long> roles = _database.get_by_role(cmd.peer_id, args[1]);
-
-  if (roles.size() == 0) {
-    return "В этом чате нет участников с данной ролью.";
-  }
-
-  string persons;
+static string roles_to_vk_ids(const vector<long> ids) {
+  string users;
   bool is_comma = false;
-  for (uint32_t person : roles) {
+  for (uint32_t person : ids) {
     if (is_comma) {
-      persons += ',';
+      users += ',';
     }
     is_comma = true;
-    persons += to_string(person);
+    users += to_string(person);
   }
+  return users;
+}
+
+string Cmd_handler::get_roles_cmd(cmd_type cmd) {
+  vector<string> args = split(cmd.message);
+  vector<long> roles;
+
+  if (args.size() == 1) {
+    roles = _database.get(cmd.peer_id);
+    if (roles.size() == 0) {
+      return "В этом чате ни у кого нет ролей.";
+    }
+  } else {
+    roles = _database.get(cmd.peer_id, args[1]);
+    if (roles.size() == 0) {
+      return "В этом чате нет участников с данной ролью.";
+    }
+  }
+
+  string ids = roles_to_vk_ids(roles);
 
   json parsed =
     json::parse(request(append_vkurl("users.get"),
-     {{"user_ids",     persons           },
-      {"access_token", user_token        },
-      {"v",            api_version      }}));
+     {{"user_ids",     ids           },
+      {"access_token", user_token    },
+      {"v",            api_version   }}));
 
-  string moderators = "Список участников с данной ролью:\n";
+  string users;
+  if (args.size() == 1) {
+    users = "Список участников, имеющих роли:\n";
+  } else {
+    users = "Список участников с данной ролью:\n";
+  }
 
   for (uint8_t i = 0; i < roles.size(); i++) {
-    moderators += string {
+    users += string {
       "@id" + to_string(roles.at(i)) + " (" +
       parsed["response"][i]["first_name"].get<string>() + " " +
-      parsed["response"][i]["last_name"].get<string>() + ")\n"
+      parsed["response"][i]["last_name"].get<string>() + ") - " +
+      _database.get_role(roles.at(i), cmd.peer_id) + '\n'
     };
   }
-  return moderators;
+  return users;
 }
 
 string Cmd_handler::complete_cmd(cmd_type cmd) {

@@ -20,7 +20,7 @@ string bot::util::get_args(const string& message)
                          [](string& body, string& el){ return body += el + ' '; });
 }
 
-string bot::util::empty_args()
+string bot::util::empty_args() noexcept(true)
 {
   return "Задана пустая строка.";
 }

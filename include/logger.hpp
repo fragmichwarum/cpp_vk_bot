@@ -2,6 +2,7 @@
 
 #include <ctime>
 #include <fstream>
+#include <iostream>
 
 namespace bot
 {
@@ -10,25 +11,9 @@ typedef enum : uint8_t {
   ERROR
 } LOGTYPE;
 
-class Logger
+class Vk_logger
 {
-public:
-  Logger(const std::string& log_path, const std::string& error_path)
-    : _log_path  (log_path)
-    , _error_path(error_path)
-  { }
-
-  std::string gen_time();
-
-  void print(uint8_t type, const std::string& message, const std::string& from = 0);
-
-  void write(uint8_t type, const std::string& message);
-
-private:
-  std::string _log_path;
-
-  std::string _error_path;
-
+protected:
 #if defined (__linux__) || defined (__FreeBSD__)
   const char* eoc    = "\e[0m";
   const char* yellow = "\e[38;5;11m";
@@ -41,5 +26,20 @@ private:
   const char* red    = "";
   const char* mint   = "";
 #endif
+  std::string _log_path;
+  std::string _err_path;
+
+  std::string gen_time();
+  std::string colorize(const std::string& color, const std::string& text);
+  std::string log_format(const std::string& message, const std::string& from_id);
+  std::string err_format(const std::string& message);
+
+public:
+  Vk_logger(const std::string& log_path, const std::string err_path)
+    : _log_path(log_path)
+    , _err_path(err_path)
+  { }
+  void print(uint8_t type, const std::string& message, const std::string& from_id = 0);
+  void log(uint8_t type, const std::string& message);
 };
 } //namespace bot

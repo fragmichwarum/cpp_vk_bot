@@ -2,9 +2,10 @@
 
 using std::string;
 using std::to_string;
-using bot::Logger;
+using bot::Vk_logger;
+using bot::LOGTYPE;
 
-string Logger::gen_time() {
+string Vk_logger::gen_time() {
   time_t time = std::time(0);
   tm*    now  = std::localtime(&time);
   string month;
@@ -73,7 +74,7 @@ string Logger::gen_time() {
       weekday = "Sun";
       break;
   }
-  return weekday + " " + month + " " +
+  return weekday + " " + month   + " " +
          to_string(now->tm_mday) + " " +
          to_string(now->tm_hour) + ":" +
          to_string(now->tm_min)  + ":" +
@@ -81,35 +82,52 @@ string Logger::gen_time() {
          to_string(now->tm_year  + 1900);
 }
 
-/* kill me plz */void Logger::print(uint8_t type, const std::string& message, const std::string& from)
+void Vk_logger::print(uint8_t type, const std::string &message, const std::string& from_id)
 {
-  if (type == LOGTYPE::LOG) {
-    printf(
-      "%s%s%s -> %s%s%s\n %s*%s from id %s%s%s\n\n",
-      yellow, gen_time().c_str(),   eoc,
-      dim,    message.c_str(),      eoc,
-      red,                          eoc,
-      mint,   from.c_str(),         eoc
-    );
-  }
-  if (type == LOGTYPE::ERROR) {
-    printf(
-      "%s%s%s -> %sERROR%s\n %s***%s %s\n\n",
-      red, gen_time().c_str(),      eoc,
-      red,                          eoc,
-      red,                          eoc,
-           message.c_str()
-    );
+  switch (type)
+  {
+    case LOGTYPE::LOG:
+      std::cout << log_format(message, from_id);
+      break;
+
+    case LOGTYPE::ERROR:
+      std::cout << err_format(message);
+      break;
   }
 }
 
-void Logger::write(uint8_t type, const std::string& message)
+void Vk_logger::log(uint8_t type, const std::string& message)
 {
-  if (type == LOGTYPE::LOG) {
-    std::ofstream{_log_path, std::fstream::app} << gen_time() << " :\t" << message << '\n';
-  }
+  switch (type)
+  {
+    case LOGTYPE::LOG:
+      std::ofstream{_log_path, std::fstream::app}
+        << gen_time() << " :\t" << message << '\n';
+      break;
 
-  if (type == LOGTYPE::ERROR) {
-    std::ofstream{_error_path, std::fstream::app} << gen_time() << " ERROR: " << message << '\n';
+    case LOGTYPE::ERROR:
+      std::ofstream{_err_path, std::fstream::app}
+        << gen_time() << " ERROR: " << message << '\n';
+      break;
   }
+}
+
+string Vk_logger::colorize(const std::string& color, const std::string& text)
+{
+  return color + text + eoc;
+}
+
+string Vk_logger::log_format(const std::string& message, const std::string& from_id)
+{
+  return colorize(yellow, '[' +gen_time() + ']') + "\t -> " +
+         colorize(dim, message)           + "\n " +
+         colorize(red, "*")               + "  from id " +
+         colorize(mint, from_id)          + "\n\n";
+}
+
+string Vk_logger::err_format(const std::string& message)
+{
+  return colorize(yellow, '[' +gen_time() + ']') + "\t -> " +
+         colorize(red, "ERROR")    + "\n"   +
+         colorize(red, message)    + "\n\n";
 }

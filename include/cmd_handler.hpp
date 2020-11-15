@@ -15,28 +15,34 @@ using cmd_type = const cmd_args&;
 
 class Cmd_handler;
 
-using _Command     = std::string;
-using _Description = std::string;
-using _Cmd_pointer = std::string (Cmd_handler::*)(cmd_type);
-using _Access      = uint8_t;
-using cmds_t       = std::map<_Command, std::tuple<_Description, _Cmd_pointer, _Access>>;
-
-extern cmds_t const vk_cmds;
-
-static uint8_t const user      = 0x00;
-static uint8_t const moderator = 0x01;
-static uint8_t const creator   = 0x10;
+class Cmd_traits
+{
+public:
+  using cmd_pointer     = std::string(Cmd_handler::*)(cmd_type);
+  using command         = std::string;
+  using description     = std::string;
+  using access          = uint8_t;
+  using command_params  = std::tuple<description, cmd_pointer, access>;
+  using cmds_t          = std::map<command, command_params>;
+};
 
 class Cmd_handler
 {
+public:
+  static constexpr uint8_t const user      = 0x00;
+  static constexpr uint8_t const moderator = 0x01;
+  static constexpr uint8_t const creator   = 0x10;
+
+  static Cmd_traits::cmds_t const vk_cmds;
+
 private:
   nlohmann::json    _reply;
   Vk_api            _api;
   Database          _database;
-  Logger            _logger{logfile, errfile};
+  Vk_logger         _logger{logfile, errfile};
   void              _log(const std::string& message, const long& from_id);
   void              _init_roles(const long& peer_id);
-  long              _msg_counter{};
+  long              _msg_counter = 0;
   std::string const _build_time = std::string{__DATE__} + " " + std::string{__TIME__};
 
 public:

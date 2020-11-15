@@ -50,13 +50,13 @@ std::string Vk_api::media_search(const std::string &method, const std::string &t
        { "v",            api_version     },
        { "count",        "50"            }}));
 
-  string docs;
   json items = vkmedia["response"]["items"];
 
   if (items.size() == 0) {
     return "";
   }
 
+  string docs;
   for (uint8_t i = 0; i < items.size() && i < 10; i++) {
     long index = rand() % items.size();
     docs +=

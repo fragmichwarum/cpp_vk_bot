@@ -20,16 +20,44 @@ class Vk_logger
 {
 protected:
 #if defined (__linux__) || defined (__FreeBSD__)
+  /*!
+   * @brief End of Bash color.
+   */
   const char* eoc    = "\e[0m";
+  /*!
+   * @brief Yellow Bash color.
+   */
   const char* yellow = "\e[38;5;11m";
+  /*!
+   * @brief Red Bash color.
+   */
   const char* red    = "\e[38;5;1m";
+  /*!
+   * @brief Mint Bash color.
+   */
   const char* mint   = "\e[38;5;72m";
+  /*!
+   * @brief Dim Bash color.
+   */
   const char* dim    = "\e[2m";
 #else
+  /*!
+   * @brief Empty color string in case of Windows.
+   */
   const char* eoc    = "";
+  /*!
+   * @brief Empty color string in case of Windows.
+   */
   const char* yellow = "";
+  /*!
+   * @brief Empty color string in case of Windows.
+   */
   const char* red    = "";
+  /*!
+   * @brief Empty color string in case of Windows.
+   */
   const char* mint   = "";
+
 #endif
   /*!
    * @brief Path to log file.

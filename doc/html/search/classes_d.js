@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['to_5fjson_5ffn_441',['to_json_fn',['../structnlohmann_1_1detail_1_1to__json__fn.html',1,'nlohmann::detail']]],
-  ['type_5ferror_442',['type_error',['../classnlohmann_1_1detail_1_1type__error.html',1,'nlohmann::detail']]]
+  ['serializer_454',['serializer',['../classnlohmann_1_1basic__json_1_1serializer.html',1,'nlohmann::basic_json']]],
+  ['static_5fconst_455',['static_const',['../structnlohmann_1_1detail_1_1static__const.html',1,'nlohmann::detail']]]
 ];

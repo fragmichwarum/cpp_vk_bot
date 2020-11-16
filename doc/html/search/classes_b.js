@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['parse_5ferror_434',['parse_error',['../classnlohmann_1_1detail_1_1parse__error.html',1,'nlohmann::detail']]],
-  ['parser_435',['parser',['../classnlohmann_1_1basic__json_1_1parser.html',1,'nlohmann::basic_json']]],
-  ['primitive_5fiterator_5ft_436',['primitive_iterator_t',['../classnlohmann_1_1basic__json_1_1primitive__iterator__t.html',1,'nlohmann::basic_json']]],
-  ['priority_5ftag_437',['priority_tag',['../structnlohmann_1_1detail_1_1priority__tag.html',1,'nlohmann::detail']]],
-  ['priority_5ftag_3c_200_20_3e_438',['priority_tag&lt; 0 &gt;',['../structnlohmann_1_1detail_1_1priority__tag_3_010_01_4.html',1,'nlohmann::detail']]]
+  ['other_5ferror_443',['other_error',['../classnlohmann_1_1detail_1_1other__error.html',1,'nlohmann::detail']]],
+  ['out_5fof_5frange_444',['out_of_range',['../classnlohmann_1_1detail_1_1out__of__range.html',1,'nlohmann::detail']]],
+  ['output_5fadapter_445',['output_adapter',['../classnlohmann_1_1basic__json_1_1output__adapter.html',1,'nlohmann::basic_json']]],
+  ['output_5fstream_5fadapter_446',['output_stream_adapter',['../classnlohmann_1_1basic__json_1_1output__stream__adapter.html',1,'nlohmann::basic_json']]],
+  ['output_5fstring_5fadapter_447',['output_string_adapter',['../classnlohmann_1_1basic__json_1_1output__string__adapter.html',1,'nlohmann::basic_json']]],
+  ['output_5fvector_5fadapter_448',['output_vector_adapter',['../classnlohmann_1_1basic__json_1_1output__vector__adapter.html',1,'nlohmann::basic_json']]]
 ];

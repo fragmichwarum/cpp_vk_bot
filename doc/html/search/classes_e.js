@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['vk_5fapi_443',['Vk_api',['../classbot_1_1Vk__api.html',1,'bot']]],
-  ['vk_5ferror_444',['Vk_error',['../classbot_1_1Vk__error.html',1,'bot']]],
-  ['vk_5flogger_445',['Vk_logger',['../classbot_1_1Vk__logger.html',1,'bot']]]
+  ['to_5fjson_5ffn_456',['to_json_fn',['../structnlohmann_1_1detail_1_1to__json__fn.html',1,'nlohmann::detail']]],
+  ['type_5ferror_457',['type_error',['../classnlohmann_1_1detail_1_1type__error.html',1,'nlohmann::detail']]]
 ];

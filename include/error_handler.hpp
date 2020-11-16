@@ -32,6 +32,7 @@ public:
 
   /*!
    * @overload const char* Vk_error::what()
+   * @throws std::exception
    * @return Error message.
    */
   virtual const char* what() const noexcept override

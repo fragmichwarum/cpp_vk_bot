@@ -91,87 +91,119 @@ $(function() {
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">protected</span>:</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#if defined (__linux__) || defined (__FreeBSD__)</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">char</span>* eoc    = <span class="stringliteral">&quot;\e[0m&quot;</span>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">char</span>* yellow = <span class="stringliteral">&quot;\e[38;5;11m&quot;</span>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">char</span>* red    = <span class="stringliteral">&quot;\e[38;5;1m&quot;</span>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">char</span>* mint   = <span class="stringliteral">&quot;\e[38;5;72m&quot;</span>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">char</span>* dim    = <span class="stringliteral">&quot;\e[2m&quot;</span>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">char</span>* eoc    = <span class="stringliteral">&quot;&quot;</span>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">char</span>* yellow = <span class="stringliteral">&quot;&quot;</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">char</span>* red    = <span class="stringliteral">&quot;&quot;</span>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">char</span>* mint   = <span class="stringliteral">&quot;&quot;</span>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">  /*!</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">   * @brief Path to log file.</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">   */</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__logger.html#ad40db288edfa27e0e581ffaf1c1c1b9b">   37</a></span>&#160;  std::string <a class="code" href="classbot_1_1Vk__logger.html#ad40db288edfa27e0e581ffaf1c1c1b9b">_log_path</a>;<span class="comment"></span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">  /*!</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">   * @brief Path to error log file.</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">   */</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__logger.html#aa58bd236c034caccaa02bf42d17a00d0">   41</a></span>&#160;  std::string <a class="code" href="classbot_1_1Vk__logger.html#aa58bd236c034caccaa02bf42d17a00d0">_err_path</a>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">  /*!</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">   * @brief Generate date &amp; time.</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">   * @return Date in format EEE MMM DD HH MM SS YYYY at this moment.</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">  /*!</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">   * @brief End of Bash color.</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="classbot_1_1Vk__logger.html#a054a06ba1ea44cfcc2ab94328f94beaf">eoc</a>    = <span class="stringliteral">&quot;\e[0m&quot;</span>;<span class="comment"></span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">  /*!</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">   * @brief Yellow Bash color.</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="classbot_1_1Vk__logger.html#adda632341aca0d8537dca2b66359fe62">yellow</a> = <span class="stringliteral">&quot;\e[38;5;11m&quot;</span>;<span class="comment"></span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">  /*!</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">   * @brief Red Bash color.</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="classbot_1_1Vk__logger.html#afcf5d222c200bedfd9058e2c14a5fc4f">red</a>    = <span class="stringliteral">&quot;\e[38;5;1m&quot;</span>;<span class="comment"></span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">  /*!</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">   * @brief Mint Bash color.</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="classbot_1_1Vk__logger.html#a9eab3855f8436e4b9f5dbba3cc866da6">mint</a>   = <span class="stringliteral">&quot;\e[38;5;72m&quot;</span>;<span class="comment"></span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">  /*!</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">   * @brief Dim Bash color.</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">char</span>* dim    = <span class="stringliteral">&quot;\e[2m&quot;</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">  /*!</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">   * @brief Empty color string in case of Windows.</span></div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">   */</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__logger.html#aac19b5e1b6eab373242c274f3b5b3f82">   47</a></span>&#160;  std::string <a class="code" href="classbot_1_1Vk__logger.html#aac19b5e1b6eab373242c274f3b5b3f82">gen_time</a>();<span class="comment"></span></div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__logger.html#a054a06ba1ea44cfcc2ab94328f94beaf">   47</a></span>&#160;  <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="classbot_1_1Vk__logger.html#a054a06ba1ea44cfcc2ab94328f94beaf">eoc</a>    = <span class="stringliteral">&quot;&quot;</span>;<span class="comment"></span></div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">  /*!</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">   * @brief Colorize text(Bash).</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">   * @param color to be applied.</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">   * @param text to be colorized.</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">   * @return Colorized string.</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">   */</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__logger.html#a762886dbfd71270e7d2d9f6e2fc8af88">   54</a></span>&#160;  std::string <a class="code" href="classbot_1_1Vk__logger.html#a762886dbfd71270e7d2d9f6e2fc8af88">colorize</a>(<span class="keyword">const</span> std::string&amp; color, <span class="keyword">const</span> std::string&amp; text);<span class="comment"></span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">  /*!</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">   * @brief Generate message to be logged</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">   * @param message</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">   * @param from_id</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">   * @return [time] -&gt; colorized(message)\n * colorized(from_id).</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">   */</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__logger.html#a42399302a1292aac9e3d66d1dadd3370">   61</a></span>&#160;  std::string <a class="code" href="classbot_1_1Vk__logger.html#a42399302a1292aac9e3d66d1dadd3370">log_format</a>(<span class="keyword">const</span> std::string&amp; message, <span class="keyword">const</span> std::string&amp; from_id);<span class="comment"></span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">   * @brief Empty color string in case of Windows.</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__logger.html#adda632341aca0d8537dca2b66359fe62">   51</a></span>&#160;  <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="classbot_1_1Vk__logger.html#adda632341aca0d8537dca2b66359fe62">yellow</a> = <span class="stringliteral">&quot;&quot;</span>;<span class="comment"></span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">  /*!</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">   * @brief Empty color string in case of Windows.</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__logger.html#afcf5d222c200bedfd9058e2c14a5fc4f">   55</a></span>&#160;  <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="classbot_1_1Vk__logger.html#afcf5d222c200bedfd9058e2c14a5fc4f">red</a>    = <span class="stringliteral">&quot;&quot;</span>;<span class="comment"></span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">  /*!</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">   * @brief Empty color string in case of Windows.</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__logger.html#a9eab3855f8436e4b9f5dbba3cc866da6">   59</a></span>&#160;  <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="classbot_1_1Vk__logger.html#a9eab3855f8436e4b9f5dbba3cc866da6">mint</a>   = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">  /*!</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">   * @brief Generate error message to be logged</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">   * @param message</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">   * @return [time] -&gt; ERROR:\n * colorized(message).</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">   */</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__logger.html#a3f0f62a407ab62cc11c11f8aeb350a01">   67</a></span>&#160;  std::string <a class="code" href="classbot_1_1Vk__logger.html#a3f0f62a407ab62cc11c11f8aeb350a01">err_format</a>(<span class="keyword">const</span> std::string&amp; message);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <a class="code" href="classbot_1_1Vk__logger.html">Vk_logger</a>(<span class="keyword">const</span> std::string&amp; log_path, <span class="keyword">const</span> std::string err_path)</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    : <a class="code" href="classbot_1_1Vk__logger.html#ad40db288edfa27e0e581ffaf1c1c1b9b">_log_path</a>(log_path)</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    , <a class="code" href="classbot_1_1Vk__logger.html#aa58bd236c034caccaa02bf42d17a00d0">_err_path</a>(err_path)</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  { }<span class="comment"></span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">  /*!</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">   * @brief Print logging message to screen.</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">   * @param type     - any member of available @ref bot::LOGTYPE &quot;logging types&quot;.</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">   * @param message  - message to be printed.</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">   * @param from_id  - (optional) user_id to be printed.</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">   */</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__logger.html#a6079e34fc494dbd953680c6cf0f8837e">   80</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classbot_1_1Vk__logger.html#a6079e34fc494dbd953680c6cf0f8837e">print</a>(uint8_t type, <span class="keyword">const</span> std::string&amp; message, <span class="keyword">const</span> std::string&amp; from_id = 0);<span class="comment"></span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">  /*!</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">   * @brief Write logging message to</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">   * @ref bot::Vk_logger::_log_path &quot;log file&quot; or</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">   * @ref bot::Vk_logger::_err_path &quot;error log file&quot; file depending on &lt;b&gt;&lt;em&gt;type&lt;/em&gt;&lt;/b&gt; param.</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">   * @param type     - any member of available @ref bot::LOGTYPE &quot;logging types&quot;.</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">   * @param message  - message to be printed.</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">   * @param from_id  - (optional) user_id to be printed.</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">   * @brief Path to log file.</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__logger.html#ad40db288edfa27e0e581ffaf1c1c1b9b">   65</a></span>&#160;  std::string <a class="code" href="classbot_1_1Vk__logger.html#ad40db288edfa27e0e581ffaf1c1c1b9b">_log_path</a>;<span class="comment"></span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">  /*!</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">   * @brief Path to error log file.</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__logger.html#aa58bd236c034caccaa02bf42d17a00d0">   69</a></span>&#160;  std::string <a class="code" href="classbot_1_1Vk__logger.html#aa58bd236c034caccaa02bf42d17a00d0">_err_path</a>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">  /*!</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">   * @brief Generate date &amp; time.</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">   * @return Date in format EEE MMM DD HH MM SS YYYY at this moment.</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__logger.html#aac19b5e1b6eab373242c274f3b5b3f82">   75</a></span>&#160;  std::string <a class="code" href="classbot_1_1Vk__logger.html#aac19b5e1b6eab373242c274f3b5b3f82">gen_time</a>();<span class="comment"></span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">  /*!</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">   * @brief Colorize text(Bash).</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">   * @param color to be applied.</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">   * @param text to be colorized.</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">   * @return Colorized string.</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__logger.html#a762886dbfd71270e7d2d9f6e2fc8af88">   82</a></span>&#160;  std::string <a class="code" href="classbot_1_1Vk__logger.html#a762886dbfd71270e7d2d9f6e2fc8af88">colorize</a>(<span class="keyword">const</span> std::string&amp; color, <span class="keyword">const</span> std::string&amp; text);<span class="comment"></span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">  /*!</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">   * @brief Generate message to be logged</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">   * @param message</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">   * @param from_id</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">   * @return [time] -&gt; colorized(message)\n * colorized(from_id).</span></div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">   */</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__logger.html#a25b98217925477c7f81c5ad3c01cca3e">   89</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classbot_1_1Vk__logger.html#a25b98217925477c7f81c5ad3c01cca3e">log</a>(uint8_t type, <span class="keyword">const</span> std::string&amp; message);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;};</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;} <span class="comment">//namespace bot</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__logger.html#a42399302a1292aac9e3d66d1dadd3370">   89</a></span>&#160;  std::string <a class="code" href="classbot_1_1Vk__logger.html#a42399302a1292aac9e3d66d1dadd3370">log_format</a>(<span class="keyword">const</span> std::string&amp; message, <span class="keyword">const</span> std::string&amp; from_id);<span class="comment"></span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment">  /*!</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">   * @brief Generate error message to be logged</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">   * @param message</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment">   * @return [time] -&gt; ERROR:\n * colorized(message).</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__logger.html#a3f0f62a407ab62cc11c11f8aeb350a01">   95</a></span>&#160;  std::string <a class="code" href="classbot_1_1Vk__logger.html#a3f0f62a407ab62cc11c11f8aeb350a01">err_format</a>(<span class="keyword">const</span> std::string&amp; message);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  <a class="code" href="classbot_1_1Vk__logger.html">Vk_logger</a>(<span class="keyword">const</span> std::string&amp; log_path, <span class="keyword">const</span> std::string err_path)</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    : <a class="code" href="classbot_1_1Vk__logger.html#ad40db288edfa27e0e581ffaf1c1c1b9b">_log_path</a>(log_path)</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    , <a class="code" href="classbot_1_1Vk__logger.html#aa58bd236c034caccaa02bf42d17a00d0">_err_path</a>(err_path)</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  { }<span class="comment"></span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment">  /*!</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">   * @brief Print logging message to screen.</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">   * @param type     - any member of available @ref bot::LOGTYPE &quot;logging types&quot;.</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment">   * @param message  - message to be printed.</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">   * @param from_id  - (optional) user_id to be printed.</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__logger.html#a6079e34fc494dbd953680c6cf0f8837e">  108</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classbot_1_1Vk__logger.html#a6079e34fc494dbd953680c6cf0f8837e">print</a>(uint8_t type, <span class="keyword">const</span> std::string&amp; message, <span class="keyword">const</span> std::string&amp; from_id = 0);<span class="comment"></span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment">  /*!</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment">   * @brief Write logging message to</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">   * @ref bot::Vk_logger::_log_path &quot;log file&quot; or</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment">   * @ref bot::Vk_logger::_err_path &quot;error log file&quot; file depending on &lt;b&gt;&lt;em&gt;type&lt;/em&gt;&lt;/b&gt; param.</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">   * @param type     - any member of available @ref bot::LOGTYPE &quot;logging types&quot;.</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">   * @param message  - message to be printed.</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">   * @param from_id  - (optional) user_id to be printed.</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__logger.html#a25b98217925477c7f81c5ad3c01cca3e">  117</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classbot_1_1Vk__logger.html#a25b98217925477c7f81c5ad3c01cca3e">log</a>(uint8_t type, <span class="keyword">const</span> std::string&amp; message);</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;};</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;} <span class="comment">//namespace bot</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassbot_1_1Vk__logger_html_aac19b5e1b6eab373242c274f3b5b3f82"><div class="ttname"><a href="classbot_1_1Vk__logger.html#aac19b5e1b6eab373242c274f3b5b3f82">bot::Vk_logger::gen_time</a></div><div class="ttdeci">std::string gen_time()</div><div class="ttdoc">Generate date &amp; time.</div></div>
+<div class="ttc" id="aclassbot_1_1Vk__logger_html_adda632341aca0d8537dca2b66359fe62"><div class="ttname"><a href="classbot_1_1Vk__logger.html#adda632341aca0d8537dca2b66359fe62">bot::Vk_logger::yellow</a></div><div class="ttdeci">const char * yellow</div><div class="ttdoc">Empty color string in case of Windows.</div><div class="ttdef"><b>Definition:</b> logger.hpp:51</div></div>
+<div class="ttc" id="aclassbot_1_1Vk__logger_html_a9eab3855f8436e4b9f5dbba3cc866da6"><div class="ttname"><a href="classbot_1_1Vk__logger.html#a9eab3855f8436e4b9f5dbba3cc866da6">bot::Vk_logger::mint</a></div><div class="ttdeci">const char * mint</div><div class="ttdoc">Empty color string in case of Windows.</div><div class="ttdef"><b>Definition:</b> logger.hpp:59</div></div>
 <div class="ttc" id="aclassbot_1_1Vk__logger_html"><div class="ttname"><a href="classbot_1_1Vk__logger.html">bot::Vk_logger</a></div><div class="ttdoc">Class providing logging capability.</div><div class="ttdef"><b>Definition:</b> logger.hpp:20</div></div>
 <div class="ttc" id="aclassbot_1_1Vk__logger_html_a762886dbfd71270e7d2d9f6e2fc8af88"><div class="ttname"><a href="classbot_1_1Vk__logger.html#a762886dbfd71270e7d2d9f6e2fc8af88">bot::Vk_logger::colorize</a></div><div class="ttdeci">std::string colorize(const std::string &amp;color, const std::string &amp;text)</div><div class="ttdoc">Colorize text(Bash).</div></div>
 <div class="ttc" id="aclassbot_1_1Vk__logger_html_a25b98217925477c7f81c5ad3c01cca3e"><div class="ttname"><a href="classbot_1_1Vk__logger.html#a25b98217925477c7f81c5ad3c01cca3e">bot::Vk_logger::log</a></div><div class="ttdeci">void log(uint8_t type, const std::string &amp;message)</div><div class="ttdoc">Write logging message to log file or error log file file depending on type param.</div></div>
 <div class="ttc" id="aclassbot_1_1Vk__logger_html_a6079e34fc494dbd953680c6cf0f8837e"><div class="ttname"><a href="classbot_1_1Vk__logger.html#a6079e34fc494dbd953680c6cf0f8837e">bot::Vk_logger::print</a></div><div class="ttdeci">void print(uint8_t type, const std::string &amp;message, const std::string &amp;from_id=0)</div><div class="ttdoc">Print logging message to screen.</div></div>
-<div class="ttc" id="aclassbot_1_1Vk__logger_html_ad40db288edfa27e0e581ffaf1c1c1b9b"><div class="ttname"><a href="classbot_1_1Vk__logger.html#ad40db288edfa27e0e581ffaf1c1c1b9b">bot::Vk_logger::_log_path</a></div><div class="ttdeci">std::string _log_path</div><div class="ttdoc">Path to log file.</div><div class="ttdef"><b>Definition:</b> logger.hpp:37</div></div>
-<div class="ttc" id="aclassbot_1_1Vk__logger_html_aa58bd236c034caccaa02bf42d17a00d0"><div class="ttname"><a href="classbot_1_1Vk__logger.html#aa58bd236c034caccaa02bf42d17a00d0">bot::Vk_logger::_err_path</a></div><div class="ttdeci">std::string _err_path</div><div class="ttdoc">Path to error log file.</div><div class="ttdef"><b>Definition:</b> logger.hpp:41</div></div>
+<div class="ttc" id="aclassbot_1_1Vk__logger_html_ad40db288edfa27e0e581ffaf1c1c1b9b"><div class="ttname"><a href="classbot_1_1Vk__logger.html#ad40db288edfa27e0e581ffaf1c1c1b9b">bot::Vk_logger::_log_path</a></div><div class="ttdeci">std::string _log_path</div><div class="ttdoc">Path to log file.</div><div class="ttdef"><b>Definition:</b> logger.hpp:65</div></div>
+<div class="ttc" id="aclassbot_1_1Vk__logger_html_aa58bd236c034caccaa02bf42d17a00d0"><div class="ttname"><a href="classbot_1_1Vk__logger.html#aa58bd236c034caccaa02bf42d17a00d0">bot::Vk_logger::_err_path</a></div><div class="ttdeci">std::string _err_path</div><div class="ttdoc">Path to error log file.</div><div class="ttdef"><b>Definition:</b> logger.hpp:69</div></div>
+<div class="ttc" id="aclassbot_1_1Vk__logger_html_a054a06ba1ea44cfcc2ab94328f94beaf"><div class="ttname"><a href="classbot_1_1Vk__logger.html#a054a06ba1ea44cfcc2ab94328f94beaf">bot::Vk_logger::eoc</a></div><div class="ttdeci">const char * eoc</div><div class="ttdoc">Empty color string in case of Windows.</div><div class="ttdef"><b>Definition:</b> logger.hpp:47</div></div>
 <div class="ttc" id="aclassbot_1_1Vk__logger_html_a3f0f62a407ab62cc11c11f8aeb350a01"><div class="ttname"><a href="classbot_1_1Vk__logger.html#a3f0f62a407ab62cc11c11f8aeb350a01">bot::Vk_logger::err_format</a></div><div class="ttdeci">std::string err_format(const std::string &amp;message)</div><div class="ttdoc">Generate error message to be logged.</div></div>
 <div class="ttc" id="aclassbot_1_1Vk__logger_html_a42399302a1292aac9e3d66d1dadd3370"><div class="ttname"><a href="classbot_1_1Vk__logger.html#a42399302a1292aac9e3d66d1dadd3370">bot::Vk_logger::log_format</a></div><div class="ttdeci">std::string log_format(const std::string &amp;message, const std::string &amp;from_id)</div><div class="ttdoc">Generate message to be logged.</div></div>
 <div class="ttc" id="anamespacebot_html_ab9df5ed5506e15f975c49f345c9c12ec"><div class="ttname"><a href="namespacebot.html#ab9df5ed5506e15f975c49f345c9c12ec">bot::LOGTYPE</a></div><div class="ttdeci">LOGTYPE</div><div class="ttdoc">Enumeration of logging types.</div><div class="ttdef"><b>Definition:</b> logger.hpp:12</div></div>
 <div class="ttc" id="anamespacebot_html"><div class="ttname"><a href="namespacebot.html">bot</a></div><div class="ttdoc">main namespace</div></div>
+<div class="ttc" id="aclassbot_1_1Vk__logger_html_afcf5d222c200bedfd9058e2c14a5fc4f"><div class="ttname"><a href="classbot_1_1Vk__logger.html#afcf5d222c200bedfd9058e2c14a5fc4f">bot::Vk_logger::red</a></div><div class="ttdeci">const char * red</div><div class="ttdoc">Empty color string in case of Windows.</div><div class="ttdef"><b>Definition:</b> logger.hpp:55</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20

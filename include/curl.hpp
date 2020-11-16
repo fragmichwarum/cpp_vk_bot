@@ -16,12 +16,12 @@ inline const std::string api_version = "5.124";
 inline const std::string api_url = "https://api.vk.com/method/";
 /*!
  * @namespace bot::cURL
- * @brief Namespace, that contains functions for working with the network.
+ * @brief Namespace with functions for working with the network.
  */
 namespace cURL
 {
 /*!
- * @brief Convert string to ASCII character-set.
+ * @brief Converts string to ASCII character-set.
  * @param Url
  * @return Encoded string.
  */
@@ -33,7 +33,7 @@ std::string urlencode(const std::string& url);
  */
 std::string append_vkurl(const std::string& method);
 /*!
- * @brief Convert std::map<std::string, std::string> to JSON format.
+ * @brief Converts std::map<std::string, std::string> to JSON format.
  * @param Map
  * @return JSON string.
  */

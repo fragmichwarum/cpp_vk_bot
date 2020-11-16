@@ -191,22 +191,27 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:abb9bceb2977b9ad2783c6e63f490c7a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">VK API handler. <br /></td></tr>
 <tr class="separator:abb9bceb2977b9ad2783c6e63f490c7a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77ca40a6d535a0eac2bd1dc47422742c"><td class="memItemLeft" align="right" valign="top"><a id="a77ca40a6d535a0eac2bd1dc47422742c"></a>
-Database&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1Cmd__handler.html#a77ca40a6d535a0eac2bd1dc47422742c">_database</a></td></tr>
-<tr class="memdesc:a77ca40a6d535a0eac2bd1dc47422742c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Database. <br /></td></tr>
+<a class="el" href="classbot_1_1Database.html">Database</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1Cmd__handler.html#a77ca40a6d535a0eac2bd1dc47422742c">_database</a></td></tr>
+<tr class="memdesc:a77ca40a6d535a0eac2bd1dc47422742c"><td class="mdescLeft">&#160;</td><td class="mdescRight">SQLite3 database storing roles. <br /></td></tr>
 <tr class="separator:a77ca40a6d535a0eac2bd1dc47422742c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17efd7b63ac4048b79823251f6d63afc"><td class="memItemLeft" align="right" valign="top"><a id="a17efd7b63ac4048b79823251f6d63afc"></a>
 <a class="el" href="classbot_1_1Vk__logger.html">Vk_logger</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1Cmd__handler.html#a17efd7b63ac4048b79823251f6d63afc">_logger</a> {logfile, errfile}</td></tr>
-<tr class="memdesc:a17efd7b63ac4048b79823251f6d63afc"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classbot_1_1Vk__logger.html">Logger</a>. <br /></td></tr>
+<tr class="memdesc:a17efd7b63ac4048b79823251f6d63afc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logger for incoming events. <br /></td></tr>
 <tr class="separator:a17efd7b63ac4048b79823251f6d63afc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ab8858e26f707384245344fac25a683"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1Cmd__handler.html#a2ab8858e26f707384245344fac25a683">_msg_counter</a> = 0</td></tr>
-<tr class="memdesc:a2ab8858e26f707384245344fac25a683"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function, that provides to logging incoming events.  <a href="classbot_1_1Cmd__handler.html#a2ab8858e26f707384245344fac25a683">More...</a><br /></td></tr>
+<tr class="memitem:a2ab8858e26f707384245344fac25a683"><td class="memItemLeft" align="right" valign="top"><a id="a2ab8858e26f707384245344fac25a683"></a>
+long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1Cmd__handler.html#a2ab8858e26f707384245344fac25a683">_msg_counter</a> = 0</td></tr>
+<tr class="memdesc:a2ab8858e26f707384245344fac25a683"><td class="mdescLeft">&#160;</td><td class="mdescRight">Count of processed commands. Needed by <a class="el" href="classbot_1_1Cmd__handler.html#a4663669d31dce0bd3e4c82099929b2ab">bot::Cmd_handler::stat_cmd</a>. <br /></td></tr>
 <tr class="separator:a2ab8858e26f707384245344fac25a683"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a8b57ab4adaffd81a37e0cce70e8b77"><td class="memItemLeft" align="right" valign="top">std::string const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1Cmd__handler.html#a8a8b57ab4adaffd81a37e0cce70e8b77">_build_time</a> = std::string{__DATE__} + &quot; &quot; + std::string{__TIME__}</td></tr>
-<tr class="memdesc:a8a8b57ab4adaffd81a37e0cce70e8b77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bot build time. Needed by <a class="el" href="classbot_1_1Cmd__handler.html#a4663669d31dce0bd3e4c82099929b2ab">bot::Cmd_handler::stat_cmd</a>.  <a href="classbot_1_1Cmd__handler.html#a8a8b57ab4adaffd81a37e0cce70e8b77">More...</a><br /></td></tr>
+<tr class="memitem:a8a8b57ab4adaffd81a37e0cce70e8b77"><td class="memItemLeft" align="right" valign="top"><a id="a8a8b57ab4adaffd81a37e0cce70e8b77"></a>
+std::string const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1Cmd__handler.html#a8a8b57ab4adaffd81a37e0cce70e8b77">_build_time</a> = std::string{__DATE__} + &quot; &quot; + std::string{__TIME__}</td></tr>
+<tr class="memdesc:a8a8b57ab4adaffd81a37e0cce70e8b77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bot build time. Needed by <a class="el" href="classbot_1_1Cmd__handler.html#a4663669d31dce0bd3e4c82099929b2ab">bot::Cmd_handler::stat_cmd</a>. <br /></td></tr>
 <tr class="separator:a8a8b57ab4adaffd81a37e0cce70e8b77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class representing the interface for processing commands. </p>
+<ul>
+<li>This class has no constructors and no static fields for the message, from_id and peer_id due to the fact that <a class="el" href="classbot_1_1Long__poll__handler.html">bot::Long_poll_handler</a> works with threads. </li>
+</ul>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a26c1236c8a2b1c84f885f294fd04955d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a26c1236c8a2b1c84f885f294fd04955d">&#9670;&nbsp;</a></span>about_cmd()</h2>
@@ -937,63 +942,6 @@ Database&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a8a8b57ab4adaffd81a37e0cce70e8b77"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a8b57ab4adaffd81a37e0cce70e8b77">&#9670;&nbsp;</a></span>_build_time</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string const bot::Cmd_handler::_build_time = std::string{__DATE__} + &quot; &quot; + std::string{__TIME__}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Bot build time. Needed by <a class="el" href="classbot_1_1Cmd__handler.html#a4663669d31dce0bd3e4c82099929b2ab">bot::Cmd_handler::stat_cmd</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>date and time of time, when program was builded. </dd></dl>
-
-</div>
-</div>
-<a id="a2ab8858e26f707384245344fac25a683"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ab8858e26f707384245344fac25a683">&#9670;&nbsp;</a></span>_msg_counter</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">long bot::Cmd_handler::_msg_counter = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Function, that provides to logging incoming events. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">message</td><td></td></tr>
-    <tr><td class="paramname">from_id</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<p>Count of processed commands. Needed by <a class="el" href="classbot_1_1Cmd__handler.html#a4663669d31dce0bd3e4c82099929b2ab">bot::Cmd_handler::stat_cmd</a>. </p>
-
-</div>
-</div>
 <a id="ab588c8cc6a2e4835111348ba10fbe187"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab588c8cc6a2e4835111348ba10fbe187">&#9670;&nbsp;</a></span>creator</h2>
 

@@ -879,7 +879,7 @@ $(function() {
 <div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;    <span class="keyword">typename</span> BasicJsonType, <span class="keyword">typename</span> CompatibleNumberUnsignedType,</div>
 <div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160;    enable_if_t&lt;is_compatible_integer_type&lt;<span class="keyword">typename</span> BasicJsonType::number_unsigned_t,</div>
 <div class="line"><a name="l00810"></a><span class="lineno">  810</span>&#160;                CompatibleNumberUnsignedType&gt;::value, <span class="keywordtype">int</span>&gt; = 0 &gt;</div>
-<div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160;<span class="keywordtype">void</span> to_json(BasicJsonType&amp; j, CompatibleNumberUnsignedType val) noexcept</div>
+<div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespacebot_1_1cURL.html#a55272f0ba9228f66086e0f13d81bad4c">to_json</a>(BasicJsonType&amp; j, CompatibleNumberUnsignedType val) noexcept</div>
 <div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160;{</div>
 <div class="line"><a name="l00813"></a><span class="lineno">  813</span>&#160;    external_constructor&lt;value_t::number_unsigned&gt;::construct(j, <span class="keyword">static_cast&lt;</span>typename BasicJsonType::number_unsigned_t<span class="keyword">&gt;</span>(val));</div>
 <div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;}</div>
@@ -888,21 +888,21 @@ $(function() {
 <div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160;    <span class="keyword">typename</span> BasicJsonType, <span class="keyword">typename</span> CompatibleNumberIntegerType,</div>
 <div class="line"><a name="l00818"></a><span class="lineno">  818</span>&#160;    enable_if_t&lt;is_compatible_integer_type&lt;<span class="keyword">typename</span> BasicJsonType::number_integer_t,</div>
 <div class="line"><a name="l00819"></a><span class="lineno">  819</span>&#160;                CompatibleNumberIntegerType&gt;::value, <span class="keywordtype">int</span>&gt; = 0 &gt;</div>
-<div class="line"><a name="l00820"></a><span class="lineno">  820</span>&#160;<span class="keywordtype">void</span> to_json(BasicJsonType&amp; j, CompatibleNumberIntegerType val) noexcept</div>
+<div class="line"><a name="l00820"></a><span class="lineno">  820</span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespacebot_1_1cURL.html#a55272f0ba9228f66086e0f13d81bad4c">to_json</a>(BasicJsonType&amp; j, CompatibleNumberIntegerType val) noexcept</div>
 <div class="line"><a name="l00821"></a><span class="lineno">  821</span>&#160;{</div>
 <div class="line"><a name="l00822"></a><span class="lineno">  822</span>&#160;    external_constructor&lt;value_t::number_integer&gt;::construct(j, <span class="keyword">static_cast&lt;</span>typename BasicJsonType::number_integer_t<span class="keyword">&gt;</span>(val));</div>
 <div class="line"><a name="l00823"></a><span class="lineno">  823</span>&#160;}</div>
 <div class="line"><a name="l00824"></a><span class="lineno">  824</span>&#160; </div>
 <div class="line"><a name="l00825"></a><span class="lineno">  825</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> BasicJsonType, <span class="keyword">typename</span> EnumType,</div>
 <div class="line"><a name="l00826"></a><span class="lineno">  826</span>&#160;         enable_if_t&lt;std::is_enum&lt;EnumType&gt;::value, <span class="keywordtype">int</span>&gt; = 0&gt;</div>
-<div class="line"><a name="l00827"></a><span class="lineno">  827</span>&#160;<span class="keywordtype">void</span> to_json(BasicJsonType&amp; j, EnumType e) noexcept</div>
+<div class="line"><a name="l00827"></a><span class="lineno">  827</span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespacebot_1_1cURL.html#a55272f0ba9228f66086e0f13d81bad4c">to_json</a>(BasicJsonType&amp; j, EnumType e) noexcept</div>
 <div class="line"><a name="l00828"></a><span class="lineno">  828</span>&#160;{</div>
 <div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160;    <span class="keyword">using</span> underlying_type = <span class="keyword">typename</span> std::underlying_type&lt;EnumType&gt;::type;</div>
 <div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160;    external_constructor&lt;value_t::number_integer&gt;::construct(j, <span class="keyword">static_cast&lt;</span>underlying_type<span class="keyword">&gt;</span>(e));</div>
 <div class="line"><a name="l00831"></a><span class="lineno">  831</span>&#160;}</div>
 <div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160; </div>
 <div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> BasicJsonType&gt;</div>
-<div class="line"><a name="l00834"></a><span class="lineno">  834</span>&#160;<span class="keywordtype">void</span> to_json(BasicJsonType&amp; j, <span class="keyword">const</span> std::vector&lt;bool&gt;&amp; e)</div>
+<div class="line"><a name="l00834"></a><span class="lineno">  834</span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespacebot_1_1cURL.html#a55272f0ba9228f66086e0f13d81bad4c">to_json</a>(BasicJsonType&amp; j, <span class="keyword">const</span> std::vector&lt;bool&gt;&amp; e)</div>
 <div class="line"><a name="l00835"></a><span class="lineno">  835</span>&#160;{</div>
 <div class="line"><a name="l00836"></a><span class="lineno">  836</span>&#160;    external_constructor&lt;value_t::array&gt;::construct(j, e);</div>
 <div class="line"><a name="l00837"></a><span class="lineno">  837</span>&#160;}</div>
@@ -913,7 +913,7 @@ $(function() {
 <div class="line"><a name="l00842"></a><span class="lineno">  842</span>&#160;        is_compatible_array_type&lt;BasicJsonType, CompatibleArrayType&gt;::value or</div>
 <div class="line"><a name="l00843"></a><span class="lineno">  843</span>&#160;        std::is_same&lt;typename BasicJsonType::array_t, CompatibleArrayType&gt;::value,</div>
 <div class="line"><a name="l00844"></a><span class="lineno">  844</span>&#160;        <span class="keywordtype">int</span> &gt; = 0 &gt;</div>
-<div class="line"><a name="l00845"></a><span class="lineno">  845</span>&#160;<span class="keywordtype">void</span> to_json(BasicJsonType&amp; j, <span class="keyword">const</span>  CompatibleArrayType&amp; arr)</div>
+<div class="line"><a name="l00845"></a><span class="lineno">  845</span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespacebot_1_1cURL.html#a55272f0ba9228f66086e0f13d81bad4c">to_json</a>(BasicJsonType&amp; j, <span class="keyword">const</span>  CompatibleArrayType&amp; arr)</div>
 <div class="line"><a name="l00846"></a><span class="lineno">  846</span>&#160;{</div>
 <div class="line"><a name="l00847"></a><span class="lineno">  847</span>&#160;    external_constructor&lt;value_t::array&gt;::construct(j, arr);</div>
 <div class="line"><a name="l00848"></a><span class="lineno">  848</span>&#160;}</div>
@@ -922,7 +922,7 @@ $(function() {
 <div class="line"><a name="l00851"></a><span class="lineno">  851</span>&#160;    <span class="keyword">typename</span> BasicJsonType, <span class="keyword">typename</span> CompatibleObjectType,</div>
 <div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;    enable_if_t&lt;is_compatible_object_type&lt;BasicJsonType, CompatibleObjectType&gt;::value,</div>
 <div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;                <span class="keywordtype">int</span>&gt; = 0 &gt;</div>
-<div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160;<span class="keywordtype">void</span> to_json(BasicJsonType&amp; j, <span class="keyword">const</span>  CompatibleObjectType&amp; arr)</div>
+<div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespacebot_1_1cURL.html#a55272f0ba9228f66086e0f13d81bad4c">to_json</a>(BasicJsonType&amp; j, <span class="keyword">const</span>  CompatibleObjectType&amp; arr)</div>
 <div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;{</div>
 <div class="line"><a name="l00856"></a><span class="lineno">  856</span>&#160;    external_constructor&lt;value_t::object&gt;::construct(j, arr);</div>
 <div class="line"><a name="l00857"></a><span class="lineno">  857</span>&#160;}</div>
@@ -931,7 +931,7 @@ $(function() {
 <div class="line"><a name="l00860"></a><span class="lineno">  860</span>&#160;          enable_if_t&lt;not std::is_constructible&lt;</div>
 <div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;                          <span class="keyword">typename</span> BasicJsonType::string_t, T (&amp;)[N]&gt;::value,</div>
 <div class="line"><a name="l00862"></a><span class="lineno">  862</span>&#160;                      <span class="keywordtype">int</span>&gt; = 0&gt;</div>
-<div class="line"><a name="l00863"></a><span class="lineno">  863</span>&#160;<span class="keywordtype">void</span> to_json(BasicJsonType&amp; j, T (&amp;arr)[N])</div>
+<div class="line"><a name="l00863"></a><span class="lineno">  863</span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespacebot_1_1cURL.html#a55272f0ba9228f66086e0f13d81bad4c">to_json</a>(BasicJsonType&amp; j, T (&amp;arr)[N])</div>
 <div class="line"><a name="l00864"></a><span class="lineno">  864</span>&#160;{</div>
 <div class="line"><a name="l00865"></a><span class="lineno">  865</span>&#160;    external_constructor&lt;value_t::array&gt;::construct(j, arr);</div>
 <div class="line"><a name="l00866"></a><span class="lineno">  866</span>&#160;}</div>
@@ -14696,6 +14696,7 @@ $(function() {
 <div class="ttc" id="aclassnlohmann_1_1basic__json_1_1binary__writer_html_a7bf122a1ad76ac2754eb9651e4046dd7"><div class="ttname"><a href="classnlohmann_1_1basic__json_1_1binary__writer.html#a7bf122a1ad76ac2754eb9651e4046dd7">nlohmann::basic_json::binary_writer::write_cbor</a></div><div class="ttdeci">void write_cbor(const basic_json &amp;j)</div><div class="ttdoc">[in] j JSON value to serialize</div><div class="ttdef"><b>Definition:</b> json.hpp:10107</div></div>
 <div class="ttc" id="aclassnlohmann_1_1basic__json_1_1lexer_html_a900b6f62807925fbb31e7d3fb5dfc28b"><div class="ttname"><a href="classnlohmann_1_1basic__json_1_1lexer.html#a900b6f62807925fbb31e7d3fb5dfc28b">nlohmann::basic_json::lexer::scan_string</a></div><div class="ttdeci">token_type scan_string()</div><div class="ttdoc">scan a string literal</div><div class="ttdef"><b>Definition:</b> json.hpp:11349</div></div>
 <div class="ttc" id="aunionnlohmann_1_1basic__json_1_1json__value_html_ad003495e39e78b8096e0b6fc690d146f"><div class="ttname"><a href="unionnlohmann_1_1basic__json_1_1json__value.html#ad003495e39e78b8096e0b6fc690d146f">nlohmann::basic_json::json_value::number_float</a></div><div class="ttdeci">number_float_t number_float</div><div class="ttdoc">number (floating-point)</div><div class="ttdef"><b>Definition:</b> json.hpp:1963</div></div>
+<div class="ttc" id="anamespacebot_1_1cURL_html_a55272f0ba9228f66086e0f13d81bad4c"><div class="ttname"><a href="namespacebot_1_1cURL.html#a55272f0ba9228f66086e0f13d81bad4c">bot::cURL::to_json</a></div><div class="ttdeci">std::string to_json(const std::map&lt; std::string, std::string &gt; &amp;body)</div><div class="ttdoc">Converts std::map&lt;std::string, std::string&gt; to JSON format.</div></div>
 <div class="ttc" id="aclassnlohmann_1_1basic__json_html_ab275a3e00a40189e96d244de6c8f311a"><div class="ttname"><a href="classnlohmann_1_1basic__json.html#ab275a3e00a40189e96d244de6c8f311a">nlohmann::basic_json::parse</a></div><div class="ttdeci">static basic_json parse(const CharT s, const parser_callback_t cb=nullptr)</div><div class="ttdoc">deserialize from string literal</div><div class="ttdef"><b>Definition:</b> json.hpp:7451</div></div>
 <div class="ttc" id="aclassnlohmann_1_1basic__json_1_1iter__impl_html_af3beb0d08550188082ea64d8becd12fb"><div class="ttname"><a href="classnlohmann_1_1basic__json_1_1iter__impl.html#af3beb0d08550188082ea64d8becd12fb">nlohmann::basic_json::iter_impl::operator==</a></div><div class="ttdeci">bool operator==(const iter_impl &amp;other) const</div><div class="ttdoc">comparison: equal</div><div class="ttdef"><b>Definition:</b> json.hpp:8335</div></div>
 <div class="ttc" id="aclassnlohmann_1_1basic__json_1_1iter__impl_html"><div class="ttname"><a href="classnlohmann_1_1basic__json_1_1iter__impl.html">nlohmann::basic_json::iter_impl</a></div><div class="ttdoc">a template for a random access iterator for the basic_json class</div><div class="ttdef"><b>Definition:</b> json.hpp:7995</div></div>

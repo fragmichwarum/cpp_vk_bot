@@ -41,7 +41,7 @@ private:
 
 public:
   /*!
-   * @brief Opens the database.
+   * @brief Opens the database if not opened.
    */
   void open();
   /*!

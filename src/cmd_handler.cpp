@@ -86,7 +86,7 @@ void Cmd_handler::init_cmds(const nlohmann::json& update)
   }
 
   /* рандомная генерация цитат */
-  if (rand() % 100 < 30 && split(message).size() > 1 && message.at(0) != '+') {
+  if (rand() % 100 < 15 && split(message).size() > 1 && message.at(0) != '+') {
     _api.send_message(complete_cmd({ message, peer_id }), peer_id);
   }
 

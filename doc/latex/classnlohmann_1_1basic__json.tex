@@ -672,7 +672,7 @@ To store objects in C++, a type is defined by the template parameters explained 
 {\em Allocator\+Type} & allocator to use for arrays (e.\+g., {\ttfamily std\+::allocator})\\
 \hline
 \end{DoxyTemplParams}
-\hypertarget{classnlohmann_1_1basic__json_autotoc_md4}{}\doxysubparagraph{Default type}\label{classnlohmann_1_1basic__json_autotoc_md4}
+\hypertarget{classnlohmann_1_1basic__json_autotoc_md5}{}\doxysubparagraph{Default type}\label{classnlohmann_1_1basic__json_autotoc_md5}
 With the default values for {\itshape Array\+Type} ({\ttfamily std\+::vector}) and {\itshape Allocator\+Type} ({\ttfamily std\+::allocator}), the default value for {\itshape array\+\_\+t} is\+:
 
 
@@ -682,12 +682,12 @@ With the default values for {\itshape Array\+Type} ({\ttfamily std\+::vector}) a
 \DoxyCodeLine{  std::allocator<basic\_json> \textcolor{comment}{// allocator\_type}}
 \DoxyCodeLine{>}
 \end{DoxyCode}
-\hypertarget{classnlohmann_1_1basic__json_autotoc_md5}{}\doxysubparagraph{Limits}\label{classnlohmann_1_1basic__json_autotoc_md5}
+\hypertarget{classnlohmann_1_1basic__json_autotoc_md6}{}\doxysubparagraph{Limits}\label{classnlohmann_1_1basic__json_autotoc_md6}
 \href{http://rfc7159.net/rfc7159}{\texttt{ R\+FC 7159}} specifies\+: \begin{quote}
 An implementation may set limits on the maximum depth of nesting. \end{quote}
 
 
-In this class, the array\textquotesingle{}s limit of nesting is not constraint explicitly. However, a maximum depth of nesting may be introduced by the compiler or runtime environment. A theoretical limit can be queried by calling the \mbox{\hyperlink{classnlohmann_1_1basic__json_a2f47d3c6a441c57dd2be00449fbb88e1}{max\+\_\+size}} function of a J\+S\+ON array.\hypertarget{classnlohmann_1_1basic__json_autotoc_md6}{}\doxysubparagraph{Storage}\label{classnlohmann_1_1basic__json_autotoc_md6}
+In this class, the array\textquotesingle{}s limit of nesting is not constraint explicitly. However, a maximum depth of nesting may be introduced by the compiler or runtime environment. A theoretical limit can be queried by calling the \mbox{\hyperlink{classnlohmann_1_1basic__json_a2f47d3c6a441c57dd2be00449fbb88e1}{max\+\_\+size}} function of a J\+S\+ON array.\hypertarget{classnlohmann_1_1basic__json_autotoc_md7}{}\doxysubparagraph{Storage}\label{classnlohmann_1_1basic__json_autotoc_md7}
 Arrays are stored as pointers in a \mbox{\hyperlink{classnlohmann_1_1basic__json}{basic\+\_\+json}} type. That is, for any access to array values, a pointer of type {\ttfamily array\+\_\+t$\ast$} must be dereferenced.
 
 \begin{DoxySeeAlso}{See also}
@@ -709,14 +709,14 @@ a type for a boolean
 
 \href{http://rfc7159.net/rfc7159}{\texttt{ R\+FC 7159}} implicitly describes a boolean as a type which differentiates the two literals {\ttfamily true} and {\ttfamily false}.
 
-To store objects in C++, a type is defined by the template parameter {\itshape Boolean\+Type} which chooses the type to use.\hypertarget{classnlohmann_1_1basic__json_autotoc_md11}{}\doxysubparagraph{Default type}\label{classnlohmann_1_1basic__json_autotoc_md11}
+To store objects in C++, a type is defined by the template parameter {\itshape Boolean\+Type} which chooses the type to use.\hypertarget{classnlohmann_1_1basic__json_autotoc_md12}{}\doxysubparagraph{Default type}\label{classnlohmann_1_1basic__json_autotoc_md12}
 With the default values for {\itshape Boolean\+Type} ({\ttfamily bool}), the default value for {\itshape boolean\+\_\+t} is\+:
 
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keywordtype}{bool}}
 \end{DoxyCode}
-\hypertarget{classnlohmann_1_1basic__json_autotoc_md12}{}\doxysubparagraph{Storage}\label{classnlohmann_1_1basic__json_autotoc_md12}
+\hypertarget{classnlohmann_1_1basic__json_autotoc_md13}{}\doxysubparagraph{Storage}\label{classnlohmann_1_1basic__json_autotoc_md13}
 Boolean values are stored directly inside a \mbox{\hyperlink{classnlohmann_1_1basic__json}{basic\+\_\+json}} type.
 
 \begin{DoxySince}{Since}
@@ -801,24 +801,24 @@ The representation of numbers is similar to that used in most programming langua
 
 This description includes both integer and floating-\/point numbers. However, C++ allows more precise storage if it is known whether the number is a signed integer, an unsigned integer or a floating-\/point number. Therefore, three different types, \mbox{\hyperlink{classnlohmann_1_1basic__json_a98e611d67b7bd75307de99c9358ab2dc}{number\+\_\+integer\+\_\+t}}, \mbox{\hyperlink{classnlohmann_1_1basic__json_ab906e29b5d83ac162e823ada2156b989}{number\+\_\+unsigned\+\_\+t}} and \mbox{\hyperlink{classnlohmann_1_1basic__json_a88d6103cb3620410b35200ee8e313d97}{number\+\_\+float\+\_\+t}} are used.
 
-To store floating-\/point numbers in C++, a type is defined by the template parameter {\itshape Number\+Float\+Type} which chooses the type to use.\hypertarget{classnlohmann_1_1basic__json_autotoc_md21}{}\doxysubparagraph{Default type}\label{classnlohmann_1_1basic__json_autotoc_md21}
+To store floating-\/point numbers in C++, a type is defined by the template parameter {\itshape Number\+Float\+Type} which chooses the type to use.\hypertarget{classnlohmann_1_1basic__json_autotoc_md22}{}\doxysubparagraph{Default type}\label{classnlohmann_1_1basic__json_autotoc_md22}
 With the default values for {\itshape Number\+Float\+Type} ({\ttfamily double}), the default value for {\itshape number\+\_\+float\+\_\+t} is\+:
 
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\textcolor{keywordtype}{double}}
 \end{DoxyCode}
-\hypertarget{classnlohmann_1_1basic__json_autotoc_md22}{}\doxysubparagraph{Default behavior}\label{classnlohmann_1_1basic__json_autotoc_md22}
+\hypertarget{classnlohmann_1_1basic__json_autotoc_md23}{}\doxysubparagraph{Default behavior}\label{classnlohmann_1_1basic__json_autotoc_md23}
 
 \begin{DoxyItemize}
 \item The restrictions about leading zeros is not enforced in C++. Instead, leading zeros in floating-\/point literals will be ignored. Internally, the value will be stored as decimal number. For instance, the C++ floating-\/point literal {\ttfamily 01.\+2} will be serialized to {\ttfamily 1.\+2}. During deserialization, leading zeros yield an error.
 \item Not-\/a-\/number (NaN) values will be serialized to {\ttfamily null}.
-\end{DoxyItemize}\hypertarget{classnlohmann_1_1basic__json_autotoc_md23}{}\doxysubparagraph{Limits}\label{classnlohmann_1_1basic__json_autotoc_md23}
+\end{DoxyItemize}\hypertarget{classnlohmann_1_1basic__json_autotoc_md24}{}\doxysubparagraph{Limits}\label{classnlohmann_1_1basic__json_autotoc_md24}
 \href{http://rfc7159.net/rfc7159}{\texttt{ R\+FC 7159}} states\+: \begin{quote}
 This specification allows implementations to set limits on the range and precision of numbers accepted. Since software that implements I\+E\+EE 754-\/2008 binary64 (double precision) numbers is generally available and widely used, good interoperability can be achieved by implementations that expect no more precision or range than these provide, in the sense that implementations will approximate J\+S\+ON numbers within the expected precision. \end{quote}
 
 
-This implementation does exactly follow this approach, as it uses double precision floating-\/point numbers. Note values smaller than {\ttfamily -\/1.\+79769313486232e+308} and values greater than {\ttfamily 1.\+79769313486232e+308} will be stored as NaN internally and be serialized to {\ttfamily null}.\hypertarget{classnlohmann_1_1basic__json_autotoc_md24}{}\doxysubparagraph{Storage}\label{classnlohmann_1_1basic__json_autotoc_md24}
+This implementation does exactly follow this approach, as it uses double precision floating-\/point numbers. Note values smaller than {\ttfamily -\/1.\+79769313486232e+308} and values greater than {\ttfamily 1.\+79769313486232e+308} will be stored as NaN internally and be serialized to {\ttfamily null}.\hypertarget{classnlohmann_1_1basic__json_autotoc_md25}{}\doxysubparagraph{Storage}\label{classnlohmann_1_1basic__json_autotoc_md25}
 Floating-\/point number values are stored directly inside a \mbox{\hyperlink{classnlohmann_1_1basic__json}{basic\+\_\+json}} type.
 
 \begin{DoxySeeAlso}{See also}
@@ -846,19 +846,19 @@ The representation of numbers is similar to that used in most programming langua
 
 This description includes both integer and floating-\/point numbers. However, C++ allows more precise storage if it is known whether the number is a signed integer, an unsigned integer or a floating-\/point number. Therefore, three different types, \mbox{\hyperlink{classnlohmann_1_1basic__json_a98e611d67b7bd75307de99c9358ab2dc}{number\+\_\+integer\+\_\+t}}, \mbox{\hyperlink{classnlohmann_1_1basic__json_ab906e29b5d83ac162e823ada2156b989}{number\+\_\+unsigned\+\_\+t}} and \mbox{\hyperlink{classnlohmann_1_1basic__json_a88d6103cb3620410b35200ee8e313d97}{number\+\_\+float\+\_\+t}} are used.
 
-To store integer numbers in C++, a type is defined by the template parameter {\itshape Number\+Integer\+Type} which chooses the type to use.\hypertarget{classnlohmann_1_1basic__json_autotoc_md13}{}\doxysubparagraph{Default type}\label{classnlohmann_1_1basic__json_autotoc_md13}
+To store integer numbers in C++, a type is defined by the template parameter {\itshape Number\+Integer\+Type} which chooses the type to use.\hypertarget{classnlohmann_1_1basic__json_autotoc_md14}{}\doxysubparagraph{Default type}\label{classnlohmann_1_1basic__json_autotoc_md14}
 With the default values for {\itshape Number\+Integer\+Type} ({\ttfamily int64\+\_\+t}), the default value for {\itshape number\+\_\+integer\+\_\+t} is\+:
 
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{int64\_t}
 \end{DoxyCode}
-\hypertarget{classnlohmann_1_1basic__json_autotoc_md14}{}\doxysubparagraph{Default behavior}\label{classnlohmann_1_1basic__json_autotoc_md14}
+\hypertarget{classnlohmann_1_1basic__json_autotoc_md15}{}\doxysubparagraph{Default behavior}\label{classnlohmann_1_1basic__json_autotoc_md15}
 
 \begin{DoxyItemize}
 \item The restrictions about leading zeros is not enforced in C++. Instead, leading zeros in integer literals lead to an interpretation as octal number. Internally, the value will be stored as decimal number. For instance, the C++ integer literal {\ttfamily 010} will be serialized to {\ttfamily 8}. During deserialization, leading zeros yield an error.
 \item Not-\/a-\/number (NaN) values will be serialized to {\ttfamily null}.
-\end{DoxyItemize}\hypertarget{classnlohmann_1_1basic__json_autotoc_md15}{}\doxysubparagraph{Limits}\label{classnlohmann_1_1basic__json_autotoc_md15}
+\end{DoxyItemize}\hypertarget{classnlohmann_1_1basic__json_autotoc_md16}{}\doxysubparagraph{Limits}\label{classnlohmann_1_1basic__json_autotoc_md16}
 \href{http://rfc7159.net/rfc7159}{\texttt{ R\+FC 7159}} specifies\+: \begin{quote}
 An implementation may set limits on the range and precision of numbers. \end{quote}
 
@@ -869,7 +869,7 @@ When the default type is used, the maximal integer number that can be stored is 
 Note that when such software is used, numbers that are integers and are in the range $[-2^{53}+1, 2^{53}-1]$ are interoperable in the sense that implementations will agree exactly on their numeric values. \end{quote}
 
 
-As this range is a subrange of the exactly supported range \mbox{[}I\+N\+T64\+\_\+\+M\+IN, I\+N\+T64\+\_\+\+M\+AX\mbox{]}, this class\textquotesingle{}s integer type is interoperable.\hypertarget{classnlohmann_1_1basic__json_autotoc_md16}{}\doxysubparagraph{Storage}\label{classnlohmann_1_1basic__json_autotoc_md16}
+As this range is a subrange of the exactly supported range \mbox{[}I\+N\+T64\+\_\+\+M\+IN, I\+N\+T64\+\_\+\+M\+AX\mbox{]}, this class\textquotesingle{}s integer type is interoperable.\hypertarget{classnlohmann_1_1basic__json_autotoc_md17}{}\doxysubparagraph{Storage}\label{classnlohmann_1_1basic__json_autotoc_md17}
 Integer number values are stored directly inside a \mbox{\hyperlink{classnlohmann_1_1basic__json}{basic\+\_\+json}} type.
 
 \begin{DoxySeeAlso}{See also}
@@ -897,19 +897,19 @@ The representation of numbers is similar to that used in most programming langua
 
 This description includes both integer and floating-\/point numbers. However, C++ allows more precise storage if it is known whether the number is a signed integer, an unsigned integer or a floating-\/point number. Therefore, three different types, \mbox{\hyperlink{classnlohmann_1_1basic__json_a98e611d67b7bd75307de99c9358ab2dc}{number\+\_\+integer\+\_\+t}}, \mbox{\hyperlink{classnlohmann_1_1basic__json_ab906e29b5d83ac162e823ada2156b989}{number\+\_\+unsigned\+\_\+t}} and \mbox{\hyperlink{classnlohmann_1_1basic__json_a88d6103cb3620410b35200ee8e313d97}{number\+\_\+float\+\_\+t}} are used.
 
-To store unsigned integer numbers in C++, a type is defined by the template parameter {\itshape Number\+Unsigned\+Type} which chooses the type to use.\hypertarget{classnlohmann_1_1basic__json_autotoc_md17}{}\doxysubparagraph{Default type}\label{classnlohmann_1_1basic__json_autotoc_md17}
+To store unsigned integer numbers in C++, a type is defined by the template parameter {\itshape Number\+Unsigned\+Type} which chooses the type to use.\hypertarget{classnlohmann_1_1basic__json_autotoc_md18}{}\doxysubparagraph{Default type}\label{classnlohmann_1_1basic__json_autotoc_md18}
 With the default values for {\itshape Number\+Unsigned\+Type} ({\ttfamily uint64\+\_\+t}), the default value for {\itshape number\+\_\+unsigned\+\_\+t} is\+:
 
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{uint64\_t}
 \end{DoxyCode}
-\hypertarget{classnlohmann_1_1basic__json_autotoc_md18}{}\doxysubparagraph{Default behavior}\label{classnlohmann_1_1basic__json_autotoc_md18}
+\hypertarget{classnlohmann_1_1basic__json_autotoc_md19}{}\doxysubparagraph{Default behavior}\label{classnlohmann_1_1basic__json_autotoc_md19}
 
 \begin{DoxyItemize}
 \item The restrictions about leading zeros is not enforced in C++. Instead, leading zeros in integer literals lead to an interpretation as octal number. Internally, the value will be stored as decimal number. For instance, the C++ integer literal {\ttfamily 010} will be serialized to {\ttfamily 8}. During deserialization, leading zeros yield an error.
 \item Not-\/a-\/number (NaN) values will be serialized to {\ttfamily null}.
-\end{DoxyItemize}\hypertarget{classnlohmann_1_1basic__json_autotoc_md19}{}\doxysubparagraph{Limits}\label{classnlohmann_1_1basic__json_autotoc_md19}
+\end{DoxyItemize}\hypertarget{classnlohmann_1_1basic__json_autotoc_md20}{}\doxysubparagraph{Limits}\label{classnlohmann_1_1basic__json_autotoc_md20}
 \href{http://rfc7159.net/rfc7159}{\texttt{ R\+FC 7159}} specifies\+: \begin{quote}
 An implementation may set limits on the range and precision of numbers. \end{quote}
 
@@ -920,7 +920,7 @@ When the default type is used, the maximal integer number that can be stored is 
 Note that when such software is used, numbers that are integers and are in the range $[-2^{53}+1, 2^{53}-1]$ are interoperable in the sense that implementations will agree exactly on their numeric values. \end{quote}
 
 
-As this range is a subrange (when considered in conjunction with the number\+\_\+integer\+\_\+t type) of the exactly supported range \mbox{[}0, U\+I\+N\+T64\+\_\+\+M\+AX\mbox{]}, this class\textquotesingle{}s integer type is interoperable.\hypertarget{classnlohmann_1_1basic__json_autotoc_md20}{}\doxysubparagraph{Storage}\label{classnlohmann_1_1basic__json_autotoc_md20}
+As this range is a subrange (when considered in conjunction with the number\+\_\+integer\+\_\+t type) of the exactly supported range \mbox{[}0, U\+I\+N\+T64\+\_\+\+M\+AX\mbox{]}, this class\textquotesingle{}s integer type is interoperable.\hypertarget{classnlohmann_1_1basic__json_autotoc_md21}{}\doxysubparagraph{Storage}\label{classnlohmann_1_1basic__json_autotoc_md21}
 Integer number values are stored directly inside a \mbox{\hyperlink{classnlohmann_1_1basic__json}{basic\+\_\+json}} type.
 
 \begin{DoxySeeAlso}{See also}
@@ -957,7 +957,7 @@ To store objects in C++, a type is defined by the template parameters described 
 {\em Allocator\+Type} & the allocator to use for objects (e.\+g., {\ttfamily std\+::allocator})\\
 \hline
 \end{DoxyTemplParams}
-\hypertarget{classnlohmann_1_1basic__json_autotoc_md0}{}\doxysubparagraph{Default type}\label{classnlohmann_1_1basic__json_autotoc_md0}
+\hypertarget{classnlohmann_1_1basic__json_autotoc_md1}{}\doxysubparagraph{Default type}\label{classnlohmann_1_1basic__json_autotoc_md1}
 With the default values for {\itshape Object\+Type} ({\ttfamily std\+::map}), {\itshape String\+Type} ({\ttfamily std\+::string}), and {\itshape Allocator\+Type} ({\ttfamily std\+::allocator}), the default value for {\itshape object\+\_\+t} is\+:
 
 
@@ -969,7 +969,7 @@ With the default values for {\itshape Object\+Type} ({\ttfamily std\+::map}), {\
 \DoxyCodeLine{  std::allocator<std::pair<const std::string, basic\_json>> \textcolor{comment}{// allocator\_type}}
 \DoxyCodeLine{>}
 \end{DoxyCode}
-\hypertarget{classnlohmann_1_1basic__json_autotoc_md1}{}\doxysubparagraph{Behavior}\label{classnlohmann_1_1basic__json_autotoc_md1}
+\hypertarget{classnlohmann_1_1basic__json_autotoc_md2}{}\doxysubparagraph{Behavior}\label{classnlohmann_1_1basic__json_autotoc_md2}
 The choice of {\itshape object\+\_\+t} influences the behavior of the J\+S\+ON class. With the default type, objects have the following behavior\+:
 
 
@@ -978,12 +978,12 @@ The choice of {\itshape object\+\_\+t} influences the behavior of the J\+S\+ON c
 \item When the names within an object are not unique, later stored name/value pairs overwrite previously stored name/value pairs, leaving the used names unique. For instance, {\ttfamily \{\char`\"{}key\char`\"{}\+: 1\}} and {\ttfamily \{\char`\"{}key\char`\"{}\+: 2, \char`\"{}key\char`\"{}\+: 1\}} will be treated as equal and both stored as {\ttfamily \{\char`\"{}key\char`\"{}\+: 1\}}.
 \item Internally, name/value pairs are stored in lexicographical order of the names. Objects will also be serialized (see \mbox{\hyperlink{classnlohmann_1_1basic__json_a83af9d861cf4ecc12e4dac5479b818ed}{dump}}) in this order. For instance, {\ttfamily \{\char`\"{}b\char`\"{}\+: 1, \char`\"{}a\char`\"{}\+: 2\}} and {\ttfamily \{\char`\"{}a\char`\"{}\+: 2, \char`\"{}b\char`\"{}\+: 1\}} will be stored and serialized as {\ttfamily \{\char`\"{}a\char`\"{}\+: 2, \char`\"{}b\char`\"{}\+: 1\}}.
 \item When comparing objects, the order of the name/value pairs is irrelevant. This makes objects interoperable in the sense that they will not be affected by these differences. For instance, {\ttfamily \{\char`\"{}b\char`\"{}\+: 1, \char`\"{}a\char`\"{}\+: 2\}} and {\ttfamily \{\char`\"{}a\char`\"{}\+: 2, \char`\"{}b\char`\"{}\+: 1\}} will be treated as equal.
-\end{DoxyItemize}\hypertarget{classnlohmann_1_1basic__json_autotoc_md2}{}\doxysubparagraph{Limits}\label{classnlohmann_1_1basic__json_autotoc_md2}
+\end{DoxyItemize}\hypertarget{classnlohmann_1_1basic__json_autotoc_md3}{}\doxysubparagraph{Limits}\label{classnlohmann_1_1basic__json_autotoc_md3}
 \href{http://rfc7159.net/rfc7159}{\texttt{ R\+FC 7159}} specifies\+: \begin{quote}
 An implementation may set limits on the maximum depth of nesting. \end{quote}
 
 
-In this class, the object\textquotesingle{}s limit of nesting is not constraint explicitly. However, a maximum depth of nesting may be introduced by the compiler or runtime environment. A theoretical limit can be queried by calling the \mbox{\hyperlink{classnlohmann_1_1basic__json_a2f47d3c6a441c57dd2be00449fbb88e1}{max\+\_\+size}} function of a J\+S\+ON object.\hypertarget{classnlohmann_1_1basic__json_autotoc_md3}{}\doxysubparagraph{Storage}\label{classnlohmann_1_1basic__json_autotoc_md3}
+In this class, the object\textquotesingle{}s limit of nesting is not constraint explicitly. However, a maximum depth of nesting may be introduced by the compiler or runtime environment. A theoretical limit can be queried by calling the \mbox{\hyperlink{classnlohmann_1_1basic__json_a2f47d3c6a441c57dd2be00449fbb88e1}{max\+\_\+size}} function of a J\+S\+ON object.\hypertarget{classnlohmann_1_1basic__json_autotoc_md4}{}\doxysubparagraph{Storage}\label{classnlohmann_1_1basic__json_autotoc_md4}
 Objects are stored as pointers in a \mbox{\hyperlink{classnlohmann_1_1basic__json}{basic\+\_\+json}} type. That is, for any access to object values, a pointer of type {\ttfamily object\+\_\+t$\ast$} must be dereferenced.
 
 \begin{DoxySeeAlso}{See also}
@@ -1193,20 +1193,20 @@ To store objects in C++, a type is defined by the template parameter described b
 {\em String\+Type} & the container to store strings (e.\+g., {\ttfamily std\+::string}). Note this container is used for keys/names in objects, see \mbox{\hyperlink{classnlohmann_1_1basic__json_aa1eb13d5aa86f80cbee6c58e90fbaf49}{object\+\_\+t}}.\\
 \hline
 \end{DoxyTemplParams}
-\hypertarget{classnlohmann_1_1basic__json_autotoc_md7}{}\doxysubparagraph{Default type}\label{classnlohmann_1_1basic__json_autotoc_md7}
+\hypertarget{classnlohmann_1_1basic__json_autotoc_md8}{}\doxysubparagraph{Default type}\label{classnlohmann_1_1basic__json_autotoc_md8}
 With the default values for {\itshape String\+Type} ({\ttfamily std\+::string}), the default value for {\itshape string\+\_\+t} is\+:
 
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{std::string}
 \end{DoxyCode}
-\hypertarget{classnlohmann_1_1basic__json_autotoc_md8}{}\doxysubparagraph{Encoding}\label{classnlohmann_1_1basic__json_autotoc_md8}
-Strings are stored in U\+T\+F-\/8 encoding. Therefore, functions like {\ttfamily std\+::string\+::size()} or {\ttfamily std\+::string\+::length()} return the number of bytes in the string rather than the number of characters or glyphs.\hypertarget{classnlohmann_1_1basic__json_autotoc_md9}{}\doxysubparagraph{String comparison}\label{classnlohmann_1_1basic__json_autotoc_md9}
+\hypertarget{classnlohmann_1_1basic__json_autotoc_md9}{}\doxysubparagraph{Encoding}\label{classnlohmann_1_1basic__json_autotoc_md9}
+Strings are stored in U\+T\+F-\/8 encoding. Therefore, functions like {\ttfamily std\+::string\+::size()} or {\ttfamily std\+::string\+::length()} return the number of bytes in the string rather than the number of characters or glyphs.\hypertarget{classnlohmann_1_1basic__json_autotoc_md10}{}\doxysubparagraph{String comparison}\label{classnlohmann_1_1basic__json_autotoc_md10}
 \href{http://rfc7159.net/rfc7159}{\texttt{ R\+FC 7159}} states\+: \begin{quote}
 Software implementations are typically required to test names of object members for equality. Implementations that transform the textual representation into sequences of Unicode code units and then perform the comparison numerically, code unit by code unit, are interoperable in the sense that implementations will agree in all cases on equality or inequality of two strings. For example, implementations that compare strings with escaped characters unconverted may incorrectly find that {\ttfamily \char`\"{}a\textbackslash{}\textbackslash{}b\char`\"{}} and {\ttfamily \char`\"{}a\textbackslash{}u005\+Cb\char`\"{}} are not equal. \end{quote}
 
 
-This implementation is interoperable as it does compare strings code unit by code unit.\hypertarget{classnlohmann_1_1basic__json_autotoc_md10}{}\doxysubparagraph{Storage}\label{classnlohmann_1_1basic__json_autotoc_md10}
+This implementation is interoperable as it does compare strings code unit by code unit.\hypertarget{classnlohmann_1_1basic__json_autotoc_md11}{}\doxysubparagraph{Storage}\label{classnlohmann_1_1basic__json_autotoc_md11}
 String values are stored as pointers in a \mbox{\hyperlink{classnlohmann_1_1basic__json}{basic\+\_\+json}} type. That is, for any access to string values, a pointer of type {\ttfamily string\+\_\+t$\ast$} must be dereferenced.
 
 \begin{DoxySince}{Since}

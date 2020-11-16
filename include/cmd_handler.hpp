@@ -17,7 +17,7 @@
 namespace bot
 {
 /*!
- * @brief typedef for command arguments.
+ * @brief typedef struct for command arguments.
  */
 typedef struct {
   std::string message;
@@ -65,6 +65,9 @@ public:
 
 /*!
  * @brief Class representing the interface for processing commands.
+ * - This class has no constructors and no static fields for the
+ *   message, from_id and peer_id due to the fact that
+ *   @ref bot::Long_poll_handler works with threads.
  */
 class Cmd_handler
 {
@@ -112,15 +115,15 @@ private:
    */
   nlohmann::json _reply;
   /*!
-   * @brief @ref bot::VK_api "VK API handler".
+   * @brief VK API handler.
    */
   Vk_api _api;
   /*!
-   * @brief @ref bot::Database "Database".
+   * @brief SQLite3 database storing roles.
    */
   Database _database;
   /*!
-   * @brief @ref bot::Vk_logger "Logger".
+   * @brief Logger for incoming events.
    */
   Vk_logger _logger{logfile, errfile};
   /*!
@@ -131,7 +134,6 @@ private:
   /*!
    * @brief Bot build time.
    * Needed by @ref bot::Cmd_handler::stat_cmd.
-   * @return date and time of time, when program was builded.
    */
   std::string const _build_time = std::string{__DATE__} + " " + std::string{__TIME__};
 

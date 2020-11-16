@@ -27,9 +27,9 @@ public:
    * ### Exempli gratia:
    *
    * @code{.cpp}
-   * send_message("text", 2000000008, {
-   *   {"attachment", "photo..."}
-   * });
+   *     send_message("text", 2000000008, {
+   *       {"attachment", "photo..."}
+   *     });
    * @endcode
    */
   void send_message(const std::string& text, const long& peer_id, const std::map<std::string, std::string>& options = {});

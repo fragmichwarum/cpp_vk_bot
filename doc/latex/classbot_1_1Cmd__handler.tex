@@ -88,19 +88,26 @@ static \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6
 \mbox{\hyperlink{classbot_1_1Vk__api}{Vk\+\_\+api}} \mbox{\hyperlink{classbot_1_1Cmd__handler_abb9bceb2977b9ad2783c6e63f490c7a3}{\+\_\+api}}
 \begin{DoxyCompactList}\small\item\em VK A\+PI handler. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classbot_1_1Cmd__handler_a77ca40a6d535a0eac2bd1dc47422742c}\label{classbot_1_1Cmd__handler_a77ca40a6d535a0eac2bd1dc47422742c}} 
-Database \mbox{\hyperlink{classbot_1_1Cmd__handler_a77ca40a6d535a0eac2bd1dc47422742c}{\+\_\+database}}
-\begin{DoxyCompactList}\small\item\em Database. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classbot_1_1Database}{Database}} \mbox{\hyperlink{classbot_1_1Cmd__handler_a77ca40a6d535a0eac2bd1dc47422742c}{\+\_\+database}}
+\begin{DoxyCompactList}\small\item\em S\+Q\+Lite3 database storing roles. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classbot_1_1Cmd__handler_a17efd7b63ac4048b79823251f6d63afc}\label{classbot_1_1Cmd__handler_a17efd7b63ac4048b79823251f6d63afc}} 
 \mbox{\hyperlink{classbot_1_1Vk__logger}{Vk\+\_\+logger}} \mbox{\hyperlink{classbot_1_1Cmd__handler_a17efd7b63ac4048b79823251f6d63afc}{\+\_\+logger}} \{logfile, errfile\}
-\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classbot_1_1Vk__logger}{Logger}}. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Logger for incoming events. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_a2ab8858e26f707384245344fac25a683}\label{classbot_1_1Cmd__handler_a2ab8858e26f707384245344fac25a683}} 
 long \mbox{\hyperlink{classbot_1_1Cmd__handler_a2ab8858e26f707384245344fac25a683}{\+\_\+msg\+\_\+counter}} = 0
-\begin{DoxyCompactList}\small\item\em Function, that provides to logging incoming events. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Count of processed commands. Needed by \mbox{\hyperlink{classbot_1_1Cmd__handler_a4663669d31dce0bd3e4c82099929b2ab}{bot\+::\+Cmd\+\_\+handler\+::stat\+\_\+cmd}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_a8a8b57ab4adaffd81a37e0cce70e8b77}\label{classbot_1_1Cmd__handler_a8a8b57ab4adaffd81a37e0cce70e8b77}} 
 std\+::string const \mbox{\hyperlink{classbot_1_1Cmd__handler_a8a8b57ab4adaffd81a37e0cce70e8b77}{\+\_\+build\+\_\+time}} = std\+::string\{\+\_\+\+\_\+\+D\+A\+T\+E\+\_\+\+\_\+\} + \char`\"{} \char`\"{} + std\+::string\{\+\_\+\+\_\+\+T\+I\+M\+E\+\_\+\+\_\+\}
 \begin{DoxyCompactList}\small\item\em Bot build time. Needed by \mbox{\hyperlink{classbot_1_1Cmd__handler_a4663669d31dce0bd3e4c82099929b2ab}{bot\+::\+Cmd\+\_\+handler\+::stat\+\_\+cmd}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 Class representing the interface for processing commands. 
+
+
+\begin{DoxyItemize}
+\item This class has no constructors and no static fields for the message, from\+\_\+id and peer\+\_\+id due to the fact that \mbox{\hyperlink{classbot_1_1Long__poll__handler}{bot\+::\+Long\+\_\+poll\+\_\+handler}} works with threads. 
+\end{DoxyItemize}
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classbot_1_1Cmd__handler_a26c1236c8a2b1c84f885f294fd04955d}\label{classbot_1_1Cmd__handler_a26c1236c8a2b1c84f885f294fd04955d}} 
@@ -589,37 +596,7 @@ Result of \href{https://ru.wikipedia.org/w/api.php}{\texttt{ https\+://ru.\+wiki
 
 
 \doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{classbot_1_1Cmd__handler_a8a8b57ab4adaffd81a37e0cce70e8b77}\label{classbot_1_1Cmd__handler_a8a8b57ab4adaffd81a37e0cce70e8b77}} 
-\index{bot::Cmd\_handler@{bot::Cmd\_handler}!\_build\_time@{\_build\_time}}
-\index{\_build\_time@{\_build\_time}!bot::Cmd\_handler@{bot::Cmd\_handler}}
-\doxysubsubsection{\texorpdfstring{\_build\_time}{\_build\_time}}
-{\footnotesize\ttfamily std\+::string const bot\+::\+Cmd\+\_\+handler\+::\+\_\+build\+\_\+time = std\+::string\{\+\_\+\+\_\+\+D\+A\+T\+E\+\_\+\+\_\+\} + \char`\"{} \char`\"{} + std\+::string\{\+\_\+\+\_\+\+T\+I\+M\+E\+\_\+\+\_\+\}\hspace{0.3cm}{\ttfamily [private]}}
-
-
-
-Bot build time. Needed by \mbox{\hyperlink{classbot_1_1Cmd__handler_a4663669d31dce0bd3e4c82099929b2ab}{bot\+::\+Cmd\+\_\+handler\+::stat\+\_\+cmd}}. 
-
-\begin{DoxyReturn}{Returns}
-date and time of time, when program was builded. 
-\end{DoxyReturn}
-\mbox{\Hypertarget{classbot_1_1Cmd__handler_a2ab8858e26f707384245344fac25a683}\label{classbot_1_1Cmd__handler_a2ab8858e26f707384245344fac25a683}} 
-\index{bot::Cmd\_handler@{bot::Cmd\_handler}!\_msg\_counter@{\_msg\_counter}}
-\index{\_msg\_counter@{\_msg\_counter}!bot::Cmd\_handler@{bot::Cmd\_handler}}
-\doxysubsubsection{\texorpdfstring{\_msg\_counter}{\_msg\_counter}}
-{\footnotesize\ttfamily long bot\+::\+Cmd\+\_\+handler\+::\+\_\+msg\+\_\+counter = 0\hspace{0.3cm}{\ttfamily [private]}}
-
-
-
-Function, that provides to logging incoming events. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em message} & \\
-\hline
-{\em from\+\_\+id} & \\
-\hline
-\end{DoxyParams}
-Count of processed commands. Needed by \mbox{\hyperlink{classbot_1_1Cmd__handler_a4663669d31dce0bd3e4c82099929b2ab}{bot\+::\+Cmd\+\_\+handler\+::stat\+\_\+cmd}}. \mbox{\Hypertarget{classbot_1_1Cmd__handler_ab588c8cc6a2e4835111348ba10fbe187}\label{classbot_1_1Cmd__handler_ab588c8cc6a2e4835111348ba10fbe187}} 
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_ab588c8cc6a2e4835111348ba10fbe187}\label{classbot_1_1Cmd__handler_ab588c8cc6a2e4835111348ba10fbe187}} 
 \index{bot::Cmd\_handler@{bot::Cmd\_handler}!creator@{creator}}
 \index{creator@{creator}!bot::Cmd\_handler@{bot::Cmd\_handler}}
 \doxysubsubsection{\texorpdfstring{creator}{creator}}

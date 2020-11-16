@@ -280,6 +280,7 @@ string Cmd_handler::about_cmd([[maybe_unused]] cmd_type cmd) {
   return
     "C++ bot,\n"
     "Cурсы лежат тут: https://github.com/oxfffffe/cpp_vk_bot\n"
+    "Документация: https://oxfffffe.github.io/\n"
     "Бота создал: @jijijijijijijijijijijijji (он)\n"
     "Версия VK API: " + api_version + '\n' +
     "Собран: " + _build_time;

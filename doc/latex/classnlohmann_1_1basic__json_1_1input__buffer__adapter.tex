@@ -1,0 +1,55 @@
+\hypertarget{classnlohmann_1_1basic__json_1_1input__buffer__adapter}{}\doxysection{nlohmann\+::basic\+\_\+json$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, J\+S\+O\+N\+Serializer $>$\+::input\+\_\+buffer\+\_\+adapter Class Reference}
+\label{classnlohmann_1_1basic__json_1_1input__buffer__adapter}\index{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::input\_buffer\_adapter@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::input\_buffer\_adapter}}
+
+
+input adapter for buffer input  
+
+
+Inheritance diagram for nlohmann\+::basic\+\_\+json$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, J\+S\+O\+N\+Serializer $>$\+::input\+\_\+buffer\+\_\+adapter\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=0.997329cm]{classnlohmann_1_1basic__json_1_1input__buffer__adapter}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1input__buffer__adapter_a7c37db8b2fe98012ddf107d87b0b68f6}\label{classnlohmann_1_1basic__json_1_1input__buffer__adapter_a7c37db8b2fe98012ddf107d87b0b68f6}} 
+{\bfseries input\+\_\+buffer\+\_\+adapter} (const char $\ast$b, size\+\_\+t l)
+\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1input__buffer__adapter_a5b4156c84360d025ac6e467bd6e0839f}\label{classnlohmann_1_1basic__json_1_1input__buffer__adapter_a5b4156c84360d025ac6e467bd6e0839f}} 
+{\bfseries input\+\_\+buffer\+\_\+adapter} (const \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1input__buffer__adapter}{input\+\_\+buffer\+\_\+adapter}} \&)=delete
+\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1input__buffer__adapter_ad4c93895ff810bfc44177a9e07bd0f3c}\label{classnlohmann_1_1basic__json_1_1input__buffer__adapter_ad4c93895ff810bfc44177a9e07bd0f3c}} 
+\mbox{\hyperlink{classnlohmann_1_1basic__json_1_1input__buffer__adapter}{input\+\_\+buffer\+\_\+adapter}} \& {\bfseries operator=} (\mbox{\hyperlink{classnlohmann_1_1basic__json_1_1input__buffer__adapter}{input\+\_\+buffer\+\_\+adapter}} \&)=delete
+\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1input__buffer__adapter_adebf3f88b63943135741b30553ae8ff3}\label{classnlohmann_1_1basic__json_1_1input__buffer__adapter_adebf3f88b63943135741b30553ae8ff3}} 
+int {\bfseries get\+\_\+character} () override
+\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1input__buffer__adapter_a4d844a2a9a9e4fbfdccf8d1bd30b60fd}\label{classnlohmann_1_1basic__json_1_1input__buffer__adapter_a4d844a2a9a9e4fbfdccf8d1bd30b60fd}} 
+std\+::string {\bfseries read} (size\+\_\+t offset, size\+\_\+t length) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1input__buffer__adapter_a36aabce28e429e3b1123305f9fba6378}\label{classnlohmann_1_1basic__json_1_1input__buffer__adapter_a36aabce28e429e3b1123305f9fba6378}} 
+const char $\ast$ \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1input__buffer__adapter_a36aabce28e429e3b1123305f9fba6378}{cursor}}
+\begin{DoxyCompactList}\small\item\em pointer to the current character \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1input__buffer__adapter_a3f50a8264325ad3330ea62ec2b14a36d}\label{classnlohmann_1_1basic__json_1_1input__buffer__adapter_a3f50a8264325ad3330ea62ec2b14a36d}} 
+const char $\ast$ \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1input__buffer__adapter_a3f50a8264325ad3330ea62ec2b14a36d}{limit}}
+\begin{DoxyCompactList}\small\item\em pointer past the last character \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1input__buffer__adapter_a4b4ba5157ebac6a6e96bf339e3cfaf01}\label{classnlohmann_1_1basic__json_1_1input__buffer__adapter_a4b4ba5157ebac6a6e96bf339e3cfaf01}} 
+const char $\ast$ \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1input__buffer__adapter_a4b4ba5157ebac6a6e96bf339e3cfaf01}{start}}
+\begin{DoxyCompactList}\small\item\em pointer to the first character \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$template$<$ typename U, typename V, typename... Args $>$ class Object\+Type = std\+::map, template$<$ typename U, typename... Args $>$ class Array\+Type = std\+::vector, class String\+Type = std\+::string, class Boolean\+Type = bool, class Number\+Integer\+Type = std\+::int64\+\_\+t, class Number\+Unsigned\+Type = std\+::uint64\+\_\+t, class Number\+Float\+Type = double, template$<$ typename U $>$ class Allocator\+Type = std\+::allocator, template$<$ typename T, typename S\+F\+I\+N\+A\+E=void $>$ class J\+S\+O\+N\+Serializer = adl\+\_\+serializer$>$\newline
+class nlohmann\+::basic\+\_\+json$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, J\+S\+O\+N\+Serializer $>$\+::input\+\_\+buffer\+\_\+adapter}
+
+input adapter for buffer input 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lib/include/json.\+hpp\end{DoxyCompactItemize}

@@ -19,5 +19,4 @@ int main(void) {
  | clang++  -c -pipe -Wall     -std=gnu++1z -fPIC     |     744K |
  | g++      -c -pipe -Wall     -std=gnu++1z -fPIC     |     760K |
  |----------------------------------------------------|----------|
-
 */

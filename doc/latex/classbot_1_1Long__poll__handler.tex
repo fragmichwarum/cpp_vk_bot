@@ -1,0 +1,46 @@
+\hypertarget{classbot_1_1Long__poll__handler}{}\doxysection{bot\+::Long\+\_\+poll\+\_\+handler Class Reference}
+\label{classbot_1_1Long__poll__handler}\index{bot::Long\_poll\_handler@{bot::Long\_poll\_handler}}
+
+
+Class that representing interface to handling VK Long Poll.  
+
+
+
+
+{\ttfamily \#include $<$long\+\_\+poll.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classbot_1_1Long__poll__handler_a9c0e98518f20eb0d2d1dd3ae66201e64}\label{classbot_1_1Long__poll__handler_a9c0e98518f20eb0d2d1dd3ae66201e64}} 
+void \mbox{\hyperlink{classbot_1_1Long__poll__handler_a9c0e98518f20eb0d2d1dd3ae66201e64}{loop}} ()
+\begin{DoxyCompactList}\small\item\em Starts endless loop, listening to Long Poll. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classbot_1_1Long__poll__handler_a28c32d5faaa0498cbf8be1dee7100a78}\label{classbot_1_1Long__poll__handler_a28c32d5faaa0498cbf8be1dee7100a78}} 
+void \mbox{\hyperlink{classbot_1_1Long__poll__handler_a28c32d5faaa0498cbf8be1dee7100a78}{\+\_\+get\+\_\+server}} ()
+\begin{DoxyCompactList}\small\item\em Makes request to the Long Poll server and initialize \mbox{\hyperlink{classbot_1_1Long__poll__handler_a3c77ce5d511a53d0b55268f37764fd40}{\+\_\+server}}, \mbox{\hyperlink{classbot_1_1Long__poll__handler_a4885d20c49c53b8de39b5a67324cd658}{\+\_\+key}} and \mbox{\hyperlink{classbot_1_1Long__poll__handler_a2f922ed97a231ee16c4c9f8e673435aa}{\+\_\+ts}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classbot_1_1Long__poll__handler_a3c77ce5d511a53d0b55268f37764fd40}\label{classbot_1_1Long__poll__handler_a3c77ce5d511a53d0b55268f37764fd40}} 
+std\+::string \mbox{\hyperlink{classbot_1_1Long__poll__handler_a3c77ce5d511a53d0b55268f37764fd40}{\+\_\+server}}
+\begin{DoxyCompactList}\small\item\em Long Poll server address. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classbot_1_1Long__poll__handler_a4885d20c49c53b8de39b5a67324cd658}\label{classbot_1_1Long__poll__handler_a4885d20c49c53b8de39b5a67324cd658}} 
+std\+::string \mbox{\hyperlink{classbot_1_1Long__poll__handler_a4885d20c49c53b8de39b5a67324cd658}{\+\_\+key}}
+\begin{DoxyCompactList}\small\item\em Long Poll secret key. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classbot_1_1Long__poll__handler_a2f922ed97a231ee16c4c9f8e673435aa}\label{classbot_1_1Long__poll__handler_a2f922ed97a231ee16c4c9f8e673435aa}} 
+std\+::string \mbox{\hyperlink{classbot_1_1Long__poll__handler_a2f922ed97a231ee16c4c9f8e673435aa}{\+\_\+ts}}
+\begin{DoxyCompactList}\small\item\em Long Poll ts. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classbot_1_1Long__poll__handler_a282377f0f58686e12199dde192f63588}\label{classbot_1_1Long__poll__handler_a282377f0f58686e12199dde192f63588}} 
+\mbox{\hyperlink{classbot_1_1Cmd__handler}{Cmd\+\_\+handler}} \mbox{\hyperlink{classbot_1_1Long__poll__handler_a282377f0f58686e12199dde192f63588}{\+\_\+handler}}
+\begin{DoxyCompactList}\small\item\em An \mbox{\hyperlink{classbot_1_1Cmd__handler}{command handler class}} object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class that representing interface to handling VK Long Poll. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/long\+\_\+poll.\+hpp\end{DoxyCompactItemize}

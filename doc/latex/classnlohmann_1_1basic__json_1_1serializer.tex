@@ -1,0 +1,199 @@
+\hypertarget{classnlohmann_1_1basic__json_1_1serializer}{}\doxysection{nlohmann\+::basic\+\_\+json$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, J\+S\+O\+N\+Serializer $>$\+::serializer Class Reference}
+\label{classnlohmann_1_1basic__json_1_1serializer}\index{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::serializer@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::serializer}}
+
+
+wrapper around the serialization functions  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classnlohmann_1_1basic__json_1_1serializer_a52bd7b884e0b24a0452609df6e36e9bf}{serializer}} (\mbox{\hyperlink{classnlohmann_1_1basic__json_af6046dd0fa700bd3c961d530e6f21d6e}{output\+\_\+adapter\+\_\+t}}$<$ char $>$ s, const char ichar)
+\item 
+void \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1serializer_a313f4ec456be4ac307c2f02a08273ee3}{dump}} (const \mbox{\hyperlink{classnlohmann_1_1basic__json}{basic\+\_\+json}} \&val, const bool pretty\+\_\+print, const unsigned int indent\+\_\+step, const unsigned int current\+\_\+indent=0)
+\begin{DoxyCompactList}\small\item\em internal implementation of the serialization function \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1serializer_acd61905c803828f3c95fdb9668ac20bb}\label{classnlohmann_1_1basic__json_1_1serializer_acd61905c803828f3c95fdb9668ac20bb}} 
+{\bfseries serializer} (const \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1serializer}{serializer}} \&)=delete
+\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1serializer_a0416bcaa6188a2daccf12e353e4a3150}\label{classnlohmann_1_1basic__json_1_1serializer_a0416bcaa6188a2daccf12e353e4a3150}} 
+\mbox{\hyperlink{classnlohmann_1_1basic__json_1_1serializer}{serializer}} \& {\bfseries operator=} (const \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1serializer}{serializer}} \&)=delete
+\item 
+void \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1serializer_adb4207842714440a2519f851a8f67c97}{dump\+\_\+escaped}} (const \mbox{\hyperlink{classnlohmann_1_1basic__json_a61f8566a1a85a424c7266fb531dca005}{string\+\_\+t}} \&s) const
+\begin{DoxyCompactList}\small\item\em dump escaped string \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Number\+Type , detail\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+same$<$ Number\+Type, number\+\_\+unsigned\+\_\+t $>$\+::value or std\+::is\+\_\+same$<$ Number\+Type, number\+\_\+integer\+\_\+t $>$\+::value, int $>$  = 0$>$ }\\void \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1serializer_ad430d4d4c7b29739fcad97ba481bff50}{dump\+\_\+integer}} (Number\+Type x)
+\begin{DoxyCompactList}\small\item\em dump an integer \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1serializer_aab725bd1be7745629f23b371aac0939e}{dump\+\_\+float}} (\mbox{\hyperlink{classnlohmann_1_1basic__json_a88d6103cb3620410b35200ee8e313d97}{number\+\_\+float\+\_\+t}} x)
+\begin{DoxyCompactList}\small\item\em dump a floating-\/point number \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::size\+\_\+t \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1serializer_a41e4517b4182bf20d264c7b285a93172}{extra\+\_\+space}} (const \mbox{\hyperlink{classnlohmann_1_1basic__json_a61f8566a1a85a424c7266fb531dca005}{string\+\_\+t}} \&s) noexcept
+\begin{DoxyCompactList}\small\item\em calculates the extra space to escape a J\+S\+ON string \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1serializer_ac39cb23f082ec69f9baa818e54fbe85b}\label{classnlohmann_1_1basic__json_1_1serializer_ac39cb23f082ec69f9baa818e54fbe85b}} 
+\mbox{\hyperlink{classnlohmann_1_1basic__json_af6046dd0fa700bd3c961d530e6f21d6e}{output\+\_\+adapter\+\_\+t}}$<$ char $>$ \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1serializer_ac39cb23f082ec69f9baa818e54fbe85b}{o}} = nullptr
+\begin{DoxyCompactList}\small\item\em the output of the serializer \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1serializer_a6f98a228177d7898cf5bd9f9bd1a335c}\label{classnlohmann_1_1basic__json_1_1serializer_a6f98a228177d7898cf5bd9f9bd1a335c}} 
+std\+::array$<$ char, 64 $>$ \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1serializer_a6f98a228177d7898cf5bd9f9bd1a335c}{number\+\_\+buffer}} \{\{\}\}
+\begin{DoxyCompactList}\small\item\em a (hopefully) large enough character buffer \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1serializer_aa11332d616d63c6223292d65895b84dd}\label{classnlohmann_1_1basic__json_1_1serializer_aa11332d616d63c6223292d65895b84dd}} 
+const std\+::lconv $\ast$ \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1serializer_aa11332d616d63c6223292d65895b84dd}{loc}} = nullptr
+\begin{DoxyCompactList}\small\item\em the locale \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1serializer_acfb129312eee67fcc1fabeb879fa80c9}\label{classnlohmann_1_1basic__json_1_1serializer_acfb129312eee67fcc1fabeb879fa80c9}} 
+const char \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1serializer_acfb129312eee67fcc1fabeb879fa80c9}{thousands\+\_\+sep}} = \textquotesingle{}\textbackslash{}0\textquotesingle{}
+\begin{DoxyCompactList}\small\item\em the locale\textquotesingle{}s thousand separator character \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1serializer_a8a27e96ec0866584c0aa15f79e56f687}\label{classnlohmann_1_1basic__json_1_1serializer_a8a27e96ec0866584c0aa15f79e56f687}} 
+const char \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1serializer_a8a27e96ec0866584c0aa15f79e56f687}{decimal\+\_\+point}} = \textquotesingle{}\textbackslash{}0\textquotesingle{}
+\begin{DoxyCompactList}\small\item\em the locale\textquotesingle{}s decimal point character \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1serializer_a4f92381027bd35bd911f28246b65e191}\label{classnlohmann_1_1basic__json_1_1serializer_a4f92381027bd35bd911f28246b65e191}} 
+const char \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1serializer_a4f92381027bd35bd911f28246b65e191}{indent\+\_\+char}}
+\begin{DoxyCompactList}\small\item\em the indentation character \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1serializer_ae5eae2822788dfd04bd00357f08184d5}\label{classnlohmann_1_1basic__json_1_1serializer_ae5eae2822788dfd04bd00357f08184d5}} 
+\mbox{\hyperlink{classnlohmann_1_1basic__json_a61f8566a1a85a424c7266fb531dca005}{string\+\_\+t}} \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1serializer_ae5eae2822788dfd04bd00357f08184d5}{indent\+\_\+string}}
+\begin{DoxyCompactList}\small\item\em the indentation string \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$template$<$ typename U, typename V, typename... Args $>$ class Object\+Type = std\+::map, template$<$ typename U, typename... Args $>$ class Array\+Type = std\+::vector, class String\+Type = std\+::string, class Boolean\+Type = bool, class Number\+Integer\+Type = std\+::int64\+\_\+t, class Number\+Unsigned\+Type = std\+::uint64\+\_\+t, class Number\+Float\+Type = double, template$<$ typename U $>$ class Allocator\+Type = std\+::allocator, template$<$ typename T, typename S\+F\+I\+N\+A\+E=void $>$ class J\+S\+O\+N\+Serializer = adl\+\_\+serializer$>$\newline
+class nlohmann\+::basic\+\_\+json$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, J\+S\+O\+N\+Serializer $>$\+::serializer}
+
+wrapper around the serialization functions 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1serializer_a52bd7b884e0b24a0452609df6e36e9bf}\label{classnlohmann_1_1basic__json_1_1serializer_a52bd7b884e0b24a0452609df6e36e9bf}} 
+\index{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::serializer@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::serializer}!serializer@{serializer}}
+\index{serializer@{serializer}!nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::serializer@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::serializer}}
+\doxysubsubsection{\texorpdfstring{serializer()}{serializer()}}
+{\footnotesize\ttfamily template$<$template$<$ typename U, typename V, typename... Args $>$ class Object\+Type = std\+::map, template$<$ typename U, typename... Args $>$ class Array\+Type = std\+::vector, class String\+Type  = std\+::string, class Boolean\+Type  = bool, class Number\+Integer\+Type  = std\+::int64\+\_\+t, class Number\+Unsigned\+Type  = std\+::uint64\+\_\+t, class Number\+Float\+Type  = double, template$<$ typename U $>$ class Allocator\+Type = std\+::allocator, template$<$ typename T, typename S\+F\+I\+N\+A\+E=void $>$ class J\+S\+O\+N\+Serializer = adl\+\_\+serializer$>$ \\
+\mbox{\hyperlink{classnlohmann_1_1basic__json}{nlohmann\+::basic\+\_\+json}}$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, J\+S\+O\+N\+Serializer $>$\+::serializer\+::serializer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classnlohmann_1_1basic__json_af6046dd0fa700bd3c961d530e6f21d6e}{output\+\_\+adapter\+\_\+t}}$<$ char $>$}]{s,  }\item[{const char}]{ichar }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em s} & output stream to serialize to \\
+\hline
+\mbox{\texttt{ in}}  & {\em ichar} & indentation character to use \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1serializer_a313f4ec456be4ac307c2f02a08273ee3}\label{classnlohmann_1_1basic__json_1_1serializer_a313f4ec456be4ac307c2f02a08273ee3}} 
+\index{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::serializer@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::serializer}!dump@{dump}}
+\index{dump@{dump}!nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::serializer@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::serializer}}
+\doxysubsubsection{\texorpdfstring{dump()}{dump()}}
+{\footnotesize\ttfamily template$<$template$<$ typename U, typename V, typename... Args $>$ class Object\+Type = std\+::map, template$<$ typename U, typename... Args $>$ class Array\+Type = std\+::vector, class String\+Type  = std\+::string, class Boolean\+Type  = bool, class Number\+Integer\+Type  = std\+::int64\+\_\+t, class Number\+Unsigned\+Type  = std\+::uint64\+\_\+t, class Number\+Float\+Type  = double, template$<$ typename U $>$ class Allocator\+Type = std\+::allocator, template$<$ typename T, typename S\+F\+I\+N\+A\+E=void $>$ class J\+S\+O\+N\+Serializer = adl\+\_\+serializer$>$ \\
+void \mbox{\hyperlink{classnlohmann_1_1basic__json}{nlohmann\+::basic\+\_\+json}}$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, J\+S\+O\+N\+Serializer $>$\+::serializer\+::dump (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classnlohmann_1_1basic__json}{basic\+\_\+json}} \&}]{val,  }\item[{const bool}]{pretty\+\_\+print,  }\item[{const unsigned int}]{indent\+\_\+step,  }\item[{const unsigned int}]{current\+\_\+indent = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+internal implementation of the serialization function 
+
+This function is called by the public member function dump and organizes the serialization internally. The indentation level is propagated as additional parameter. In case of arrays and objects, the function is called recursively.
+
+
+\begin{DoxyItemize}
+\item strings and object keys are escaped using {\ttfamily escape\+\_\+string()}
+\item integer numbers are converted implicitly via {\ttfamily operator$<$$<$}
+\item floating-\/point numbers are converted to a string using {\ttfamily \char`\"{}\%g\char`\"{}} format
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em val} & value to serialize \\
+\hline
+\mbox{\texttt{ in}}  & {\em pretty\+\_\+print} & whether the output shall be pretty-\/printed \\
+\hline
+\mbox{\texttt{ in}}  & {\em indent\+\_\+step} & the indent level \\
+\hline
+\mbox{\texttt{ in}}  & {\em current\+\_\+indent} & the current indent level (only used internally) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1serializer_adb4207842714440a2519f851a8f67c97}\label{classnlohmann_1_1basic__json_1_1serializer_adb4207842714440a2519f851a8f67c97}} 
+\index{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::serializer@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::serializer}!dump\_escaped@{dump\_escaped}}
+\index{dump\_escaped@{dump\_escaped}!nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::serializer@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::serializer}}
+\doxysubsubsection{\texorpdfstring{dump\_escaped()}{dump\_escaped()}}
+{\footnotesize\ttfamily template$<$template$<$ typename U, typename V, typename... Args $>$ class Object\+Type = std\+::map, template$<$ typename U, typename... Args $>$ class Array\+Type = std\+::vector, class String\+Type  = std\+::string, class Boolean\+Type  = bool, class Number\+Integer\+Type  = std\+::int64\+\_\+t, class Number\+Unsigned\+Type  = std\+::uint64\+\_\+t, class Number\+Float\+Type  = double, template$<$ typename U $>$ class Allocator\+Type = std\+::allocator, template$<$ typename T, typename S\+F\+I\+N\+A\+E=void $>$ class J\+S\+O\+N\+Serializer = adl\+\_\+serializer$>$ \\
+void \mbox{\hyperlink{classnlohmann_1_1basic__json}{nlohmann\+::basic\+\_\+json}}$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, J\+S\+O\+N\+Serializer $>$\+::serializer\+::dump\+\_\+escaped (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classnlohmann_1_1basic__json_a61f8566a1a85a424c7266fb531dca005}{string\+\_\+t}} \&}]{s }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+dump escaped string 
+
+Escape a string by replacing certain special characters by a sequence of an escape character (backslash) and another character and other control characters by a sequence of \char`\"{}\textbackslash{}u\char`\"{} followed by a four-\/digit hex representation. The escaped string is written to output stream {\itshape o}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em s} & the string to escape\\
+\hline
+\end{DoxyParams}
+@complexity Linear in the length of string {\itshape s}. \mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1serializer_aab725bd1be7745629f23b371aac0939e}\label{classnlohmann_1_1basic__json_1_1serializer_aab725bd1be7745629f23b371aac0939e}} 
+\index{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::serializer@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::serializer}!dump\_float@{dump\_float}}
+\index{dump\_float@{dump\_float}!nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::serializer@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::serializer}}
+\doxysubsubsection{\texorpdfstring{dump\_float()}{dump\_float()}}
+{\footnotesize\ttfamily template$<$template$<$ typename U, typename V, typename... Args $>$ class Object\+Type = std\+::map, template$<$ typename U, typename... Args $>$ class Array\+Type = std\+::vector, class String\+Type  = std\+::string, class Boolean\+Type  = bool, class Number\+Integer\+Type  = std\+::int64\+\_\+t, class Number\+Unsigned\+Type  = std\+::uint64\+\_\+t, class Number\+Float\+Type  = double, template$<$ typename U $>$ class Allocator\+Type = std\+::allocator, template$<$ typename T, typename S\+F\+I\+N\+A\+E=void $>$ class J\+S\+O\+N\+Serializer = adl\+\_\+serializer$>$ \\
+void \mbox{\hyperlink{classnlohmann_1_1basic__json}{nlohmann\+::basic\+\_\+json}}$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, J\+S\+O\+N\+Serializer $>$\+::serializer\+::dump\+\_\+float (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classnlohmann_1_1basic__json_a88d6103cb3620410b35200ee8e313d97}{number\+\_\+float\+\_\+t}}}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+dump a floating-\/point number 
+
+Dump a given floating-\/point number to output stream {\itshape o}. Works internally with {\itshape number\+\_\+buffer}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em x} & floating-\/point number to dump \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1serializer_ad430d4d4c7b29739fcad97ba481bff50}\label{classnlohmann_1_1basic__json_1_1serializer_ad430d4d4c7b29739fcad97ba481bff50}} 
+\index{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::serializer@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::serializer}!dump\_integer@{dump\_integer}}
+\index{dump\_integer@{dump\_integer}!nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::serializer@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::serializer}}
+\doxysubsubsection{\texorpdfstring{dump\_integer()}{dump\_integer()}}
+{\footnotesize\ttfamily template$<$template$<$ typename U, typename V, typename... Args $>$ class Object\+Type = std\+::map, template$<$ typename U, typename... Args $>$ class Array\+Type = std\+::vector, class String\+Type  = std\+::string, class Boolean\+Type  = bool, class Number\+Integer\+Type  = std\+::int64\+\_\+t, class Number\+Unsigned\+Type  = std\+::uint64\+\_\+t, class Number\+Float\+Type  = double, template$<$ typename U $>$ class Allocator\+Type = std\+::allocator, template$<$ typename T, typename S\+F\+I\+N\+A\+E=void $>$ class J\+S\+O\+N\+Serializer = adl\+\_\+serializer$>$ \\
+template$<$typename Number\+Type , detail\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+same$<$ Number\+Type, number\+\_\+unsigned\+\_\+t $>$\+::value or std\+::is\+\_\+same$<$ Number\+Type, number\+\_\+integer\+\_\+t $>$\+::value, int $>$  = 0$>$ \\
+void \mbox{\hyperlink{classnlohmann_1_1basic__json}{nlohmann\+::basic\+\_\+json}}$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, J\+S\+O\+N\+Serializer $>$\+::serializer\+::dump\+\_\+integer (\begin{DoxyParamCaption}\item[{Number\+Type}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+dump an integer 
+
+Dump a given integer to output stream {\itshape o}. Works internally with {\itshape number\+\_\+buffer}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em x} & integer number (signed or unsigned) to dump \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Number\+Type} & either {\itshape number\+\_\+integer\+\_\+t} or {\itshape number\+\_\+unsigned\+\_\+t} \\
+\hline
+\end{DoxyTemplParams}
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1serializer_a41e4517b4182bf20d264c7b285a93172}\label{classnlohmann_1_1basic__json_1_1serializer_a41e4517b4182bf20d264c7b285a93172}} 
+\index{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::serializer@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::serializer}!extra\_space@{extra\_space}}
+\index{extra\_space@{extra\_space}!nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::serializer@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::serializer}}
+\doxysubsubsection{\texorpdfstring{extra\_space()}{extra\_space()}}
+{\footnotesize\ttfamily template$<$template$<$ typename U, typename V, typename... Args $>$ class Object\+Type = std\+::map, template$<$ typename U, typename... Args $>$ class Array\+Type = std\+::vector, class String\+Type  = std\+::string, class Boolean\+Type  = bool, class Number\+Integer\+Type  = std\+::int64\+\_\+t, class Number\+Unsigned\+Type  = std\+::uint64\+\_\+t, class Number\+Float\+Type  = double, template$<$ typename U $>$ class Allocator\+Type = std\+::allocator, template$<$ typename T, typename S\+F\+I\+N\+A\+E=void $>$ class J\+S\+O\+N\+Serializer = adl\+\_\+serializer$>$ \\
+static std\+::size\+\_\+t \mbox{\hyperlink{classnlohmann_1_1basic__json}{nlohmann\+::basic\+\_\+json}}$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, J\+S\+O\+N\+Serializer $>$\+::serializer\+::extra\+\_\+space (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classnlohmann_1_1basic__json_a61f8566a1a85a424c7266fb531dca005}{string\+\_\+t}} \&}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [private]}, {\ttfamily [noexcept]}}
+
+
+
+calculates the extra space to escape a J\+S\+ON string 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em s} & the string to escape \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the number of characters required to escape string {\itshape s} 
+\end{DoxyReturn}
+@complexity Linear in the length of string {\itshape s}. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lib/include/json.\+hpp\end{DoxyCompactItemize}

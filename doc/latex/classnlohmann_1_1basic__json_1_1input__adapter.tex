@@ -1,0 +1,57 @@
+\hypertarget{classnlohmann_1_1basic__json_1_1input__adapter}{}\doxysection{nlohmann\+::basic\+\_\+json$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, J\+S\+O\+N\+Serializer $>$\+::input\+\_\+adapter Class Reference}
+\label{classnlohmann_1_1basic__json_1_1input__adapter}\index{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::input\_adapter@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::input\_adapter}}
+
+
+abstract input adapter interface  
+
+
+Inheritance diagram for nlohmann\+::basic\+\_\+json$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, J\+S\+O\+N\+Serializer $>$\+::input\+\_\+adapter\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=0.476596cm]{classnlohmann_1_1basic__json_1_1input__adapter}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1input__adapter_a3a1443ed5eb78bff3c2ae1d1ae932b0b}\label{classnlohmann_1_1basic__json_1_1input__adapter_a3a1443ed5eb78bff3c2ae1d1ae932b0b}} 
+virtual int {\bfseries get\+\_\+character} ()=0
+\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1input__adapter_a5d7285859f5de781c5063ba428750fe2}\label{classnlohmann_1_1basic__json_1_1input__adapter_a5d7285859f5de781c5063ba428750fe2}} 
+virtual std\+::string {\bfseries read} (size\+\_\+t offset, size\+\_\+t length)=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1input__adapter_a29141dd8a49df23c7ac37adc670e5d6b}\label{classnlohmann_1_1basic__json_1_1input__adapter_a29141dd8a49df23c7ac37adc670e5d6b}} 
+static std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1input__adapter}{input\+\_\+adapter}} $>$ \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1input__adapter_a29141dd8a49df23c7ac37adc670e5d6b}{create}} (std\+::istream \&i, const size\+\_\+t buffer\+\_\+size=16384)
+\begin{DoxyCompactList}\small\item\em input adapter for input stream \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1input__adapter_a8185288c38f26b23924b12ea1c386fef}\label{classnlohmann_1_1basic__json_1_1input__adapter_a8185288c38f26b23924b12ea1c386fef}} 
+static std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1input__adapter}{input\+\_\+adapter}} $>$ \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1input__adapter_a8185288c38f26b23924b12ea1c386fef}{create}} (std\+::istream \&\&i, const size\+\_\+t buffer\+\_\+size=16384)
+\begin{DoxyCompactList}\small\item\em input adapter for input stream \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1input__adapter_a4e54b28cbf8f1405be9fcf5177ade46b}\label{classnlohmann_1_1basic__json_1_1input__adapter_a4e54b28cbf8f1405be9fcf5177ade46b}} 
+static std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1input__adapter}{input\+\_\+adapter}} $>$ \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1input__adapter_a4e54b28cbf8f1405be9fcf5177ade46b}{create}} (const char $\ast$b, size\+\_\+t l)
+\begin{DoxyCompactList}\small\item\em input adapter for buffer \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1input__adapter_a63eef7b878a18b66aba35ce823bd8294}\label{classnlohmann_1_1basic__json_1_1input__adapter_a63eef7b878a18b66aba35ce823bd8294}} 
+{\footnotesize template$<$typename CharT , typename std\+::enable\+\_\+if$<$ std\+::is\+\_\+pointer$<$ Char\+T $>$\+::value and std\+::is\+\_\+integral$<$ typename std\+::remove\+\_\+pointer$<$ Char\+T $>$\+::type $>$\+::value and sizeof(typename std\+::remove\+\_\+pointer$<$ Char\+T $>$\+::type)==1, int $>$\+::type  = 0$>$ }\\static std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1input__adapter}{input\+\_\+adapter}} $>$ \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1input__adapter_a63eef7b878a18b66aba35ce823bd8294}{create}} (CharT b)
+\begin{DoxyCompactList}\small\item\em input adapter for string literal \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1input__adapter_ae251370b455d9bd0523c94516983b478}\label{classnlohmann_1_1basic__json_1_1input__adapter_ae251370b455d9bd0523c94516983b478}} 
+{\footnotesize template$<$class Iterator\+Type , typename std\+::enable\+\_\+if$<$ std\+::is\+\_\+same$<$ typename std\+::iterator\+\_\+traits$<$ Iterator\+Type $>$\+::iterator\+\_\+category, std\+::random\+\_\+access\+\_\+iterator\+\_\+tag $>$\+::value, int $>$\+::type  = 0$>$ }\\static std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1input__adapter}{input\+\_\+adapter}} $>$ \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1input__adapter_ae251370b455d9bd0523c94516983b478}{create}} (Iterator\+Type first, Iterator\+Type last)
+\begin{DoxyCompactList}\small\item\em input adapter for iterator range with contiguous storage \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1input__adapter_aea0d4bd69b3c34cdba974918d604ad10}\label{classnlohmann_1_1basic__json_1_1input__adapter_aea0d4bd69b3c34cdba974918d604ad10}} 
+{\footnotesize template$<$class T , std\+::size\+\_\+t N$>$ }\\static std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1input__adapter}{input\+\_\+adapter}} $>$ \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1input__adapter_aea0d4bd69b3c34cdba974918d604ad10}{create}} (T(\&\mbox{\hyperlink{classnlohmann_1_1basic__json_a4a4ec75e4d2845d9bcf7a9e5458e4949}{array}})\mbox{[}N\mbox{]})
+\begin{DoxyCompactList}\small\item\em input adapter for array \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1input__adapter_a9e234a67d02cf26d27f701ca5a731c29}\label{classnlohmann_1_1basic__json_1_1input__adapter_a9e234a67d02cf26d27f701ca5a731c29}} 
+{\footnotesize template$<$class Contiguous\+Container , typename std\+::enable\+\_\+if$<$ not std\+::is\+\_\+pointer$<$ Contiguous\+Container $>$\+::value and std\+::is\+\_\+base\+\_\+of$<$ std\+::random\+\_\+access\+\_\+iterator\+\_\+tag, typename std\+::iterator\+\_\+traits$<$ decltype(std\+::begin(std\+::declval$<$ Contiguous\+Container const $>$()))$>$\+::iterator\+\_\+category $>$\+::value , int , \+::type  = 0$>$ }\\static std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1input__adapter}{input\+\_\+adapter}} $>$ \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1input__adapter_a9e234a67d02cf26d27f701ca5a731c29}{create}} (const Contiguous\+Container \&c)
+\begin{DoxyCompactList}\small\item\em input adapter for contiguous container \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$template$<$ typename U, typename V, typename... Args $>$ class Object\+Type = std\+::map, template$<$ typename U, typename... Args $>$ class Array\+Type = std\+::vector, class String\+Type = std\+::string, class Boolean\+Type = bool, class Number\+Integer\+Type = std\+::int64\+\_\+t, class Number\+Unsigned\+Type = std\+::uint64\+\_\+t, class Number\+Float\+Type = double, template$<$ typename U $>$ class Allocator\+Type = std\+::allocator, template$<$ typename T, typename S\+F\+I\+N\+A\+E=void $>$ class J\+S\+O\+N\+Serializer = adl\+\_\+serializer$>$\newline
+class nlohmann\+::basic\+\_\+json$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, J\+S\+O\+N\+Serializer $>$\+::input\+\_\+adapter}
+
+abstract input adapter interface 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lib/include/json.\+hpp\end{DoxyCompactItemize}

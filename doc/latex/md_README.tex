@@ -1,0 +1,64 @@
+\hypertarget{md_README_autotoc_md1}{}\doxysection{How to start?}\label{md_README_autotoc_md1}
+You need to fill some fields in {\ttfamily src/long\+\_\+poll/metadata.\+hpp}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{inline const static int creator\_id}
+\DoxyCodeLine{  = your id;}
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{inline const static std::string group\_id}
+\DoxyCodeLine{  = "{}"{};}
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{inline const static std::string logfile}
+\DoxyCodeLine{  = "{}/path/to/logfile"{};}
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{inline const static std::string errfile}
+\DoxyCodeLine{  = "{}/path/to/errfile"{};}
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{inline const static std::string access\_token}
+\DoxyCodeLine{  = "{}"{};}
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{inline const static std::string user\_token}
+\DoxyCodeLine{  = "{}"{};}
+\end{DoxyCode}
+\hypertarget{md_README_autotoc_md2}{}\doxysection{Build}\label{md_README_autotoc_md2}
+So, you have multiple build options. in {\ttfamily cpp\+\_\+vk\+\_\+bot} directory\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{qmake vk.pro}
+\DoxyCodeLine{make}
+\end{DoxyCode}
+
+
+or, if you don\textquotesingle{}t have/don\textquotesingle{}t want to use Qmake\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{g++ -\/c -\/pipe -\/Wall -\/Os -\/std=gnu++1z -\/fPIC -\/I. -\/Iinclude lib/src/* src/* \&\& g++ -\/Wl,-\/O1 -\/o vk *.o -\/lcurl -\/lsqlite3 -\/lpthread \&\& rm *.o -\/rf}
+\end{DoxyCode}
+
+
+or 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{clang++ -\/c -\/pipe -\/Wall -\/Os -\/std=gnu++1z -\/fPIC -\/I. -\/Iinclude lib/src/* src/* \&\& clang++ -\/Wl,-\/O1 -\/o vk *.o -\/lcurl -\/lsqlite3 -\/lpthread \&\& rm *.o -\/rf}
+\end{DoxyCode}
+ 

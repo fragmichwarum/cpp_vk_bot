@@ -1,0 +1,170 @@
+\hypertarget{classnlohmann_1_1basic__json_1_1parser}{}\doxysection{nlohmann\+::basic\+\_\+json$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, J\+S\+O\+N\+Serializer $>$\+::parser Class Reference}
+\label{classnlohmann_1_1basic__json_1_1parser}\index{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::parser@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::parser}}
+
+
+syntax analysis  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1parser_a97b75329cb2ec0f4294d4bdbbd93a22c}\label{classnlohmann_1_1basic__json_1_1parser_a97b75329cb2ec0f4294d4bdbbd93a22c}} 
+\mbox{\hyperlink{classnlohmann_1_1basic__json_1_1parser_a97b75329cb2ec0f4294d4bdbbd93a22c}{parser}} (\mbox{\hyperlink{classnlohmann_1_1basic__json_abcea1aaef7ef968e0f89a45722ae63b4}{input\+\_\+adapter\+\_\+t}} adapter, const \mbox{\hyperlink{classnlohmann_1_1basic__json_aecae491e175f8767c550ae3c59e180e3}{parser\+\_\+callback\+\_\+t}} cb=nullptr)
+\begin{DoxyCompactList}\small\item\em a parser reading from an input adapter \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classnlohmann_1_1basic__json}{basic\+\_\+json}} \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1parser_a3831f1bae0df35d74eda8ddfb42fec0e}{parse}} (const bool strict=true)
+\begin{DoxyCompactList}\small\item\em public parser interface \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1parser_a866f0c6251e48898ca2f301dce08b5f2}{accept}} (const bool strict=true)
+\begin{DoxyCompactList}\small\item\em public accept interface \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classnlohmann_1_1basic__json}{basic\+\_\+json}} \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1parser_a86e95a2b7b47c89135c41295949bcf0a}{parse\+\_\+internal}} (bool keep)
+\begin{DoxyCompactList}\small\item\em the actual parser \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1parser_abe237994dc97c5e00c263d22f50e5c4f}{accept\+\_\+internal}} ()
+\begin{DoxyCompactList}\small\item\em the acutal acceptor \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1parser_ab00b85e650dc89c39ae02539ec5f41d4}\label{classnlohmann_1_1basic__json_1_1parser_ab00b85e650dc89c39ae02539ec5f41d4}} 
+\mbox{\hyperlink{classnlohmann_1_1basic__json_1_1lexer_a96887d6cd131e3d3a85a9d71fbdbcdf7}{lexer\+::token\+\_\+type}} \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1parser_ab00b85e650dc89c39ae02539ec5f41d4}{get\+\_\+token}} ()
+\begin{DoxyCompactList}\small\item\em get next token from lexer \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1parser_aa0403d27b84db70cc5ea0ab8fd4509af}{expect}} (typename \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1lexer_a96887d6cd131e3d3a85a9d71fbdbcdf7}{lexer\+::token\+\_\+type}} t) const
+\item 
+void \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1parser_a08e23e71af8623c8371c251480071f73}{unexpect}} (typename \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1lexer_a96887d6cd131e3d3a85a9d71fbdbcdf7}{lexer\+::token\+\_\+type}} t) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1parser_af10c872a9549a4d5aa3775ffdbb09e4c}\label{classnlohmann_1_1basic__json_1_1parser_af10c872a9549a4d5aa3775ffdbb09e4c}} 
+int \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1parser_af10c872a9549a4d5aa3775ffdbb09e4c}{depth}} = 0
+\begin{DoxyCompactList}\small\item\em current level of recursion \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1parser_a8ea1870aa64698f46b777e2863fde801}\label{classnlohmann_1_1basic__json_1_1parser_a8ea1870aa64698f46b777e2863fde801}} 
+const \mbox{\hyperlink{classnlohmann_1_1basic__json_aecae491e175f8767c550ae3c59e180e3}{parser\+\_\+callback\+\_\+t}} \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1parser_a8ea1870aa64698f46b777e2863fde801}{callback}} = nullptr
+\begin{DoxyCompactList}\small\item\em callback function \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1parser_ace0babedd22742bbb5f31d35d1d5baa9}\label{classnlohmann_1_1basic__json_1_1parser_ace0babedd22742bbb5f31d35d1d5baa9}} 
+\mbox{\hyperlink{classnlohmann_1_1basic__json_1_1lexer_a96887d6cd131e3d3a85a9d71fbdbcdf7}{lexer\+::token\+\_\+type}} \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1parser_ace0babedd22742bbb5f31d35d1d5baa9}{last\+\_\+token}} = \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1lexer_a96887d6cd131e3d3a85a9d71fbdbcdf7a42dd1a73d072bb6bf3f494f22b15db8e}{lexer\+::token\+\_\+type\+::uninitialized}}
+\begin{DoxyCompactList}\small\item\em the type of the last read token \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1parser_a8419745c712b365ccf3d87abc7586e08}\label{classnlohmann_1_1basic__json_1_1parser_a8419745c712b365ccf3d87abc7586e08}} 
+\mbox{\hyperlink{classnlohmann_1_1basic__json_1_1lexer}{lexer}} \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1parser_a8419745c712b365ccf3d87abc7586e08}{m\+\_\+lexer}}
+\begin{DoxyCompactList}\small\item\em the lexer \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$template$<$ typename U, typename V, typename... Args $>$ class Object\+Type = std\+::map, template$<$ typename U, typename... Args $>$ class Array\+Type = std\+::vector, class String\+Type = std\+::string, class Boolean\+Type = bool, class Number\+Integer\+Type = std\+::int64\+\_\+t, class Number\+Unsigned\+Type = std\+::uint64\+\_\+t, class Number\+Float\+Type = double, template$<$ typename U $>$ class Allocator\+Type = std\+::allocator, template$<$ typename T, typename S\+F\+I\+N\+A\+E=void $>$ class J\+S\+O\+N\+Serializer = adl\+\_\+serializer$>$\newline
+class nlohmann\+::basic\+\_\+json$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, J\+S\+O\+N\+Serializer $>$\+::parser}
+
+syntax analysis 
+
+This class implements a recursive decent parser. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1parser_a866f0c6251e48898ca2f301dce08b5f2}\label{classnlohmann_1_1basic__json_1_1parser_a866f0c6251e48898ca2f301dce08b5f2}} 
+\index{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::parser@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::parser}!accept@{accept}}
+\index{accept@{accept}!nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::parser@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::parser}}
+\doxysubsubsection{\texorpdfstring{accept()}{accept()}}
+{\footnotesize\ttfamily template$<$template$<$ typename U, typename V, typename... Args $>$ class Object\+Type = std\+::map, template$<$ typename U, typename... Args $>$ class Array\+Type = std\+::vector, class String\+Type  = std\+::string, class Boolean\+Type  = bool, class Number\+Integer\+Type  = std\+::int64\+\_\+t, class Number\+Unsigned\+Type  = std\+::uint64\+\_\+t, class Number\+Float\+Type  = double, template$<$ typename U $>$ class Allocator\+Type = std\+::allocator, template$<$ typename T, typename S\+F\+I\+N\+A\+E=void $>$ class J\+S\+O\+N\+Serializer = adl\+\_\+serializer$>$ \\
+bool \mbox{\hyperlink{classnlohmann_1_1basic__json}{nlohmann\+::basic\+\_\+json}}$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, J\+S\+O\+N\+Serializer $>$\+::parser\+::accept (\begin{DoxyParamCaption}\item[{const bool}]{strict = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+public accept interface 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em strict} & whether to expect the last token to be E\+OF \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether the input is a proper J\+S\+ON text 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1parser_abe237994dc97c5e00c263d22f50e5c4f}\label{classnlohmann_1_1basic__json_1_1parser_abe237994dc97c5e00c263d22f50e5c4f}} 
+\index{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::parser@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::parser}!accept\_internal@{accept\_internal}}
+\index{accept\_internal@{accept\_internal}!nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::parser@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::parser}}
+\doxysubsubsection{\texorpdfstring{accept\_internal()}{accept\_internal()}}
+{\footnotesize\ttfamily template$<$template$<$ typename U, typename V, typename... Args $>$ class Object\+Type = std\+::map, template$<$ typename U, typename... Args $>$ class Array\+Type = std\+::vector, class String\+Type  = std\+::string, class Boolean\+Type  = bool, class Number\+Integer\+Type  = std\+::int64\+\_\+t, class Number\+Unsigned\+Type  = std\+::uint64\+\_\+t, class Number\+Float\+Type  = double, template$<$ typename U $>$ class Allocator\+Type = std\+::allocator, template$<$ typename T, typename S\+F\+I\+N\+A\+E=void $>$ class J\+S\+O\+N\+Serializer = adl\+\_\+serializer$>$ \\
+bool \mbox{\hyperlink{classnlohmann_1_1basic__json}{nlohmann\+::basic\+\_\+json}}$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, J\+S\+O\+N\+Serializer $>$\+::parser\+::accept\+\_\+internal (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+the acutal acceptor 
+
+\begin{DoxyInvariant}{Invariant}
+1. The last token is not yet processed. Therefore, the caller of this function must make sure a token has been read.
+\begin{DoxyEnumerate}
+\item When this function returns, the last token is processed. That is, the last read character was already considered.
+\end{DoxyEnumerate}
+\end{DoxyInvariant}
+This invariant makes sure that no token needs to be \char`\"{}unput\char`\"{}. \mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1parser_aa0403d27b84db70cc5ea0ab8fd4509af}\label{classnlohmann_1_1basic__json_1_1parser_aa0403d27b84db70cc5ea0ab8fd4509af}} 
+\index{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::parser@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::parser}!expect@{expect}}
+\index{expect@{expect}!nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::parser@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::parser}}
+\doxysubsubsection{\texorpdfstring{expect()}{expect()}}
+{\footnotesize\ttfamily template$<$template$<$ typename U, typename V, typename... Args $>$ class Object\+Type = std\+::map, template$<$ typename U, typename... Args $>$ class Array\+Type = std\+::vector, class String\+Type  = std\+::string, class Boolean\+Type  = bool, class Number\+Integer\+Type  = std\+::int64\+\_\+t, class Number\+Unsigned\+Type  = std\+::uint64\+\_\+t, class Number\+Float\+Type  = double, template$<$ typename U $>$ class Allocator\+Type = std\+::allocator, template$<$ typename T, typename S\+F\+I\+N\+A\+E=void $>$ class J\+S\+O\+N\+Serializer = adl\+\_\+serializer$>$ \\
+void \mbox{\hyperlink{classnlohmann_1_1basic__json}{nlohmann\+::basic\+\_\+json}}$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, J\+S\+O\+N\+Serializer $>$\+::parser\+::expect (\begin{DoxyParamCaption}\item[{typename \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1lexer_a96887d6cd131e3d3a85a9d71fbdbcdf7}{lexer\+::token\+\_\+type}}}]{t }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em parse\+\_\+error.\+101} & if expected token did not occur \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1parser_a3831f1bae0df35d74eda8ddfb42fec0e}\label{classnlohmann_1_1basic__json_1_1parser_a3831f1bae0df35d74eda8ddfb42fec0e}} 
+\index{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::parser@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::parser}!parse@{parse}}
+\index{parse@{parse}!nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::parser@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::parser}}
+\doxysubsubsection{\texorpdfstring{parse()}{parse()}}
+{\footnotesize\ttfamily template$<$template$<$ typename U, typename V, typename... Args $>$ class Object\+Type = std\+::map, template$<$ typename U, typename... Args $>$ class Array\+Type = std\+::vector, class String\+Type  = std\+::string, class Boolean\+Type  = bool, class Number\+Integer\+Type  = std\+::int64\+\_\+t, class Number\+Unsigned\+Type  = std\+::uint64\+\_\+t, class Number\+Float\+Type  = double, template$<$ typename U $>$ class Allocator\+Type = std\+::allocator, template$<$ typename T, typename S\+F\+I\+N\+A\+E=void $>$ class J\+S\+O\+N\+Serializer = adl\+\_\+serializer$>$ \\
+\mbox{\hyperlink{classnlohmann_1_1basic__json}{basic\+\_\+json}} \mbox{\hyperlink{classnlohmann_1_1basic__json}{nlohmann\+::basic\+\_\+json}}$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, J\+S\+O\+N\+Serializer $>$\+::parser\+::parse (\begin{DoxyParamCaption}\item[{const bool}]{strict = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+public parser interface 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em strict} & whether to expect the last token to be E\+OF \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+parsed J\+S\+ON value
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em parse\+\_\+error.\+101} & in case of an unexpected token \\
+\hline
+{\em parse\+\_\+error.\+102} & if to\+\_\+unicode fails or surrogate error \\
+\hline
+{\em parse\+\_\+error.\+103} & if to\+\_\+unicode fails \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1parser_a86e95a2b7b47c89135c41295949bcf0a}\label{classnlohmann_1_1basic__json_1_1parser_a86e95a2b7b47c89135c41295949bcf0a}} 
+\index{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::parser@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::parser}!parse\_internal@{parse\_internal}}
+\index{parse\_internal@{parse\_internal}!nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::parser@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::parser}}
+\doxysubsubsection{\texorpdfstring{parse\_internal()}{parse\_internal()}}
+{\footnotesize\ttfamily template$<$template$<$ typename U, typename V, typename... Args $>$ class Object\+Type = std\+::map, template$<$ typename U, typename... Args $>$ class Array\+Type = std\+::vector, class String\+Type  = std\+::string, class Boolean\+Type  = bool, class Number\+Integer\+Type  = std\+::int64\+\_\+t, class Number\+Unsigned\+Type  = std\+::uint64\+\_\+t, class Number\+Float\+Type  = double, template$<$ typename U $>$ class Allocator\+Type = std\+::allocator, template$<$ typename T, typename S\+F\+I\+N\+A\+E=void $>$ class J\+S\+O\+N\+Serializer = adl\+\_\+serializer$>$ \\
+\mbox{\hyperlink{classnlohmann_1_1basic__json}{basic\+\_\+json}} \mbox{\hyperlink{classnlohmann_1_1basic__json}{nlohmann\+::basic\+\_\+json}}$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, J\+S\+O\+N\+Serializer $>$\+::parser\+::parse\+\_\+internal (\begin{DoxyParamCaption}\item[{bool}]{keep }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+the actual parser 
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em parse\+\_\+error.\+101} & in case of an unexpected token \\
+\hline
+{\em parse\+\_\+error.\+102} & if to\+\_\+unicode fails or surrogate error \\
+\hline
+{\em parse\+\_\+error.\+103} & if to\+\_\+unicode fails \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{classnlohmann_1_1basic__json_1_1parser_a08e23e71af8623c8371c251480071f73}\label{classnlohmann_1_1basic__json_1_1parser_a08e23e71af8623c8371c251480071f73}} 
+\index{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::parser@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::parser}!unexpect@{unexpect}}
+\index{unexpect@{unexpect}!nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::parser@{nlohmann::basic\_json$<$ ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer $>$::parser}}
+\doxysubsubsection{\texorpdfstring{unexpect()}{unexpect()}}
+{\footnotesize\ttfamily template$<$template$<$ typename U, typename V, typename... Args $>$ class Object\+Type = std\+::map, template$<$ typename U, typename... Args $>$ class Array\+Type = std\+::vector, class String\+Type  = std\+::string, class Boolean\+Type  = bool, class Number\+Integer\+Type  = std\+::int64\+\_\+t, class Number\+Unsigned\+Type  = std\+::uint64\+\_\+t, class Number\+Float\+Type  = double, template$<$ typename U $>$ class Allocator\+Type = std\+::allocator, template$<$ typename T, typename S\+F\+I\+N\+A\+E=void $>$ class J\+S\+O\+N\+Serializer = adl\+\_\+serializer$>$ \\
+void \mbox{\hyperlink{classnlohmann_1_1basic__json}{nlohmann\+::basic\+\_\+json}}$<$ Object\+Type, Array\+Type, String\+Type, Boolean\+Type, Number\+Integer\+Type, Number\+Unsigned\+Type, Number\+Float\+Type, Allocator\+Type, J\+S\+O\+N\+Serializer $>$\+::parser\+::unexpect (\begin{DoxyParamCaption}\item[{typename \mbox{\hyperlink{classnlohmann_1_1basic__json_1_1lexer_a96887d6cd131e3d3a85a9d71fbdbcdf7}{lexer\+::token\+\_\+type}}}]{t }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em parse\+\_\+error.\+101} & if unexpected token occurred \\
+\hline
+\end{DoxyExceptions}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lib/include/json.\+hpp\end{DoxyCompactItemize}

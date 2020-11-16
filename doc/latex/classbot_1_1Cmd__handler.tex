@@ -1,0 +1,672 @@
+\hypertarget{classbot_1_1Cmd__handler}{}\doxysection{bot\+::Cmd\+\_\+handler Class Reference}
+\label{classbot_1_1Cmd__handler}\index{bot::Cmd\_handler@{bot::Cmd\_handler}}
+
+
+Class representing the interface for processing commands.  
+
+
+
+
+{\ttfamily \#include $<$cmd\+\_\+handler.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classbot_1_1Cmd__handler_a14ef1320ff4d5401cdb6892fcca06dbb}{init\+\_\+cmds}} (const \mbox{\hyperlink{namespacenlohmann_a2bfd99e845a2e5cd90aeaf1b1431f474}{nlohmann\+::json}} \&update)
+\begin{DoxyCompactList}\small\item\em Incoming event initial function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classbot_1_1Cmd__handler_ad09b17f3f2dddf518f2cd5ea9836947b}{new\+\_\+post\+\_\+event}} (const \mbox{\hyperlink{namespacenlohmann_a2bfd99e845a2e5cd90aeaf1b1431f474}{nlohmann\+::json}} \&event)
+\begin{DoxyCompactList}\small\item\em Function, that notifies users about a new post in the group. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classbot_1_1Cmd__handler_ae365ebfddb7a95d6acb6dd555431173f}{crc32\+\_\+cmd}} (\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}} args)
+\begin{DoxyCompactList}\small\item\em C\+R\+C32 command. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classbot_1_1Cmd__handler_a4fdfdcff8b016d5ccd4d8e4a21ebfd61}{picture\+\_\+cmd}} (\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}} args)
+\begin{DoxyCompactList}\small\item\em Command, that searches for pictures. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classbot_1_1Cmd__handler_a0330a99b2723ca80881936025869f2ed}{video\+\_\+cmd}} (\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}} args)
+\begin{DoxyCompactList}\small\item\em Command, that searches for videos. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classbot_1_1Cmd__handler_a255642db97c0034c0bc4eda66b67f04b}{document\+\_\+cmd}} (\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}} args)
+\begin{DoxyCompactList}\small\item\em Command, that searches for documents. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classbot_1_1Cmd__handler_a7c0cd2eac50d1f05f685588062374466}{weather\+\_\+cmd}} (\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}} args)
+\begin{DoxyCompactList}\small\item\em Command showing the weather. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classbot_1_1Cmd__handler_aeb4fa70d2590ba752cb1cd0261118d72}{wiki\+\_\+cmd}} (\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}} args)
+\begin{DoxyCompactList}\small\item\em Command searching info in Wiki. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classbot_1_1Cmd__handler_a56ff5d79920dc6cca793246dbbfd7009}{laugh\+\_\+cmd}} (\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}} args)
+\begin{DoxyCompactList}\small\item\em Command that generates random laugh. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classbot_1_1Cmd__handler_ace4e8b44144bb37b26762b655f217053}{online\+\_\+cmd}} (\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}} args)
+\begin{DoxyCompactList}\small\item\em Command for moderators that shows online users in current chat. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classbot_1_1Cmd__handler_af0d9852fc428e2e066e28e6f5e5b7bfa}{kick\+\_\+cmd}} (\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}} args)
+\begin{DoxyCompactList}\small\item\em Command for moredators that removes user from chat. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classbot_1_1Cmd__handler_affc5e41d1e123ce7af0fa0bc32b13556}{role\+\_\+cmd}} (\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}} args)
+\begin{DoxyCompactList}\small\item\em Command for moredators that set up role for user. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classbot_1_1Cmd__handler_a24c77533b23fb5eb4a0e6b92b3e23fd8}{get\+\_\+roles\+\_\+cmd}} (\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}} args)
+\begin{DoxyCompactList}\small\item\em Command that shows users roles in current chat. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classbot_1_1Cmd__handler_a66411198f8daa4a85c9f5c75914cba02}{blacklist\+\_\+cmd}} (\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}} args)
+\begin{DoxyCompactList}\small\item\em Command for moderators that adds a user to blacklist. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classbot_1_1Cmd__handler_a93996a3ff12adb6fa7ed7e9ae8031795}{repeat\+\_\+cmd}} (\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}} args)
+\begin{DoxyCompactList}\small\item\em Command for creator that resend command argument. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classbot_1_1Cmd__handler_ace8e11019e0001f1edd6b8302a5eb2b9}{complete\+\_\+cmd}} (\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}} args)
+\begin{DoxyCompactList}\small\item\em Text complement command. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classbot_1_1Cmd__handler_aac0a9070604e7fb8442733738744a046}{github\+\_\+info\+\_\+cmd}} (\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}} args)
+\begin{DoxyCompactList}\small\item\em Command that searches various information about Git\+Hub users. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classbot_1_1Cmd__handler_aeadb61e5d7f0131111e49bb74135cde1}{genius\+\_\+cmd}} (\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}} args)
+\begin{DoxyCompactList}\small\item\em Command that searches music tracks \& lyrics on Genius. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classbot_1_1Cmd__handler_a5b7491217c82cbb88b6acfaa16511065}{google\+\_\+cmd}} (\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}} args)
+\begin{DoxyCompactList}\small\item\em Command that redirect forwarded message to Google \+:). \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classbot_1_1Cmd__handler_adf7dfa11274efc7e8f81935787aea58c}{os\+\_\+cmd}} (\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}} args)
+\begin{DoxyCompactList}\small\item\em Command for creator that executes bash command. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classbot_1_1Cmd__handler_addf8248a0c80a13dfd80971e6c21c108}{reverse\+\_\+cmd}} (\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} \mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}} args)
+\begin{DoxyCompactList}\small\item\em Command for moderators(for some reasons) that reverses a string. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classbot_1_1Cmd__handler_af1ff87a06fa598954aea67bf2e59794b}{currency\+\_\+cmd}} (\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} \mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}} args)
+\begin{DoxyCompactList}\small\item\em Command that returns list of currencies with their traits. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classbot_1_1Cmd__handler_aed2f5c02052ceb28dbd32d3fe130ddef}{help\+\_\+cmd}} (\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} \mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}} args)
+\begin{DoxyCompactList}\small\item\em Command that shows help. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classbot_1_1Cmd__handler_a26c1236c8a2b1c84f885f294fd04955d}{about\+\_\+cmd}} (\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} \mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}} args)
+\begin{DoxyCompactList}\small\item\em Command that shows info about bot. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classbot_1_1Cmd__handler_a7e1774ed8b5260a41aaa8286c57918b8}{turn\+\_\+off\+\_\+cmd}} (\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} \mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}} args)
+\begin{DoxyCompactList}\small\item\em Command for creator only, that shows info about bot. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classbot_1_1Cmd__handler_a4663669d31dce0bd3e4c82099929b2ab}{stat\+\_\+cmd}} (\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} \mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}} args)
+\begin{DoxyCompactList}\small\item\em Command that shows bot statistics. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classbot_1_1Cmd__handler_aa68ebfce3dbed3625ac6175ee32de622}{ping\+\_\+cmd}} (\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]}\mbox{]} \mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}} args)
+\begin{DoxyCompactList}\small\item\em Command that shows delay when accessing api.\+vk.\+com. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr uint8\+\_\+t const \mbox{\hyperlink{classbot_1_1Cmd__handler_a8b2a846da35d987a823d7ddd2ee35b29}{user}} = 0x00
+\begin{DoxyCompactList}\small\item\em User access modifier. \end{DoxyCompactList}\item 
+static constexpr uint8\+\_\+t const \mbox{\hyperlink{classbot_1_1Cmd__handler_a9462fe891776855878cf999c9e4551b9}{moderator}} = 0x01
+\begin{DoxyCompactList}\small\item\em Moderator access modifier. \end{DoxyCompactList}\item 
+static constexpr uint8\+\_\+t const \mbox{\hyperlink{classbot_1_1Cmd__handler_ab588c8cc6a2e4835111348ba10fbe187}{creator}} = 0x10
+\begin{DoxyCompactList}\small\item\em Creator access modifier. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_a53b954b0fe44e8ab6fbb9f896caa6822}\label{classbot_1_1Cmd__handler_a53b954b0fe44e8ab6fbb9f896caa6822}} 
+static \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6d}{Cmd\+\_\+traits\+::cmds\+\_\+t}} const \mbox{\hyperlink{classbot_1_1Cmd__handler_a53b954b0fe44e8ab6fbb9f896caa6822}{vk\+\_\+cmds}}
+\begin{DoxyCompactList}\small\item\em Enumeration of all bot commands with their \mbox{\hyperlink{classbot_1_1Cmd__traits_a2bed34aba93efdbfb9b49c8cbd5ba00f}{parameters}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_a166504b8e42ffe9ef3b6e70b3b163e0e}\label{classbot_1_1Cmd__handler_a166504b8e42ffe9ef3b6e70b3b163e0e}} 
+\mbox{\hyperlink{namespacenlohmann_a2bfd99e845a2e5cd90aeaf1b1431f474}{nlohmann\+::json}} \mbox{\hyperlink{classbot_1_1Cmd__handler_a166504b8e42ffe9ef3b6e70b3b163e0e}{\+\_\+reply}}
+\begin{DoxyCompactList}\small\item\em Message reply stored in \mbox{\hyperlink{namespacenlohmann_a2bfd99e845a2e5cd90aeaf1b1431f474}{J\+S\+ON}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_abb9bceb2977b9ad2783c6e63f490c7a3}\label{classbot_1_1Cmd__handler_abb9bceb2977b9ad2783c6e63f490c7a3}} 
+\mbox{\hyperlink{classbot_1_1Vk__api}{Vk\+\_\+api}} \mbox{\hyperlink{classbot_1_1Cmd__handler_abb9bceb2977b9ad2783c6e63f490c7a3}{\+\_\+api}}
+\begin{DoxyCompactList}\small\item\em VK A\+PI handler. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_a77ca40a6d535a0eac2bd1dc47422742c}\label{classbot_1_1Cmd__handler_a77ca40a6d535a0eac2bd1dc47422742c}} 
+Database \mbox{\hyperlink{classbot_1_1Cmd__handler_a77ca40a6d535a0eac2bd1dc47422742c}{\+\_\+database}}
+\begin{DoxyCompactList}\small\item\em Database. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_a17efd7b63ac4048b79823251f6d63afc}\label{classbot_1_1Cmd__handler_a17efd7b63ac4048b79823251f6d63afc}} 
+\mbox{\hyperlink{classbot_1_1Vk__logger}{Vk\+\_\+logger}} \mbox{\hyperlink{classbot_1_1Cmd__handler_a17efd7b63ac4048b79823251f6d63afc}{\+\_\+logger}} \{logfile, errfile\}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classbot_1_1Vk__logger}{Logger}}. \end{DoxyCompactList}\item 
+long \mbox{\hyperlink{classbot_1_1Cmd__handler_a2ab8858e26f707384245344fac25a683}{\+\_\+msg\+\_\+counter}} = 0
+\begin{DoxyCompactList}\small\item\em Function, that provides to logging incoming events. \end{DoxyCompactList}\item 
+std\+::string const \mbox{\hyperlink{classbot_1_1Cmd__handler_a8a8b57ab4adaffd81a37e0cce70e8b77}{\+\_\+build\+\_\+time}} = std\+::string\{\+\_\+\+\_\+\+D\+A\+T\+E\+\_\+\+\_\+\} + \char`\"{} \char`\"{} + std\+::string\{\+\_\+\+\_\+\+T\+I\+M\+E\+\_\+\+\_\+\}
+\begin{DoxyCompactList}\small\item\em Bot build time. Needed by \mbox{\hyperlink{classbot_1_1Cmd__handler_a4663669d31dce0bd3e4c82099929b2ab}{bot\+::\+Cmd\+\_\+handler\+::stat\+\_\+cmd}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class representing the interface for processing commands. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_a26c1236c8a2b1c84f885f294fd04955d}\label{classbot_1_1Cmd__handler_a26c1236c8a2b1c84f885f294fd04955d}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!about\_cmd@{about\_cmd}}
+\index{about\_cmd@{about\_cmd}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{about\_cmd()}{about\_cmd()}}
+{\footnotesize\ttfamily std\+::string bot\+::\+Cmd\+\_\+handler\+::about\+\_\+cmd (\begin{DoxyParamCaption}\item[{\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]} \mbox{]} \mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}}]{args }\end{DoxyParamCaption})}
+
+
+
+Command that shows info about bot. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6d}{command type}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Git\+Hub repo, Author name, VK A\+PI version and build time. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_a66411198f8daa4a85c9f5c75914cba02}\label{classbot_1_1Cmd__handler_a66411198f8daa4a85c9f5c75914cba02}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!blacklist\_cmd@{blacklist\_cmd}}
+\index{blacklist\_cmd@{blacklist\_cmd}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{blacklist\_cmd()}{blacklist\_cmd()}}
+{\footnotesize\ttfamily std\+::string bot\+::\+Cmd\+\_\+handler\+::blacklist\+\_\+cmd (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}}]{args }\end{DoxyParamCaption})}
+
+
+
+Command for moderators that adds a user to blacklist. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6d}{command type}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Command adds a user to L\+O\+C\+AL database blacklist, not blacklist of VK chat! 
+\end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+List of roles. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_ace8e11019e0001f1edd6b8302a5eb2b9}\label{classbot_1_1Cmd__handler_ace8e11019e0001f1edd6b8302a5eb2b9}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!complete\_cmd@{complete\_cmd}}
+\index{complete\_cmd@{complete\_cmd}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{complete\_cmd()}{complete\_cmd()}}
+{\footnotesize\ttfamily std\+::string bot\+::\+Cmd\+\_\+handler\+::complete\+\_\+cmd (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}}]{args }\end{DoxyParamCaption})}
+
+
+
+Text complement command. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6d}{command type}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of \href{https://pelevin.gpt.dobro.ai/generate/}{\texttt{ https\+://pelevin.\+gpt.\+dobro.\+ai/generate/}} work. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_ae365ebfddb7a95d6acb6dd555431173f}\label{classbot_1_1Cmd__handler_ae365ebfddb7a95d6acb6dd555431173f}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!crc32\_cmd@{crc32\_cmd}}
+\index{crc32\_cmd@{crc32\_cmd}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{crc32\_cmd()}{crc32\_cmd()}}
+{\footnotesize\ttfamily std\+::string bot\+::\+Cmd\+\_\+handler\+::crc32\+\_\+cmd (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}}]{args }\end{DoxyParamCaption})}
+
+
+
+C\+R\+C32 command. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6d}{command type}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+C\+R\+C32-\/hash of string, generated by unsigned long crc32gen(const char$\ast$); 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_af1ff87a06fa598954aea67bf2e59794b}\label{classbot_1_1Cmd__handler_af1ff87a06fa598954aea67bf2e59794b}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!currency\_cmd@{currency\_cmd}}
+\index{currency\_cmd@{currency\_cmd}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{currency\_cmd()}{currency\_cmd()}}
+{\footnotesize\ttfamily std\+::string bot\+::\+Cmd\+\_\+handler\+::currency\+\_\+cmd (\begin{DoxyParamCaption}\item[{\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]} \mbox{]} \mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}}]{args }\end{DoxyParamCaption})}
+
+
+
+Command that returns list of currencies with their traits. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6d}{command type}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of \href{https://www.cbr-xml-daily.ru/daily_json.js}{\texttt{ https\+://www.\+cbr-\/xml-\/daily.\+ru/daily\+\_\+json.\+js}} work. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_a255642db97c0034c0bc4eda66b67f04b}\label{classbot_1_1Cmd__handler_a255642db97c0034c0bc4eda66b67f04b}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!document\_cmd@{document\_cmd}}
+\index{document\_cmd@{document\_cmd}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{document\_cmd()}{document\_cmd()}}
+{\footnotesize\ttfamily std\+::string bot\+::\+Cmd\+\_\+handler\+::document\+\_\+cmd (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}}]{args }\end{DoxyParamCaption})}
+
+
+
+Command, that searches for documents. 
+
+Calls \mbox{\hyperlink{classbot_1_1Vk__api_ab715d784ca6658131f4fa5f127fb9319}{bot\+::\+Vk\+\_\+api\+::media\+\_\+search}}. 
+\begin{DoxyParams}{Parameters}
+{\em A} & \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6d}{command type}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Empty string on success, error message otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_aeadb61e5d7f0131111e49bb74135cde1}\label{classbot_1_1Cmd__handler_aeadb61e5d7f0131111e49bb74135cde1}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!genius\_cmd@{genius\_cmd}}
+\index{genius\_cmd@{genius\_cmd}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{genius\_cmd()}{genius\_cmd()}}
+{\footnotesize\ttfamily std\+::string bot\+::\+Cmd\+\_\+handler\+::genius\+\_\+cmd (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}}]{args }\end{DoxyParamCaption})}
+
+
+
+Command that searches music tracks \& lyrics on Genius. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6d}{command type}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of \href{https://api.genius.com/}{\texttt{ https\+://api.\+genius.\+com/}} work. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_a24c77533b23fb5eb4a0e6b92b3e23fd8}\label{classbot_1_1Cmd__handler_a24c77533b23fb5eb4a0e6b92b3e23fd8}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!get\_roles\_cmd@{get\_roles\_cmd}}
+\index{get\_roles\_cmd@{get\_roles\_cmd}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{get\_roles\_cmd()}{get\_roles\_cmd()}}
+{\footnotesize\ttfamily std\+::string bot\+::\+Cmd\+\_\+handler\+::get\+\_\+roles\+\_\+cmd (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}}]{args }\end{DoxyParamCaption})}
+
+
+
+Command that shows users roles in current chat. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6d}{command type}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+List of roles. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_aac0a9070604e7fb8442733738744a046}\label{classbot_1_1Cmd__handler_aac0a9070604e7fb8442733738744a046}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!github\_info\_cmd@{github\_info\_cmd}}
+\index{github\_info\_cmd@{github\_info\_cmd}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{github\_info\_cmd()}{github\_info\_cmd()}}
+{\footnotesize\ttfamily std\+::string bot\+::\+Cmd\+\_\+handler\+::github\+\_\+info\+\_\+cmd (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}}]{args }\end{DoxyParamCaption})}
+
+
+
+Command that searches various information about Git\+Hub users. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6d}{command type}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of \href{https://api.github.com/}{\texttt{ https\+://api.\+github.\+com/}} work. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_a5b7491217c82cbb88b6acfaa16511065}\label{classbot_1_1Cmd__handler_a5b7491217c82cbb88b6acfaa16511065}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!google\_cmd@{google\_cmd}}
+\index{google\_cmd@{google\_cmd}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{google\_cmd()}{google\_cmd()}}
+{\footnotesize\ttfamily std\+::string bot\+::\+Cmd\+\_\+handler\+::google\+\_\+cmd (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}}]{args }\end{DoxyParamCaption})}
+
+
+
+Command that redirect forwarded message to Google \+:). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6d}{command type}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Link to Google. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_aed2f5c02052ceb28dbd32d3fe130ddef}\label{classbot_1_1Cmd__handler_aed2f5c02052ceb28dbd32d3fe130ddef}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!help\_cmd@{help\_cmd}}
+\index{help\_cmd@{help\_cmd}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{help\_cmd()}{help\_cmd()}}
+{\footnotesize\ttfamily std\+::string bot\+::\+Cmd\+\_\+handler\+::help\+\_\+cmd (\begin{DoxyParamCaption}\item[{\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]} \mbox{]} \mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}}]{args }\end{DoxyParamCaption})}
+
+
+
+Command that shows help. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6d}{command type}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+List of commands in chunks of 15. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_a14ef1320ff4d5401cdb6892fcca06dbb}\label{classbot_1_1Cmd__handler_a14ef1320ff4d5401cdb6892fcca06dbb}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!init\_cmds@{init\_cmds}}
+\index{init\_cmds@{init\_cmds}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{init\_cmds()}{init\_cmds()}}
+{\footnotesize\ttfamily void bot\+::\+Cmd\+\_\+handler\+::init\+\_\+cmds (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacenlohmann_a2bfd99e845a2e5cd90aeaf1b1431f474}{nlohmann\+::json}} \&}]{update }\end{DoxyParamCaption})}
+
+
+
+Incoming event initial function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em An} & \mbox{\hyperlink{classnlohmann_1_1basic__json}{J\+S\+ON}} update object. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_af0d9852fc428e2e066e28e6f5e5b7bfa}\label{classbot_1_1Cmd__handler_af0d9852fc428e2e066e28e6f5e5b7bfa}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!kick\_cmd@{kick\_cmd}}
+\index{kick\_cmd@{kick\_cmd}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{kick\_cmd()}{kick\_cmd()}}
+{\footnotesize\ttfamily std\+::string bot\+::\+Cmd\+\_\+handler\+::kick\+\_\+cmd (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}}]{args }\end{DoxyParamCaption})}
+
+
+
+Command for moredators that removes user from chat. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6d}{command type}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Farewell message, error message otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_a56ff5d79920dc6cca793246dbbfd7009}\label{classbot_1_1Cmd__handler_a56ff5d79920dc6cca793246dbbfd7009}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!laugh\_cmd@{laugh\_cmd}}
+\index{laugh\_cmd@{laugh\_cmd}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{laugh\_cmd()}{laugh\_cmd()}}
+{\footnotesize\ttfamily std\+::string bot\+::\+Cmd\+\_\+handler\+::laugh\+\_\+cmd (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}}]{args }\end{DoxyParamCaption})}
+
+
+
+Command that generates random laugh. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6d}{command type}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A sequence of characters similar(almost) to laughter. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_ad09b17f3f2dddf518f2cd5ea9836947b}\label{classbot_1_1Cmd__handler_ad09b17f3f2dddf518f2cd5ea9836947b}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!new\_post\_event@{new\_post\_event}}
+\index{new\_post\_event@{new\_post\_event}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{new\_post\_event()}{new\_post\_event()}}
+{\footnotesize\ttfamily void bot\+::\+Cmd\+\_\+handler\+::new\+\_\+post\+\_\+event (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{namespacenlohmann_a2bfd99e845a2e5cd90aeaf1b1431f474}{nlohmann\+::json}} \&}]{event }\end{DoxyParamCaption})}
+
+
+
+Function, that notifies users about a new post in the group. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em An} & \mbox{\hyperlink{classnlohmann_1_1basic__json}{J\+S\+ON}} update object. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_ace4e8b44144bb37b26762b655f217053}\label{classbot_1_1Cmd__handler_ace4e8b44144bb37b26762b655f217053}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!online\_cmd@{online\_cmd}}
+\index{online\_cmd@{online\_cmd}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{online\_cmd()}{online\_cmd()}}
+{\footnotesize\ttfamily std\+::string bot\+::\+Cmd\+\_\+handler\+::online\+\_\+cmd (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}}]{args }\end{DoxyParamCaption})}
+
+
+
+Command for moderators that shows online users in current chat. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6d}{command type}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+List of online users. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_adf7dfa11274efc7e8f81935787aea58c}\label{classbot_1_1Cmd__handler_adf7dfa11274efc7e8f81935787aea58c}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!os\_cmd@{os\_cmd}}
+\index{os\_cmd@{os\_cmd}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{os\_cmd()}{os\_cmd()}}
+{\footnotesize\ttfamily std\+::string bot\+::\+Cmd\+\_\+handler\+::os\+\_\+cmd (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}}]{args }\end{DoxyParamCaption})}
+
+
+
+Command for creator that executes bash command. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6d}{command type}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Bash output. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_a4fdfdcff8b016d5ccd4d8e4a21ebfd61}\label{classbot_1_1Cmd__handler_a4fdfdcff8b016d5ccd4d8e4a21ebfd61}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!picture\_cmd@{picture\_cmd}}
+\index{picture\_cmd@{picture\_cmd}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{picture\_cmd()}{picture\_cmd()}}
+{\footnotesize\ttfamily std\+::string bot\+::\+Cmd\+\_\+handler\+::picture\+\_\+cmd (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}}]{args }\end{DoxyParamCaption})}
+
+
+
+Command, that searches for pictures. 
+
+Calls \mbox{\hyperlink{classbot_1_1Vk__api_ab715d784ca6658131f4fa5f127fb9319}{bot\+::\+Vk\+\_\+api\+::media\+\_\+search}}. 
+\begin{DoxyParams}{Parameters}
+{\em A} & \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6d}{command type}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Empty string on success, error message otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_aa68ebfce3dbed3625ac6175ee32de622}\label{classbot_1_1Cmd__handler_aa68ebfce3dbed3625ac6175ee32de622}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!ping\_cmd@{ping\_cmd}}
+\index{ping\_cmd@{ping\_cmd}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{ping\_cmd()}{ping\_cmd()}}
+{\footnotesize\ttfamily std\+::string bot\+::\+Cmd\+\_\+handler\+::ping\+\_\+cmd (\begin{DoxyParamCaption}\item[{\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]} \mbox{]} \mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}}]{args }\end{DoxyParamCaption})}
+
+
+
+Command that shows delay when accessing api.\+vk.\+com. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6d}{command type}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+10 tries to ping api.\+vk.\+com and average delay. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_a93996a3ff12adb6fa7ed7e9ae8031795}\label{classbot_1_1Cmd__handler_a93996a3ff12adb6fa7ed7e9ae8031795}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!repeat\_cmd@{repeat\_cmd}}
+\index{repeat\_cmd@{repeat\_cmd}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{repeat\_cmd()}{repeat\_cmd()}}
+{\footnotesize\ttfamily std\+::string bot\+::\+Cmd\+\_\+handler\+::repeat\+\_\+cmd (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}}]{args }\end{DoxyParamCaption})}
+
+
+
+Command for creator that resend command argument. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6d}{command type}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Whole command argument. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_addf8248a0c80a13dfd80971e6c21c108}\label{classbot_1_1Cmd__handler_addf8248a0c80a13dfd80971e6c21c108}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!reverse\_cmd@{reverse\_cmd}}
+\index{reverse\_cmd@{reverse\_cmd}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{reverse\_cmd()}{reverse\_cmd()}}
+{\footnotesize\ttfamily std\+::string bot\+::\+Cmd\+\_\+handler\+::reverse\+\_\+cmd (\begin{DoxyParamCaption}\item[{\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]} \mbox{]} \mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}}]{args }\end{DoxyParamCaption})}
+
+
+
+Command for moderators(for some reasons) that reverses a string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6d}{command type}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Reversed string. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_affc5e41d1e123ce7af0fa0bc32b13556}\label{classbot_1_1Cmd__handler_affc5e41d1e123ce7af0fa0bc32b13556}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!role\_cmd@{role\_cmd}}
+\index{role\_cmd@{role\_cmd}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{role\_cmd()}{role\_cmd()}}
+{\footnotesize\ttfamily std\+::string bot\+::\+Cmd\+\_\+handler\+::role\+\_\+cmd (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}}]{args }\end{DoxyParamCaption})}
+
+
+
+Command for moredators that set up role for user. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6d}{command type}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Success message, error message otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_a4663669d31dce0bd3e4c82099929b2ab}\label{classbot_1_1Cmd__handler_a4663669d31dce0bd3e4c82099929b2ab}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!stat\_cmd@{stat\_cmd}}
+\index{stat\_cmd@{stat\_cmd}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{stat\_cmd()}{stat\_cmd()}}
+{\footnotesize\ttfamily std\+::string bot\+::\+Cmd\+\_\+handler\+::stat\+\_\+cmd (\begin{DoxyParamCaption}\item[{\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]} \mbox{]} \mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}}]{args }\end{DoxyParamCaption})}
+
+
+
+Command that shows bot statistics. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6d}{command type}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Total memory, memory used by bot, uptime, count of used threads and count of processed commands. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_a7e1774ed8b5260a41aaa8286c57918b8}\label{classbot_1_1Cmd__handler_a7e1774ed8b5260a41aaa8286c57918b8}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!turn\_off\_cmd@{turn\_off\_cmd}}
+\index{turn\_off\_cmd@{turn\_off\_cmd}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{turn\_off\_cmd()}{turn\_off\_cmd()}}
+{\footnotesize\ttfamily std\+::string bot\+::\+Cmd\+\_\+handler\+::turn\+\_\+off\+\_\+cmd (\begin{DoxyParamCaption}\item[{\mbox{[}\mbox{[}maybe\+\_\+unused\mbox{]} \mbox{]} \mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}}]{args }\end{DoxyParamCaption})}
+
+
+
+Command for creator only, that shows info about bot. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6d}{command type}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+empty string. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_a0330a99b2723ca80881936025869f2ed}\label{classbot_1_1Cmd__handler_a0330a99b2723ca80881936025869f2ed}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!video\_cmd@{video\_cmd}}
+\index{video\_cmd@{video\_cmd}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{video\_cmd()}{video\_cmd()}}
+{\footnotesize\ttfamily std\+::string bot\+::\+Cmd\+\_\+handler\+::video\+\_\+cmd (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}}]{args }\end{DoxyParamCaption})}
+
+
+
+Command, that searches for videos. 
+
+Calls \mbox{\hyperlink{classbot_1_1Vk__api_ab715d784ca6658131f4fa5f127fb9319}{bot\+::\+Vk\+\_\+api\+::media\+\_\+search}}. 
+\begin{DoxyParams}{Parameters}
+{\em A} & \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6d}{command type}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Empty string on success, error message otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_a7c0cd2eac50d1f05f685588062374466}\label{classbot_1_1Cmd__handler_a7c0cd2eac50d1f05f685588062374466}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!weather\_cmd@{weather\_cmd}}
+\index{weather\_cmd@{weather\_cmd}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{weather\_cmd()}{weather\_cmd()}}
+{\footnotesize\ttfamily std\+::string bot\+::\+Cmd\+\_\+handler\+::weather\+\_\+cmd (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}}]{args }\end{DoxyParamCaption})}
+
+
+
+Command showing the weather. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6d}{command type}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Formatted result of \href{http://api.openweathermap.org}{\texttt{ http\+://api.\+openweathermap.\+org}} work. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_aeb4fa70d2590ba752cb1cd0261118d72}\label{classbot_1_1Cmd__handler_aeb4fa70d2590ba752cb1cd0261118d72}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!wiki\_cmd@{wiki\_cmd}}
+\index{wiki\_cmd@{wiki\_cmd}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{wiki\_cmd()}{wiki\_cmd()}}
+{\footnotesize\ttfamily std\+::string bot\+::\+Cmd\+\_\+handler\+::wiki\+\_\+cmd (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}}]{args }\end{DoxyParamCaption})}
+
+
+
+Command searching info in Wiki. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & \mbox{\hyperlink{classbot_1_1Cmd__traits_a83a599cab083d4dca98a1d5ccfc95c6d}{command type}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of \href{https://ru.wikipedia.org/w/api.php}{\texttt{ https\+://ru.\+wikipedia.\+org/w/api.\+php}} work. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_a8a8b57ab4adaffd81a37e0cce70e8b77}\label{classbot_1_1Cmd__handler_a8a8b57ab4adaffd81a37e0cce70e8b77}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!\_build\_time@{\_build\_time}}
+\index{\_build\_time@{\_build\_time}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{\_build\_time}{\_build\_time}}
+{\footnotesize\ttfamily std\+::string const bot\+::\+Cmd\+\_\+handler\+::\+\_\+build\+\_\+time = std\+::string\{\+\_\+\+\_\+\+D\+A\+T\+E\+\_\+\+\_\+\} + \char`\"{} \char`\"{} + std\+::string\{\+\_\+\+\_\+\+T\+I\+M\+E\+\_\+\+\_\+\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Bot build time. Needed by \mbox{\hyperlink{classbot_1_1Cmd__handler_a4663669d31dce0bd3e4c82099929b2ab}{bot\+::\+Cmd\+\_\+handler\+::stat\+\_\+cmd}}. 
+
+\begin{DoxyReturn}{Returns}
+date and time of time, when program was builded. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_a2ab8858e26f707384245344fac25a683}\label{classbot_1_1Cmd__handler_a2ab8858e26f707384245344fac25a683}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!\_msg\_counter@{\_msg\_counter}}
+\index{\_msg\_counter@{\_msg\_counter}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{\_msg\_counter}{\_msg\_counter}}
+{\footnotesize\ttfamily long bot\+::\+Cmd\+\_\+handler\+::\+\_\+msg\+\_\+counter = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Function, that provides to logging incoming events. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & \\
+\hline
+{\em from\+\_\+id} & \\
+\hline
+\end{DoxyParams}
+Count of processed commands. Needed by \mbox{\hyperlink{classbot_1_1Cmd__handler_a4663669d31dce0bd3e4c82099929b2ab}{bot\+::\+Cmd\+\_\+handler\+::stat\+\_\+cmd}}. \mbox{\Hypertarget{classbot_1_1Cmd__handler_ab588c8cc6a2e4835111348ba10fbe187}\label{classbot_1_1Cmd__handler_ab588c8cc6a2e4835111348ba10fbe187}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!creator@{creator}}
+\index{creator@{creator}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{creator}{creator}}
+{\footnotesize\ttfamily constexpr uint8\+\_\+t const bot\+::\+Cmd\+\_\+handler\+::creator = 0x10\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Creator access modifier. 
+
+\begin{DoxyNote}{Note}
+Be careful. Users with creator access modifier able to execute~\newline
+\mbox{\hyperlink{classbot_1_1Cmd__handler_a93996a3ff12adb6fa7ed7e9ae8031795}{Cmd\+\_\+handler\+::repeat\+\_\+cmd}}(\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}})~\newline
+\mbox{\hyperlink{classbot_1_1Cmd__handler_adf7dfa11274efc7e8f81935787aea58c}{Cmd\+\_\+handler\+::os\+\_\+cmd}}(\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}})~\newline
+\mbox{\hyperlink{classbot_1_1Cmd__handler_a7e1774ed8b5260a41aaa8286c57918b8}{Cmd\+\_\+handler\+::turn\+\_\+off\+\_\+cmd}}(\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}) 
+\end{DoxyNote}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_a9462fe891776855878cf999c9e4551b9}\label{classbot_1_1Cmd__handler_a9462fe891776855878cf999c9e4551b9}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!moderator@{moderator}}
+\index{moderator@{moderator}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{moderator}{moderator}}
+{\footnotesize\ttfamily constexpr uint8\+\_\+t const bot\+::\+Cmd\+\_\+handler\+::moderator = 0x01\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Moderator access modifier. 
+
+\begin{DoxyNote}{Note}
+Users with moderator access modifier able to execute~\newline
+\mbox{\hyperlink{classbot_1_1Cmd__handler_af0d9852fc428e2e066e28e6f5e5b7bfa}{Cmd\+\_\+handler\+::kick\+\_\+cmd}}(\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}})~\newline
+\mbox{\hyperlink{classbot_1_1Cmd__handler_addf8248a0c80a13dfd80971e6c21c108}{Cmd\+\_\+handler\+::reverse\+\_\+cmd}}(\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}})~\newline
+\mbox{\hyperlink{classbot_1_1Cmd__handler_af0d9852fc428e2e066e28e6f5e5b7bfa}{Cmd\+\_\+handler\+::kick\+\_\+cmd}}(\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}})~\newline
+\mbox{\hyperlink{classbot_1_1Cmd__handler_a66411198f8daa4a85c9f5c75914cba02}{Cmd\+\_\+handler\+::blacklist\+\_\+cmd}}(\mbox{\hyperlink{namespacebot_a9b159e5a4785878828b776ebb40e3ef5}{cmd\+\_\+type}}). 
+\end{DoxyNote}
+\mbox{\Hypertarget{classbot_1_1Cmd__handler_a8b2a846da35d987a823d7ddd2ee35b29}\label{classbot_1_1Cmd__handler_a8b2a846da35d987a823d7ddd2ee35b29}} 
+\index{bot::Cmd\_handler@{bot::Cmd\_handler}!user@{user}}
+\index{user@{user}!bot::Cmd\_handler@{bot::Cmd\_handler}}
+\doxysubsubsection{\texorpdfstring{user}{user}}
+{\footnotesize\ttfamily constexpr uint8\+\_\+t const bot\+::\+Cmd\+\_\+handler\+::user = 0x00\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+User access modifier. 
+
+\begin{DoxyNote}{Note}
+Users with \mbox{\hyperlink{classbot_1_1Cmd__handler_a8b2a846da35d987a823d7ddd2ee35b29}{user}} access modified able to execute any command except the commands with \mbox{\hyperlink{classbot_1_1Cmd__handler_a9462fe891776855878cf999c9e4551b9}{moderator}} and \mbox{\hyperlink{classbot_1_1Cmd__handler_ab588c8cc6a2e4835111348ba10fbe187}{creator}} access modifiers. 
+\end{DoxyNote}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/cmd\+\_\+handler.\+hpp\end{DoxyCompactItemize}

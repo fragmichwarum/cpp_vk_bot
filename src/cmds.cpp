@@ -457,12 +457,12 @@ string Cmd_handler::get_roles_cmd(cmd_type cmd) {
   vector<long> roles;
 
   if (args.size() == 1) {
-    roles = _database.get(cmd.peer_id);
+    roles = _database.get_roles(cmd.peer_id);
     if (roles.size() == 0) {
       return "В этом чате ни у кого нет ролей.";
     }
   } else {
-    roles = _database.get(cmd.peer_id, args[1]);
+    roles = _database.get_roles(cmd.peer_id, args[1]);
     if (roles.size() == 0) {
       return "В этом чате нет участников с данной ролью.";
     }

@@ -1,0 +1,37 @@
+\hypertarget{structnlohmann_1_1detail_1_1has__non__default__from__json}{}\doxysection{nlohmann\+::detail\+::has\+\_\+non\+\_\+default\+\_\+from\+\_\+json$<$ Basic\+Json\+Type, T $>$ Struct Template Reference}
+\label{structnlohmann_1_1detail_1_1has__non__default__from__json}\index{nlohmann::detail::has\_non\_default\_from\_json$<$ BasicJsonType, T $>$@{nlohmann::detail::has\_non\_default\_from\_json$<$ BasicJsonType, T $>$}}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr bool {\bfseries value}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structnlohmann_1_1detail_1_1has__non__default__from__json_a931a1c93f448f44269e424b5f51a9a5c}\label{structnlohmann_1_1detail_1_1has__non__default__from__json_a931a1c93f448f44269e424b5f51a9a5c}} 
+{\footnotesize template$<$typename U $>$ }\\static int {\bfseries detect} (U \&\&)
+\item 
+\mbox{\Hypertarget{structnlohmann_1_1detail_1_1has__non__default__from__json_aa9d6fc482c9b96cf5ffbba95d4afd01a}\label{structnlohmann_1_1detail_1_1has__non__default__from__json_aa9d6fc482c9b96cf5ffbba95d4afd01a}} 
+static void {\bfseries detect} (...)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structnlohmann_1_1detail_1_1has__non__default__from__json_ad34bb7cd3961fcafc2c5047a9782e931}\label{structnlohmann_1_1detail_1_1has__non__default__from__json_ad34bb7cd3961fcafc2c5047a9782e931}} 
+\index{nlohmann::detail::has\_non\_default\_from\_json$<$ BasicJsonType, T $>$@{nlohmann::detail::has\_non\_default\_from\_json$<$ BasicJsonType, T $>$}!value@{value}}
+\index{value@{value}!nlohmann::detail::has\_non\_default\_from\_json$<$ BasicJsonType, T $>$@{nlohmann::detail::has\_non\_default\_from\_json$<$ BasicJsonType, T $>$}}
+\doxysubsubsection{\texorpdfstring{value}{value}}
+{\footnotesize\ttfamily template$<$typename Basic\+Json\+Type , typename T $>$ \\
+constexpr bool \mbox{\hyperlink{structnlohmann_1_1detail_1_1has__non__default__from__json}{nlohmann\+::detail\+::has\+\_\+non\+\_\+default\+\_\+from\+\_\+json}}$<$ Basic\+Json\+Type, T $>$\+::value\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= std::is\_integral<decltype(detect(}
+\DoxyCodeLine{                                      std::declval<\textcolor{keyword}{typename} BasicJsonType::template json\_serializer<T, void>>()))>::value}
+
+\end{DoxyCode}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lib/include/json.\+hpp\end{DoxyCompactItemize}

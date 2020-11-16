@@ -3,6 +3,7 @@
 using namespace bot::util;
 using bot::Cmd_handler;
 using bot::Cmd_traits;
+using bot::Vk_logger;
 
 using std::string;
 using std::vector;
@@ -41,9 +42,9 @@ static bool exists(const json& object, const string& key) {
   return object.find(key) != object.end();
 }
 
-void Cmd_handler::_log(const string& message, const long& from_id) {
-  _logger.print(LOGTYPE::LOG, message, std::to_string(from_id));
-  _logger.log(LOGTYPE::LOG, message);
+static void log(Vk_logger& logger, const string& message, const long& from_id) {
+  logger.print(bot::LOGTYPE::LOG, message, std::to_string(from_id));
+  logger.log(bot::LOGTYPE::LOG, message);
 }
 
 void Cmd_handler::init_cmds(const nlohmann::json& update)
@@ -78,9 +79,9 @@ void Cmd_handler::init_cmds(const nlohmann::json& update)
 
     if (message.at(0) == '+') {
       ++_msg_counter;
-      _log(message, from_id);
-      moderators = _database.get(peer_id, "модератор");
-      blacklist  = _database.get(peer_id, "мут");
+      log(_logger, message, from_id);
+      moderators = _database.get_roles(peer_id, "модератор");
+      blacklist  = _database.get_roles(peer_id, "мут");
     }
   }
 

@@ -1,0 +1,64 @@
+\hypertarget{classnlohmann_1_1detail_1_1out__of__range}{}\doxysection{nlohmann\+::detail\+::out\+\_\+of\+\_\+range Class Reference}
+\label{classnlohmann_1_1detail_1_1out__of__range}\index{nlohmann::detail::out\_of\_range@{nlohmann::detail::out\_of\_range}}
+
+
+exception indicating access out of the defined range  
+
+
+
+
+{\ttfamily \#include $<$json.\+hpp$>$}
+
+Inheritance diagram for nlohmann\+::detail\+::out\+\_\+of\+\_\+range\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classnlohmann_1_1detail_1_1out__of__range}
+\end{center}
+\end{figure}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classnlohmann_1_1detail_1_1out__of__range_a661c8a3af0caeb2621bfb7ae3a02c66b}\label{classnlohmann_1_1detail_1_1out__of__range_a661c8a3af0caeb2621bfb7ae3a02c66b}} 
+static \mbox{\hyperlink{classnlohmann_1_1detail_1_1out__of__range}{out\+\_\+of\+\_\+range}} {\bfseries create} (int \mbox{\hyperlink{classnlohmann_1_1detail_1_1exception_a0d4589a3fb54e81646d986c05efa3b9a}{id}}, const std\+::string \&what\+\_\+arg)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classnlohmann_1_1detail_1_1out__of__range_ab5fe402019dba957558499502f0fd731}\label{classnlohmann_1_1detail_1_1out__of__range_ab5fe402019dba957558499502f0fd731}} 
+{\bfseries out\+\_\+of\+\_\+range} (int id\+\_\+, const char $\ast$what\+\_\+arg)
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+exception indicating access out of the defined range 
+
+Exceptions have ids 4xx.
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ name / id  }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ example massage  }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ description   }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ name / id  }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ example massage  }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ description   }\\\cline{1-3}
+\endhead
+json.\+exception.\+out\+\_\+of\+\_\+range.\+401  &array index 3 is out of range  &The provided array index {\itshape i} is larger than {\itshape size-\/1}.   \\\cline{1-3}
+json.\+exception.\+out\+\_\+of\+\_\+range.\+402  &array index \textquotesingle{}-\/\textquotesingle{} (3) is out of range  &The special array index {\ttfamily -\/} in a J\+S\+ON Pointer never describes a valid element of the array, but the index past the end. That is, it can only be used to add elements at this position, but not to read it.   \\\cline{1-3}
+json.\+exception.\+out\+\_\+of\+\_\+range.\+403  &key \textquotesingle{}foo\textquotesingle{} not found  &The provided key was not found in the J\+S\+ON object.   \\\cline{1-3}
+json.\+exception.\+out\+\_\+of\+\_\+range.\+404  &unresolved reference token \textquotesingle{}foo\textquotesingle{}  &A reference token in a J\+S\+ON Pointer could not be resolved.   \\\cline{1-3}
+json.\+exception.\+out\+\_\+of\+\_\+range.\+405  &J\+S\+ON pointer has no parent  &The J\+S\+ON Patch operations \textquotesingle{}remove\textquotesingle{} and \textquotesingle{}add\textquotesingle{} can not be applied to the root element of the J\+S\+ON value.   \\\cline{1-3}
+json.\+exception.\+out\+\_\+of\+\_\+range.\+406  &number overflow parsing \textquotesingle{}10E1000\textquotesingle{}  &A parsed number could not be stored as without changing it to NaN or I\+NF.   \\\cline{1-3}
+\end{longtabu}
+
+
+\begin{DoxySince}{Since}
+version 3.\+0.\+0 
+\end{DoxySince}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lib/include/json.\+hpp\end{DoxyCompactItemize}

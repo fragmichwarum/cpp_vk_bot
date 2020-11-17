@@ -6,6 +6,7 @@ namespace bot
 {
 /*!
  * @brief Class that represents handling of VK API errors.
+ * @throws std::exception
  */
 class Vk_error : public std::exception
 {
@@ -32,7 +33,6 @@ public:
 
   /*!
    * @overload const char* Vk_error::what()
-   * @throws std::exception
    * @return Error message.
    */
   virtual const char* what() const noexcept override

@@ -28,7 +28,6 @@ HEADERS += \
         include/error_handler.hpp \
         include/logger.hpp        \
         include/long_poll.hpp     \
-        include/metadata.hpp      \
         include/utils.hpp         \
         include/vk_api.hpp        \
         lib/include/crc32.hpp     \

@@ -1,13 +1,26 @@
+#include <fstream>
+
 #include "vk_api.hpp"
 
 using bot::Vk_api;
 using namespace bot::cURL;
 using namespace bot::util;
+using namespace bot::info;
 
 using nlohmann::json;
 using std::to_string;
 using std::string;
 using std::map;
+
+static nlohmann::json _data = json::parse(std::ifstream{"./init.json"});
+
+long        bot::info::admin_id     = _data["admin_id"];
+std::string bot::info::group_id     = _data["group_id"];
+std::string bot::info::access_token = _data["token"]["access_token"];
+std::string bot::info::user_token   = _data["token"]["user_token"];
+std::string bot::info::version      = _data["api_v"];
+std::string bot::info::errfile      = _data["path"]["err"];
+std::string bot::info::logfile      = _data["path"]["log"];
 
 void Vk_api::send_message(const string& text, const long& peer_id, const map<string, string>& options)
 {
@@ -15,8 +28,8 @@ void Vk_api::send_message(const string& text, const long& peer_id, const map<str
     { "message",      text               },
     { "peer_id",      to_string(peer_id) },
     { "random_id",    "0"                },
-    { "access_token", access_token       },
-    { "v",            api_version        },
+    { "access_token", info::access_token },
+    { "v",            info::version      },
     { "disable_mentions", "1"            }
   };
 
@@ -45,10 +58,10 @@ std::string Vk_api::media_search(const std::string &method, const std::string &t
 {
   json vkmedia =
     json::parse(request(append_vkurl(method),
-      {{ "q",            get_args(text)  },
-       { "access_token", user_token      },
-       { "v",            api_version     },
-       { "count",        "50"            }}));
+      {{ "q",            get_args(text)   },
+       { "access_token", info::user_token },
+       { "v",            info::version    },
+       { "count",        "50"             }}));
 
   json items = vkmedia["response"]["items"];
 
@@ -75,8 +88,8 @@ std::string Vk_api::kick_user(const long& chat_id, const long& user_id)
      {{ "chat_id",      to_string(chat_id) },
       { "user_id",      to_string(user_id) },
       { "random_id",    "0"                },
-      { "access_token", access_token       },
-      { "v",            api_version        }}));
+      { "access_token", info::access_token },
+      { "v",            info::version      }}));
 
   if (not response["error"].is_null() &&
           response["error"]["error_code"] == 100)

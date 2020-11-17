@@ -5,6 +5,7 @@
 using bot::Long_poll_handler;
 using nlohmann::json;
 using namespace bot::cURL;
+using namespace bot::info;
 
 using std::thread;
 using std::string;
@@ -16,7 +17,7 @@ void Long_poll_handler::_get_server() {
      {{ "group_id",     group_id     },
       { "random_id",    "0"          },
       { "access_token", access_token },
-      { "v",            api_version  }}));
+      { "v",            version  }}));
 
   if (not poll["error"]["error_code"].is_null()) {
     throw Vk_error(poll["error"]["error_code"].get<long>());
@@ -32,10 +33,10 @@ void Long_poll_handler::loop() {
   while (true) {
     json lp =
       json::parse(request(_server + "?",
-       {{ "act", "a_check" },
-        { "key",  _key     },
-        { "ts",   _ts      },
-        { "wait", "90"     }}));
+       {{ "act",  "a_check" },
+        { "key",  _key      },
+        { "ts",   _ts       },
+        { "wait", "90"      }}));
 
     if (lp["updates"][0].is_null()) {
       _get_server();

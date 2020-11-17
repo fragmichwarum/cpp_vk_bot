@@ -76,5 +76,5 @@ string bot::cURL::request(const string& method, const map<string, string>& body)
 }
 
 string bot::cURL::append_vkurl(const string &method) {
-  return api_url + method + '?';
+  return "https://api.vk.com/method/" + method + '?';
 }

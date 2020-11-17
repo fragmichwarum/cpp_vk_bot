@@ -2,18 +2,10 @@
 
 #include <curl/curl.h>
 #include <map>
-#include "metadata.hpp"
+#include <string>
 
 namespace bot
 {
-/*!
- * @brief Version of VK API.
- */
-inline const std::string api_version = "5.124";
-/*!
- * @brief VK API URL.
- */
-inline const std::string api_url = "https://api.vk.com/method/";
 /*!
  * @namespace bot::cURL
  * @brief Namespace with functions for working with the network.

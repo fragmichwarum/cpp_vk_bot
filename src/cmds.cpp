@@ -5,6 +5,7 @@
 using namespace bot;
 using namespace bot::cURL;
 using namespace bot::util;
+using namespace bot::info;
 
 using nlohmann::json;
 
@@ -280,9 +281,9 @@ string Cmd_handler::about_cmd([[maybe_unused]] cmd_type cmd) {
   return
     "C++ bot,\n"
     "Cурсы лежат тут: https://github.com/oxfffffe/cpp_vk_bot\n"
-    "Документация: https://oxfffffe.github.io/\n"
+    "Документация: https://oxfffffe.github.io/cpp_vk_bot/\n"
     "Бота создал: @jijijijijijijijijijijijji (он)\n"
-    "Версия VK API: " + api_version + '\n' +
+    "Версия VK API: " + version + '\n' +
     "Собран: " + _build_time;
 }
 
@@ -352,7 +353,7 @@ string Cmd_handler::ping_cmd([[maybe_unused]] cmd_type cmd) {
     request(append_vkurl("users.get"), {
               { "user_ids",     "0"          },
               { "access_token", access_token },
-              { "v",            api_version  }
+              { "v",            version      }
            });
     float delay = (float)(clock() - now) / CLOCKS_PER_SEC * 10000;
     total += delay;
@@ -370,7 +371,7 @@ string Cmd_handler::online_cmd(cmd_type cmd) {
       { "peer_id",      to_string(cmd.peer_id)},
       { "random_id",    "0"          },
       { "access_token", access_token },
-      { "v",            api_version  }}));
+      { "v",            version      }}));
 
   if (not parsed["error"].is_null() &&
           parsed["error"]["error_code"] == 917L)
@@ -475,7 +476,7 @@ string Cmd_handler::get_roles_cmd(cmd_type cmd) {
     json::parse(request(append_vkurl("users.get"),
      {{"user_ids",     ids           },
       {"access_token", user_token    },
-      {"v",            api_version   }}));
+      {"v",            version   }}));
 
   string users;
   if (args.size() == 1) {

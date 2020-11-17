@@ -66,7 +66,7 @@ public:
 /*!
  * @brief Class representing the interface for processing commands.
  * - This class has no constructors and no static fields for the
- *   message, from_id and peer_id due to the fact that
+ *   <b><em>message</em></b>, <b><em>from_id</em></b> and <b><em>peer_id</em></b> due to the fact that
  *   @ref bot::Long_poll_handler works with threads.
  */
 class Cmd_handler
@@ -125,7 +125,7 @@ private:
   /*!
    * @brief Logger for incoming events.
    */
-  Vk_logger _logger{logfile, errfile};
+  Vk_logger _logger{info::logfile, info::errfile};
   /*!
    * @brief Count of processed commands.
    * Needed by @ref bot::Cmd_handler::stat_cmd.

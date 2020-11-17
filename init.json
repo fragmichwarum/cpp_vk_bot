@@ -1,0 +1,13 @@
+{
+	"tokens": {
+		"access_token": "",
+		"user_token": ""
+	},
+	"group_id": "",
+	"admin_id": 0,
+	"path": {
+		"log": "",
+		"err": ""
+	},
+	"api_v": "5.124"
+}

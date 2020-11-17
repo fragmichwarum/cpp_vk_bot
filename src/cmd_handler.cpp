@@ -1,6 +1,7 @@
 #include "cmd_handler.hpp"
 
 using namespace bot::util;
+using namespace bot::info;
 using bot::Cmd_handler;
 using bot::Cmd_traits;
 using bot::Vk_logger;
@@ -105,7 +106,7 @@ void Cmd_handler::init_cmds(const nlohmann::json& update)
   for (auto cmd : vk_cmds) {
     bool is_not_moderator = not any_of_moderators && std::get<Cmd_traits::access>(cmd.second) == moderator;
 
-    bool is_not_creator = std::get<Cmd_traits::access>(cmd.second) == creator && from_id != creator_id;
+    bool is_not_creator = std::get<Cmd_traits::access>(cmd.second) == creator && from_id != info::admin_id;
 
     if (any_of_blacklisted || is_not_moderator || is_not_creator) {
       continue;

@@ -33,7 +33,7 @@ private:
    */
   void _get_server();
   /*!
-   * @brief An @ref bot::Cmd_handler "command handler class" object.
+   * @brief An command handler class object.
    */
   Cmd_handler _handler;
 

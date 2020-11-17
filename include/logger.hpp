@@ -42,19 +42,19 @@ protected:
   const char* dim    = "\e[2m";
 #else
   /*!
-   * @brief Empty color string in case of Windows.
+   * @brief Empty color string in case of Windows, colorized by Bash otherwise.
    */
   const char* eoc    = "";
   /*!
-   * @brief Empty color string in case of Windows.
+   * @brief Empty color string in case of Windows, colorized by Bash otherwise.
    */
   const char* yellow = "";
   /*!
-   * @brief Empty color string in case of Windows.
+   * @brief Empty color string in case of Windows, colorized by Bash otherwise.
    */
   const char* red    = "";
   /*!
-   * @brief Empty color string in case of Windows.
+   * @brief Empty color string in case of Windows, colorized by Bash otherwise.
    */
   const char* mint   = "";
 
@@ -95,6 +95,13 @@ protected:
   std::string err_format(const std::string& message);
 
 public:
+  /*!
+   * @brief Constructor, that initializes
+   * @ref _log_path and
+   * @ref _err_path.
+   * @param log_path
+   * @param err_path
+   */
   Vk_logger(const std::string& log_path, const std::string err_path)
     : _log_path(log_path)
     , _err_path(err_path)

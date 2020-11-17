@@ -2,31 +2,21 @@
 
 ## How to start?
 
-You need to fill some fields in `src/long_poll/metadata.hpp`:
-
+You need to fill some fields in `init.json`:
 ```
-inline const static int creator_id
-  = your id;
-```
-```
-inline const static std::string group_id
-  = "";
-```
-```
-inline const static std::string logfile
-  = "/path/to/logfile";
-```
-```
-inline const static std::string errfile
-  = "/path/to/errfile";
-```
-```
-inline const static std::string access_token
-  = "";
-```
-```
-inline const static std::string user_token
-  = "";
+{
+	"tokens": {
+		"access_token": "Access token of your group",
+		"user_token": "Access token of your user"
+	},
+	"group_id": "ID of your group",
+	"admin_id": Your user ID,
+	"path": {
+		"log": "The file where the log will be stored",
+		"err": "The file where the error log will be stored"
+	},
+	"api_v": "5.124"
+}
 ```
 
 ## Build

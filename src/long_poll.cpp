@@ -17,7 +17,7 @@ void Long_poll_handler::_get_server() {
      {{ "group_id",     group_id     },
       { "random_id",    "0"          },
       { "access_token", access_token },
-      { "v",            version  }}));
+      { "v",            version      }}));
 
   if (not poll["error"]["error_code"].is_null()) {
     throw Vk_error(poll["error"]["error_code"].get<long>());

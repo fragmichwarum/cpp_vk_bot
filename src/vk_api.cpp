@@ -12,7 +12,7 @@ using std::to_string;
 using std::string;
 using std::map;
 
-static nlohmann::json _data = json::parse(std::ifstream{"./init.json"});
+const nlohmann::json _data = json::parse(std::ifstream{"./init.json"});
 
 long        bot::info::admin_id     = _data["admin_id"];
 std::string bot::info::group_id     = _data["group_id"];

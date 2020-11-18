@@ -13,5 +13,5 @@ var searchData=
   ['vk_5fapi_387',['Vk_api',['../classbot_1_1Vk__api.html',1,'bot']]],
   ['vk_5fcmds_388',['vk_cmds',['../classbot_1_1Cmd__handler.html#a53b954b0fe44e8ab6fbb9f896caa6822',1,'bot::Cmd_handler']]],
   ['vk_5ferror_389',['Vk_error',['../classbot_1_1Vk__error.html',1,'bot::Vk_error'],['../classbot_1_1Vk__error.html#a9844960b16ec09be7d597e0242489d7e',1,'bot::Vk_error::Vk_error()']]],
-  ['vk_5flogger_390',['Vk_logger',['../classbot_1_1Vk__logger.html',1,'bot::Vk_logger'],['../classbot_1_1Vk__logger.html#ad29990701fe373728817a9f43ab5c20a',1,'bot::Vk_logger::Vk_logger()']]]
+  ['vk_5flogger_390',['Vk_logger',['../classbot_1_1Vk__logger.html',1,'bot::Vk_logger'],['../classbot_1_1Vk__logger.html#a70cdf5f2a34d33874ea40b88d84dfe24',1,'bot::Vk_logger::Vk_logger()']]]
 ];

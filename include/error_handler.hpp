@@ -6,7 +6,6 @@ namespace bot
 {
 /*!
  * @brief Class that represents handling of VK API errors.
- * @throws std::exception
  */
 class Vk_error : public std::exception
 {
@@ -26,7 +25,7 @@ public:
   { }
 
   /*!
-   * @brief ~Vk_error
+   * @brief Default destructor.
    */
   virtual ~Vk_error() noexcept
   { }

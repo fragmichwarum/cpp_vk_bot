@@ -52,7 +52,7 @@ string bot::cURL::requestdata(string method, const string& data) {
 static string genparams(const map<string, string>& body) {
   string result;
   for (const auto& element : body) {
-    result += urlencode(element.first) + '=' + urlencode(element.second) + '&';
+    result += element.first + '=' + urlencode(element.second) + '&';
   }
   return result;
 }

@@ -441,7 +441,7 @@ string Cmd_handler::role_cmd(cmd_type cmd) {
   return "Роль успешно установлена";
 }
 
-static string roles_to_vk_ids(const vector<long> ids) {
+static string roles_to_vk_ids(const vector<long>& ids) {
   string users;
   bool is_comma = false;
   for (uint32_t person : ids) {

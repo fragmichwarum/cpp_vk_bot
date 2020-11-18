@@ -102,7 +102,7 @@ public:
    * @param log_path
    * @param err_path
    */
-  Vk_logger(const std::string& log_path, const std::string err_path)
+  Vk_logger(const std::string& log_path, const std::string& err_path)
     : _log_path(log_path)
     , _err_path(err_path)
   { }

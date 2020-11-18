@@ -13,7 +13,7 @@ class Database
 {
 private:
   /*!
-   * @brief Database object.
+   * @brief SQLite3 object.
    */
   sqlite3* database;
   /*!

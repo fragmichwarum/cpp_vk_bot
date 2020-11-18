@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.20"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>C++ chat-bot for VK: bot::Cmd_handler Class Reference</title>
+<title>C++ bot: bot::Cmd_handler Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">C++ chat-bot for VK
+   <div id="projectname">C++ bot
    </div>
   </td>
  </tr>
@@ -67,6 +67,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classbot_1_1Cmd__handler-members.html">List of all members</a>  </div>
@@ -164,6 +165,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aa68ebfce3dbed3625ac6175ee32de622"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command that shows delay when accessing api.vk.com.  <a href="classbot_1_1Cmd__handler.html#aa68ebfce3dbed3625ac6175ee32de622">More...</a><br /></td></tr>
 <tr class="separator:aa68ebfce3dbed3625ac6175ee32de622"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a10d129676733095b660cd169140d5281"><td class="memItemLeft" align="right" valign="top"><a id="a10d129676733095b660cd169140d5281"></a>
+CURL *&#160;</td><td class="memItemRight" valign="bottom"><b>_curl</b></td></tr>
+<tr class="separator:a10d129676733095b660cd169140d5281"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a8b2a846da35d987a823d7ddd2ee35b29"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1Cmd__handler.html#a8b2a846da35d987a823d7ddd2ee35b29">user</a> = 0x00</td></tr>
@@ -210,7 +217,7 @@ std::string const&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class representing the interface for processing commands. </p>
 <ul>
-<li>This class has no constructors and no static fields for the <b><em>message</em></b>, <b><em>from_id</em></b> and <b><em>peer_id</em></b> due to the fact that <a class="el" href="classbot_1_1Long__poll__handler.html">bot::Long_poll_handler</a> works with threads. </li>
+<li>This class has no constructors with parameters and no static fields for the <b><em>message</em></b>, <b><em>from_id</em></b> and <b><em>peer_id</em></b> due to the fact that <a class="el" href="classbot_1_1Long__poll__handler.html">bot::Long_poll_handler</a> works with threads. </li>
 </ul>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a26c1236c8a2b1c84f885f294fd04955d"></a>

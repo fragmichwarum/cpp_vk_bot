@@ -4,11 +4,79 @@
 #include "logger.hpp"
 #include "vk_api.hpp"
 
+#if defined(__clang__) || defined(__GNUC__) || defined(__GNUG__)
+#  pragma GCC diagnostic push
+#  pragma GCC diagnostic ignored "-Wcomment"
+#endif
 /*!
  * @mainpage Detailed description of https://github.com/oxfffffe/cpp_vk_bot
  *
- * - @subpage by oxfffffe
+ * ## How to start?
+ *
+ * First of all, you have take a look in <b><em>init.json</em></b> file.
+ *
+ * ```
+ * {
+ *     "token": {
+ *         "access_token": "Access token of your group",
+ *         "user_token": "Access token of your user"
+ *     },
+ *     "group_id": "ID of your group",
+ *     "admin_id": Your user ID,
+ *     "path": {
+ *         "log": "The file where the log will be stored",
+ *         "err": "The file where the error log will be stored"
+ *     },
+ *     "api_v": "5.124"
+ * }
+ * ```
+ *
+ * ## Build
+ *
+ * There are multiple options to choose.
+ *
+ * ### QMake
+ * ```
+ * qmake vk.pro
+ * make (optional) -j <the number of your CPU cores>
+ * ```
+ * ### GCC
+ * ```
+ * g++ -c -pipe -Wall -Os -std=gnu++1z -fPIC -I. -Iinclude lib/src/* src/* && g++ -Wl,-O1 -o vk *.o -lcurl -lsqlite3 -lpthread && rm *.o -rf
+ * ```
+ * ### Clang
+ * ```
+ * clang++ -c -pipe -Wall -Os -std=gnu++1z -fPIC -I. -Iinclude lib/src/* src/* && clang++ -Wl,-O1 -o vk *.o -lcurl -lsqlite3 -lpthread && rm *.o -rf
+ * ```
+ *
+ * ## Used libraries
+ *  - sqlite3
+ *  - libcurl
+ *  - @ref nlohmann::json "Nlohmann JSON"
+ *
+ * ## Reference
+ *
+ * - Namespace @ref bot "bot":
+ *   - Classes:
+ *     - @ref bot::Cmd_handler "Cmd_handler"
+ *     - @ref bot::Cmd_traits "Cmd_traits"
+ *     - @ref bot::Database "Database"
+ *     - @ref bot::Long_poll_handler "Long_poll_handler"
+ *     - @ref bot::Vk_api "Vk_api"
+ *     - @ref bot::Vk_error "Vk_error"
+ *     - @ref bot::Vk_logger "Vk_logger"
+ *   - Nested namespaces:
+ *     - @ref bot::cURL "cURL"
+ *     - @ref bot::util "util"
+ *     - @ref bot::info "info"
+ *   - Type definitions:
+ *     - @ref bot::cmd_type "cmd_type"
+ *   - Enumerations:
+ *     - @ref bot::LOGTYPE "LOGTYPE"
  */
+#if defined(__clang__) || defined(__GNUC__) || defined(__GNUG__)
+#  pragma GCC diagnostic pop
+#endif
 
 /*!
  * @namespace bot
@@ -65,13 +133,14 @@ public:
 
 /*!
  * @brief Class representing the interface for processing commands.
- * - This class has no constructors and no static fields for the
+ * - This class has no constructors with parameters and no static fields for the
  *   <b><em>message</em></b>, <b><em>from_id</em></b> and <b><em>peer_id</em></b> due to the fact that
  *   @ref bot::Long_poll_handler works with threads.
  */
 class Cmd_handler
 {
 public:
+  CURL* _curl;
   /*!
    * @brief User access modifier.
    *

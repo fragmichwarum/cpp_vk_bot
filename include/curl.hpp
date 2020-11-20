@@ -27,7 +27,7 @@ std::string append_vkurl(const std::string& method);
 /*!
  * @brief Converts std::map<std::string, std::string> to JSON format.
  * @param Map
- * @return JSON string.
+ * @return JSON string in format <em>{"field1":"value1","field2":"value2"...}</em>
  */
 std::string to_json(const std::map<std::string, std::string>& body);
 /*!
@@ -37,6 +37,20 @@ std::string to_json(const std::map<std::string, std::string>& body);
  * @return JSON or XML output.
  */
 std::string request(const std::string& body, const std::map<std::string, std::string>& params);
+/*!
+ * @brief Downloads file from server.
+ * @param File to be downloaded
+ * @param Destination file
+ * @return <em>0</em> on success, <em>-1</em> otherwise.
+ */
+size_t download(const std::string& filename, const std::string& outputfile);
+/*!
+ * @brief Uploads photo to server.
+ * @param File name
+ * @param Server receiving document
+ * @return JSON output on success, error message otherwise.
+ */
+std::string upload(const std::string& filename, const std::string& server);
 /*!
  * @brief Sends data via POST.
  * @param HTTP body.

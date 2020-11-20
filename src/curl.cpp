@@ -5,20 +5,27 @@ using namespace bot::cURL;
 using std::string;
 using std::map;
 
-string bot::cURL::urlencode(const string& url) {
+string bot::cURL::urlencode(const string& url)
+{
   char* encoded = curl_easy_escape(NULL, url.c_str(), url.length());
   string res{encoded};
   curl_free(encoded);
   return res;
 }
 
-static size_t write_callback(void* contents, size_t size, size_t nmemb, void* userp)
+static size_t write(void* contents, size_t size, size_t nmemb, void* userp)
 {
   (static_cast<string*>(userp))->append(static_cast<char*>(contents), size * nmemb);
   return size * nmemb;
 }
 
-string bot::cURL::to_json(const map<string, string>& body) {
+size_t file_write(void* ptr, size_t size, size_t nmemb, FILE* stream)
+{
+  return fwrite(ptr, size, nmemb, stream);
+}
+
+string bot::cURL::to_json(const map<string, string>& body)
+{
   string result;
   result += '{';
   bool iscomma = false;
@@ -33,13 +40,14 @@ string bot::cURL::to_json(const map<string, string>& body) {
   return result;
 }
 
-string bot::cURL::requestdata(string method, const string& data) {
+string bot::cURL::requestdata(string method, const string& data)
+{
   string buffer;
   CURL*  curl;
   curl = curl_easy_init();
   if (curl) {
     curl_easy_setopt(curl, CURLOPT_URL, method.c_str());
-    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write);
     curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, data.size());
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data.c_str());
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
@@ -49,7 +57,8 @@ string bot::cURL::requestdata(string method, const string& data) {
   return buffer;
 }
 
-static string genparams(const map<string, string>& body) {
+static string genparams(const map<string, string>& body)
+{
   string result;
   for (const auto& element : body) {
     result += element.first + '=' + urlencode(element.second) + '&';
@@ -57,15 +66,16 @@ static string genparams(const map<string, string>& body) {
   return result;
 }
 
-string bot::cURL::request(const string& method, const map<string, string>& body) {
+/* Bottleneck. */
+string bot::cURL::request(const string& method, const map<string, string>& body)
+{
   string url = method;
   url += genparams(body);
   string buffer;
-  CURL*  curl;
-  curl = curl_easy_init();
+  CURL*  curl = curl_easy_init();
   if (curl) {
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
     curl_easy_setopt(curl, CURLOPT_USERAGENT, "oxfffffe");
     curl_easy_setopt(curl, CURLOPT_TIMEOUT, 600L);
@@ -75,6 +85,59 @@ string bot::cURL::request(const string& method, const map<string, string>& body)
   return buffer;
 }
 
-string bot::cURL::append_vkurl(const string &method) {
+string bot::cURL::append_vkurl(const string &method)
+{
   return "https://api.vk.com/method/" + method + '?';
+}
+
+size_t bot::cURL::download(const string& filename, const string& outputfile)
+{
+  CURL* curl;
+  FILE* fp;
+  curl = curl_easy_init();
+  if (curl) {
+    fp = fopen(outputfile.c_str(), "wb");
+    curl_easy_setopt(curl, CURLOPT_URL, filename.c_str());
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, file_write);
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
+    CURLcode res = curl_easy_perform(curl);
+    curl_easy_cleanup(curl);
+    fclose(fp);
+    if (res != CURLE_OK) {
+      printf(
+        "curl_easy_perform() failed: %s\b",
+        curl_easy_strerror(res));
+      return -1;
+    }
+  }
+  return 0;
+}
+
+string bot::cURL::upload(const string& filename, const string& server)
+{
+  CURL* curl_handle = curl_easy_init();
+  CURLcode curl_result;
+  struct curl_httppost *formpost=NULL;
+  struct curl_httppost *lastptr=NULL;
+  std::string data;
+
+  curl_formadd(&formpost,
+    &lastptr,
+    CURLFORM_COPYNAME, "file1",
+    CURLFORM_FILENAME, filename.c_str(),
+    CURLFORM_FILE, filename.c_str(),
+    CURLFORM_CONTENTTYPE, "image/png",
+    CURLFORM_END);
+  curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, write);
+  curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, &data);
+  curl_easy_setopt(curl_handle, CURLOPT_URL, server.c_str());
+  curl_easy_setopt(curl_handle, CURLOPT_HTTPPOST, formpost);
+  curl_result = curl_easy_perform(curl_handle);
+
+  if (curl_result != CURLE_OK) {
+     data = string{"curl_easy_perform() failed: "} + curl_easy_strerror(curl_result);
+  }
+  curl_easy_cleanup(curl_handle);
+  curl_formfree(formpost);
+  return data;
 }

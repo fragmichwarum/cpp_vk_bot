@@ -1,9 +1,15 @@
 var searchData=
 [
-  ['back_482',['back',['../classnlohmann_1_1basic__json.html#a011397134847f36db0ed7d7a93753677',1,'nlohmann::basic_json::back()'],['../classnlohmann_1_1basic__json.html#a83fe4a151b3a591f357527d5d9aa1b9f',1,'nlohmann::basic_json::back() const']]],
-  ['basic_5fjson_483',['basic_json',['../classnlohmann_1_1basic__json.html#a32124a16dc80729d964d9caf607c2bc8',1,'nlohmann::basic_json::basic_json(const value_t value_type)'],['../classnlohmann_1_1basic__json.html#ae9be9e956bfc4658f35d17c6aa72b063',1,'nlohmann::basic_json::basic_json(std::nullptr_t=nullptr) noexcept'],['../classnlohmann_1_1basic__json.html#a7639e0834df2bc719a04ffea89b31abc',1,'nlohmann::basic_json::basic_json(CompatibleType &amp;&amp;val) noexcept(noexcept(JSONSerializer&lt; U &gt;::to_json(std::declval&lt; basic_json_t &amp; &gt;(), std::forward&lt; CompatibleType &gt;(val))))'],['../classnlohmann_1_1basic__json.html#afbad48316e7cd37366ba3ac5d7e5859e',1,'nlohmann::basic_json::basic_json(std::initializer_list&lt; basic_json &gt; init, bool type_deduction=true, value_t manual_type=value_t::array)'],['../classnlohmann_1_1basic__json.html#ab6816ae5100409254ed0a8bc21c387bb',1,'nlohmann::basic_json::basic_json(size_type cnt, const basic_json &amp;val)'],['../classnlohmann_1_1basic__json.html#abe197e9f3184487805cfb5bba6fd5938',1,'nlohmann::basic_json::basic_json(InputIT first, InputIT last)'],['../classnlohmann_1_1basic__json.html#af5de621bcf646c332343f9c1e011126c',1,'nlohmann::basic_json::basic_json(const basic_json &amp;other)'],['../classnlohmann_1_1basic__json.html#a9a06d1efd50a00f4889f831f851ce124',1,'nlohmann::basic_json::basic_json(basic_json &amp;&amp;other) noexcept']]],
-  ['begin_484',['begin',['../classnlohmann_1_1basic__json.html#a0ff28dac23f2bdecee9564d07f51dcdc',1,'nlohmann::basic_json::begin() noexcept'],['../classnlohmann_1_1basic__json.html#a4f0f5dd42b2987ff20306ed78bd31d1d',1,'nlohmann::basic_json::begin() const noexcept'],['../classnlohmann_1_1basic__json_1_1iteration__proxy.html#a98cb29b336b99768602f73883a9e4dff',1,'nlohmann::basic_json::iteration_proxy::begin()']]],
-  ['binary_5freader_485',['binary_reader',['../classnlohmann_1_1basic__json_1_1binary__reader.html#a68d376356bb3ef5a7059584eb0fec847',1,'nlohmann::basic_json::binary_reader']]],
-  ['binary_5fwriter_486',['binary_writer',['../classnlohmann_1_1basic__json_1_1binary__writer.html#a9de13b11b0f8e26e5ff7f659eb13e13f',1,'nlohmann::basic_json::binary_writer']]],
-  ['blacklist_5fcmd_487',['blacklist_cmd',['../classbot_1_1Cmd__handler.html#a66411198f8daa4a85c9f5c75914cba02',1,'bot::Cmd_handler']]]
+  ['cat_5fcmd_325',['cat_cmd',['../classbot_1_1Cmd__handler.html#a628cfd90429fd7b6d760e3e224dec544',1,'bot::Cmd_handler']]],
+  ['cbegin_326',['cbegin',['../classnlohmann_1_1basic__json.html#ad865d6c291b237ae508d5cb2146b5877',1,'nlohmann::basic_json']]],
+  ['cend_327',['cend',['../classnlohmann_1_1basic__json.html#a8dba7b7d2f38e6b0c614030aa43983f6',1,'nlohmann::basic_json']]],
+  ['clear_328',['clear',['../classnlohmann_1_1basic__json.html#abfeba47810ca72f2176419942c4e1952',1,'nlohmann::basic_json']]],
+  ['colorize_329',['colorize',['../classbot_1_1Vk__logger.html#a762886dbfd71270e7d2d9f6e2fc8af88',1,'bot::Vk_logger']]],
+  ['complete_5fcmd_330',['complete_cmd',['../classbot_1_1Cmd__handler.html#ace8e11019e0001f1edd6b8302a5eb2b9',1,'bot::Cmd_handler']]],
+  ['count_331',['count',['../classnlohmann_1_1basic__json.html#a5261eba9637f59d17d6cab5f14ce5747',1,'nlohmann::basic_json']]],
+  ['crbegin_332',['crbegin',['../classnlohmann_1_1basic__json.html#a1e0769d22d54573f294da0e5c6abc9de',1,'nlohmann::basic_json']]],
+  ['crc32_5fcmd_333',['crc32_cmd',['../classbot_1_1Cmd__handler.html#ae365ebfddb7a95d6acb6dd555431173f',1,'bot::Cmd_handler']]],
+  ['create_334',['create',['../classnlohmann_1_1detail_1_1parse__error.html#a53dd6b47379f42dbf3fe12500614adcb',1,'nlohmann::detail::parse_error']]],
+  ['crend_335',['crend',['../classnlohmann_1_1basic__json.html#a5795b029dbf28e0cb2c7a439ec5d0a88',1,'nlohmann::basic_json']]],
+  ['currency_5fcmd_336',['currency_cmd',['../classbot_1_1Cmd__handler.html#af1ff87a06fa598954aea67bf2e59794b',1,'bot::Cmd_handler']]]
 ];

@@ -89,6 +89,12 @@ Functions</h2></td></tr>
 <tr class="memitem:add48325996c0a345ef879905dd73cb0b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebot_1_1cURL.html#add48325996c0a345ef879905dd73cb0b">request</a> (const std::string &amp;body, const std::map&lt; std::string, std::string &gt; &amp;params)</td></tr>
 <tr class="memdesc:add48325996c0a345ef879905dd73cb0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the POST request.  <a href="namespacebot_1_1cURL.html#add48325996c0a345ef879905dd73cb0b">More...</a><br /></td></tr>
 <tr class="separator:add48325996c0a345ef879905dd73cb0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6182f0e69a666b7e42369f088c5c142"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebot_1_1cURL.html#af6182f0e69a666b7e42369f088c5c142">download</a> (const std::string &amp;filename, const std::string &amp;outputfile)</td></tr>
+<tr class="memdesc:af6182f0e69a666b7e42369f088c5c142"><td class="mdescLeft">&#160;</td><td class="mdescRight">Downloads file from server.  <a href="namespacebot_1_1cURL.html#af6182f0e69a666b7e42369f088c5c142">More...</a><br /></td></tr>
+<tr class="separator:af6182f0e69a666b7e42369f088c5c142"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a538e0a135ace8462d571b2f7dfaf9a26"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebot_1_1cURL.html#a538e0a135ace8462d571b2f7dfaf9a26">upload</a> (const std::string &amp;filename, const std::string &amp;server)</td></tr>
+<tr class="memdesc:a538e0a135ace8462d571b2f7dfaf9a26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uploads photo to server.  <a href="namespacebot_1_1cURL.html#a538e0a135ace8462d571b2f7dfaf9a26">More...</a><br /></td></tr>
+<tr class="separator:a538e0a135ace8462d571b2f7dfaf9a26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1972d297d4d31f17b112773576bc0f47"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebot_1_1cURL.html#a1972d297d4d31f17b112773576bc0f47">requestdata</a> (std::string body, const std::string &amp;data)</td></tr>
 <tr class="memdesc:a1972d297d4d31f17b112773576bc0f47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends data via POST.  <a href="namespacebot_1_1cURL.html#a1972d297d4d31f17b112773576bc0f47">More...</a><br /></td></tr>
 <tr class="separator:a1972d297d4d31f17b112773576bc0f47"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -120,6 +126,44 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>cURL-ready method name. </dd></dl>
+
+</div>
+</div>
+<a id="af6182f0e69a666b7e42369f088c5c142"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6182f0e69a666b7e42369f088c5c142">&#9670;&nbsp;</a></span>download()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t bot::cURL::download </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>outputfile</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Downloads file from server. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">File</td><td>to be downloaded </td></tr>
+    <tr><td class="paramname">Destination</td><td>file </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><em>0</em> on success, <em>-1</em> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -222,7 +266,45 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>JSON string. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>JSON string in format <em>{"field1":"value1","field2":"value2"...}</em> </dd></dl>
+
+</div>
+</div>
+<a id="a538e0a135ace8462d571b2f7dfaf9a26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a538e0a135ace8462d571b2f7dfaf9a26">&#9670;&nbsp;</a></span>upload()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string bot::cURL::upload </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>server</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uploads photo to server. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">File</td><td>name </td></tr>
+    <tr><td class="paramname">Server</td><td>receiving document </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>JSON output on success, error message otherwise. </dd></dl>
 
 </div>
 </div>

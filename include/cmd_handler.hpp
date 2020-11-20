@@ -63,7 +63,7 @@
  *     - @ref bot::Database "Database"
  *     - @ref bot::Long_poll_handler "Long_poll_handler"
  *     - @ref bot::Vk_api "Vk_api"
- *     - @ref bot::Vk_error "Vk_error"
+ *     - @ref bot::Vk_exception "Vk_exception"
  *     - @ref bot::Vk_logger "Vk_logger"
  *   - Nested namespaces:
  *     - @ref bot::cURL "cURL"
@@ -140,7 +140,6 @@ public:
 class Cmd_handler
 {
 public:
-  CURL* _curl;
   /*!
    * @brief User access modifier.
    *
@@ -374,5 +373,17 @@ public:
    * @return 10 tries to ping api.vk.com and average delay.
    */
   std::string ping_cmd([[maybe_unused]] cmd_type args);
+  /*!
+   * @brief Command for admin only to download file.
+   * @param A @ref Cmd_traits::cmds_t "command type".
+   * @return Empty string on success, error message othrewise.
+   */
+  std::string download_cmd(cmd_type args);
+  /*!
+   * @brief Command looking for random cat image.
+   * @param A @ref Cmd_traits::cmds_t "command type".
+   * @return Empty string on success, error message othrewise.
+   */
+  std::string cat_cmd(cmd_type args);
 };
 } //namespace bot

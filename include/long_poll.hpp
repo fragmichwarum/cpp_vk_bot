@@ -2,7 +2,7 @@
 
 #include <thread>
 
-#include "error_handler.hpp"
+#include "vk_exception.hpp"
 #include "cmd_handler.hpp"
 
 namespace bot

@@ -76,87 +76,26 @@ $(function() {
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;utils.hpp&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacebot.html">bot</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{<span class="comment"></span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">/*!</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="namespacebot_1_1info.html">   10</a></span>&#160;<span class="comment"> * @namespace bot::info</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * @brief Namespace to store parameters needed by bot.</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * All namespace members are initialized once</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * while reading JSON data from &lt;b&gt;&lt;em&gt;init.json&lt;/em&gt;&lt;/b&gt; file;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>info</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{<span class="comment"></span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">/*!</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * @brief VK API version.</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">extern</span> std::string <a class="code" href="namespacebot_1_1info.html#a096e74979f54c845eeeb0bce4c975197">version</a>;<span class="comment"></span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">/*!</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * @brief Group access token.</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * You can get it in your group settings.\n</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * Go to Settings -&gt; API usage -&gt; Create token.</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">extern</span> std::string <a class="code" href="namespacebot_1_1info.html#a39d8f990c19fdcdfd1c2b332893f1697">access_token</a>;<span class="comment"></span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">/*!</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * @brief User access token.</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> * You can get it here: https://vkhost.github.io/.</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">extern</span> std::string <a class="code" href="namespacebot_1_1info.html#a4c8104a1d62702117cc046fdf17ae8ce">user_token</a>;<span class="comment"></span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">/*!</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> * @brief Group id.</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">extern</span> std::string <a class="code" href="namespacebot_1_1info.html#a0a42d1a40382464832a2866d5eb9c4c7">group_id</a>;<span class="comment"></span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">/*!</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment"> * @brief Creator id.</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">long</span> <a class="code" href="namespacebot_1_1info.html#ab1dda4525c968cb4d82c3dd15066002a">admin_id</a>;<span class="comment"></span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">/*!</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment"> * @brief Path to log generated by @ref bot::Vk_logger class.</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">extern</span> std::string <a class="code" href="namespacebot_1_1info.html#a79389596a837176a19af3c7dc1c3e2ba">errfile</a>;<span class="comment"></span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">/*!</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment"> * @brief Path to error messages generated by @ref bot::Vk_logger class.</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">extern</span> std::string <a class="code" href="namespacebot_1_1info.html#a096e74979f54c845eeeb0bce4c975197">version</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">extern</span> std::string <a class="code" href="namespacebot_1_1info.html#a39d8f990c19fdcdfd1c2b332893f1697">access_token</a>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">extern</span> std::string <a class="code" href="namespacebot_1_1info.html#a4c8104a1d62702117cc046fdf17ae8ce">user_token</a>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">extern</span> std::string <a class="code" href="namespacebot_1_1info.html#a0a42d1a40382464832a2866d5eb9c4c7">group_id</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">long</span> <a class="code" href="namespacebot_1_1info.html#ab1dda4525c968cb4d82c3dd15066002a">admin_id</a>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">extern</span> std::string <a class="code" href="namespacebot_1_1info.html#a79389596a837176a19af3c7dc1c3e2ba">errfile</a>;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">extern</span> std::string <a class="code" href="namespacebot_1_1info.html#a1053e05e6faff24b6ea0a90fbbe1b037">logfile</a>;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;} <span class="comment">//namespace info</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">/*!</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment"> * @brief Class intended for working with VK API.</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
 <div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__api.html">   56</a></span>&#160;<span class="keyword">class </span><a class="code" href="classbot_1_1Vk__api.html">Vk_api</a></div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;{</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">public</span>:<span class="comment"></span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">  /*!</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">   * @brief Remove user from conservation.</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">   * @param chat_id     - from which the user should be removed.</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">   * @param user_id     - to be removed from chat.</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">   * @return Success message, error message otherwise.</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">   */</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__api.html#a7a1032a4249cd5b6df092fe607206cbc">   65</a></span>&#160;  std::string <a class="code" href="classbot_1_1Vk__api.html#a7a1032a4249cd5b6df092fe607206cbc">kick_user</a>(<span class="keyword">const</span> <span class="keywordtype">long</span>&amp; chat_id, <span class="keyword">const</span> <span class="keywordtype">long</span>&amp; user_id);<span class="comment"></span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">  /*!</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">   * @brief Send message to chat.</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">   * @param chat_id     - to which the message will be sent.</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">   * @param user_id     - to be removed from chat.</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">   * @param options     - additional options to formation of a request.</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">   * ### Exempli gratia:</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">   *</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">   * @code{.cpp}</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">   *     send_message(&quot;text&quot;, 2000000008, {</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">   *       {&quot;attachment&quot;, &quot;photo...&quot;}</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">   *     });</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">   * @endcode</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">   */</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__api.html#a71ac1501b08a6fa69f32c0e563f6f4e6">   79</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classbot_1_1Vk__api.html#a71ac1501b08a6fa69f32c0e563f6f4e6">send_message</a>(<span class="keyword">const</span> std::string&amp; text, <span class="keyword">const</span> <span class="keywordtype">long</span>&amp; peer_id, <span class="keyword">const</span> std::map&lt;std::string, std::string&gt;&amp; options = {});<span class="comment"></span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">  /*!</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">   * @brief Search vk media(video, pictures, docs).</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">   * @param method      - Method to be evaluated</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">   * @param text        - Search query.</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">   * @return List of VK attachments in format (photo|video|doc)&lt;owner_id&gt;_&lt;id&gt;,...</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">   */</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__api.html#ab715d784ca6658131f4fa5f127fb9319">   86</a></span>&#160;  std::string <a class="code" href="classbot_1_1Vk__api.html#ab715d784ca6658131f4fa5f127fb9319">media_search</a>(<span class="keyword">const</span> std::string&amp; method, <span class="keyword">const</span> std::string&amp; text);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;};</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;} <span class="comment">//namespace bot</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__api.html#a7a1032a4249cd5b6df092fe607206cbc">   65</a></span>&#160;  std::string <a class="code" href="classbot_1_1Vk__api.html#a7a1032a4249cd5b6df092fe607206cbc">kick_user</a>(<span class="keyword">const</span> <span class="keywordtype">long</span>&amp; chat_id, <span class="keyword">const</span> <span class="keywordtype">long</span>&amp; user_id);</div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__api.html#a71ac1501b08a6fa69f32c0e563f6f4e6">   79</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classbot_1_1Vk__api.html#a71ac1501b08a6fa69f32c0e563f6f4e6">send_message</a>(<span class="keyword">const</span> std::string&amp; text, <span class="keyword">const</span> <span class="keywordtype">long</span>&amp; peer_id, <span class="keyword">const</span> std::map&lt;std::string, std::string&gt;&amp; options = {});</div>
+<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__api.html#ab715d784ca6658131f4fa5f127fb9319">   87</a></span>&#160;  std::string <a class="code" href="classbot_1_1Vk__api.html#ab715d784ca6658131f4fa5f127fb9319">media_search</a>(<span class="keyword">const</span> std::string&amp; method, <span class="keyword">const</span> std::string&amp; text);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;};</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;} <span class="comment">//namespace bot</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassbot_1_1Vk__api_html"><div class="ttname"><a href="classbot_1_1Vk__api.html">bot::Vk_api</a></div><div class="ttdoc">Class intended for working with VK API.</div><div class="ttdef"><b>Definition:</b> vk_api.hpp:57</div></div>
 <div class="ttc" id="aclassbot_1_1Vk__api_html_a71ac1501b08a6fa69f32c0e563f6f4e6"><div class="ttname"><a href="classbot_1_1Vk__api.html#a71ac1501b08a6fa69f32c0e563f6f4e6">bot::Vk_api::send_message</a></div><div class="ttdeci">void send_message(const std::string &amp;text, const long &amp;peer_id, const std::map&lt; std::string, std::string &gt; &amp;options={})</div><div class="ttdoc">Send message to chat.</div></div>

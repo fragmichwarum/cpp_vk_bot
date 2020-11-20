@@ -67,9 +67,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classbot_1_1Cmd__handler-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">bot::Cmd_handler Class Reference</div>  </div>
@@ -164,12 +162,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa68ebfce3dbed3625ac6175ee32de622"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1Cmd__handler.html#aa68ebfce3dbed3625ac6175ee32de622">ping_cmd</a> ([[maybe_unused]] <a class="el" href="namespacebot.html#a9b159e5a4785878828b776ebb40e3ef5">cmd_type</a> args)</td></tr>
 <tr class="memdesc:aa68ebfce3dbed3625ac6175ee32de622"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command that shows delay when accessing api.vk.com.  <a href="classbot_1_1Cmd__handler.html#aa68ebfce3dbed3625ac6175ee32de622">More...</a><br /></td></tr>
 <tr class="separator:aa68ebfce3dbed3625ac6175ee32de622"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a10d129676733095b660cd169140d5281"><td class="memItemLeft" align="right" valign="top"><a id="a10d129676733095b660cd169140d5281"></a>
-CURL *&#160;</td><td class="memItemRight" valign="bottom"><b>_curl</b></td></tr>
-<tr class="separator:a10d129676733095b660cd169140d5281"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab098fd0cbf002d44b55aff7e421eed65"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1Cmd__handler.html#ab098fd0cbf002d44b55aff7e421eed65">download_cmd</a> (<a class="el" href="namespacebot.html#a9b159e5a4785878828b776ebb40e3ef5">cmd_type</a> args)</td></tr>
+<tr class="memdesc:ab098fd0cbf002d44b55aff7e421eed65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command for admin only to download file.  <a href="classbot_1_1Cmd__handler.html#ab098fd0cbf002d44b55aff7e421eed65">More...</a><br /></td></tr>
+<tr class="separator:ab098fd0cbf002d44b55aff7e421eed65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a628cfd90429fd7b6d760e3e224dec544"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1Cmd__handler.html#a628cfd90429fd7b6d760e3e224dec544">cat_cmd</a> (<a class="el" href="namespacebot.html#a9b159e5a4785878828b776ebb40e3ef5">cmd_type</a> args)</td></tr>
+<tr class="memdesc:a628cfd90429fd7b6d760e3e224dec544"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command looking for random cat image.  <a href="classbot_1_1Cmd__handler.html#a628cfd90429fd7b6d760e3e224dec544">More...</a><br /></td></tr>
+<tr class="separator:a628cfd90429fd7b6d760e3e224dec544"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -186,33 +184,6 @@ Static Public Attributes</h2></td></tr>
 static <a class="el" href="classbot_1_1Cmd__traits.html#a83a599cab083d4dca98a1d5ccfc95c6d">Cmd_traits::cmds_t</a> const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1Cmd__handler.html#a53b954b0fe44e8ab6fbb9f896caa6822">vk_cmds</a></td></tr>
 <tr class="memdesc:a53b954b0fe44e8ab6fbb9f896caa6822"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of all bot commands with their <a class="el" href="classbot_1_1Cmd__traits.html#a2bed34aba93efdbfb9b49c8cbd5ba00f">parameters</a>. <br /></td></tr>
 <tr class="separator:a53b954b0fe44e8ab6fbb9f896caa6822"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a166504b8e42ffe9ef3b6e70b3b163e0e"><td class="memItemLeft" align="right" valign="top"><a id="a166504b8e42ffe9ef3b6e70b3b163e0e"></a>
-<a class="el" href="namespacenlohmann.html#a2bfd99e845a2e5cd90aeaf1b1431f474">nlohmann::json</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1Cmd__handler.html#a166504b8e42ffe9ef3b6e70b3b163e0e">_reply</a></td></tr>
-<tr class="memdesc:a166504b8e42ffe9ef3b6e70b3b163e0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Message reply stored in <a class="el" href="namespacenlohmann.html#a2bfd99e845a2e5cd90aeaf1b1431f474">JSON</a>. <br /></td></tr>
-<tr class="separator:a166504b8e42ffe9ef3b6e70b3b163e0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb9bceb2977b9ad2783c6e63f490c7a3"><td class="memItemLeft" align="right" valign="top"><a id="abb9bceb2977b9ad2783c6e63f490c7a3"></a>
-<a class="el" href="classbot_1_1Vk__api.html">Vk_api</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1Cmd__handler.html#abb9bceb2977b9ad2783c6e63f490c7a3">_api</a></td></tr>
-<tr class="memdesc:abb9bceb2977b9ad2783c6e63f490c7a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">VK API handler. <br /></td></tr>
-<tr class="separator:abb9bceb2977b9ad2783c6e63f490c7a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77ca40a6d535a0eac2bd1dc47422742c"><td class="memItemLeft" align="right" valign="top"><a id="a77ca40a6d535a0eac2bd1dc47422742c"></a>
-<a class="el" href="classbot_1_1Database.html">Database</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1Cmd__handler.html#a77ca40a6d535a0eac2bd1dc47422742c">_database</a></td></tr>
-<tr class="memdesc:a77ca40a6d535a0eac2bd1dc47422742c"><td class="mdescLeft">&#160;</td><td class="mdescRight">SQLite3 database storing roles. <br /></td></tr>
-<tr class="separator:a77ca40a6d535a0eac2bd1dc47422742c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17efd7b63ac4048b79823251f6d63afc"><td class="memItemLeft" align="right" valign="top"><a id="a17efd7b63ac4048b79823251f6d63afc"></a>
-<a class="el" href="classbot_1_1Vk__logger.html">Vk_logger</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1Cmd__handler.html#a17efd7b63ac4048b79823251f6d63afc">_logger</a> {<a class="el" href="namespacebot_1_1info.html#a1053e05e6faff24b6ea0a90fbbe1b037">info::logfile</a>, <a class="el" href="namespacebot_1_1info.html#a79389596a837176a19af3c7dc1c3e2ba">info::errfile</a>}</td></tr>
-<tr class="memdesc:a17efd7b63ac4048b79823251f6d63afc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logger for incoming events. <br /></td></tr>
-<tr class="separator:a17efd7b63ac4048b79823251f6d63afc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ab8858e26f707384245344fac25a683"><td class="memItemLeft" align="right" valign="top"><a id="a2ab8858e26f707384245344fac25a683"></a>
-long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1Cmd__handler.html#a2ab8858e26f707384245344fac25a683">_msg_counter</a> = 0</td></tr>
-<tr class="memdesc:a2ab8858e26f707384245344fac25a683"><td class="mdescLeft">&#160;</td><td class="mdescRight">Count of processed commands. Needed by <a class="el" href="classbot_1_1Cmd__handler.html#a4663669d31dce0bd3e4c82099929b2ab">bot::Cmd_handler::stat_cmd</a>. <br /></td></tr>
-<tr class="separator:a2ab8858e26f707384245344fac25a683"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a8b57ab4adaffd81a37e0cce70e8b77"><td class="memItemLeft" align="right" valign="top"><a id="a8a8b57ab4adaffd81a37e0cce70e8b77"></a>
-std::string const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1Cmd__handler.html#a8a8b57ab4adaffd81a37e0cce70e8b77">_build_time</a> = std::string{__DATE__} + &quot; &quot; + std::string{__TIME__}</td></tr>
-<tr class="memdesc:a8a8b57ab4adaffd81a37e0cce70e8b77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bot build time. Needed by <a class="el" href="classbot_1_1Cmd__handler.html#a4663669d31dce0bd3e4c82099929b2ab">bot::Cmd_handler::stat_cmd</a>. <br /></td></tr>
-<tr class="separator:a8a8b57ab4adaffd81a37e0cce70e8b77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class representing the interface for processing commands. </p>
@@ -272,6 +243,33 @@ std::string const&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Command adds a user to LOCAL database blacklist, not blacklist of VK chat! </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>List of roles. </dd></dl>
+
+</div>
+</div>
+<a id="a628cfd90429fd7b6d760e3e224dec544"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a628cfd90429fd7b6d760e3e224dec544">&#9670;&nbsp;</a></span>cat_cmd()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string bot::Cmd_handler::cat_cmd </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacebot.html#a9b159e5a4785878828b776ebb40e3ef5">cmd_type</a>&#160;</td>
+          <td class="paramname"><em>args</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Command looking for random cat image. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">A</td><td><a class="el" href="classbot_1_1Cmd__traits.html#a83a599cab083d4dca98a1d5ccfc95c6d">command type</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Empty string on success, error message othrewise. </dd></dl>
 
 </div>
 </div>
@@ -380,6 +378,33 @@ std::string const&#160;</td><td class="memItemRight" valign="bottom"><a class="e
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Empty string on success, error message otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="ab098fd0cbf002d44b55aff7e421eed65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab098fd0cbf002d44b55aff7e421eed65">&#9670;&nbsp;</a></span>download_cmd()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string bot::Cmd_handler::download_cmd </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacebot.html#a9b159e5a4785878828b776ebb40e3ef5">cmd_type</a>&#160;</td>
+          <td class="paramname"><em>args</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Command for admin only to download file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">A</td><td><a class="el" href="classbot_1_1Cmd__traits.html#a83a599cab083d4dca98a1d5ccfc95c6d">command type</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Empty string on success, error message othrewise. </dd></dl>
 
 </div>
 </div>

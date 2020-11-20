@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['literal_5ffalse_811',['literal_false',['../classnlohmann_1_1basic__json_1_1lexer.html#a96887d6cd131e3d3a85a9d71fbdbcdf7afab1694b1b3937a079f4625fe0b6108b',1,'nlohmann::basic_json::lexer']]],
-  ['literal_5fnull_812',['literal_null',['../classnlohmann_1_1basic__json_1_1lexer.html#a96887d6cd131e3d3a85a9d71fbdbcdf7ab7ae4c0e46d86f884677768160b26e9e',1,'nlohmann::basic_json::lexer']]],
-  ['literal_5ftrue_813',['literal_true',['../classnlohmann_1_1basic__json_1_1lexer.html#a96887d6cd131e3d3a85a9d71fbdbcdf7a85cc1a37b0aaa52de40e72f0ed4e0c0d',1,'nlohmann::basic_json::lexer']]]
+  ['object_531',['object',['../namespacenlohmann_1_1detail.html#a90aa5ef615aa8305e9ea20d8a947980faa8cfde6331bd59eb2ac96f8911c4b666',1,'nlohmann::detail']]],
+  ['object_5fend_532',['object_end',['../classnlohmann_1_1basic__json.html#aea1c863b719b4ca5b77188c171bbfafeaf63e2a2468a37aa4f394fcc3bcb8249c',1,'nlohmann::basic_json']]],
+  ['object_5fstart_533',['object_start',['../classnlohmann_1_1basic__json.html#aea1c863b719b4ca5b77188c171bbfafeae73f17027cb0acbb537f29d0a6944b26',1,'nlohmann::basic_json']]]
 ];

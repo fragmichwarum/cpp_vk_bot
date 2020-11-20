@@ -74,37 +74,20 @@ $(function() {
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacebot.html">bot</a></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{<span class="comment"></span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">/*!</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * @brief Class that represents handling of VK API errors.</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
 <div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__error.html">   10</a></span>&#160;<span class="keyword">class </span><a class="code" href="classbot_1_1Vk__error.html">Vk_error</a> : <span class="keyword">public</span> std::exception</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">protected</span>:<span class="comment"></span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">  /*!</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">   * @brief An error code.</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">protected</span>:</div>
 <div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__error.html#aa3d52caa39438673412fd9707b799d63">   16</a></span>&#160;  <span class="keywordtype">long</span> <a class="code" href="classbot_1_1Vk__error.html#aa3d52caa39438673412fd9707b799d63">_code</a>;</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:<span class="comment"></span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">  /*!</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">   * @brief Vk_error constructor.</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">   * @param An error code.</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__error.html#a9844960b16ec09be7d597e0242489d7e">   23</a></span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classbot_1_1Vk__error.html#a9844960b16ec09be7d597e0242489d7e">Vk_error</a>(<span class="keywordtype">long</span> code) noexcept</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    : <a class="code" href="classbot_1_1Vk__error.html#aa3d52caa39438673412fd9707b799d63">_code</a>(code)</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  { }</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">  /*!</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">   * @brief Default destructor.</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
 <div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__error.html#ac9adf99555c331b8d78fbbbef7f65b4b">   30</a></span>&#160;  <span class="keyword">virtual</span> <a class="code" href="classbot_1_1Vk__error.html#ac9adf99555c331b8d78fbbbef7f65b4b">~Vk_error</a>() noexcept</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  { }</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">  /*!</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">   * @overload const char* Vk_error::what()</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">   * @return Error message.</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 <div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classbot_1_1Vk__error.html#afa96429fe7cc0e429b7ae9c9f6e62dbf">   37</a></span>&#160;  <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="classbot_1_1Vk__error.html#afa96429fe7cc0e429b7ae9c9f6e62dbf">what</a>() const noexcept<span class="keyword"> override</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">  </span>{</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">switch</span> (<a class="code" href="classbot_1_1Vk__error.html#aa3d52caa39438673412fd9707b799d63">_code</a>)</div>

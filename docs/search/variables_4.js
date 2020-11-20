@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['database_701',['database',['../classbot_1_1Database.html#a311fb62850df5b3cfb9c4b08693d7bfb',1,'bot::Database']]],
-  ['decimal_5fpoint_702',['decimal_point',['../classnlohmann_1_1basic__json_1_1serializer.html#a8a27e96ec0866584c0aa15f79e56f687',1,'nlohmann::basic_json::serializer']]],
-  ['decimal_5fpoint_5fchar_703',['decimal_point_char',['../classnlohmann_1_1basic__json_1_1lexer.html#a037ab319c2b026c19b88135e12ce9327',1,'nlohmann::basic_json::lexer']]],
-  ['depth_704',['depth',['../classnlohmann_1_1basic__json_1_1parser.html#af10c872a9549a4d5aa3775ffdbb09e4c',1,'nlohmann::basic_json::parser']]]
+  ['eoc_469',['eoc',['../classbot_1_1Vk__logger.html#a054a06ba1ea44cfcc2ab94328f94beaf',1,'bot::Vk_logger']]],
+  ['errfile_470',['errfile',['../namespacebot_1_1info.html#a79389596a837176a19af3c7dc1c3e2ba',1,'bot::info']]]
 ];

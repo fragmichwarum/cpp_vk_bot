@@ -5,7 +5,6 @@
 using namespace bot;
 using namespace bot::cURL;
 using namespace bot::util;
-using namespace bot::info;
 
 using nlohmann::json;
 
@@ -108,23 +107,19 @@ string Cmd_handler::wiki_cmd(cmd_type cmd) {
       return parsed["query"]["pages"][page]["extract"];
     }
 
+    string text = urlencode(cmd.message);
     parsed = wiki_search(wiki_url,
-     {{"action", "query"},
-      {"list", "search"},
-      {"format","json"},
-      {"srsearch", curl_easy_escape(NULL,
-                     get_args(cmd.message).c_str(),
-                     get_args(cmd.message).length())}});
+     {{ "action", "query" },
+      { "list", "search"  },
+      { "format","json"   },
+      { "srsearch", text  }});
+
     if (parsed["query"]["search"].size() == 0) {
       return "Такой статьи не найдено.";
     }
     return parsed["query"]["search"][0]["snippet"];
-
   }
-  catch(nlohmann::json::parse_error&) {
-    _logger.print(LOGTYPE::ERROR, "Wiki error");
-  }
-  catch (nlohmann::json::type_error&) {
+  catch(...) {
     _logger.print(LOGTYPE::ERROR, "Wiki error");
   }
   return "";
@@ -283,7 +278,7 @@ string Cmd_handler::about_cmd([[maybe_unused]] cmd_type cmd) {
     "Cурсы лежат тут: https://github.com/oxfffffe/cpp_vk_bot\n"
     "Документация: https://oxfffffe.github.io/cpp_vk_bot/\n"
     "Бота создал: @jijijijijijijijijijijijji (он)\n"
-    "Версия VK API: " + version + '\n' +
+    "Версия VK API: " + info::version + '\n' +
     "Собран: " + _build_time;
 }
 
@@ -351,16 +346,16 @@ string Cmd_handler::ping_cmd([[maybe_unused]] cmd_type cmd) {
   for (uint8_t iter = 1; iter < 11; iter++) {
     clock_t now = clock();
     request(append_vkurl("users.get"), {
-              { "user_ids",     "0"          },
-              { "access_token", access_token },
-              { "v",            version      }
+              { "user_ids",     "0"                },
+              { "access_token", info::access_token },
+              { "v",            info::version      }
            });
     float delay = (float)(clock() - now) / CLOCKS_PER_SEC * 10000;
     total += delay;
     ping += to_string(iter) + ". " + to_string(delay) + " ms\n";
   }
   ping += "-------------\n";
-  ping += "Avg: " + to_string(total / 10.0f);
+  ping += "Avg: " + to_string(total / 10.0f) + " ms.";
   return ping;
 }
 
@@ -370,8 +365,8 @@ string Cmd_handler::online_cmd(cmd_type cmd) {
      {{ "fields",       "online"     },
       { "peer_id",      to_string(cmd.peer_id)},
       { "random_id",    "0"          },
-      { "access_token", access_token },
-      { "v",            version      }}));
+      { "access_token", info::access_token },
+      { "v",            info::version      }}));
 
   if (not parsed["error"].is_null() &&
           parsed["error"]["error_code"] == 917L)
@@ -475,8 +470,8 @@ string Cmd_handler::get_roles_cmd(cmd_type cmd) {
   json parsed =
     json::parse(request(append_vkurl("users.get"),
      {{"user_ids",     ids           },
-      {"access_token", user_token    },
-      {"v",            version   }}));
+      {"access_token", info::user_token    },
+      {"v",            info::version   }}));
 
   string users;
   if (args.size() == 1) {
@@ -709,11 +704,57 @@ string google_urlencode(const string& str) {
 
 string Cmd_handler::google_cmd([[maybe_unused]] cmd_type cmd) {
   if (not _reply.is_null()) {
-    return "https://www.google.com/search?q=" + google_urlencode(_reply["text"].get<string>());
+    string text = _reply["text"].get<string>();
+    _reply = {};
+    return "https://www.google.com/search?q=" + google_urlencode(text);
   }
   return "";
 }
 
 string Cmd_handler::turn_off_cmd([[maybe_unused]] cmd_type cmd) {
   exit(0);
+}
+
+string Cmd_handler::download_cmd(cmd_type cmd) {
+  vector<string> args = split(cmd.message);
+  if (args.size() != 3) {
+    return "Неверные параметры";
+  }
+  if (download(args[1], args[2]) != 0) {
+    return "Что-то пошло не так.";
+  }
+  return "Готово.";
+}
+
+string Cmd_handler::cat_cmd(cmd_type cmd) {
+  string file = "cat.jpg";
+  json cat_api_response = json::parse(request("https://api.thecatapi.com/v1/images/search", {}));
+  if (cat_api_response[0]["url"].is_null()) {
+    return "Что-то пошло не так.";
+  }
+  cURL::download(cat_api_response[0]["url"].get<string>(), file);
+
+  json response =
+    json::parse(request("https://api.vk.com/method/photos.getMessagesUploadServer?",
+     {{ "access_token", info::access_token     },
+      { "peer_id",      to_string(cmd.peer_id) },
+      { "album_id",     "0"                    },
+      { "group_id",     info::group_id         },
+      { "v",            info::version          }
+     }));
+
+  json uploaded_file = json::parse(cURL::upload(file, response["response"]["upload_url"]));
+
+  json saved_vk_attachment =
+    json::parse(request("https://api.vk.com/method/photos.saveMessagesPhoto?",
+     {{ "photo",         uploaded_file["photo"] },
+      { "server",        std::to_string(uploaded_file["server"].get<long>()) },
+      { "hash",          uploaded_file["hash"]  },
+      { "v",             info::version          },
+      { "access_token",  info::access_token     }
+     }));
+
+  _api.send_message("", cmd.peer_id, {{"attachment", "photo" + to_string(saved_vk_attachment["response"][0]["owner_id"].get<long>())
+                                       + "_" + to_string(saved_vk_attachment["response"][0]["id"].get<long>())}});
+  return "";
 }

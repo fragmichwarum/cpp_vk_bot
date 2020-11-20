@@ -76,48 +76,21 @@ $(function() {
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacebot.html">bot</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{<span class="comment"></span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">/*!</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="namespacebot_1_1cURL.html">   10</a></span>&#160;<span class="comment"> * @namespace bot::cURL</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * @brief Namespace with functions for working with the network.</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>cURL</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{<span class="comment"></span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">/*!</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> * @brief Converts string to ASCII character-set.</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> * @param Url</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> * @return Encoded string.</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="namespacebot_1_1cURL.html#a0e943574cc29fe42bd69b8d83675ab88">   20</a></span>&#160;std::string <a class="code" href="namespacebot_1_1cURL.html#a0e943574cc29fe42bd69b8d83675ab88">urlencode</a>(<span class="keyword">const</span> std::string&amp; url);<span class="comment"></span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">/*!</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * @brief Transforms method name to VK API url.</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * @param Method name</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * @return cURL-ready method name.</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="namespacebot_1_1cURL.html#a7f25380f5edacbf92afcc3b8bad017f7">   26</a></span>&#160;std::string <a class="code" href="namespacebot_1_1cURL.html#a7f25380f5edacbf92afcc3b8bad017f7">append_vkurl</a>(<span class="keyword">const</span> std::string&amp; method);<span class="comment"></span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">/*!</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * @brief Converts std::map&lt;std::string, std::string&gt; to JSON format.</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> * @param Map</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * @return JSON string.</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="namespacebot_1_1cURL.html#a55272f0ba9228f66086e0f13d81bad4c">   32</a></span>&#160;std::string <a class="code" href="namespacebot_1_1cURL.html#a55272f0ba9228f66086e0f13d81bad4c">to_json</a>(<span class="keyword">const</span> std::map&lt;std::string, std::string&gt;&amp; body);<span class="comment"></span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">/*!</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> * @brief Executes the POST request.</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> * @param HTTP body.</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> * @param HTTP parameters.</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment"> * @return JSON or XML output.</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="namespacebot_1_1cURL.html#add48325996c0a345ef879905dd73cb0b">   39</a></span>&#160;std::string <a class="code" href="namespacebot_1_1cURL.html#add48325996c0a345ef879905dd73cb0b">request</a>(<span class="keyword">const</span> std::string&amp; body, <span class="keyword">const</span> std::map&lt;std::string, std::string&gt;&amp; params);<span class="comment"></span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">/*!</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment"> * @brief Sends data via POST.</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment"> * @param HTTP body.</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment"> * @param HTTP parameters.</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment"> * @return JSON or XML output.</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="namespacebot_1_1cURL.html#a1972d297d4d31f17b112773576bc0f47">   46</a></span>&#160;std::string <a class="code" href="namespacebot_1_1cURL.html#a1972d297d4d31f17b112773576bc0f47">requestdata</a>(std::string body, <span class="keyword">const</span> std::string&amp; data);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;} <span class="comment">//namespace cURL</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;} <span class="comment">//namespace bot</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="namespacebot_1_1cURL.html#a0e943574cc29fe42bd69b8d83675ab88">   20</a></span>&#160;std::string <a class="code" href="namespacebot_1_1cURL.html#a0e943574cc29fe42bd69b8d83675ab88">urlencode</a>(<span class="keyword">const</span> std::string&amp; url);</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="namespacebot_1_1cURL.html#a7f25380f5edacbf92afcc3b8bad017f7">   26</a></span>&#160;std::string <a class="code" href="namespacebot_1_1cURL.html#a7f25380f5edacbf92afcc3b8bad017f7">append_vkurl</a>(<span class="keyword">const</span> std::string&amp; method);</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="namespacebot_1_1cURL.html#a55272f0ba9228f66086e0f13d81bad4c">   32</a></span>&#160;std::string <a class="code" href="namespacebot_1_1cURL.html#a55272f0ba9228f66086e0f13d81bad4c">to_json</a>(<span class="keyword">const</span> std::map&lt;std::string, std::string&gt;&amp; body);</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="namespacebot_1_1cURL.html#add48325996c0a345ef879905dd73cb0b">   39</a></span>&#160;std::string <a class="code" href="namespacebot_1_1cURL.html#add48325996c0a345ef879905dd73cb0b">request</a>(<span class="keyword">const</span> std::string&amp; body, <span class="keyword">const</span> std::map&lt;std::string, std::string&gt;&amp; params);</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="namespacebot_1_1cURL.html#af6182f0e69a666b7e42369f088c5c142">   46</a></span>&#160;<span class="keywordtype">size_t</span> <a class="code" href="namespacebot_1_1cURL.html#af6182f0e69a666b7e42369f088c5c142">download</a>(<span class="keyword">const</span> std::string&amp; filename, <span class="keyword">const</span> std::string&amp; outputfile);</div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="namespacebot_1_1cURL.html#a538e0a135ace8462d571b2f7dfaf9a26">   53</a></span>&#160;std::string <a class="code" href="namespacebot_1_1cURL.html#a538e0a135ace8462d571b2f7dfaf9a26">upload</a>(<span class="keyword">const</span> std::string&amp; filename, <span class="keyword">const</span> std::string&amp; server);</div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="namespacebot_1_1cURL.html#a1972d297d4d31f17b112773576bc0f47">   60</a></span>&#160;std::string <a class="code" href="namespacebot_1_1cURL.html#a1972d297d4d31f17b112773576bc0f47">requestdata</a>(std::string body, <span class="keyword">const</span> std::string&amp; data);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;} <span class="comment">//namespace cURL</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;} <span class="comment">//namespace bot</span></div>
 </div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="anamespacebot_1_1cURL_html_af6182f0e69a666b7e42369f088c5c142"><div class="ttname"><a href="namespacebot_1_1cURL.html#af6182f0e69a666b7e42369f088c5c142">bot::cURL::download</a></div><div class="ttdeci">size_t download(const std::string &amp;filename, const std::string &amp;outputfile)</div><div class="ttdoc">Downloads file from server.</div></div>
+<div class="ttc" id="anamespacebot_1_1cURL_html_a538e0a135ace8462d571b2f7dfaf9a26"><div class="ttname"><a href="namespacebot_1_1cURL.html#a538e0a135ace8462d571b2f7dfaf9a26">bot::cURL::upload</a></div><div class="ttdeci">std::string upload(const std::string &amp;filename, const std::string &amp;server)</div><div class="ttdoc">Uploads photo to server.</div></div>
 <div class="ttc" id="anamespacebot_1_1cURL_html_a55272f0ba9228f66086e0f13d81bad4c"><div class="ttname"><a href="namespacebot_1_1cURL.html#a55272f0ba9228f66086e0f13d81bad4c">bot::cURL::to_json</a></div><div class="ttdeci">std::string to_json(const std::map&lt; std::string, std::string &gt; &amp;body)</div><div class="ttdoc">Converts std::map&lt;std::string, std::string&gt; to JSON format.</div></div>
 <div class="ttc" id="anamespacebot_1_1cURL_html_a0e943574cc29fe42bd69b8d83675ab88"><div class="ttname"><a href="namespacebot_1_1cURL.html#a0e943574cc29fe42bd69b8d83675ab88">bot::cURL::urlencode</a></div><div class="ttdeci">std::string urlencode(const std::string &amp;url)</div><div class="ttdoc">Converts string to ASCII character-set.</div></div>
 <div class="ttc" id="anamespacebot_1_1cURL_html_a7f25380f5edacbf92afcc3b8bad017f7"><div class="ttname"><a href="namespacebot_1_1cURL.html#a7f25380f5edacbf92afcc3b8bad017f7">bot::cURL::append_vkurl</a></div><div class="ttdeci">std::string append_vkurl(const std::string &amp;method)</div><div class="ttdoc">Transforms method name to VK API url.</div></div>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['group_5fid_711',['group_id',['../namespacebot_1_1info.html#a0a42d1a40382464832a2866d5eb9c4c7',1,'bot::info']]]
+  ['logfile_473',['logfile',['../namespacebot_1_1info.html#a1053e05e6faff24b6ea0a90fbbe1b037',1,'bot::info']]]
 ];

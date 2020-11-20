@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['unescape_657',['unescape',['../classnlohmann_1_1basic__json_1_1json__pointer.html#a412a0baf28b38a77cfb44ebb8c8daecc',1,'nlohmann::basic_json::json_pointer']]],
-  ['unexpect_658',['unexpect',['../classnlohmann_1_1basic__json_1_1parser.html#a08e23e71af8623c8371c251480071f73',1,'nlohmann::basic_json::parser']]],
-  ['unflatten_659',['unflatten',['../classnlohmann_1_1basic__json_1_1json__pointer.html#a81c5b2e1721430c1bcd2a1fb76a6046e',1,'nlohmann::basic_json::json_pointer::unflatten()'],['../classnlohmann_1_1basic__json.html#a74fa3ab2003f2f6f2b69deaafed9126d',1,'nlohmann::basic_json::unflatten()']]],
-  ['urlencode_660',['urlencode',['../namespacebot_1_1cURL.html#a0e943574cc29fe42bd69b8d83675ab88',1,'bot::cURL']]]
+  ['value_453',['value',['../classnlohmann_1_1basic__json.html#af9c51328fbe1da75eca750be3009917a',1,'nlohmann::basic_json::value(const typename object_t::key_type &amp;key, ValueType default_value) const'],['../classnlohmann_1_1basic__json.html#ad6a18403e7fbac9c4efd06facc71fc88',1,'nlohmann::basic_json::value(const typename object_t::key_type &amp;key, const char *default_value) const'],['../classnlohmann_1_1basic__json.html#ab7df4291dda0a80d86f74427cc3993ba',1,'nlohmann::basic_json::value(const json_pointer &amp;ptr, ValueType default_value) const'],['../classnlohmann_1_1basic__json.html#a869c900ee02cf1a68988dcce3b375424',1,'nlohmann::basic_json::value(const json_pointer &amp;ptr, const char *default_value) const'],['../classnlohmann_1_1basic__json_1_1iter__impl.html#a92e849ca687355935c02f492be936b68',1,'nlohmann::basic_json::iter_impl::value()'],['../classnlohmann_1_1basic__json_1_1json__reverse__iterator.html#af51506d91ecf911c97521e10a047c841',1,'nlohmann::basic_json::json_reverse_iterator::value()']]],
+  ['video_5fcmd_454',['video_cmd',['../classbot_1_1Cmd__handler.html#a0330a99b2723ca80881936025869f2ed',1,'bot::Cmd_handler']]],
+  ['vk_5fexception_455',['Vk_exception',['../classbot_1_1Vk__exception.html#a2fb1b2080230a8da80844ca17167c454',1,'bot::Vk_exception']]],
+  ['vk_5flogger_456',['Vk_logger',['../classbot_1_1Vk__logger.html#a70cdf5f2a34d33874ea40b88d84dfe24',1,'bot::Vk_logger']]]
 ];

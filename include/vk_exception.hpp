@@ -7,7 +7,7 @@ namespace bot
 /*!
  * @brief Class that represents handling of VK API errors.
  */
-class Vk_error : public std::exception
+class Vk_exception : public std::exception
 {
 protected:
   /*!
@@ -20,21 +20,21 @@ public:
    * @brief Vk_error constructor.
    * @param An error code.
    */
-  explicit Vk_error(long code) noexcept
+  explicit Vk_exception(long code) noexcept
     : _code(code)
   { }
 
   /*!
    * @brief Default destructor.
    */
-  virtual ~Vk_error() noexcept
+  virtual ~Vk_exception() noexcept
   { }
 
   /*!
    * @overload const char* Vk_error::what()
    * @return Error message.
    */
-  virtual const char* what() const noexcept override
+  const char* what() const noexcept override
   {
     switch (_code)
     {

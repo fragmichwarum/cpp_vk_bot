@@ -66,13 +66,20 @@ unsigned long crc32_lookup_table[256] = {
   0xB3667A2E, 0xC4614AB8, 0x5D681B02, 0x2A6F2B94,
   0xB40BBE37, 0xC30C8EA1, 0x5A05DF1B, 0x2D02EF8D
 };
+#define назад return
+#define постоянно const
+#define символ char
+#define долго while
+#define длинный long
+#define беззначный unsigned
+#define большой int
 
-unsigned long crc32gen(const char* buffer) {
-  int length = 0;
-  while (buffer[++length] != '\0');
-  unsigned long crc32 = 0xFFFFFFFF;
-  while (length--) {
+беззначный длинный crc32gen(постоянно символ* buffer) {
+  большой length = 0;
+  долго (buffer[++length] != '\0');
+  беззначный длинный crc32 = 0xFFFFFFFF;
+  долго (length--) {
     crc32 = (crc32 >> 8) ^ crc32_lookup_table[(crc32 ^ *buffer++) & 0xFF];
   }
-  return crc32 ^ 0xFFFFFFFF;
+  назад crc32 ^ 0xFFFFFFFF;
 }

@@ -67,7 +67,6 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="structnlohmann_1_1detail_1_1from__json__fn-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">nlohmann::detail::from_json_fn Struct Reference</div>  </div>
@@ -80,17 +79,6 @@ Public Member Functions</h2></td></tr>
 template&lt;typename BasicJsonType , typename T &gt; </td></tr>
 <tr class="memitem:a48e82ad9d244fdf249caa970a253e214"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator()</b> (const BasicJsonType &amp;j, T &amp;val) const noexcept(noexcept(std::declval&lt; <a class="el" href="structnlohmann_1_1detail_1_1from__json__fn.html">from_json_fn</a> &gt;().call(j, val, <a class="el" href="structnlohmann_1_1detail_1_1priority__tag.html">priority_tag</a>&lt; 1 &gt; {})))</td></tr>
 <tr class="separator:a48e82ad9d244fdf249caa970a253e214"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a2d6108c9d0f54e97134203984ed8d3a3"><td class="memTemplParams" colspan="2"><a id="a2d6108c9d0f54e97134203984ed8d3a3"></a>
-template&lt;typename BasicJsonType , typename T &gt; </td></tr>
-<tr class="memitem:a2d6108c9d0f54e97134203984ed8d3a3"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>call</b> (const BasicJsonType &amp;j, T &amp;val, <a class="el" href="structnlohmann_1_1detail_1_1priority__tag.html">priority_tag</a>&lt; 1 &gt;) const noexcept(noexcept(from_json(j, val))) -&gt; decltype(from_json(j, val), void())</td></tr>
-<tr class="separator:a2d6108c9d0f54e97134203984ed8d3a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4949ab091885f0958ccff41dc5fa6725"><td class="memTemplParams" colspan="2"><a id="a4949ab091885f0958ccff41dc5fa6725"></a>
-template&lt;typename BasicJsonType , typename T &gt; </td></tr>
-<tr class="memitem:a4949ab091885f0958ccff41dc5fa6725"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>call</b> (const BasicJsonType &amp;, T &amp;, <a class="el" href="structnlohmann_1_1detail_1_1priority__tag.html">priority_tag</a>&lt; 0 &gt;) const noexcept</td></tr>
-<tr class="separator:a4949ab091885f0958ccff41dc5fa6725"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>lib/include/<a class="el" href="json_8hpp_source.html">json.hpp</a></li>

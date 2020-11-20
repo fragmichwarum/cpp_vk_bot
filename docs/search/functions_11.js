@@ -1,12 +1,8 @@
 var searchData=
 [
-  ['rbegin_630',['rbegin',['../classnlohmann_1_1basic__json.html#a1ef93e2006dbe52667294f5ef38b0b10',1,'nlohmann::basic_json::rbegin() noexcept'],['../classnlohmann_1_1basic__json.html#a515e7618392317dbf4b72d3e18bf2ab2',1,'nlohmann::basic_json::rbegin() const noexcept']]],
-  ['rend_631',['rend',['../classnlohmann_1_1basic__json.html#ac77aed0925d447744676725ab0b6d535',1,'nlohmann::basic_json::rend() noexcept'],['../classnlohmann_1_1basic__json.html#a4f73d4cee67ea328d785979c22af0ae1',1,'nlohmann::basic_json::rend() const noexcept']]],
-  ['repeat_5fcmd_632',['repeat_cmd',['../classbot_1_1Cmd__handler.html#a93996a3ff12adb6fa7ed7e9ae8031795',1,'bot::Cmd_handler']]],
-  ['replace_5fsubstring_633',['replace_substring',['../classnlohmann_1_1basic__json_1_1json__pointer.html#afc5dd65e2855e09f46bad1882b2b7ce0',1,'nlohmann::basic_json::json_pointer']]],
-  ['request_634',['request',['../namespacebot_1_1cURL.html#add48325996c0a345ef879905dd73cb0b',1,'bot::cURL']]],
-  ['requestdata_635',['requestdata',['../namespacebot_1_1cURL.html#a1972d297d4d31f17b112773576bc0f47',1,'bot::cURL']]],
-  ['reset_636',['reset',['../classnlohmann_1_1basic__json_1_1lexer.html#a60434112ffeaa4c39366754463e66ef2',1,'nlohmann::basic_json::lexer']]],
-  ['reverse_5fcmd_637',['reverse_cmd',['../classbot_1_1Cmd__handler.html#addf8248a0c80a13dfd80971e6c21c108',1,'bot::Cmd_handler']]],
-  ['role_5fcmd_638',['role_cmd',['../classbot_1_1Cmd__handler.html#affc5e41d1e123ce7af0fa0bc32b13556',1,'bot::Cmd_handler']]]
+  ['send_5fmessage_438',['send_message',['../classbot_1_1Vk__api.html#a71ac1501b08a6fa69f32c0e563f6f4e6',1,'bot::Vk_api']]],
+  ['size_439',['size',['../classnlohmann_1_1basic__json.html#a25e27ad0c6d53c01871c5485e1f75b96',1,'nlohmann::basic_json']]],
+  ['split_440',['split',['../namespacebot_1_1util.html#a68eab5b142d549ecfafd9431f71d4f71',1,'bot::util']]],
+  ['stat_5fcmd_441',['stat_cmd',['../classbot_1_1Cmd__handler.html#a4663669d31dce0bd3e4c82099929b2ab',1,'bot::Cmd_handler']]],
+  ['swap_442',['swap',['../classnlohmann_1_1basic__json.html#a8c9d932353e1ab98a7dc2fc27e002031',1,'nlohmann::basic_json::swap(reference other) noexcept(std::is_nothrow_move_constructible&lt; value_t &gt;::value and std::is_nothrow_move_assignable&lt; value_t &gt;::value and std::is_nothrow_move_constructible&lt; json_value &gt;::value and std::is_nothrow_move_assignable&lt; json_value &gt;::value)'],['../classnlohmann_1_1basic__json.html#a65b0a24e1361a030ad0a661de22f6c8e',1,'nlohmann::basic_json::swap(array_t &amp;other)'],['../classnlohmann_1_1basic__json.html#ac31f12587d2f1a3be5ffc394aa9d72a4',1,'nlohmann::basic_json::swap(object_t &amp;other)'],['../classnlohmann_1_1basic__json.html#adaa1ed0a889d86c8e0216a3d66980f76',1,'nlohmann::basic_json::swap(string_t &amp;other)']]]
 ];

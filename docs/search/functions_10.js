@@ -1,14 +1,10 @@
 var searchData=
 [
-  ['parse_619',['parse',['../classnlohmann_1_1basic__json.html#a86f339e8449cce96b89e86635a7d389e',1,'nlohmann::basic_json::parse(T(&amp;array)[N], const parser_callback_t cb=nullptr)'],['../classnlohmann_1_1basic__json.html#ab275a3e00a40189e96d244de6c8f311a',1,'nlohmann::basic_json::parse(const CharT s, const parser_callback_t cb=nullptr)'],['../classnlohmann_1_1basic__json.html#a4cd30efe5c33a7cf73a0c6495bb16054',1,'nlohmann::basic_json::parse(std::istream &amp;i, const parser_callback_t cb=nullptr)'],['../classnlohmann_1_1basic__json.html#a3bd712a1351ba28e5440fac2359da1cb',1,'nlohmann::basic_json::parse(std::istream &amp;&amp;i, const parser_callback_t cb=nullptr)'],['../classnlohmann_1_1basic__json.html#a360d37260add46be89881db2366fe343',1,'nlohmann::basic_json::parse(IteratorType first, IteratorType last, const parser_callback_t cb=nullptr)'],['../classnlohmann_1_1basic__json.html#a6efc9ad86394fc7d07a2f29662875cbf',1,'nlohmann::basic_json::parse(const ContiguousContainer &amp;c, const parser_callback_t cb=nullptr)'],['../classnlohmann_1_1basic__json_1_1parser.html#a3831f1bae0df35d74eda8ddfb42fec0e',1,'nlohmann::basic_json::parser::parse()']]],
-  ['parse_5fcbor_620',['parse_cbor',['../classnlohmann_1_1basic__json_1_1binary__reader.html#a8dfb5cc53ac25ac24ad96c6b13f0e56b',1,'nlohmann::basic_json::binary_reader']]],
-  ['parse_5finternal_621',['parse_internal',['../classnlohmann_1_1basic__json_1_1parser.html#a86e95a2b7b47c89135c41295949bcf0a',1,'nlohmann::basic_json::parser']]],
-  ['parse_5fmsgpack_622',['parse_msgpack',['../classnlohmann_1_1basic__json_1_1binary__reader.html#a8800236e50b397f1b7dac9899572657f',1,'nlohmann::basic_json::binary_reader']]],
-  ['parser_623',['parser',['../classnlohmann_1_1basic__json_1_1parser.html#a97b75329cb2ec0f4294d4bdbbd93a22c',1,'nlohmann::basic_json::parser']]],
-  ['patch_624',['patch',['../classnlohmann_1_1basic__json.html#a81e0c41a4a9dff4df2f6973f7f8b2a83',1,'nlohmann::basic_json']]],
-  ['picture_5fcmd_625',['picture_cmd',['../classbot_1_1Cmd__handler.html#a4fdfdcff8b016d5ccd4d8e4a21ebfd61',1,'bot::Cmd_handler']]],
-  ['ping_5fcmd_626',['ping_cmd',['../classbot_1_1Cmd__handler.html#aa68ebfce3dbed3625ac6175ee32de622',1,'bot::Cmd_handler']]],
-  ['pop_5fback_627',['pop_back',['../classnlohmann_1_1basic__json_1_1json__pointer.html#ad4ccd113ac7edcdb6c3aaa8f5978db59',1,'nlohmann::basic_json::json_pointer']]],
-  ['print_628',['print',['../classbot_1_1Vk__logger.html#a6079e34fc494dbd953680c6cf0f8837e',1,'bot::Vk_logger']]],
-  ['push_5fback_629',['push_back',['../classnlohmann_1_1basic__json.html#ac8e523ddc8c2dd7e5d2daf0d49a9c0d7',1,'nlohmann::basic_json::push_back(basic_json &amp;&amp;val)'],['../classnlohmann_1_1basic__json.html#ab4384af330b79de0e5f279576803a2c7',1,'nlohmann::basic_json::push_back(const basic_json &amp;val)'],['../classnlohmann_1_1basic__json.html#ae11a3a51782c058fff2f6550cdfb9b3c',1,'nlohmann::basic_json::push_back(const typename object_t::value_type &amp;val)'],['../classnlohmann_1_1basic__json.html#ab2716cbe2e997ab8309926b87f044434',1,'nlohmann::basic_json::push_back(std::initializer_list&lt; basic_json &gt; init)']]]
+  ['rbegin_431',['rbegin',['../classnlohmann_1_1basic__json.html#a1ef93e2006dbe52667294f5ef38b0b10',1,'nlohmann::basic_json::rbegin() noexcept'],['../classnlohmann_1_1basic__json.html#a515e7618392317dbf4b72d3e18bf2ab2',1,'nlohmann::basic_json::rbegin() const noexcept']]],
+  ['rend_432',['rend',['../classnlohmann_1_1basic__json.html#ac77aed0925d447744676725ab0b6d535',1,'nlohmann::basic_json::rend() noexcept'],['../classnlohmann_1_1basic__json.html#a4f73d4cee67ea328d785979c22af0ae1',1,'nlohmann::basic_json::rend() const noexcept']]],
+  ['repeat_5fcmd_433',['repeat_cmd',['../classbot_1_1Cmd__handler.html#a93996a3ff12adb6fa7ed7e9ae8031795',1,'bot::Cmd_handler']]],
+  ['request_434',['request',['../namespacebot_1_1cURL.html#add48325996c0a345ef879905dd73cb0b',1,'bot::cURL']]],
+  ['requestdata_435',['requestdata',['../namespacebot_1_1cURL.html#a1972d297d4d31f17b112773576bc0f47',1,'bot::cURL']]],
+  ['reverse_5fcmd_436',['reverse_cmd',['../classbot_1_1Cmd__handler.html#addf8248a0c80a13dfd80971e6c21c108',1,'bot::Cmd_handler']]],
+  ['role_5fcmd_437',['role_cmd',['../classbot_1_1Cmd__handler.html#affc5e41d1e123ce7af0fa0bc32b13556',1,'bot::Cmd_handler']]]
 ];

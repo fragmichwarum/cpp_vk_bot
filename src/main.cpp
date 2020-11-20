@@ -5,6 +5,7 @@ int main(void) {
   lp.loop();
 }
 
+
 /*
   Compiled program size with different options.
  |----------------------------------------------------|----------|

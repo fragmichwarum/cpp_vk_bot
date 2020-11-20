@@ -119,7 +119,6 @@ public:
    * @ref bot::Vk_logger::_err_path "error log file" file depending on <b><em>type</em></b> param.
    * @param type     - any member of available @ref bot::LOGTYPE "logging types".
    * @param message  - message to be printed.
-   * @param from_id  - (optional) user_id to be printed.
    */
   void log(uint8_t type, const std::string& message);
 };

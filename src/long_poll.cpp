@@ -20,7 +20,7 @@ void Long_poll_handler::_get_server() {
       { "v",            version      }}));
 
   if (not poll["error"]["error_code"].is_null()) {
-    throw Vk_error(poll["error"]["error_code"].get<long>());
+    throw Vk_exception(poll["error"]["error_code"].get<long>());
   }
 
   _server = poll["response"]["server"];

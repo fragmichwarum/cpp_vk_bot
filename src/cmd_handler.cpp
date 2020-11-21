@@ -29,6 +29,7 @@ Cmd_traits::cmds_t const Cmd_handler::vk_cmds =
   { "+гугл",    { "редирект сложнейшено вопроса в гугл",      &Cmd_handler::google_cmd,      user } },
   { "+доки",    { "поиск документов",                         &Cmd_handler::document_cmd,    user } },
   { "+котик",   { "рандомный котик",                          &Cmd_handler::cat_cmd,         user } },
+  { "+кто",     { "выбирает случайного человека в беседе",    &Cmd_handler::who_cmd,         user } },
   { "+реверс",  { "перевернуть строку",                       &Cmd_handler::reverse_cmd,     moderator } },
   { "+онлайн",  { "показать юзеров онлайн",                   &Cmd_handler::online_cmd,      moderator } },
   { "+кик",     { "кикнуть юзера",                            &Cmd_handler::kick_cmd,        moderator } },

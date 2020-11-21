@@ -13,7 +13,7 @@ namespace bot
 namespace cURL
 {
 /*!
- * @brief Converts string to ASCII character-set.
+ * @brief Converts string to encoded URL.
  * @param Url
  * @return Encoded string.
  */

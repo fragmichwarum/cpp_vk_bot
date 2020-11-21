@@ -29,7 +29,7 @@ HEADERS += \
         include/long_poll.hpp     \
         include/utils.hpp         \
         include/vk_api.hpp        \
-  include/vk_exception.hpp \
+        include/vk_exception.hpp \
         lib/include/crc32.hpp     \
         lib/include/json.hpp      \
         lib/include/wchar.hpp     \

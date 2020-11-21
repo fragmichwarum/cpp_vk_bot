@@ -89,6 +89,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab715d784ca6658131f4fa5f127fb9319"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1Vk__api.html#ab715d784ca6658131f4fa5f127fb9319">media_search</a> (const std::string &amp;method, const std::string &amp;text)</td></tr>
 <tr class="memdesc:ab715d784ca6658131f4fa5f127fb9319"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search vk media(video, pictures, docs).  <a href="classbot_1_1Vk__api.html#ab715d784ca6658131f4fa5f127fb9319">More...</a><br /></td></tr>
 <tr class="separator:ab715d784ca6658131f4fa5f127fb9319"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae813b37a8a0756db69e222934d756abb"><td class="memItemLeft" align="right" valign="top">std::pair&lt; long, long &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1Vk__api.html#ae813b37a8a0756db69e222934d756abb">upload_attachment</a> (const std::string &amp;type, const std::string &amp;file, const std::string &amp;server)</td></tr>
+<tr class="memdesc:ae813b37a8a0756db69e222934d756abb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upload file to VK server.  <a href="classbot_1_1Vk__api.html#ae813b37a8a0756db69e222934d756abb">More...</a><br /></td></tr>
+<tr class="separator:ae813b37a8a0756db69e222934d756abb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class intended for working with VK API. </p>
@@ -216,6 +219,51 @@ Exempli gratia:</h3>
 <div class="line">  {<span class="stringliteral">&quot;attachment&quot;</span>, <span class="stringliteral">&quot;photo...&quot;</span>}</div>
 <div class="line">});</div>
 </div><!-- fragment --> 
+</div>
+</div>
+<a id="ae813b37a8a0756db69e222934d756abb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae813b37a8a0756db69e222934d756abb">&#9670;&nbsp;</a></span>upload_attachment()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt;long, long&gt; bot::Vk_api::upload_attachment </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>server</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Upload file to VK server. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>- Attachment type </td></tr>
+    <tr><td class="paramname">file</td><td>- File name </td></tr>
+    <tr><td class="paramname">server</td><td>- Address of upload server </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pair of uploaded document owner_id and id. </dd></dl>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>

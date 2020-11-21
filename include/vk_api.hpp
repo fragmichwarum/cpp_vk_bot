@@ -85,5 +85,13 @@ public:
    * empty string otherwise.
    */
   std::string media_search(const std::string& method, const std::string& text);
+  /*!
+   * @brief Upload file to VK server.
+   * @param type        - Attachment type
+   * @param file        - File name
+   * @param server      - Address of upload server
+   * @return Pair of uploaded document owner_id and id.
+   */
+  std::pair<long, long> upload_attachment(const std::string& type, const std::string& file, const std::string& server);
 };
 } //namespace bot

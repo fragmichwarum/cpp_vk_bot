@@ -105,3 +105,25 @@ std::string Vk_api::kick_user(const long& chat_id, const long& user_id)
 
   return "Arbeit macht frei.";
 }
+
+std::pair<long, long> Vk_api::upload_attachment(const std::string &type, const std::string &file, const std::string &server)
+{
+  json uploaded_file = json::parse(cURL::upload(file, server));
+
+  string url = "https://api.vk.com/method/";
+  if (type == "photo") {
+    url += "photos.saveMessagesPhoto";
+  }
+
+  json saved_vk_attachment =
+    json::parse(request(url + "?",
+     {{ "photo",         uploaded_file["photo"] },
+      { "server",        to_string(uploaded_file["server"].get<long>()) },
+      { "hash",          uploaded_file["hash"]  },
+      { "v",             info::version          },
+      { "access_token",  info::access_token     }
+     }));
+
+  return { saved_vk_attachment["response"][0]["owner_id"].get<long>(),
+           saved_vk_attachment["response"][0][      "id"].get<long>() };
+}

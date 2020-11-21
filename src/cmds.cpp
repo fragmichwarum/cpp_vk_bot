@@ -77,7 +77,7 @@ string Cmd_handler::weather_cmd(cmd_type cmd) {
     to_string(humidity) + "%";
 }
 
-json wiki_search(const string& wiki_url, const map<string, string>& text) {
+static json wiki_search(const string& wiki_url, const map<string, string>& text) {
   return json::parse(request(wiki_url, text));
 }
 
@@ -362,9 +362,9 @@ string Cmd_handler::ping_cmd([[maybe_unused]] cmd_type cmd) {
 string Cmd_handler::online_cmd(cmd_type cmd) {
   json parsed =
     json::parse(request(append_vkurl("messages.getConversationMembers"),
-     {{ "fields",       "online"     },
+     {{ "fields",       "online"           },
       { "peer_id",      to_string(cmd.peer_id)},
-      { "random_id",    "0"          },
+      { "random_id",    "0"                },
       { "access_token", info::access_token },
       { "v",            info::version      }}));
 
@@ -382,6 +382,35 @@ string Cmd_handler::online_cmd(cmd_type cmd) {
     }
   }
   return people;
+}
+
+string Cmd_handler::who_cmd(cmd_type cmd) {
+  if (cmd.message == "+кто") {
+    return empty_args();
+  }
+  json parsed =
+    json::parse(request(append_vkurl("messages.getConversationMembers"),
+     {{ "fields",       "online"           },
+      { "peer_id",      to_string(cmd.peer_id)},
+      { "random_id",    "0"                },
+      { "access_token", info::access_token },
+      { "v",            info::version      }}));
+
+  if (not parsed["error"].is_null() &&
+          parsed["error"]["error_code"] == 917L)
+  {
+    return "Упс, кажется у бота нет админки.";
+  }
+
+  long size = parsed["response"]["profiles"].size();
+  if (size == 0) {
+    return "Что-то пошло не так.";
+  }
+  json person = parsed["response"]["profiles"][rand() % size];
+
+  return "Хмм, я думаю, что @id" + to_string(person["id"].get<long>()) +
+         '('  + person["first_name"].get<string>() + ' ' + person["last_name"].get<string>() +
+         ") " + get_args(cmd.message);
 }
 
 static inline long ret_id(const string& id) {
@@ -418,7 +447,7 @@ string Cmd_handler::blacklist_cmd(cmd_type cmd) {
 }
 
 string Cmd_handler::role_cmd(cmd_type cmd) {
-  if (cmd.message == "+мут") {
+  if (cmd.message == "+роль") {
     return empty_args();
   }
 
@@ -500,7 +529,8 @@ string Cmd_handler::complete_cmd(cmd_type cmd) {
     json::parse(requestdata("https://pelevin.gpt.dobro.ai/generate/",
       to_json({{"prompt", body}, {"length", "50"}})));
 
-  return body + parsed["replies"][0].get<string>();
+  json answer = parsed["replies"][0];
+  return answer.is_null() ? "Ошибка генерации текста." : body + answer.get<string>();
 }
 
 struct non_alpha {
@@ -743,18 +773,12 @@ string Cmd_handler::cat_cmd(cmd_type cmd) {
       { "v",            info::version          }
      }));
 
-  json uploaded_file = json::parse(cURL::upload(file, response["response"]["upload_url"]));
+  using owner_id = long;
+  using       id = long;
 
-  json saved_vk_attachment =
-    json::parse(request("https://api.vk.com/method/photos.saveMessagesPhoto?",
-     {{ "photo",         uploaded_file["photo"] },
-      { "server",        std::to_string(uploaded_file["server"].get<long>()) },
-      { "hash",          uploaded_file["hash"]  },
-      { "v",             info::version          },
-      { "access_token",  info::access_token     }
-     }));
+  std::pair<owner_id, id> attachment = _api.upload_attachment("photo", file, response["response"]["upload_url"]);
 
-  _api.send_message("", cmd.peer_id, {{"attachment", "photo" + to_string(saved_vk_attachment["response"][0]["owner_id"].get<long>())
-                                       + "_" + to_string(saved_vk_attachment["response"][0]["id"].get<long>())}});
+  _api.send_message("", cmd.peer_id, {{"attachment", "photo" + to_string(attachment.first)
+                                       + "_" + to_string(attachment.second)}});
   return "";
 }

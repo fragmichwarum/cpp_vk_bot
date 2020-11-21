@@ -80,7 +80,7 @@
 
 /*!
  * @namespace bot
- * @brief main namespace
+ * @brief Main namespace.
  */
 namespace bot
 {
@@ -385,5 +385,11 @@ public:
    * @return Empty string on success, error message othrewise.
    */
   std::string cat_cmd(cmd_type args);
+  /*!
+   * @brief Command, that pick random user in conservation.
+   * @param A @ref Cmd_traits::cmds_t "command type".
+   * @return Random user + argument.
+   */
+  std::string who_cmd(cmd_type args);
 };
 } //namespace bot

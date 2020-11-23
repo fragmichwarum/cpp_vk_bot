@@ -25,14 +25,7 @@ So, you have multiple build options.
 in `cpp_vk_bot` directory:
 
 ```
-qmake vk.pro
-make
-```
-or, if you don't have/don't want to use Qmake:
-```
-g++ -c -pipe -Wall -Os -std=gnu++1z -fPIC -I. -Iinclude lib/src/* src/* && g++ -Wl,-O1 -o vk *.o -lcurl -lsqlite3 -lpthread && rm *.o -rf
-```
-or
-```
-clang++ -c -pipe -Wall -Os -std=gnu++1z -fPIC -I. -Iinclude lib/src/* src/* && clang++ -Wl,-O1 -o vk *.o -lcurl -lsqlite3 -lpthread && rm *.o -rf
-```
+mkdir build
+cd build
+cmake ..
+make -j{1..128}

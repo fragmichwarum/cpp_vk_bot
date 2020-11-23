@@ -1,4 +1,4 @@
-#include "lib/include/crc32.hpp"
+#include "../lib/include/crc32.hpp"
 
 unsigned long crc32_lookup_table[256] = {
   0x00000000, 0x77073096, 0xEE0E612C, 0x990951BA,

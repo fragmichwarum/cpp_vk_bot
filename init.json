@@ -1,13 +1,13 @@
 {
-	"tokens": {
+	"token": {
 		"access_token": "",
 		"user_token": ""
 	},
 	"group_id": "",
-	"admin_id": 0,
+	"admin_id": "",
 	"path": {
-		"log": "",
-		"err": ""
+		"log": "logfile",
+		"err": "errlog_file"
 	},
 	"api_v": "5.124"
 }

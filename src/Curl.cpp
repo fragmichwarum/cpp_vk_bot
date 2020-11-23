@@ -1,4 +1,6 @@
-#include "curl.hpp"
+#include "Curl.hpp"
+
+#define CURL_DEBUG
 
 using namespace bot::cURL;
 
@@ -19,7 +21,7 @@ static size_t write(void* contents, size_t size, size_t nmemb, void* userp)
   return size * nmemb;
 }
 
-size_t file_write(void* ptr, size_t size, size_t nmemb, FILE* stream)
+static size_t file_write(void* ptr, size_t size, size_t nmemb, FILE* stream)
 {
   return fwrite(ptr, size, nmemb, stream);
 }
@@ -74,12 +76,18 @@ string bot::cURL::request(const string& method, const map<string, string>& body)
   string buffer;
   CURL*  curl = curl_easy_init();
   if (curl) {
+#if defined CURL_DEBUG
+    printf("%s\n", url.c_str());
+#endif
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
     curl_easy_setopt(curl, CURLOPT_USERAGENT, "oxfffffe");
     curl_easy_setopt(curl, CURLOPT_TIMEOUT, 600L);
     curl_easy_perform(curl);
+#if defined CURL_DEBUG
+    printf("%s\n", buffer.c_str());
+#endif
   }
   curl_easy_cleanup(curl);
   return buffer;
@@ -90,7 +98,7 @@ string bot::cURL::append_vkurl(const string &method)
   return "https://api.vk.com/method/" + method + '?';
 }
 
-size_t bot::cURL::download(const string& filename, const string& outputfile)
+std::size_t bot::cURL::download(const string& filename, const string& outputfile)
 {
   CURL* curl;
   FILE* fp;

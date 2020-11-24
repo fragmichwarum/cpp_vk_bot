@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../ICommand.hpp"
-#include "../lib/include/crc32.hpp"
+#include "ICommand.hpp"
 #include "Utils.hpp"
+#include "../lib/include/crc32.hpp"
 
 namespace bot
 {

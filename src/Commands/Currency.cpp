@@ -1,14 +1,12 @@
 #include "Currency.hpp"
-#include "../VkAPI.hpp"
-#include "../Curl.hpp"
-
-using namespace bot::cURL;
+#include "Curl.hpp"
 
 using std::string;
 using std::to_string;
 using std::vector;
 using nlohmann::json;
 using bot::command::CurrencyCommand;
+using namespace bot::cURL;
 
 string CurrencyCommand::description() const
 {
@@ -31,11 +29,26 @@ static const std::vector<std::string> currency_list = {
   "JPY"
 };
 
-string CurrencyCommand::execute([[maybe_unused]] const CommandParams& inputData)
+CurrencyCommand::CurrencyCommand()
+  : lastUpdateTime(std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count())
+{ }
+
+void CurrencyCommand::tryCache(const uint64_t& updateInterval)
 {
-  if (cachedCurrency.is_null()) {
+  unsigned long timeNow = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count();
+  bool requestCondition = false;
+  requestCondition |= cachedCurrency.is_null();
+  requestCondition |= timeNow - lastUpdateTime > updateInterval;
+  lastUpdateTime = timeNow;
+
+  if (requestCondition) {
     cachedCurrency = json::parse(cURL::request("https://www.cbr-xml-daily.ru/daily_json.js", {}));
   }
+}
+
+string CurrencyCommand::execute([[maybe_unused]] const CommandParams& inputData)
+{
+  tryCache(600);
   string result;
   result += "Курс валют:\n";
   for (const string& currency : currency_list) {

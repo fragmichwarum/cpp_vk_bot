@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include "VkAPI.hpp"
 
 namespace bot
 {
@@ -16,6 +17,7 @@ public:
   virtual std::string execute([[maybe_unused]] const CommandParams&) = 0;
   virtual std::string description() const = 0;
   virtual std::string trigger() const = 0;
-  virtual ~ICommand() { }
+  virtual ~ICommand()
+  { }
 };
 } //namespace bot

@@ -6,7 +6,7 @@ using std::to_string;
 using std::find_if;
 using nlohmann::json;
 
-using bot::GithubCommand;
+using bot::command::GithubCommand;
 using namespace bot::cURL;
 
 struct GithubCommand::non_alpha

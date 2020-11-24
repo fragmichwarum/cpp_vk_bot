@@ -6,15 +6,16 @@ namespace bot
 {
 namespace command
 {
-class WeatherCommand final : public ICommand
+class AboutCommand final : public ICommand
 {
 private:
-  static nlohmann::json executeQuery(const std::string& inputData);
+  std::string buildTime;
 public:
+  AboutCommand();
   std::string execute([[maybe_unused]]const CommandParams& inputData) override;
   std::string description() const override;
   std::string trigger() const override;
- ~WeatherCommand()
+ ~AboutCommand()
   { }
 };
 } //namespace command

@@ -1,9 +1,10 @@
 #pragma once
 
-#include "../ICommand.hpp"
-#include "../VkAPI.hpp"
+#include "ICommand.hpp"
 
 namespace bot
+{
+namespace command
 {
 class GithubCommand final : public ICommand
 {
@@ -21,4 +22,5 @@ public:
  ~GithubCommand()
   { }
 };
-}
+} //namespace command
+} //namepsace bot

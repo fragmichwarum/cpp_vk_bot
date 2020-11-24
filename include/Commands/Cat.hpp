@@ -2,8 +2,7 @@
 
 #include <mutex>
 
-#include "../ICommand.hpp"
-#include "../VkAPI.hpp"
+#include "ICommand.hpp"
 
 namespace bot
 {

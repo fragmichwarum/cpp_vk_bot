@@ -12,6 +12,8 @@ private:
   std::string _key;
   std::string _ts;
 
+  std::size_t _numThreads;
+
   void _get_server();
   void _init_invoker();
 
@@ -21,6 +23,7 @@ private:
   Invoker* const _invoker = new Invoker;
 
 public:
+  LongPoll();
   void loop();
 };
 }

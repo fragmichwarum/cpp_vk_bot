@@ -1,35 +1,36 @@
 #include "Who.hpp"
 #include "Curl.hpp"
 #include "Utils.hpp"
+#include "Info.hpp"
+#include "../lib/include/Json.hpp"
 
-using namespace bot::util;
-using bot::command::WhoCommand;
-using std::string;
-using std::to_string;
+extern template class nlohmann::basic_json<>;
+
 using nlohmann::json;
+using bot::command::WhoCommand;
 
-string WhoCommand::description() const
+std::string WhoCommand::description() const
 {
   return "выбрать случайного участника";
 }
 
-string WhoCommand::trigger() const
+std::string WhoCommand::trigger() const
 {
   return "+кто";
 }
 
-string WhoCommand::execute(const CommandParams& inputData)
+std::string WhoCommand::execute(const CommandParams& inputData)
 {
   if (inputData.args.empty()) {
-    return emptyArgs();
+    return util::emptyArgs();
   }
 
   json parsed =
-    json::parse(cURL::request(cURL::append_vkurl("messages.getConversationMembers"),
+    json::parse(cURL::request(cURL::appendVkUrl("messages.getConversationMembers"),
      {{ "fields",       "online"           },
-      { "peer_id",      to_string(inputData.peer_id)},
+      { "peer_id",      std::to_string(inputData.peer_id)},
       { "random_id",    "0"                },
-      { "access_token", info::access_token },
+      { "access_token", info::accessToken  },
       { "v",            info::version      }}));
 
   if (not parsed["error"].is_null() &&
@@ -45,7 +46,7 @@ string WhoCommand::execute(const CommandParams& inputData)
 
   json person = parsed["response"]["profiles"][rand() % size];
 
-  return "Хмм, я думаю, что @id" + to_string(person["id"].get<long>()) +
-         '('  + person["first_name"].get<string>() + ' ' + person["last_name"].get<string>() +
+  return "Хмм, я думаю, что @id" + std::to_string(person["id"].get<long>()) +
+         '('  + person["first_name"].get<std::string>() + ' ' + person["last_name"].get<std::string>() +
          ") " + inputData.args;
 }

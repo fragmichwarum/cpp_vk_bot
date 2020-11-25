@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ICommand.hpp"
+#include "../lib/include/Json.hpp"
 
 namespace bot
 {

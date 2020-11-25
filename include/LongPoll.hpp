@@ -2,6 +2,7 @@
 
 #include "VkError.hpp"
 #include "Invoker.hpp"
+#include "../lib/include/Json.hpp"
 
 namespace bot
 {

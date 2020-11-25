@@ -9,7 +9,6 @@ namespace command
 class StatCommand final : public ICommand
 {
 private:
-  mutable uint8_t _processedMessages = 0;
   static std::string lineparse(const std::string& line);
   static std::string procinfo(const std::string& filename, const std::string& param);
   static std::string os_exec(const std::string& cmd);

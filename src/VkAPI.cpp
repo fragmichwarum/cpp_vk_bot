@@ -3,49 +3,47 @@
 #include "Curl.hpp"
 #include "Utils.hpp"
 #include "VkAPI.hpp"
-
-using namespace bot::cURL;
-using namespace bot::util;
-
-using std::string;
-using std::map;
-using std::to_string;
+#include "Info.hpp"
 
 using nlohmann::json;
 
-const static json _data = json::parse(std::ifstream{"./init.json"});
+extern template class nlohmann::basic_json<>;
 
-const long        bot::info::admin_id     = _data["admin_id"];
-const std::string bot::info::group_id     = _data["group_id"];
-const std::string bot::info::access_token = _data["token"]["access_token"];
-const std::string bot::info::user_token   = _data["token"]["user_token"];
-const std::string bot::info::version      = _data["api_v"];
-const std::string bot::info::errfile      = _data["path"]["err"];
-const std::string bot::info::logfile      = _data["path"]["log"];
+static std::ifstream file("./init.json");
+const static json _data = json::parse(std::string(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>()));
 
-void bot::vkapi::send_message(const string& text, const long& peer_id, const map<string, string>& options)
+      long        bot::info::processedMessages  = 0;
+const long        bot::info::adminId            = _data["admin_id"];
+const std::string bot::info::groupId            = _data["group_id"];
+const std::string bot::info::accessToken        = _data["token"]["access_token"];
+const std::string bot::info::userToken          = _data["token"]["user_token"];
+const std::string bot::info::version            = _data["api_v"];
+const std::string bot::info::errfile            = _data["path"]["err"];
+const std::string bot::info::logfile            = _data["path"]["log"];
+
+void bot::vkapi::send_message(const std::string& text, const long& peer_id, const std::map<std::string, std::string>& options)
 {
-  map<string, string> parameters = {
+  std::map<std::string, std::string> parameters = {
     { "message",      text               },
-    { "peer_id",      to_string(peer_id) },
+    { "peer_id",      std::to_string(peer_id) },
     { "random_id",    "0"                },
-    { "access_token", info::access_token },
+    { "access_token", info::accessToken  },
     { "v",            info::version      },
     { "disable_mentions", "1"            }
   };
 
   if (options.size() != 0) {
 #if __cplusplus >= 201703L
-    parameters.merge(map<string, string>{options});
+    parameters.merge(std::map<std::string, std::string>{options});
 #else
     parameters.insert(options.begin(), options.end());
 #endif
   }
 
-  request(append_vkurl("messages.send"), parameters);
+  cURL::request(cURL::appendVkUrl("messages.send"), parameters);
 }
 
-static string attachment_type(const string& method)
+static std::string attachment_type(const std::string& method)
 {
   if (method == "photos.search") {
     return "photo";
@@ -59,12 +57,12 @@ static string attachment_type(const string& method)
   return "";
 }
 
-std::string bot::vkapi::media_search(const std::string& method, const std::string& text) /*const*/
+std::string bot::vkapi::media_search(const std::string& method, const std::string& text)
 {
   json vkmedia =
-    json::parse(request(append_vkurl(method),
+    json::parse(cURL::request(cURL::appendVkUrl(method),
       {{ "q",            text             },
-       { "access_token", info::user_token },
+       { "access_token", info::userToken  },
        { "v",            info::version    },
        { "count",        "50"             }}));
 
@@ -74,26 +72,26 @@ std::string bot::vkapi::media_search(const std::string& method, const std::strin
     return "";
   }
 
-  string docs;
+  std::string docs;
   for (uint8_t i = 0; i < items.size() && i < 10; i++) {
     long index = rand() % items.size();
     docs +=
       attachment_type(method) +
-      to_string(items[index]["owner_id"].get<long>()) + '_' +
-      to_string(items[index][      "id"].get<long>()) + ',';
+      std::to_string(items[index]["owner_id"].get<long>()) + '_' +
+      std::to_string(items[index][      "id"].get<long>()) + ',';
   }
 
   return docs;
 }
 
-std::string bot::vkapi::kick_user(const long& chat_id, const long& user_id) /*const*/
+std::string bot::vkapi::kick_user(const long& chat_id, const long& user_id)
 {
   json response =
-    json::parse(request(append_vkurl("messages.removeChatUser"),
-     {{ "chat_id",      to_string(chat_id) },
-      { "user_id",      to_string(user_id) },
+    json::parse(cURL::request(cURL::appendVkUrl("messages.removeChatUser"),
+     {{ "chat_id",      std::to_string(chat_id) },
+      { "user_id",      std::to_string(user_id) },
       { "random_id",    "0"                },
-      { "access_token", info::access_token },
+      { "access_token", info::accessToken  },
       { "v",            info::version      }}));
 
   if (not response["error"].is_null() &&
@@ -115,18 +113,18 @@ std::pair<long, long> bot::vkapi::upload_attachment(const std::string &type, con
 {
   json uploaded_file = json::parse(cURL::upload(file, server));
 
-  string url = "https://api.vk.com/method/";
+  std::string url = "https://api.vk.com/method/";
   if (type == "photo") {
     url += "photos.saveMessagesPhoto";
   }
 
   json saved_vk_attachment =
-    json::parse(request(url + "?",
+    json::parse(cURL::request(url + "?",
      {{ "photo",         uploaded_file["photo"] },
-      { "server",        to_string(uploaded_file["server"].get<long>()) },
+      { "server",        std::to_string(uploaded_file["server"].get<long>()) },
       { "hash",          uploaded_file["hash"]  },
       { "v",             info::version          },
-      { "access_token",  info::access_token     }
+      { "access_token",  info::accessToken      }
      }));
 
   if (not saved_vk_attachment["error"].is_null()) {

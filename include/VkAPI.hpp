@@ -4,17 +4,6 @@
 
 namespace bot
 {
-namespace info
-{
-extern const long        admin_id;
-extern const std::string version;
-extern const std::string access_token;
-extern const std::string user_token;
-extern const std::string group_id;
-extern const std::string errfile;
-extern const std::string logfile;
-}
-
 namespace vkapi
 {
 void send_message(const std::string& text, const long& peer_id, const std::map<std::string, std::string>& options = {});

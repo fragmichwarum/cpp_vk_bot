@@ -1,21 +1,17 @@
 #include "Weather.hpp"
 #include "Utils.hpp"
 #include "Curl.hpp"
+#include "../lib/include/Json.hpp"
 
-using namespace bot::util;
-using namespace bot::cURL;
-
-using std::string;
-using std::to_string;
 using nlohmann::json;
 using bot::command::WeatherCommand;
 
-string WeatherCommand::description() const
+std::string WeatherCommand::description() const
 {
   return "показать погоду.";
 }
 
-string WeatherCommand::trigger() const
+std::string WeatherCommand::trigger() const
 {
   return "+погода";
 }
@@ -30,7 +26,7 @@ json WeatherCommand::executeQuery(const std::string& inputData)
       { "q",      inputData  }}));
 }
 
-string WeatherCommand::execute(const CommandParams& inputData)
+std::string WeatherCommand::execute(const CommandParams& inputData)
 {
   if (inputData.args.empty()) {
     return util::emptyArgs();
@@ -42,14 +38,14 @@ string WeatherCommand::execute(const CommandParams& inputData)
     return "Нет такого города.";
   }
 
-  string description = weather["weather"][0]["description"];
+  std::string description = weather["weather"][0]["description"];
   int temp           = weather["main"]["temp"];
   int feels_like     = weather["main"]["feels_like"];
   int humidity       = weather["main"]["humidity"];
-  string city_name   = weather["name"];
+  std::string city_name = weather["name"];
   return
-    "Сейчас в  " + city_name + " " + to_string(temp) +
+    "Сейчас в  " + city_name + " " + std::to_string(temp) +
     "°C, " + description + "\nОщущается как " +
-    to_string(feels_like) + "°C\nВлажность: " +
-    to_string(humidity) + "%";
+    std::to_string(feels_like) + "°C\nВлажность: " +
+    std::to_string(humidity) + "%";
 }

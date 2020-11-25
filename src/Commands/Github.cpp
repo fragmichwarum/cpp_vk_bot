@@ -1,11 +1,10 @@
 #include "Curl.hpp"
 #include "Github.hpp"
+#include "VkAPI.hpp"
 
-using std::string;
-using std::to_string;
-using std::find_if;
+extern template class nlohmann::basic_json<>;
+
 using nlohmann::json;
-
 using bot::command::GithubCommand;
 using namespace bot::cURL;
 
@@ -16,12 +15,12 @@ struct GithubCommand::non_alpha
   }
 };
 
-bool GithubCommand::is_latin(const string& text)
+bool GithubCommand::is_latin(const std::string& text)
 {
   return find_if(text.begin(), text.end(), non_alpha()) == text.end();
 }
 
-string GithubCommand::searchRepos(uint8_t reposCount, const string& user, const string& repo)
+std::string GithubCommand::searchRepos(uint8_t reposCount, const std::string& user, const std::string& repo)
 {
   json repos =
     json::parse(request("https://api.github.com/users/" + user + "/repos", {}));
@@ -29,12 +28,12 @@ string GithubCommand::searchRepos(uint8_t reposCount, const string& user, const 
     return "Упс, кажется такого юзера нет.";
   }
   bool found = false;
-  string user_repos = "Информация о репозиториях:\n";
+  std::string user_repos = "Информация о репозиториях:\n";
   for (uint8_t i = 0; i < repos.size(); i++) {
     if (i == reposCount && found) {
       break;
     }
-    if (repos[i]["name"].get<string>() == repo) {
+    if (repos[i]["name"].get<std::string>() == repo) {
       found = true;
     }
     user_repos += repos[i]["name"];
@@ -42,7 +41,7 @@ string GithubCommand::searchRepos(uint8_t reposCount, const string& user, const 
     user_repos += "Описание: ";
     user_repos += not repos[i]["description"].is_null() ? repos[i]["description"] : "отсутствует";
     user_repos += "\nЗвёзд: ";
-    user_repos += to_string(repos[i]["stargazers_count"].get<long>());
+    user_repos += std::to_string(repos[i]["stargazers_count"].get<long>());
     user_repos += "\nДоминирующий язык: ";
     user_repos += not repos[i]["language"].is_null() ? repos[i]["language"] : "отсутствует";
     user_repos += "\nСсылка: ";
@@ -55,27 +54,27 @@ string GithubCommand::searchRepos(uint8_t reposCount, const string& user, const 
   return user_repos;
 }
 
-string GithubCommand::getUserRepo(const string& user, const string& repo)
+std::string GithubCommand::getUserRepo(const std::string& user, const std::string& repo)
 {
   return searchRepos(1, user, repo);
 }
 
-string GithubCommand::getUserRepos(const string& user)
+std::string GithubCommand::getUserRepos(const std::string& user)
 {
   return searchRepos(10, user);
 }
 
-string GithubCommand::description() const
+std::string GithubCommand::description() const
 {
   return "показать различную инфу из GitHub";
 }
 
-string GithubCommand::trigger() const
+std::string GithubCommand::trigger() const
 {
   return "+гитхаб";
 }
 
-string GithubCommand::execute(const CommandParams& inputData)
+std::string GithubCommand::execute(const CommandParams& inputData)
 {
   //... Я обосрался, сделав в CommandParams поле, хранящее сообщение строкой а не вектором строк.
   return "";

@@ -1,18 +1,20 @@
 #include "Utils.hpp"
+#include "Info.hpp"
 #include "Invoker.hpp"
 
-using std::string;
-using std::vector;
-using nlohmann::json;
+extern template class nlohmann::basic_json<>;
 
-void bot::Invoker::initCommand(bot::ICommand* command)
+using nlohmann::json;
+using bot::Invoker;
+
+void Invoker::initCommand(bot::ICommand* command)
 {
   commands.emplace_back(command);
 }
 
-void bot::Invoker::tryExecute(const json& response)
+void Invoker::tryExecute(const json& response)
 {
-  string responseType = response["type"];
+  std::string responseType = response["type"];
 
   if (responseType == "message_new") {
     processMessageEvent(response);
@@ -26,33 +28,39 @@ void bot::Invoker::tryExecute(const json& response)
   }
 }
 
-void bot::Invoker::processMessageEvent(const json& response)
+void Invoker::processMessageEvent(const json& response)
 {
-  string message = response["object"]["message"]["text"].get<string>();
+  std::string message = response["object"]["message"]["text"].get<std::string>();
   long peer_id = response["object"]["message"]["peer_id"].get<long>();
 
   if (not message.empty())
   {
-    vector<string> args = util::split(message);
+    std::vector<std::string> args = util::split(message);
     for (const auto& command : commands)
     {
       if (command->trigger() == args[0])
       {
+        info::processedMessages++;
         vkapi::send_message(command->execute({util::getArgs(message), peer_id}), peer_id);
+        return;
+      }
+      else if (args[0] == "+помощь")
+      {
+        vkapi::send_message(generateHelp(), peer_id);
         return;
       }
     }
   }
 }
 
-void bot::Invoker::processNewPostEvent(const json& response)
+void Invoker::processNewPostEvent(const json& response)
 {
   return; // ...
 }
 
-std::string bot::Invoker::generateHelp()
+std::string Invoker::generateHelp()
 {
-  std::string help;
+  std::string help = "Список команд:\n";
   for (const auto& command : commands)
   {
     help += command->trigger();

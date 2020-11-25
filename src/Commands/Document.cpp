@@ -1,25 +1,25 @@
-#include "Document.hpp"
 #include "Utils.hpp"
+#include "VkAPI.hpp"
+#include "Document.hpp"
 
-using std::string;
 using bot::command::DocumentCommand;
 
-string DocumentCommand::description() const
+std::string DocumentCommand::description() const
 {
   return "поиск документов ВК";
 }
 
-string DocumentCommand::trigger() const
+std::string DocumentCommand::trigger() const
 {
   return "+доки";
 }
 
-string DocumentCommand::execute(const CommandParams& inputData)
+std::string DocumentCommand::execute(const CommandParams& inputData)
 {
   if (inputData.args.empty()) {
     return util::emptyArgs();
   }
-  string attachments = vkapi::media_search("docs.search", inputData.args);
+  std::string attachments = vkapi::media_search("docs.search", inputData.args);
   if (attachments.empty()) {
     return "";
   }

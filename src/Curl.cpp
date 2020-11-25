@@ -2,22 +2,20 @@
 
 #define CURL_DEBUG
 
-using namespace bot::cURL;
+extern template class std::map<std::string, std::string, std::allocator<std::string>>;
+extern template class std::pair<std::string, std::string>;
 
-using std::string;
-using std::map;
-
-string bot::cURL::urlencode(const string& url)
+std::string bot::cURL::urlencode(const std::string& url)
 {
   char* encoded = curl_easy_escape(NULL, url.c_str(), url.length());
-  string res{encoded};
+  std::string res{encoded};
   curl_free(encoded);
   return res;
 }
 
 static size_t write(void* contents, size_t size, size_t nmemb, void* userp)
 {
-  (static_cast<string*>(userp))->append(static_cast<char*>(contents), size * nmemb);
+  (static_cast<std::string*>(userp))->append(static_cast<char*>(contents), size * nmemb);
   return size * nmemb;
 }
 
@@ -26,9 +24,9 @@ static size_t file_write(void* ptr, size_t size, size_t nmemb, FILE* stream)
   return fwrite(ptr, size, nmemb, stream);
 }
 
-string bot::cURL::to_json(const map<string, string>& body)
+std::string bot::cURL::toJson(const std::map<std::string, std::string>& body)
 {
-  string result;
+  std::string result;
   result += '{';
   bool iscomma = false;
   for (const auto& element : body) {
@@ -36,15 +34,15 @@ string bot::cURL::to_json(const map<string, string>& body)
       result += ",";
     }
     iscomma = true;
-    result += string{ "\"" + element.first + "\":\"" + element.second + "\"" };
+    result += std::string{ "\"" + element.first + "\":\"" + element.second + "\"" };
   }
   result += '}';
   return result;
 }
 
-string bot::cURL::requestdata(string method, const string& data)
+std::string bot::cURL::requestdata(std::string method, const std::string& data)
 {
-  string buffer;
+  std::string buffer;
   CURL*  curl;
   curl = curl_easy_init();
   if (curl) {
@@ -59,21 +57,21 @@ string bot::cURL::requestdata(string method, const string& data)
   return buffer;
 }
 
-static string genparams(const map<string, string>& body)
+static std::string genparams(const std::map<std::string, std::string>& body)
 {
-  string result;
+  std::string result;
   for (const auto& element : body) {
-    result += element.first + '=' + urlencode(element.second) + '&';
+    result += element.first + '=' + bot::cURL::urlencode(element.second) + '&';
   }
   return result;
 }
 
 /* Bottleneck. */
-string bot::cURL::request(const string& method, const map<string, string>& body)
+std::string bot::cURL::request(const std::string& method, const std::map<std::string, std::string>& body)
 {
-  string url = method;
+  std::string url = method;
   url += genparams(body);
-  string buffer;
+  std::string buffer;
   CURL*  curl = curl_easy_init();
   if (curl) {
 #if defined CURL_DEBUG
@@ -93,12 +91,12 @@ string bot::cURL::request(const string& method, const map<string, string>& body)
   return buffer;
 }
 
-string bot::cURL::append_vkurl(const string &method)
+std::string bot::cURL::appendVkUrl(const std::string &method)
 {
   return "https://api.vk.com/method/" + method + '?';
 }
 
-std::size_t bot::cURL::download(const string& filename, const string& outputfile)
+std::size_t bot::cURL::download(const std::string& filename, const std::string& outputfile)
 {
   CURL* curl;
   FILE* fp;
@@ -121,7 +119,7 @@ std::size_t bot::cURL::download(const string& filename, const string& outputfile
   return 0;
 }
 
-string bot::cURL::upload(const string& filename, const string& server)
+std::string bot::cURL::upload(const std::string& filename, const std::string& server)
 {
   CURL* curl_handle = curl_easy_init();
   CURLcode curl_result;
@@ -143,7 +141,7 @@ string bot::cURL::upload(const string& filename, const string& server)
   curl_result = curl_easy_perform(curl_handle);
 
   if (curl_result != CURLE_OK) {
-     data = string{"curl_easy_perform() failed: "} + curl_easy_strerror(curl_result);
+     data = std::string{"curl_easy_perform() failed: "} + curl_easy_strerror(curl_result);
   }
   curl_easy_cleanup(curl_handle);
   curl_formfree(formpost);

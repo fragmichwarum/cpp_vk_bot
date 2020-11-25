@@ -1,20 +1,20 @@
 #include "Kick.hpp"
 #include "Utils.hpp"
+#include "VkAPI.hpp"
 
-using std::string;
 using bot::command::KickCommand;
 
-string KickCommand::description() const
+std::string KickCommand::description() const
 {
   return "кикнуть юзера из беседы";
 }
 
-string KickCommand::trigger() const
+std::string KickCommand::trigger() const
 {
   return "+кик";
 }
 
-long KickCommand::extractId(const string& username)
+long KickCommand::extractId(const std::string& username)
 {
   /** [@id123456789|...] */
   /**     ^       ^      */
@@ -22,7 +22,7 @@ long KickCommand::extractId(const string& username)
   return stol(username.substr(3, 9));
 }
 
-string KickCommand::execute(const CommandParams& inputData)
+std::string KickCommand::execute(const CommandParams& inputData)
 {
   if (inputData.args.empty()) {
     return util::emptyArgs();

@@ -4,9 +4,10 @@
 #include <memory>
 
 #include "ICommand.hpp"
+#include "VkAPI.hpp"
 
-#include "Logger.hpp"
-#include "Database.hpp"
+//#include "Logger.hpp"
+//#include "Database.hpp"
 
 namespace bot
 {

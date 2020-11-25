@@ -1,29 +1,31 @@
 #include "Curl.hpp"
+#include "Info.hpp"
 #include "Online.hpp"
+#include "VkAPI.hpp"
 
-using std::string;
-using std::to_string;
+//extern template class nlohmann::basic_json<>;
+
 using nlohmann::json;
 using bot::command::OnlineCommand;
 
-string OnlineCommand::description() const
+std::string OnlineCommand::description() const
 {
   return "показать участников онлайн";
 }
 
-string OnlineCommand::trigger() const
+std::string OnlineCommand::trigger() const
 {
   return "+онлайн";
 }
 
-string OnlineCommand::execute(const CommandParams& inputData)
+std::string OnlineCommand::execute(const CommandParams& inputData)
 {
   json parsed =
-    json::parse(cURL::request(cURL::append_vkurl("messages.getConversationMembers"),
+    json::parse(cURL::request(cURL::appendVkUrl("messages.getConversationMembers"),
      {{ "fields",       "online"           },
-      { "peer_id",      to_string(inputData.peer_id)},
+      { "peer_id",      std::to_string(inputData.peer_id)},
       { "random_id",    "0"                },
-      { "access_token", info::access_token },
+      { "access_token", info::accessToken  },
       { "v",            info::version      }}));
 
   if (not parsed["error"].is_null() &&
@@ -31,12 +33,12 @@ string OnlineCommand::execute(const CommandParams& inputData)
   {
     return "Упс, кажется у бота нет админки.";
   }
-  string people = "Список людей онлайн:\n";
+  std::string people = "Список людей онлайн:\n";
   for (const auto& profile : parsed["response"]["profiles"]) {
     if (profile["online"] == 1) {
-      people += "@id" + to_string(profile["id"].get<long>()) + '('
-             +  profile["first_name"].get<string>() + ' '
-             +  profile["last_name"].get<string>() + ")\n";
+      people += "@id" + std::to_string(profile["id"].get<long>()) + '('
+             +  profile["first_name"].get<std::string>() + ' '
+             +  profile["last_name"].get<std::string>() + ")\n";
     }
   }
   return people;

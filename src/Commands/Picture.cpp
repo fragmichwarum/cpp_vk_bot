@@ -1,25 +1,25 @@
 #include "Picture.hpp"
 #include "Utils.hpp"
+#include "VkAPI.hpp"
 
-using std::string;
 using bot::command::PictureCommand;
 
-string PictureCommand::description() const
+std::string PictureCommand::description() const
 {
   return "поиск картинок ВК";
 }
 
-string PictureCommand::trigger() const
+std::string PictureCommand::trigger() const
 {
   return "+пикча";
 }
 
-string PictureCommand::execute(const CommandParams& inputData)
+std::string PictureCommand::execute(const CommandParams& inputData)
 {
   if (inputData.args.empty()) {
     return util::emptyArgs();
   }
-  string attachments = vkapi::media_search("photos.search", inputData.args);
+  std::string attachments = vkapi::media_search("photos.search", inputData.args);
   if (attachments.empty()) {
     return "";
   }

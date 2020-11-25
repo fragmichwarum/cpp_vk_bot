@@ -1,19 +1,18 @@
-#include "Currency.hpp"
 #include "Curl.hpp"
+#include "VkAPI.hpp"
+#include "Currency.hpp"
 
-using std::string;
-using std::to_string;
-using std::vector;
+extern template class nlohmann::basic_json<>;
+
 using nlohmann::json;
 using bot::command::CurrencyCommand;
-using namespace bot::cURL;
 
-string CurrencyCommand::description() const
+std::string CurrencyCommand::description() const
 {
   return "показать курс валют";
 }
 
-string CurrencyCommand::trigger() const
+std::string CurrencyCommand::trigger() const
 {
   return "+курс";
 }
@@ -46,17 +45,17 @@ void CurrencyCommand::tryCache(const uint64_t& updateInterval)
   }
 }
 
-string CurrencyCommand::execute([[maybe_unused]] const CommandParams& inputData)
+std::string CurrencyCommand::execute([[maybe_unused]] const CommandParams& inputData)
 {
   tryCache(600);
-  string result;
+  std::string result;
   result += "Курс валют:\n";
-  for (const string& currency : currency_list) {
-    result += to_string(cachedCurrency["Valute"][currency]["Nominal"].get<long>());
+  for (const std::string& currency : currency_list) {
+    result += std::to_string(cachedCurrency["Valute"][currency]["Nominal"].get<long>());
     result += ' ';
     result += cachedCurrency["Valute"][currency]["Name"];
     result += " -> ";
-    result += to_string(cachedCurrency["Valute"][currency]["Value"].get<double>()) + "₽\n";
+    result += std::to_string(cachedCurrency["Valute"][currency]["Value"].get<double>()) + "₽\n";
   }
   return result;
 }

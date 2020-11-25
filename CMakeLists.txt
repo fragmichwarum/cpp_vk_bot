@@ -21,6 +21,7 @@ set(SOURCES
   src/VkAPI.cpp
   main.cpp
 )
+
 set(COMMAND_SOURCES
   src/Commands/About.cpp
   src/Commands/Cat.cpp
@@ -39,9 +40,11 @@ set(COMMAND_SOURCES
   src/Commands/Weather.cpp
   src/Commands/Who.cpp
 )
+
 set(HEADERS
   include/Curl.hpp
   include/Database.hpp
+  include/Info.hpp
   include/Invoker.hpp
   include/ICommand.hpp
   include/LongPoll.hpp
@@ -50,6 +53,7 @@ set(HEADERS
   include/VkAPI.hpp
   include/Utils.hpp
 )
+
 set(COMMAND_HEADERS
   include/Commands/About.hpp
   include/Commands/Cat.hpp
@@ -69,6 +73,7 @@ set(COMMAND_HEADERS
   include/Commands/Weather.hpp
   include/Commands/Who.hpp
 )
+
 set(INTERNAL_LIBS
   lib/src/crc32.cpp
   lib/include/crc32.hpp

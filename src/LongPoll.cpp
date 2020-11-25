@@ -2,6 +2,7 @@
 
 #include "LongPoll.hpp"
 #include "Curl.hpp"
+#include "Info.hpp"
 
 #include "About.hpp"
 #include "Cat.hpp"
@@ -21,18 +22,14 @@
 #include "Weather.hpp"
 #include "Who.hpp"
 
-using std::string;
-using std::thread;
-using std::vector;
+extern template class std::vector<std::string>;
 
 using bot::LongPoll;
-using nlohmann::json;
-using namespace bot::cURL;
-using namespace bot::info;
+using namespace nlohmann;
 using namespace bot::command;
 
 LongPoll::LongPoll()
-  : _numThreads(thread::hardware_concurrency())
+  : _numThreads(std::thread::hardware_concurrency())
 { }
 
 void LongPoll::_init_invoker()
@@ -55,13 +52,14 @@ void LongPoll::_init_invoker()
   _invoker->initCommand(new WhoCommand);
 }
 
-void LongPoll::_get_server() {
+void LongPoll::_get_server()
+{
   json poll =
-    json::parse(request(append_vkurl("groups.getLongPollServer"),
-     {{ "group_id",     group_id     },
-      { "random_id",    "0"          },
-      { "access_token", access_token },
-      { "v",            version      }}));
+    json::parse(cURL::request(cURL::appendVkUrl("groups.getLongPollServer"),
+     {{ "group_id",     info::groupId      },
+      { "random_id",    "0"                },
+      { "access_token", info::accessToken  },
+      { "v",            info::version      }}));
 
   if (not poll["error"]["error_code"].is_null()) {
     throw Vk_exception(poll["error"]["error_code"].get<long>());
@@ -72,19 +70,21 @@ void LongPoll::_get_server() {
   _ts     = poll["response"]["ts"];
 }
 
-void LongPoll::_singleThreadProcessing(const nlohmann::json& update) {
+void LongPoll::_singleThreadProcessing(const nlohmann::json& update)
+{
   _invoker->tryExecute(update);
 }
 
-void LongPoll::_multithreadProcessing(const nlohmann::json& updates) {
-  vector<thread> threads;
+void LongPoll::_multithreadProcessing(const nlohmann::json& updates)
+{
+  std::vector<std::thread> threads;
 
   if (updates.size() <= _numThreads) {
     for (const json& update : updates) {
-      threads.push_back(thread([&](){_invoker->tryExecute(update);}));
+      threads.push_back(std::thread([&](){_invoker->tryExecute(update);}));
     }
 
-    for (thread& th : threads) {
+    for (std::thread& th : threads) {
       th.join();
     }
     return;
@@ -92,9 +92,9 @@ void LongPoll::_multithreadProcessing(const nlohmann::json& updates) {
 
   threads.clear();
   for (std::size_t i = 0; i < updates.size(); i++) {
-    threads.push_back(thread([&](){_invoker->tryExecute(updates[i]);}));
+    threads.push_back(std::thread([&](){_invoker->tryExecute(updates[i]);}));
     if (i % _numThreads == 0) {
-      for (thread& th : threads) {
+      for (std::thread& th : threads) {
         th.join();
       }
       threads.clear();
@@ -109,7 +109,7 @@ void LongPoll::loop()
 
   while (true) {
     json lp =
-      json::parse(request(_server + "?",
+      json::parse(cURL::request(_server + "?",
        {{ "act",  "a_check" },
         { "key",  _key      },
         { "ts",   _ts       },
@@ -121,10 +121,6 @@ void LongPoll::loop()
     }
 
     _ts = lp["ts"];
-
-//    for (const json& update : lp["updates"]) {
-//      _invoker->tryExecute(update);
-//    }
 
     json updates = lp["updates"];
     if (updates.size() == 1) {

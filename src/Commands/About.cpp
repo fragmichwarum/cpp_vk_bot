@@ -1,26 +1,25 @@
 #include <chrono>
 
+#include "Info.hpp"
 #include "About.hpp"
 
-using std::string;
-using std::to_string;
 using bot::command::AboutCommand;
 
-string AboutCommand::description() const
+std::string AboutCommand::description() const
 {
   return "показать информацию о боте";
 }
 
-string AboutCommand::trigger() const
+std::string AboutCommand::trigger() const
 {
   return "+оботе";
 }
 
 AboutCommand::AboutCommand()
-  : buildTime(string(__DATE__) + ' ' + string(__TIME__))
+  : buildTime(std::string(__DATE__) + ' ' + std::string(__TIME__))
 { }
 
-string AboutCommand::execute([[maybe_unused]] const CommandParams& inputData)
+std::string AboutCommand::execute([[maybe_unused]] const CommandParams& inputData)
 {
   return
     "C++ bot,\n"

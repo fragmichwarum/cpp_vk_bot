@@ -1,40 +1,42 @@
 #include "Face.hpp"
 #include "Curl.hpp"
+#include "Info.hpp"
+#include "VkAPI.hpp"
 
-using std::string;
-using std::to_string;
+extern template class nlohmann::basic_json<>;
+
 using nlohmann::json;
 using bot::command::FaceCommand;
 
-string FaceCommand::description() const
+std::string FaceCommand::description() const
 {
   return "случайное стрёмное лицо";
 }
 
-string FaceCommand::trigger() const
+std::string FaceCommand::trigger() const
 {
   return "+лицо";
 }
 
-string FaceCommand::execute([[maybe_unused]]const CommandParams& inputData)
+std::string FaceCommand::execute([[maybe_unused]]const CommandParams& inputData)
 {
-  const string file = "face.jpg";
+  const std::string file = "face.jpg";
   json cat_api_response = json::parse(cURL::request("https://faceapi.herokuapp.com/faces?", {{"n", "1"}}));
   if (cat_api_response[0]["image_url"].is_null()) {
     return "Что-то пошло не так.";
   }
 _mutex.lock();
-  if (cURL::download(cat_api_response[0]["image_url"].get<string>(), file) != 0) {
+  if (cURL::download(cat_api_response[0]["image_url"].get<std::string>(), file) != 0) {
     return "Ошибка при скачивании файла.";
   }
 
   json response =
-    json::parse(cURL::request(cURL::append_vkurl("photos.getMessagesUploadServer"),
-     {{ "access_token", info::access_token     },
-      { "peer_id",      to_string(inputData.peer_id)},
-      { "album_id",     "0"                    },
-      { "group_id",     info::group_id         },
-      { "v",            info::version          }
+    json::parse(cURL::request(cURL::appendVkUrl("photos.getMessagesUploadServer"),
+     {{ "access_token", info::accessToken  },
+      { "peer_id",      std::to_string(inputData.peer_id)},
+      { "album_id",     "0"                },
+      { "group_id",     info::groupId      },
+      { "v",            info::version      }
      }));
 
   using owner_id = long;
@@ -43,7 +45,7 @@ _mutex.lock();
   std::pair<owner_id, id> attachment = vkapi::upload_attachment("photo", file, response["response"]["upload_url"]);
 _mutex.unlock();
 
-  vkapi::send_message("", inputData.peer_id, {{"attachment", "photo" + to_string(attachment.first)
-                          + "_" + to_string(attachment.second)}});
+  vkapi::send_message("", inputData.peer_id, {{"attachment", "photo" + std::to_string(attachment.first)
+                          + "_" + std::to_string(attachment.second)}});
   return "";
 }

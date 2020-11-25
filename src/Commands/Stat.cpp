@@ -1,11 +1,13 @@
 #include "Stat.hpp"
+#include "Info.hpp"
+#include "../lib/include/Json.hpp"
 
-using std::string;
-using std::to_string;
+extern template class nlohmann::basic_json<>;
+
 using nlohmann::json;
 using bot::command::StatCommand;
 
-string StatCommand::lineparse(const string& line)
+std::string StatCommand::lineparse(const std::string& line)
 {
   std::string result;
   for (char c : line) {
@@ -16,7 +18,7 @@ string StatCommand::lineparse(const string& line)
   return result;
 }
 
-string StatCommand::procinfo(const std::string& filename, const std::string& param)
+std::string StatCommand::procinfo(const std::string& filename, const std::string& param)
 {
   FILE* file = fopen(filename.c_str(), "r");
   std::string result;
@@ -31,7 +33,7 @@ string StatCommand::procinfo(const std::string& filename, const std::string& par
   return "";
 }
 
-string StatCommand::os_exec(const std::string& cmd)
+std::string StatCommand::os_exec(const std::string& cmd)
 {
   std::string result;
   std::array<char, 128> buffer;
@@ -42,22 +44,22 @@ string StatCommand::os_exec(const std::string& cmd)
   return result;
 }
 
-string StatCommand::description() const
+std::string StatCommand::description() const
 {
   return "Показать статистику";
 }
 
-string StatCommand::trigger() const
+std::string StatCommand::trigger() const
 {
   return "+стат";
 }
 
-string StatCommand::execute([[maybe_unused]] const CommandParams& inputData)
+std::string StatCommand::execute([[maybe_unused]] const CommandParams& inputData)
 {
   return
     "Всего памяти: "      + procinfo("/proc/meminfo", "MemTotal:") + "KiB.\n"
     "Использовано ОЗУ: "  + procinfo("/proc/self/status", "VmRSS:") + "KiB.\n"
     "Потоков занято: "    + procinfo("/proc/self/status", "Threads:") + '\n' +
     "Аптайм: "            + os_exec("ps -eo lstart,etime,cmd | grep FactoryVK | awk '{print $6}' | head -1") +
-    "Команд обработано: " + to_string(++_processedMessages);
+    "Команд обработано: " + std::to_string(info::processedMessages);
 }

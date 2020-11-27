@@ -5,11 +5,12 @@ project(FactoryVK LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_VERBOSE_MAKEFILE ON)
+set(CMAKE_CXX_FLAGS -flto)
 
 include_directories(include)
 include_directories(include/Commands)
 
-find_package( Threads )
+find_package(Threads)
 
 set(SOURCES
   src/Curl.cpp
@@ -29,7 +30,6 @@ set(COMMAND_SOURCES
   src/Commands/Currency.cpp
   src/Commands/Document.cpp
   src/Commands/Genius.cpp
-  src/Commands/Github.cpp
   src/Commands/Kick.cpp
   src/Commands/Stat.cpp
   src/Commands/Face.cpp
@@ -49,6 +49,7 @@ set(HEADERS
   include/ICommand.hpp
   include/LongPoll.hpp
   include/Logger.hpp
+  include/Traits.hpp
   include/VkError.hpp
   include/VkAPI.hpp
   include/Utils.hpp
@@ -63,7 +64,6 @@ set(COMMAND_HEADERS
   include/Commands/Document.hpp
   include/Commands/Face.hpp
   include/Commands/Genius.hpp
-  include/Commands/Github.hpp
   include/Commands/Kick.hpp
   include/Commands/Online.hpp
   include/Commands/Picture.hpp
@@ -88,4 +88,4 @@ add_executable(
   ${COMMAND_HEADERS}
   ${INTERNAL_LIBS}
 )
-target_link_libraries( FactoryVK curl pthread )
+target_link_libraries(FactoryVK curl pthread)

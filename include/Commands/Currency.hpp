@@ -17,9 +17,9 @@ private:
 
 public:
   CurrencyCommand();
-  std::string execute(const CommandParams& inputData) override;
-  std::string description() const override;
-  std::string trigger() const override;
+  const std::string execute(const CommandParams& inputData) override;
+  const std::string description() const override;
+  const std::string trigger() const override;
  ~CurrencyCommand()
   { }
 };

@@ -2,10 +2,7 @@
 
 #define CURL_DEBUG
 
-extern template class std::map<std::string, std::string, std::allocator<std::string>>;
-extern template class std::pair<std::string, std::string>;
-
-std::string bot::cURL::urlencode(const std::string& url)
+const std::string bot::cURL::urlencode(const std::string& url)
 {
   char* encoded = curl_easy_escape(NULL, url.c_str(), url.length());
   std::string res{encoded};
@@ -24,7 +21,7 @@ static size_t file_write(void* ptr, size_t size, size_t nmemb, FILE* stream)
   return fwrite(ptr, size, nmemb, stream);
 }
 
-std::string bot::cURL::toJson(const std::map<std::string, std::string>& body)
+const std::string bot::cURL::toJson(const std::map<std::string, std::string>& body)
 {
   std::string result;
   result += '{';
@@ -40,7 +37,7 @@ std::string bot::cURL::toJson(const std::map<std::string, std::string>& body)
   return result;
 }
 
-std::string bot::cURL::requestdata(std::string method, const std::string& data)
+const std::string bot::cURL::requestdata(const std::string& method, const std::string& data)
 {
   std::string buffer;
   CURL*  curl;
@@ -57,7 +54,7 @@ std::string bot::cURL::requestdata(std::string method, const std::string& data)
   return buffer;
 }
 
-static std::string genparams(const std::map<std::string, std::string>& body)
+static const std::string genparams(const bot::traits::dictionary& body)
 {
   std::string result;
   for (const auto& element : body) {
@@ -67,7 +64,7 @@ static std::string genparams(const std::map<std::string, std::string>& body)
 }
 
 /* Bottleneck. */
-std::string bot::cURL::request(const std::string& method, const std::map<std::string, std::string>& body)
+const std::string bot::cURL::request(const std::string& method, const traits::dictionary& body)
 {
   std::string url = method;
   url += genparams(body);
@@ -91,7 +88,7 @@ std::string bot::cURL::request(const std::string& method, const std::map<std::st
   return buffer;
 }
 
-std::string bot::cURL::appendVkUrl(const std::string &method)
+const std::string bot::cURL::appendVkUrl(const std::string& method)
 {
   return "https://api.vk.com/method/" + method + '?';
 }
@@ -119,7 +116,7 @@ std::size_t bot::cURL::download(const std::string& filename, const std::string& 
   return 0;
 }
 
-std::string bot::cURL::upload(const std::string& filename, const std::string& server)
+const std::string bot::cURL::upload(const std::string& filename, const std::string& server)
 {
   CURL* curl_handle = curl_easy_init();
   CURLcode curl_result;

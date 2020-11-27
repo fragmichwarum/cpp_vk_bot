@@ -4,12 +4,12 @@
 
 using bot::command::KickCommand;
 
-std::string KickCommand::description() const
+const std::string KickCommand::description() const
 {
   return "кикнуть юзера из беседы";
 }
 
-std::string KickCommand::trigger() const
+const std::string KickCommand::trigger() const
 {
   return "+кик";
 }
@@ -17,12 +17,12 @@ std::string KickCommand::trigger() const
 long KickCommand::extractId(const std::string& username)
 {
   /** [@id123456789|...] */
-  /**     ^       ^      */
-  /**     3       9      */
+  /**    ^        ^      */
+  /**    3        9      */
   return stol(username.substr(3, 9));
 }
 
-std::string KickCommand::execute(const CommandParams& inputData)
+const std::string KickCommand::execute(const CommandParams& inputData)
 {
   if (inputData.args.empty()) {
     return util::emptyArgs();

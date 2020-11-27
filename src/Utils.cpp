@@ -1,4 +1,5 @@
 #include "Utils.hpp"
+#include <functional>
 
 std::vector<std::string> bot::util::split(const std::string& text)
 {
@@ -12,6 +13,9 @@ std::string bot::util::getArgs(const std::string& message)
 {
   std::vector<std::string> splitted = split(message);
   splitted.erase(splitted.begin());
+  if (splitted.empty()) {
+    return "";
+  }
   std::string args = std::accumulate(splitted.begin(), splitted.end(), std::string{ },
                 [](std::string& body, std::string& el){ return body += el + ' '; });
   args.erase(--args.end());

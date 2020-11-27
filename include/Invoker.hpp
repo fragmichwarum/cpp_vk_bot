@@ -11,6 +11,12 @@
 
 namespace bot
 {
+enum EVENT
+{
+  MESSAGE_NEW   = 0x42d6cea9,
+  WALL_POST_NEW = 0x107c64c0
+};
+
 class Invoker
 {
 private:

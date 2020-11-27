@@ -5,12 +5,12 @@
 
 using bot::command::AboutCommand;
 
-std::string AboutCommand::description() const
+const std::string AboutCommand::description() const
 {
   return "показать информацию о боте";
 }
 
-std::string AboutCommand::trigger() const
+const std::string AboutCommand::trigger() const
 {
   return "+оботе";
 }
@@ -19,7 +19,7 @@ AboutCommand::AboutCommand()
   : buildTime(std::string(__DATE__) + ' ' + std::string(__TIME__))
 { }
 
-std::string AboutCommand::execute([[maybe_unused]] const CommandParams& inputData)
+const std::string AboutCommand::execute([[maybe_unused]] const CommandParams& inputData)
 {
   return
     "C++ bot,\n"

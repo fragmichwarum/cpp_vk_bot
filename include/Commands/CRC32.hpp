@@ -11,15 +11,15 @@ namespace command
 class CRC32Command final : public ICommand
 {
 public:
-  std::string execute([[maybe_unused]]const CommandParams& inputData) override
+  const std::string execute([[maybe_unused]]const CommandParams& inputData) override
   {
-    return "0x" + bot::util::longToHexStr(crc32gen(inputData.args.c_str()));
+    return not inputData.args.empty() ? util::emptyArgs() : "0x" + util::longToHexStr(crc32gen(inputData.args.c_str()));
   }
-  std::string description() const override
+  const std::string description() const override
   {
     return "сгенерить CRC-32 хеш-сумму строки";
   }
-  std::string trigger() const override
+  const std::string trigger() const override
   {
     return "+crc32";
   }

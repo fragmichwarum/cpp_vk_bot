@@ -9,17 +9,17 @@ extern template class nlohmann::basic_json<>;
 using nlohmann::json;
 using bot::command::WhoCommand;
 
-std::string WhoCommand::description() const
+const std::string WhoCommand::description() const
 {
   return "выбрать случайного участника";
 }
 
-std::string WhoCommand::trigger() const
+const std::string WhoCommand::trigger() const
 {
   return "+кто";
 }
 
-std::string WhoCommand::execute(const CommandParams& inputData)
+const std::string WhoCommand::execute(const CommandParams& inputData)
 {
   if (inputData.args.empty()) {
     return util::emptyArgs();

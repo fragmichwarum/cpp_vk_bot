@@ -4,17 +4,17 @@
 
 using bot::command::VideoCommand;
 
-std::string VideoCommand::description() const
+const std::string VideoCommand::description() const
 {
   return "поиск видео ВК";
 }
 
-std::string VideoCommand::trigger() const
+const std::string VideoCommand::trigger() const
 {
   return "+видео";
 }
 
-std::string VideoCommand::execute(const CommandParams& inputData)
+const std::string VideoCommand::execute(const CommandParams& inputData)
 {
   if (inputData.args.empty()) {
     return util::emptyArgs();

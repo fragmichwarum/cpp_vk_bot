@@ -12,7 +12,6 @@
 #include "Document.hpp"
 #include "Face.hpp"
 #include "Genius.hpp"
-#include "Github.hpp"
 #include "Kick.hpp"
 #include "Online.hpp"
 #include "Picture.hpp"
@@ -21,8 +20,6 @@
 #include "Video.hpp"
 #include "Weather.hpp"
 #include "Who.hpp"
-
-extern template class std::vector<std::string>;
 
 using bot::LongPoll;
 using namespace nlohmann;
@@ -72,7 +69,7 @@ void LongPoll::_get_server()
 
 void LongPoll::_singleThreadProcessing(const nlohmann::json& update)
 {
-  _invoker->tryExecute(update);
+  _invoker->tryExecute(std::move(update));
 }
 
 void LongPoll::_multithreadProcessing(const nlohmann::json& updates)

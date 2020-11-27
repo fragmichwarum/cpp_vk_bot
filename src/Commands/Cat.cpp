@@ -8,17 +8,17 @@ extern template class nlohmann::basic_json<>;
 using nlohmann::json;
 using bot::command::CatCommand;
 
-std::string CatCommand::description() const
+const std::string CatCommand::description() const
 {
   return "Рандомный котик";
 }
 
-std::string CatCommand::trigger() const
+const std::string CatCommand::trigger() const
 {
   return "+котик";
 }
 
-std::string CatCommand::execute([[maybe_unused]]const CommandParams& inputData)
+const std::string CatCommand::execute([[maybe_unused]]const CommandParams& inputData)
 {
   std::string file = "face.jpg";
   json face_api_response = json::parse(cURL::request("https://api.thecatapi.com/v1/images/search", {}));

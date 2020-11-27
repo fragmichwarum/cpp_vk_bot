@@ -4,17 +4,17 @@
 
 using bot::command::PictureCommand;
 
-std::string PictureCommand::description() const
+const std::string PictureCommand::description() const
 {
   return "поиск картинок ВК";
 }
 
-std::string PictureCommand::trigger() const
+const std::string PictureCommand::trigger() const
 {
   return "+пикча";
 }
 
-std::string PictureCommand::execute(const CommandParams& inputData)
+const std::string PictureCommand::execute(const CommandParams& inputData)
 {
   if (inputData.args.empty()) {
     return util::emptyArgs();

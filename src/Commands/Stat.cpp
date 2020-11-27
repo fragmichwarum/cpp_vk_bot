@@ -44,17 +44,17 @@ std::string StatCommand::os_exec(const std::string& cmd)
   return result;
 }
 
-std::string StatCommand::description() const
+const std::string StatCommand::description() const
 {
   return "Показать статистику";
 }
 
-std::string StatCommand::trigger() const
+const std::string StatCommand::trigger() const
 {
   return "+стат";
 }
 
-std::string StatCommand::execute([[maybe_unused]] const CommandParams& inputData)
+const std::string StatCommand::execute([[maybe_unused]] const CommandParams& inputData)
 {
   return
     "Всего памяти: "      + procinfo("/proc/meminfo", "MemTotal:") + "KiB.\n"

@@ -3,45 +3,47 @@
 #include "Curl.hpp"
 #include "../lib/include/Json.hpp"
 
+extern template class nlohmann::basic_json<>;
+
 using nlohmann::json;
 using bot::command::WeatherCommand;
 
-std::string WeatherCommand::description() const
+const std::string WeatherCommand::description() const
 {
   return "показать погоду.";
 }
 
-std::string WeatherCommand::trigger() const
+const std::string WeatherCommand::trigger() const
 {
   return "+погода";
 }
 
-json WeatherCommand::executeQuery(const std::string& inputData)
+bot::traits::dictionary WeatherCommand::generateQuery(const std::string& inputData)
 {
   return
-    json::parse(cURL::request("http://api.openweathermap.org/data/2.5/weather?",
-     {{ "lang",  "ru"        },
-      { "units", "metric"    },
-      { "APPID", "ef23e5397af13d705cfb244b33d04561" },
-      { "q",      inputData  }}));
+   {{ "lang",  "ru"       },
+    { "units", "metric"   },
+    { "APPID", "ef23e5397af13d705cfb244b33d04561"},
+    { "q",      inputData }};
 }
 
-std::string WeatherCommand::execute(const CommandParams& inputData)
+const std::string WeatherCommand::execute(const CommandParams& inputData)
 {
   if (inputData.args.empty()) {
     return util::emptyArgs();
   }
 
-  json weather = executeQuery(inputData.args);
+  json weather =
+      json::parse(cURL::request("http://api.openweathermap.org/data/2.5/weather?", generateQuery(inputData.args)));
 
   if (weather["weather"].is_null()) {
     return "Нет такого города.";
   }
 
   std::string description = weather["weather"][0]["description"];
-  int temp           = weather["main"]["temp"];
-  int feels_like     = weather["main"]["feels_like"];
-  int humidity       = weather["main"]["humidity"];
+  long temp = weather["main"]["temp"];
+  long feels_like = weather["main"]["feels_like"];
+  long humidity = weather["main"]["humidity"];
   std::string city_name = weather["name"];
   return
     "Сейчас в  " + city_name + " " + std::to_string(temp) +

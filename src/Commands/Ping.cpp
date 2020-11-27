@@ -4,17 +4,17 @@
 
 using bot::command::PingCommand;
 
-std::string PingCommand::description() const
+const std::string PingCommand::description() const
 {
   return "проверить пинг до ВК 10 раз";
 }
 
-std::string PingCommand::trigger() const
+const std::string PingCommand::trigger() const
 {
   return "+пинг";
 }
 
-std::string PingCommand::execute([[maybe_unused]] const CommandParams& inputData)
+const std::string PingCommand::execute([[maybe_unused]] const CommandParams& inputData)
 {
   std::string ping = "Pinging users.get\n";
   float total = 0;

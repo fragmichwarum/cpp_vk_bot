@@ -4,17 +4,17 @@
 
 using bot::command::DocumentCommand;
 
-std::string DocumentCommand::description() const
+const std::string DocumentCommand::description() const
 {
   return "поиск документов ВК";
 }
 
-std::string DocumentCommand::trigger() const
+const std::string DocumentCommand::trigger() const
 {
   return "+доки";
 }
 
-std::string DocumentCommand::execute(const CommandParams& inputData)
+const std::string DocumentCommand::execute(const CommandParams& inputData)
 {
   if (inputData.args.empty()) {
     return util::emptyArgs();

@@ -7,17 +7,17 @@ extern template class nlohmann::basic_json<>;
 using nlohmann::json;
 using bot::command::CurrencyCommand;
 
-std::string CurrencyCommand::description() const
+const std::string CurrencyCommand::description() const
 {
   return "показать курс валют";
 }
 
-std::string CurrencyCommand::trigger() const
+const std::string CurrencyCommand::trigger() const
 {
   return "+курс";
 }
 
-static const std::vector<std::string> currency_list = {
+const std::vector<std::string> currency_list = {
   "GBP",
   "BYN",
   "USD",
@@ -45,7 +45,7 @@ void CurrencyCommand::tryCache(const uint64_t& updateInterval)
   }
 }
 
-std::string CurrencyCommand::execute([[maybe_unused]] const CommandParams& inputData)
+const std::string CurrencyCommand::execute([[maybe_unused]] const CommandParams& inputData)
 {
   tryCache(600);
   std::string result;

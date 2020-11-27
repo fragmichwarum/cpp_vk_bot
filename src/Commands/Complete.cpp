@@ -8,17 +8,17 @@ extern template class nlohmann::basic_json<>;
 using nlohmann::json;
 using bot::command::CompleteCommand;
 
-std::string CompleteCommand::description() const
+const std::string CompleteCommand::description() const
 {
   return "дополнить текст";
 }
 
-std::string CompleteCommand::trigger() const
+const std::string CompleteCommand::trigger() const
 {
   return "+дополни";
 }
 
-std::string CompleteCommand::execute(const CommandParams& inputData)
+const std::string CompleteCommand::execute(const CommandParams& inputData)
 {
   if (inputData.args.empty()) {
     return util::emptyArgs();

@@ -6,7 +6,7 @@
 
 namespace bot
 {
-class LongPoll final
+class LongPoll
 {
 private:
   std::string _server;

@@ -7,10 +7,7 @@
 
 using nlohmann::json;
 
-extern template class nlohmann::basic_json<>;
-
-static std::ifstream file("./init.json");
-const static json _data = json::parse(std::string(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>()));
+const json _data = json::parse(std::ifstream{"./init.json"});
 
       long        bot::info::processedMessages  = 0;
 const long        bot::info::adminId            = _data["admin_id"];
@@ -21,9 +18,9 @@ const std::string bot::info::version            = _data["api_v"];
 const std::string bot::info::errfile            = _data["path"]["err"];
 const std::string bot::info::logfile            = _data["path"]["log"];
 
-void bot::vkapi::send_message(const std::string& text, const long& peer_id, const std::map<std::string, std::string>& options)
+void bot::vkapi::send_message(const std::string& text, const long& peer_id, const traits::dictionary& options)
 {
-  std::map<std::string, std::string> parameters = {
+  traits::dictionary parameters = {
     { "message",      text               },
     { "peer_id",      std::to_string(peer_id) },
     { "random_id",    "0"                },
@@ -34,7 +31,7 @@ void bot::vkapi::send_message(const std::string& text, const long& peer_id, cons
 
   if (options.size() != 0) {
 #if __cplusplus >= 201703L
-    parameters.merge(std::map<std::string, std::string>{options});
+    parameters.merge(traits::dictionary{options});
 #else
     parameters.insert(options.begin(), options.end());
 #endif
@@ -109,7 +106,7 @@ std::string bot::vkapi::kick_user(const long& chat_id, const long& user_id)
   return "Arbeit macht frei.";
 }
 
-std::pair<long, long> bot::vkapi::upload_attachment(const std::string &type, const std::string &file, const std::string &server) /*const*/
+std::pair<long, long> bot::vkapi::upload_attachment(const std::string &type, const std::string &file, const std::string &server)
 {
   json uploaded_file = json::parse(cURL::upload(file, server));
 

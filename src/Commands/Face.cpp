@@ -8,17 +8,17 @@ extern template class nlohmann::basic_json<>;
 using nlohmann::json;
 using bot::command::FaceCommand;
 
-std::string FaceCommand::description() const
+const std::string FaceCommand::description() const
 {
   return "случайное стрёмное лицо";
 }
 
-std::string FaceCommand::trigger() const
+const std::string FaceCommand::trigger() const
 {
   return "+лицо";
 }
 
-std::string FaceCommand::execute([[maybe_unused]]const CommandParams& inputData)
+const std::string FaceCommand::execute([[maybe_unused]]const CommandParams& inputData)
 {
   const std::string file = "face.jpg";
   json cat_api_response = json::parse(cURL::request("https://faceapi.herokuapp.com/faces?", {{"n", "1"}}));

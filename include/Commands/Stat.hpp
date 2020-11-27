@@ -13,9 +13,9 @@ private:
   static std::string procinfo(const std::string& filename, const std::string& param);
   static std::string os_exec(const std::string& cmd);
 public:
-  std::string execute([[maybe_unused]]const CommandParams&) override;
-  std::string description() const override;
-  std::string trigger() const override;
+  const std::string execute([[maybe_unused]]const CommandParams&) override;
+  const std::string description() const override;
+  const std::string trigger() const override;
  ~StatCommand()
   { }
 };

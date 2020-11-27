@@ -8,17 +8,17 @@ extern template class nlohmann::basic_json<>;
 using bot::command::GeniusCommand;
 using nlohmann::json;
 
-std::string GeniusCommand::description() const
+const std::string GeniusCommand::description() const
 {
   return "поиск музыки на Genius";
 }
 
-std::string GeniusCommand::trigger() const
+const std::string GeniusCommand::trigger() const
 {
   return "+трек";
 }
 
-std::string GeniusCommand::execute(const CommandParams& inputData)
+const std::string GeniusCommand::execute(const CommandParams& inputData)
 {
   if (inputData.args.empty()) {
     return util::emptyArgs();

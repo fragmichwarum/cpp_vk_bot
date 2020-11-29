@@ -1,10 +1,9 @@
 #include "Stat.hpp"
 #include "Info.hpp"
-#include "../lib/include/Json.hpp"
+#include <array>
+#include <memory>
+#include <cstring>
 
-extern template class nlohmann::basic_json<>;
-
-using nlohmann::json;
 using bot::command::StatCommand;
 
 std::string StatCommand::lineparse(const std::string& line)

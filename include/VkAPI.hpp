@@ -1,11 +1,11 @@
 #pragma once
 
-#include "../lib/include/Json.hpp"
+#include <simdjson.h>
 #include "Traits.hpp"
 
 namespace bot
 {
-namespace vkapi
+namespace api
 {
 void send_message(const std::string& text, const long& peer_id, const traits::dictionary& options = {});
 std::string kick_user(const long& chat_id, const long& user_id);

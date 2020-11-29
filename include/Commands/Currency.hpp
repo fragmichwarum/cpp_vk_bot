@@ -1,6 +1,7 @@
 #pragma once
 
 #include <chrono>
+#include <simdjson.h>
 
 #include "ICommand.hpp"
 
@@ -11,8 +12,10 @@ namespace command
 class CurrencyCommand final : public ICommand
 {
 private:
-  nlohmann::json cachedCurrency;
+  simdjson::dom::object cachedCurrency;
+  simdjson::dom::parser parser;
   uint64_t lastUpdateTime;
+  bool jsonWasInited = false;
   void tryCache(const uint64_t& updateInterval);
 
 public:

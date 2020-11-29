@@ -3,9 +3,6 @@
 #include "Online.hpp"
 #include "VkAPI.hpp"
 
-extern template class nlohmann::basic_json<>;
-
-using nlohmann::json;
 using bot::command::OnlineCommand;
 
 const std::string OnlineCommand::description() const
@@ -20,28 +17,33 @@ const std::string OnlineCommand::trigger() const
 
 const std::string OnlineCommand::execute(const CommandParams& inputData)
 {
-  json parsed =
-    json::parse(cURL::request(cURL::appendVkUrl("messages.getConversationMembers"),
+  std::string response =
+    cURL::request(cURL::appendVkUrl("messages.getConversationMembers"),
      {{ "fields",       "online"           },
       { "peer_id",      std::to_string(inputData.peer_id)},
       { "random_id",    "0"                },
       { "access_token", info::accessToken  },
-      { "v",            info::version      }}));
+      { "v",            info::version      }});
 
-  if (not parsed["error"].is_null() &&
-          parsed["error"]["error_code"] == 917L)
+  simdjson::padded_string padded_string = response;
+  simdjson::dom::parser parser;
+  simdjson::dom::object onlineObject = parser.parse(padded_string);
+
+  if (onlineObject["response"].is_null())
   {
     return "Упс, кажется у бота нет админки.";
   }
-  std::string people = "Список людей онлайн:\n";
-  for (uint8_t i = 0; i < parsed["response"]["profiles"].size(); i++) {
-    json person = parsed["response"]["profiles"][i];
 
-    if (person["online"] == 1) {
-      people += "@id" + std::to_string(person["id"].get<long>()) + '('
-             +  person["first_name"].get<std::string>() + ' '
-             +  person["last_name"].get<std::string>() + ")\n";
+  std::string people = "Список людей онлайн:\n";
+  for (uint8_t i = 0; i < onlineObject["response"]["profiles"].get_array().size(); i++) {
+    simdjson::dom::object person = onlineObject["response"]["profiles"].at(i);
+
+    if (person["online"].get_int64() == 1) {
+      people += "@id" + std::to_string(person["id"].get_int64()) + '('
+             +  std::string{person["first_name"].get_c_str()} + ' '
+             +  std::string{person["last_name"].get_c_str()} + ")\n";
     }
   }
   return people;
+  return "";
 }

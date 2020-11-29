@@ -19,10 +19,10 @@ const std::string DocumentCommand::execute(const CommandParams& inputData)
   if (inputData.args.empty()) {
     return util::emptyArgs();
   }
-  std::string attachments = vkapi::media_search("docs.search", inputData.args);
+  std::string attachments = api::media_search("docs.search", inputData.args);
   if (attachments.empty()) {
     return "";
   }
-  vkapi::send_message("", inputData.peer_id, {{"attachment", attachments}});
+  api::send_message("", inputData.peer_id, {{"attachment", attachments}});
   return "";
 }

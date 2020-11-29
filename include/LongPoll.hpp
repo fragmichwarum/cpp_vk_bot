@@ -18,11 +18,13 @@ private:
 
   ErrorLogger _errorLogger{info::errfile};
 
+  simdjson::dom::parser parser;
+
   void _getServer();
   void _initInvoker();
 
-  void _singleThreadProcessing(const nlohmann::json& update);
-  void _multithreadProcessing(const nlohmann::json& updates);
+  void _singleThreadProcessing(const simdjson::dom::object& update);
+  void _multithreadProcessing(const simdjson::dom::array& updates);
 
   Invoker* const _invoker = new Invoker;
 

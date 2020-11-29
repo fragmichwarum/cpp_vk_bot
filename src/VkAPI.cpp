@@ -5,20 +5,19 @@
 #include "VkAPI.hpp"
 #include "Info.hpp"
 
-using nlohmann::json;
+simdjson::dom::parser parser;
+simdjson::dom::element element = parser.load("./init.json");
 
-const json _data = json::parse(std::ifstream{"./init.json"});
+long bot::info::processedMessages(0);
+const long bot::info::adminId(element["admin_id"].get_int64());
+const std::string bot::info::groupId(element["group_id"].get_c_str());
+const std::string bot::info::accessToken(element["token"]["access_token"].get_c_str());
+const std::string bot::info::userToken(element["token"]["user_token"].get_c_str());
+const std::string bot::info::version(element["api_v"].get_c_str());
+const std::string bot::info::errfile(element["path"]["err"].get_c_str());
+const std::string bot::info::logfile(element["path"]["log"].get_c_str());
 
-      long        bot::info::processedMessages  = 0;
-const long        bot::info::adminId            = _data["admin_id"];
-const std::string bot::info::groupId            = _data["group_id"];
-const std::string bot::info::accessToken        = _data["token"]["access_token"];
-const std::string bot::info::userToken          = _data["token"]["user_token"];
-const std::string bot::info::version            = _data["api_v"];
-const std::string bot::info::errfile            = _data["path"]["err"];
-const std::string bot::info::logfile            = _data["path"]["log"];
-
-void bot::vkapi::send_message(const std::string& text, const long& peer_id, const traits::dictionary& options)
+void bot::api::send_message(const std::string& text, const long& peer_id, const traits::dictionary& options)
 {
   traits::dictionary parameters = {
     { "message",      text               },
@@ -54,16 +53,18 @@ static std::string attachment_type(const std::string& method)
   return "";
 }
 
-std::string bot::vkapi::media_search(const std::string& method, const std::string& text)
+std::string bot::api::media_search(const std::string& method, const std::string& text)
 {
-  json vkmedia =
-    json::parse(cURL::request(cURL::appendVkUrl(method),
-      {{ "q",            text             },
-       { "access_token", info::userToken  },
-       { "v",            info::version    },
-       { "count",        "50"             }}));
+  std::string response =
+      cURL::request(cURL::appendVkUrl(method),
+       {{ "q",            text             },
+        { "access_token", info::userToken  },
+        { "v",            info::version    },
+        { "count",        "50"             }});
 
-  json items = vkmedia["response"]["items"];
+  simdjson::padded_string padded_string = response;
+  simdjson::dom::parser parser;
+  simdjson::dom::array items = parser.parse(padded_string)["response"]["items"].get_array();
 
   if (items.size() == 0) {
     return "";
@@ -74,31 +75,36 @@ std::string bot::vkapi::media_search(const std::string& method, const std::strin
     long index = rand() % items.size();
     docs +=
       attachment_type(method) +
-      std::to_string(items[index]["owner_id"].get<long>()) + '_' +
-      std::to_string(items[index][      "id"].get<long>()) + ',';
+      std::to_string(items.at(index)["owner_id"].get_int64()) + '_' +
+      std::to_string(items.at(index)["id"].get_int64()) + ',';
   }
 
   return docs;
 }
 
-std::string bot::vkapi::kick_user(const long& chat_id, const long& user_id)
+std::string bot::api::kick_user(const long& chat_id, const long& user_id)
 {
-  json response =
-    json::parse(cURL::request(cURL::appendVkUrl("messages.removeChatUser"),
+
+  std::string response =
+    cURL::request(cURL::appendVkUrl("messages.removeChatUser"),
      {{ "chat_id",      std::to_string(chat_id) },
       { "user_id",      std::to_string(user_id) },
       { "random_id",    "0"                },
       { "access_token", info::accessToken  },
-      { "v",            info::version      }}));
+      { "v",            info::version      }});
 
-  if (not response["error"].is_null() &&
-          response["error"]["error_code"] == 100)
+  simdjson::padded_string padded_string = response;
+  simdjson::dom::parser parser;
+  simdjson::dom::object parsed = parser.parse(padded_string);
+
+  if (not parsed["error"].is_null() &&
+          parsed["error"]["error_code"].get_int64() == 100)
   {
     return "Что-то пошло не так.";
   }
 
-  if (not response["error"].is_null() &&
-          response["error"]["error_code"] == 15)
+  if (not parsed["error"].is_null() &&
+          parsed["error"]["error_code"].get_int64() == 15)
   {
     return "Не могу кикнуть этого юзера/группу.";
   }
@@ -106,28 +112,29 @@ std::string bot::vkapi::kick_user(const long& chat_id, const long& user_id)
   return "Arbeit macht frei.";
 }
 
-std::pair<long, long> bot::vkapi::upload_attachment(const std::string &type, const std::string &file, const std::string &server)
+std::pair<long, long> bot::api::upload_attachment(const std::string& type, const std::string& file, const std::string& server)
 {
-  json uploaded_file = json::parse(cURL::upload(file, server));
-
+  std::string uploadedFile = cURL::upload(file, server);
   std::string url = "https://api.vk.com/method/";
+
   if (type == "photo") {
     url += "photos.saveMessagesPhoto";
   }
 
-  json saved_vk_attachment =
-    json::parse(cURL::request(url + "?",
-     {{ "photo",         uploaded_file["photo"] },
-      { "server",        std::to_string(uploaded_file["server"].get<long>()) },
-      { "hash",          uploaded_file["hash"]  },
+  simdjson::dom::parser parser;
+  simdjson::dom::object uploadObject = parser.parse(uploadedFile);
+
+  std::string uploadServer =
+    cURL::request(url + "?",
+     {{ "photo",         std::string{uploadObject["photo"].get_c_str()} },
+      { "server",        std::to_string(uploadObject["server"].get_int64()) },
+      { "hash",          std::string{uploadObject["hash"].get_c_str()}  },
       { "v",             info::version          },
       { "access_token",  info::accessToken      }
-     }));
+     });
 
-  if (not saved_vk_attachment["error"].is_null()) {
-    return { 0, 0 };
-  }
+  simdjson::dom::object uploadedAttachmentObject = parser.parse(uploadServer);
 
-  return { saved_vk_attachment["response"][0]["owner_id"].get<long>(),
-           saved_vk_attachment["response"][0][      "id"].get<long>() };
+  return { uploadedAttachmentObject["response"].at(0)["owner_id"].get_int64(),
+           uploadedAttachmentObject["response"].at(0)["id"].get_int64() };
 }

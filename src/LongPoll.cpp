@@ -53,38 +53,43 @@ void LongPoll::_initInvoker()
 
 void LongPoll::_getServer()
 {
-  json poll =
-    json::parse(cURL::request(cURL::appendVkUrl("groups.getLongPollServer"),
+  std::string response =
+    cURL::request(cURL::appendVkUrl("groups.getLongPollServer"),
      {{ "group_id",     info::groupId      },
       { "random_id",    "0"                },
       { "access_token", info::accessToken  },
-      { "v",            info::version      }}));
+      { "v",            info::version      }});
 
-  if (not poll["error"]["error_code"].is_null()) {
-    _errorLogger.print(poll["error"]["error_msg"].get<std::string>());
-    _errorLogger.log(poll["error"]["error_msg"].get<std::string>());
-    throw Vk_exception(poll["error"]["error_code"].get<long>());
-  }
+  simdjson::padded_string padded_string = response;
 
-  _server = poll["response"]["server"];
-  _key    = poll["response"]["key"];
-  _ts     = poll["response"]["ts"];
+  const char* key;
+  const char* server;
+  const char* ts;
+  const char* error;
+  const char* errorCode;
+  long keyError = parser.parse(padded_string)["response"]["key"].get(key);
+  long serverError = parser.parse(padded_string)["response"]["server"].get(server);
+  long tsError = parser.parse(padded_string)["response"]["ts"].get(ts);
+  long errorMessage = parser.parse(padded_string)["error"]["error_msg"].get(error);
+
+  _server = server;
+  _key = key;
+  _ts = ts;
 }
 
-void LongPoll::_singleThreadProcessing(const nlohmann::json& update)
+void LongPoll::_singleThreadProcessing(const simdjson::dom::object& update)
 {
   _invoker->tryExecute(std::move(update));
 }
 
-void LongPoll::_multithreadProcessing(const nlohmann::json& updates)
+void LongPoll::_multithreadProcessing(const simdjson::dom::array& updates)
 {
   std::vector<std::thread> threads;
 
   if (updates.size() <= _numThreads) {
-    for (const json& update : updates) {
+    for (const simdjson::dom::object update : updates) {
       threads.push_back(std::thread([&](){_invoker->tryExecute(std::move(update));}));
     }
-
     for (std::thread& th : threads) {
       th.join();
     }
@@ -93,13 +98,12 @@ void LongPoll::_multithreadProcessing(const nlohmann::json& updates)
 
   threads.clear();
   for (std::size_t i = 0; i < updates.size(); i++) {
-    threads.push_back(std::thread([&](){_invoker->tryExecute(updates[i]);}));
-    if (i % _numThreads == 0) {
-      for (std::thread& th : threads) {
-        th.join();
-      }
-      threads.clear();
+    threads.push_back(std::thread([&](){_invoker->tryExecute(updates.at(i));}));
+
+    for (std::thread& th : threads) {
+      th.join();
     }
+    threads.clear();
   }
 }
 
@@ -109,23 +113,25 @@ void LongPoll::loop()
   _getServer();
 
   while (true) {
-    json lp =
-      json::parse(cURL::request(_server + "?",
+    std::string response =
+      cURL::request(_server + "?",
        {{ "act",  "a_check" },
         { "key",  _key      },
         { "ts",   _ts       },
-        { "wait", "90"      }}));
+        { "wait", "90"      }});
 
-    if (lp["updates"][0].is_null()) {
+    simdjson::padded_string padded_string = response;
+    simdjson::dom::array updates = parser.parse(response)["updates"].get_array();
+
+    if (updates.size() == 0) {
       _getServer();
       continue;
     }
 
-    _ts = lp["ts"];
+    _ts = parser.parse(response)["ts"].get_c_str();
 
-    json updates = lp["updates"];
     if (updates.size() == 1) {
-      _singleThreadProcessing(updates[0]);
+      _singleThreadProcessing(updates.at(0));
     } else {
       _multithreadProcessing(updates);
     }

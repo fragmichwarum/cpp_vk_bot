@@ -28,5 +28,5 @@ const std::string KickCommand::execute(const CommandParams& inputData)
     return util::emptyArgs();
   }
 
-  return vkapi::kick_user(inputData.peer_id - 2000000000, extractId(inputData.args));
+  return api::kick_user(inputData.peer_id - 2000000000, extractId(inputData.args));
 }

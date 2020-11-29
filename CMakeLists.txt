@@ -35,6 +35,7 @@ set(COMMAND_SOURCES
   src/Commands/Face.cpp
   src/Commands/Online.cpp
   src/Commands/Picture.cpp
+  src/Commands/Role.cpp
   src/Commands/Ping.cpp
   src/Commands/Video.cpp
   src/Commands/Weather.cpp
@@ -44,6 +45,8 @@ set(COMMAND_SOURCES
 set(HEADERS
   include/Curl.hpp
   include/Database.hpp
+  include/ErrorLogger.hpp
+  include/EventLogger.hpp
   include/Info.hpp
   include/Invoker.hpp
   include/ICommand.hpp
@@ -68,6 +71,7 @@ set(COMMAND_HEADERS
   include/Commands/Online.hpp
   include/Commands/Picture.hpp
   include/Commands/Ping.hpp
+  include/Commands/Role.hpp
   include/Commands/Stat.hpp
   include/Commands/Video.hpp
   include/Commands/Weather.hpp
@@ -77,7 +81,6 @@ set(COMMAND_HEADERS
 set(INTERNAL_LIBS
   lib/src/crc32.cpp
   lib/include/crc32.hpp
-  lib/include/Json.hpp
 )
 
 add_executable(
@@ -88,4 +91,4 @@ add_executable(
   ${COMMAND_HEADERS}
   ${INTERNAL_LIBS}
 )
-target_link_libraries(FactoryVK curl pthread)
+target_link_libraries(FactoryVK curl simdjson SQLiteCpp pthread)

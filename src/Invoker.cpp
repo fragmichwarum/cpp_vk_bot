@@ -3,9 +3,6 @@
 #include "Invoker.hpp"
 #include "../lib/include/crc32.hpp"
 
-extern template class nlohmann::basic_json<>;
-
-using nlohmann::json;
 using bot::Invoker;
 
 void Invoker::initCommand(bot::ICommand* command)
@@ -13,9 +10,9 @@ void Invoker::initCommand(bot::ICommand* command)
   commands.emplace_back(command);
 }
 
-void Invoker::tryExecute(const json& response)
+void Invoker::tryExecute(const simdjson::dom::object& response)
 {
-  long responseHash = crc32gen(response["type"].get<std::string>().c_str());
+  long responseHash = crc32gen(response["type"].get_c_str());
 
   switch (responseHash) {
     case EVENT::MESSAGE_NEW:
@@ -29,16 +26,17 @@ void Invoker::tryExecute(const json& response)
   }
 }
 
-void Invoker::processMessageEvent(const json& response)
+void Invoker::processMessageEvent(const simdjson::dom::object& response)
 {
-  std::string message = response["object"]["message"]["text"].get<std::string>();
-  long peer_id = response["object"]["message"]["peer_id"].get<long>();
+  std::string message(response["object"]["message"]["text"].get_c_str());
+  long peer_id = response["object"]["message"]["peer_id"].get_int64();
 
   if (message.empty())
   {
     return;
   }
-  if (message.at(0) == '+') {
+  if (message.at(0) == '+')
+  {
     eventLogger.print(message);
     eventLogger.log(message);
   }
@@ -48,18 +46,18 @@ void Invoker::processMessageEvent(const json& response)
     if (command->trigger() == args[0])
     {
       info::processedMessages++;
-      vkapi::send_message(command->execute({util::getArgs(message), peer_id}), peer_id);
+      api::send_message(command->execute({util::getArgs(message), peer_id}), peer_id);
       return;
     }
-    else if (args[0] == "+помощь")
+    if (args[0] == "+помощь")
     {
-      vkapi::send_message(generateHelp(), peer_id);
+      api::send_message(generateHelp(), peer_id);
       return;
     }
   }
 }
 
-void Invoker::processNewPostEvent([[maybe_unused]] const json& response)
+void Invoker::processNewPostEvent([[maybe_unused]] const simdjson::dom::object& response)
 {
   return; // ...
 }

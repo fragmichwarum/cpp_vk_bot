@@ -1,7 +1,6 @@
 #pragma once
 
-#include <vector>
-#include <memory>
+#include <simdjson.h>
 
 #include "ICommand.hpp"
 #include "Info.hpp"
@@ -24,13 +23,13 @@ private:
   EventLogger eventLogger{info::logfile};
   Database database;
 
-  void processNewPostEvent(const nlohmann::json& response);
-  void processMessageEvent(const nlohmann::json& response);
+  void processNewPostEvent(const simdjson::dom::object& response);
+  void processMessageEvent(const simdjson::dom::object& response);
 
 public:
   void initCommand(ICommand* command);
 
-  void tryExecute(const nlohmann::json& response);
+  void tryExecute(const simdjson::dom::object& response);
 
   std::string generateHelp();
 

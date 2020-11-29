@@ -1,6 +1,6 @@
 #include "Curl.hpp"
 
-//#define CURL_DEBUG
+#define CURL_DEBUG
 
 const std::string bot::cURL::urlencode(const std::string& url)
 {

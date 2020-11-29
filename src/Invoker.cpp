@@ -38,6 +38,10 @@ void Invoker::processMessageEvent(const json& response)
   {
     return;
   }
+  if (message.at(0) == '+') {
+    eventLogger.print(message);
+    eventLogger.log(message);
+  }
   std::vector<std::string> args = util::split(message);
   for (const auto& command : commands)
   {

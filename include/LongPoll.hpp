@@ -2,6 +2,7 @@
 
 #include "VkError.hpp"
 #include "Invoker.hpp"
+#include "ErrorLogger.hpp"
 #include "../lib/include/Json.hpp"
 
 namespace bot
@@ -15,8 +16,10 @@ private:
 
   std::size_t _numThreads;
 
-  void _get_server();
-  void _init_invoker();
+  ErrorLogger _errorLogger{info::errfile};
+
+  void _getServer();
+  void _initInvoker();
 
   void _singleThreadProcessing(const nlohmann::json& update);
   void _multithreadProcessing(const nlohmann::json& updates);

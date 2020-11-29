@@ -4,10 +4,10 @@
 #include <memory>
 
 #include "ICommand.hpp"
+#include "Info.hpp"
 #include "VkAPI.hpp"
-
-//#include "Logger.hpp"
-//#include "Database.hpp"
+#include "EventLogger.hpp"
+#include "Database.hpp"
 
 namespace bot
 {
@@ -21,8 +21,9 @@ class Invoker
 {
 private:
   std::vector<std::unique_ptr<ICommand>> commands;
+  EventLogger eventLogger{info::logfile};
+  Database database;
 
-protected:
   void processNewPostEvent(const nlohmann::json& response);
   void processMessageEvent(const nlohmann::json& response);
 

@@ -13,7 +13,7 @@ class CRC32Command final : public ICommand
 public:
   const std::string execute([[maybe_unused]]const CommandParams& inputData) override
   {
-    return not inputData.args.empty() ? util::emptyArgs() : "0x" + util::longToHexStr(crc32gen(inputData.args.c_str()));
+    return inputData.args.empty() ? util::emptyArgs() : "0x" + util::longToHexStr(crc32gen(inputData.args.c_str()));
   }
   const std::string description() const override
   {

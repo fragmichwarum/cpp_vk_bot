@@ -16,6 +16,7 @@
 #include "Online.hpp"
 #include "Picture.hpp"
 #include "Ping.hpp"
+#include "Role.hpp"
 #include "Stat.hpp"
 #include "Video.hpp"
 #include "Weather.hpp"
@@ -29,7 +30,7 @@ LongPoll::LongPoll()
   : _numThreads(std::thread::hardware_concurrency())
 { }
 
-void LongPoll::_init_invoker()
+void LongPoll::_initInvoker()
 {
   _invoker->initCommand(new AboutCommand);
   _invoker->initCommand(new CatCommand);
@@ -43,13 +44,14 @@ void LongPoll::_init_invoker()
   _invoker->initCommand(new OnlineCommand);
   _invoker->initCommand(new PictureCommand);
   _invoker->initCommand(new PingCommand);
+  _invoker->initCommand(new RoleCommand);
   _invoker->initCommand(new VideoCommand);
   _invoker->initCommand(new WeatherCommand);
   _invoker->initCommand(new CurrencyCommand);
   _invoker->initCommand(new WhoCommand);
 }
 
-void LongPoll::_get_server()
+void LongPoll::_getServer()
 {
   json poll =
     json::parse(cURL::request(cURL::appendVkUrl("groups.getLongPollServer"),
@@ -59,6 +61,8 @@ void LongPoll::_get_server()
       { "v",            info::version      }}));
 
   if (not poll["error"]["error_code"].is_null()) {
+    _errorLogger.print(poll["error"]["error_msg"].get<std::string>());
+    _errorLogger.log(poll["error"]["error_msg"].get<std::string>());
     throw Vk_exception(poll["error"]["error_code"].get<long>());
   }
 
@@ -78,7 +82,7 @@ void LongPoll::_multithreadProcessing(const nlohmann::json& updates)
 
   if (updates.size() <= _numThreads) {
     for (const json& update : updates) {
-      threads.push_back(std::thread([&](){_invoker->tryExecute(update);}));
+      threads.push_back(std::thread([&](){_invoker->tryExecute(std::move(update));}));
     }
 
     for (std::thread& th : threads) {
@@ -101,8 +105,8 @@ void LongPoll::_multithreadProcessing(const nlohmann::json& updates)
 
 void LongPoll::loop()
 {
-  _init_invoker();
-  _get_server();
+  _initInvoker();
+  _getServer();
 
   while (true) {
     json lp =
@@ -113,7 +117,7 @@ void LongPoll::loop()
         { "wait", "90"      }}));
 
     if (lp["updates"][0].is_null()) {
-      _get_server();
+      _getServer();
       continue;
     }
 

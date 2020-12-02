@@ -1,4 +1,5 @@
 #include <fstream>
+#include <mutex>
 
 #include "Curl.hpp"
 #include "Utils.hpp"
@@ -9,15 +10,15 @@ simdjson::dom::parser parser;
 simdjson::dom::element element = parser.load("./init.json");
 
 long bot::info::processedMessages(0);
-const long bot::info::adminId(element["admin_id"].get_int64());
-const std::string bot::info::groupId(element["group_id"].get_c_str());
+const long bot::info::adminId           (element["admin_id"].get_int64());
+const std::string bot::info::groupId    (element["group_id"].get_c_str());
 const std::string bot::info::accessToken(element["token"]["access_token"].get_c_str());
-const std::string bot::info::userToken(element["token"]["user_token"].get_c_str());
-const std::string bot::info::version(element["api_v"].get_c_str());
-const std::string bot::info::errfile(element["path"]["err"].get_c_str());
-const std::string bot::info::logfile(element["path"]["log"].get_c_str());
+const std::string bot::info::userToken  (element["token"]["user_token"].get_c_str());
+const std::string bot::info::version    (element["api_v"].get_c_str());
+const std::string bot::info::errfile    (element["path"]["err"].get_c_str());
+const std::string bot::info::logfile    (element["path"]["log"].get_c_str());
 
-void bot::api::send_message(const std::string& text, const long& peer_id, const traits::dictionary& options)
+void bot::api::sendMessage(const std::string& text, const long& peer_id, const traits::dictionary& options)
 {
   traits::dictionary parameters = {
     { "message",      text               },
@@ -53,7 +54,7 @@ static std::string attachment_type(const std::string& method)
   return "";
 }
 
-std::string bot::api::media_search(const std::string& method, const std::string& text)
+std::string bot::api::mediaSearch(const std::string& method, const std::string& text)
 {
   std::string response =
       cURL::request(cURL::appendVkUrl(method),
@@ -82,7 +83,7 @@ std::string bot::api::media_search(const std::string& method, const std::string&
   return docs;
 }
 
-std::string bot::api::kick_user(const long& chat_id, const long& user_id)
+std::string bot::api::kickUser(const long& chat_id, const long& user_id)
 {
 
   std::string response =
@@ -112,7 +113,7 @@ std::string bot::api::kick_user(const long& chat_id, const long& user_id)
   return "Arbeit macht frei.";
 }
 
-std::pair<long, long> bot::api::upload_attachment(const std::string& type, const std::string& file, const std::string& server)
+std::pair<long, long> bot::api::uploadAttachment(const std::string& type, const std::string& file, const std::string& server)
 {
   std::string uploadedFile = cURL::upload(file, server);
   std::string url = "https://api.vk.com/method/";
@@ -127,8 +128,8 @@ std::pair<long, long> bot::api::upload_attachment(const std::string& type, const
   std::string uploadServer =
     cURL::request(url + "?",
      {{ "photo",         std::string{uploadObject["photo"].get_c_str()} },
-      { "server",        std::to_string(uploadObject["server"].get_int64()) },
       { "hash",          std::string{uploadObject["hash"].get_c_str()}  },
+      { "server",        std::to_string(uploadObject["server"].get_int64()) },
       { "v",             info::version          },
       { "access_token",  info::accessToken      }
      });
@@ -137,4 +138,31 @@ std::pair<long, long> bot::api::upload_attachment(const std::string& type, const
 
   return { uploadedAttachmentObject["response"].at(0)["owner_id"].get_int64(),
            uploadedAttachmentObject["response"].at(0)["id"].get_int64() };
+}
+
+std::string bot::api::processAttachmentUploading(const std::string& type, const std::string& file, const std::string& server, const long& peer_id)
+{
+  std::mutex mutex;
+mutex.lock();
+  if (cURL::download(file, server) != 0) {
+    return "Ошибка при скачивании файла.";
+  }
+
+  std::string uploadServer =
+    cURL::request(cURL::appendVkUrl("photos.getMessagesUploadServer"),
+     {{ "access_token", info::accessToken  },
+      { "peer_id",      std::to_string(peer_id) },
+      { "album_id",     "0"                },
+      { "group_id",     info::groupId      },
+      { "v",            info::version      }
+     });
+
+  simdjson::dom::object uploadServerObject = parser.parse(uploadServer);
+
+  std::pair<long, long> attachment = api::uploadAttachment(type, file, std::string{uploadServerObject["response"]["upload_url"].get_c_str()});
+mutex.unlock();
+
+  api::sendMessage("", peer_id, {{"attachment", "photo" + std::to_string(attachment.first)
+                                   + "_" + std::to_string(attachment.second)}});
+  return "";
 }

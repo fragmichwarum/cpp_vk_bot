@@ -1,4 +1,4 @@
-#include <string>
+#include <bits/stringfwd.h>
 #include <map>
 
 namespace bot

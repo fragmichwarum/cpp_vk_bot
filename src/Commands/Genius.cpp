@@ -1,9 +1,9 @@
 #include <simdjson.h>
 
-#include "Curl.hpp"
+//#include "Curl.hpp"
 #include "Utils.hpp"
 #include "Genius.hpp"
-#include "VkAPI.hpp"
+//#include "VkAPI.hpp"
 
 using bot::command::GeniusCommand;
 

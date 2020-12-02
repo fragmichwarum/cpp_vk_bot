@@ -1,5 +1,9 @@
-#include "Utils.hpp"
 #include <functional>
+#include <sstream>
+#include <numeric>
+#include <iterator>
+
+#include "Utils.hpp"
 
 std::vector<std::string> bot::util::split(const std::string& text)
 {

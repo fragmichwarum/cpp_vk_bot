@@ -1,7 +1,4 @@
-#include <simdjson.h>
-
 #include "Who.hpp"
-#include "Curl.hpp"
 #include "Utils.hpp"
 #include "Info.hpp"
 
@@ -35,8 +32,7 @@ const std::string WhoCommand::execute(const CommandParams& inputData)
   simdjson::dom::parser parser;
   simdjson::dom::object parsed = parser.parse(padded_string);
 
-  if (not parsed["error"].is_null() &&
-          parsed["error"]["error_code"].get_int64() == 917L)
+  if (parsed.begin().key() == "error" && parsed["error"]["error_code"].get_int64() == 917L)
   {
     return "Упс, кажется у бота нет админки.";
   }
@@ -46,10 +42,12 @@ const std::string WhoCommand::execute(const CommandParams& inputData)
     return "Что-то пошло не так.";
   }
 
-  simdjson::dom::object person = parsed["response"]["profiles"].at(size);
+  simdjson::dom::object person = parsed["response"]["profiles"].get_array().at(rand() % size);
 
-  return "Хмм, я думаю, что @id" + std::to_string(person["id"].get_int64()) +
-         '('  + std::string{person["first_name"].get_c_str()} + ' ' +
-                std::string{person["last_name"].get_c_str()} +
-         ") " + inputData.args;
+  std::string id        (std::to_string(person["id"].get_int64()));
+  std::string firstName (person["first_name"].get_c_str());
+  std::string lastName  (person["last_name"].get_c_str());
+
+  return "Хмм, я думаю, что @id" + id + '('  + firstName + ' ' + lastName + ") " + inputData.args;
+  return "";
 }

@@ -1,6 +1,6 @@
 #include "Picture.hpp"
 #include "Utils.hpp"
-#include "VkAPI.hpp"
+//#include "VkAPI.hpp"
 
 using bot::command::PictureCommand;
 
@@ -19,10 +19,10 @@ const std::string PictureCommand::execute(const CommandParams& inputData)
   if (inputData.args.empty()) {
     return util::emptyArgs();
   }
-  std::string attachments = api::media_search("photos.search", inputData.args);
+  std::string attachments = api::mediaSearch("photos.search", inputData.args);
   if (attachments.empty()) {
     return "";
   }
-  api::send_message("", inputData.peer_id, {{"attachment", attachments}});
+  api::sendMessage("", inputData.peer_id, {{"attachment", attachments}});
   return "";
 }

@@ -2,7 +2,7 @@
 
 #include <curl/curl.h>
 #include <map>
-#include <string>
+
 #include "Traits.hpp"
 
 namespace bot

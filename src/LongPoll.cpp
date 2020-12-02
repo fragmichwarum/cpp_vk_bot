@@ -1,8 +1,6 @@
 #include <thread>
 
 #include "LongPoll.hpp"
-#include "Curl.hpp"
-#include "Info.hpp"
 
 #include "About.hpp"
 #include "Cat.hpp"
@@ -23,7 +21,6 @@
 #include "Who.hpp"
 
 using bot::LongPoll;
-using namespace nlohmann;
 using namespace bot::command;
 
 LongPoll::LongPoll()
@@ -62,19 +59,9 @@ void LongPoll::_getServer()
 
   simdjson::padded_string padded_string = response;
 
-  const char* key;
-  const char* server;
-  const char* ts;
-  const char* error;
-  const char* errorCode;
-  long keyError = parser.parse(padded_string)["response"]["key"].get(key);
-  long serverError = parser.parse(padded_string)["response"]["server"].get(server);
-  long tsError = parser.parse(padded_string)["response"]["ts"].get(ts);
-  long errorMessage = parser.parse(padded_string)["error"]["error_msg"].get(error);
-
-  _server = server;
-  _key = key;
-  _ts = ts;
+  _server = std::string{parser.parse(padded_string)["response"]["server"].get_c_str()};
+  _key = std::string{parser.parse(padded_string)["response"]["key"].get_c_str()};
+  _ts = std::string{parser.parse(padded_string)["response"]["ts"].get_c_str()};
 }
 
 void LongPoll::_singleThreadProcessing(const simdjson::dom::object& update)
@@ -87,7 +74,7 @@ void LongPoll::_multithreadProcessing(const simdjson::dom::array& updates)
   std::vector<std::thread> threads;
 
   if (updates.size() <= _numThreads) {
-    for (const simdjson::dom::object update : updates) {
+    for (const simdjson::dom::object& update : updates) {
       threads.push_back(std::thread([&](){_invoker->tryExecute(std::move(update));}));
     }
     for (std::thread& th : threads) {
@@ -96,14 +83,11 @@ void LongPoll::_multithreadProcessing(const simdjson::dom::array& updates)
     return;
   }
 
-  threads.clear();
-  for (std::size_t i = 0; i < updates.size(); i++) {
-    threads.push_back(std::thread([&](){_invoker->tryExecute(updates.at(i));}));
-
-    for (std::thread& th : threads) {
-      th.join();
-    }
-    threads.clear();
+  for (const simdjson::dom::object& update : updates) {
+    threads.push_back(std::thread([&](){_invoker->tryExecute(update);}));
+  }
+  for (std::thread& thread : threads) {
+    thread.join();
   }
 }
 
@@ -114,13 +98,10 @@ void LongPoll::loop()
 
   while (true) {
     std::string response =
-      cURL::request(_server + "?",
-       {{ "act",  "a_check" },
-        { "key",  _key      },
-        { "ts",   _ts       },
-        { "wait", "90"      }});
+      cURL::request(_server + '?',
+       {{ "act", "a_check" }, { "key",  _key },
+        { "ts",  _ts       }, { "wait", "90" }});
 
-    simdjson::padded_string padded_string = response;
     simdjson::dom::array updates = parser.parse(response)["updates"].get_array();
 
     if (updates.size() == 0) {

@@ -1,3 +1,5 @@
+#include <string>
+
 #include "Curl.hpp"
 
 #define CURL_DEBUG
@@ -69,7 +71,8 @@ const std::string bot::cURL::request(const std::string& method, const traits::di
   std::string url = method;
   url += genparams(body);
   std::string buffer;
-  CURL*  curl = curl_easy_init();
+  CURL* curl = curl_easy_init();
+
   if (curl) {
 #if defined CURL_DEBUG
     printf("%s\n", url.c_str());
@@ -83,8 +86,8 @@ const std::string bot::cURL::request(const std::string& method, const traits::di
 #if defined CURL_DEBUG
     printf("%s\n", buffer.c_str());
 #endif
+    curl_easy_cleanup(curl);
   }
-  curl_easy_cleanup(curl);
   return buffer;
 }
 
@@ -93,14 +96,14 @@ const std::string bot::cURL::appendVkUrl(const std::string& method)
   return "https://api.vk.com/method/" + method + '?';
 }
 
-std::size_t bot::cURL::download(const std::string& filename, const std::string& outputfile)
+std::size_t bot::cURL::download(const std::string& filename, const std::string& server)
 {
   CURL* curl;
   FILE* fp;
   curl = curl_easy_init();
   if (curl) {
-    fp = fopen(outputfile.c_str(), "wb");
-    curl_easy_setopt(curl, CURLOPT_URL, filename.c_str());
+    fp = fopen(filename.c_str(), "wb");
+    curl_easy_setopt(curl, CURLOPT_URL, server.c_str());
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, file_write);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
     CURLcode res = curl_easy_perform(curl);
@@ -120,8 +123,8 @@ const std::string bot::cURL::upload(const std::string& filename, const std::stri
 {
   CURL* curl_handle = curl_easy_init();
   CURLcode curl_result;
-  struct curl_httppost *formpost=NULL;
-  struct curl_httppost *lastptr=NULL;
+  struct curl_httppost* formpost=NULL;
+  struct curl_httppost* lastptr=NULL;
   std::string data;
 
   curl_formadd(&formpost,

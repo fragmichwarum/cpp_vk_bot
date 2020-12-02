@@ -1,9 +1,7 @@
 #pragma once
 
+#include <bits/stringfwd.h>
 #include <vector>
-#include <numeric>
-#include <sstream>
-#include <iterator>
 
 namespace bot
 {

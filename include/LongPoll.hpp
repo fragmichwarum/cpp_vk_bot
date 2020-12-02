@@ -3,7 +3,6 @@
 #include "VkError.hpp"
 #include "Invoker.hpp"
 #include "ErrorLogger.hpp"
-#include "../lib/include/Json.hpp"
 
 namespace bot
 {
@@ -15,10 +14,8 @@ private:
   std::string _ts;
 
   std::size_t _numThreads;
-
-  ErrorLogger _errorLogger{info::errfile};
-
   simdjson::dom::parser parser;
+  ErrorLogger _errorLogger{info::errfile};
 
   void _getServer();
   void _initInvoker();

@@ -1,6 +1,6 @@
 #include "Video.hpp"
 #include "Utils.hpp"
-#include "VkAPI.hpp"
+//#include "VkAPI.hpp"
 
 using bot::command::VideoCommand;
 
@@ -19,10 +19,10 @@ const std::string VideoCommand::execute(const CommandParams& inputData)
   if (inputData.args.empty()) {
     return util::emptyArgs();
   }
-  std::string attachments = api::media_search("video.search", inputData.args);
+  std::string attachments = api::mediaSearch("video.search", inputData.args);
   if (attachments.empty()) {
     return "";
   }
-  api::send_message("", inputData.peer_id, {{"attachment", attachments}});
+  api::sendMessage("", inputData.peer_id, {{"attachment", attachments}});
   return "";
 }

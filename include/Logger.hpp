@@ -1,8 +1,6 @@
 #pragma once
 
-#include <fstream>
-#include <iostream>
-#include <ctime>
+#include <bits/fs_fwd.h>
 
 namespace bot
 {

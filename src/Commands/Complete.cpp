@@ -1,8 +1,8 @@
-#include <simdjson.h>
+//#include <simdjson.h>
 
 #include "Utils.hpp"
-#include "Curl.hpp"
-#include "VkAPI.hpp"
+//#include "Curl.hpp"
+//#include "VkAPI.hpp"
 #include "Complete.hpp"
 
 using bot::command::CompleteCommand;

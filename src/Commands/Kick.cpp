@@ -1,6 +1,6 @@
 #include "Kick.hpp"
 #include "Utils.hpp"
-#include "VkAPI.hpp"
+//#include "VkAPI.hpp"
 
 using bot::command::KickCommand;
 
@@ -28,5 +28,5 @@ const std::string KickCommand::execute(const CommandParams& inputData)
     return util::emptyArgs();
   }
 
-  return api::kick_user(inputData.peer_id - 2000000000, extractId(inputData.args));
+  return api::kickUser(inputData.peer_id - 2000000000, extractId(inputData.args));
 }

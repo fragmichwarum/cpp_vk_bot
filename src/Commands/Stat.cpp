@@ -1,8 +1,9 @@
-#include "Stat.hpp"
-#include "Info.hpp"
 #include <array>
 #include <memory>
 #include <cstring>
+
+#include "Stat.hpp"
+#include "Info.hpp"
 
 using bot::command::StatCommand;
 

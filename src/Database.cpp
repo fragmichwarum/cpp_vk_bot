@@ -1,5 +1,4 @@
 #include "Database.hpp"
-#include <iostream>
 
 bot::Database::Database()
   : database("users.db3", SQLite::OPEN_CREATE | SQLite::OPEN_READWRITE)
@@ -75,9 +74,6 @@ std::vector<long> bot::Database::getAllConversations()
 
   while (statement.executeStep()) {
     peerIds.push_back(std::move(statement.getColumn(0)));
-  }
-  for (const long& peer : peerIds) {
-    std::cout << "PEER_ID: " << peer << std::endl;
   }
   return peerIds;
 }

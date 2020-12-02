@@ -1,5 +1,5 @@
-#include "Curl.hpp"
-#include "VkAPI.hpp"
+//#include "Curl.hpp"
+//#include "VkAPI.hpp"
 #include "Currency.hpp"
 
 using bot::command::CurrencyCommand;

@@ -6,7 +6,6 @@
 #include "Info.hpp"
 #include "VkAPI.hpp"
 #include "EventLogger.hpp"
-#include "Database.hpp"
 
 namespace bot
 {
@@ -21,7 +20,6 @@ class Invoker
 private:
   std::vector<std::unique_ptr<ICommand>> commands;
   EventLogger eventLogger{info::logfile};
-  Database database;
 
   void processNewPostEvent(const simdjson::dom::object& response);
   void processMessageEvent(const simdjson::dom::object& response);

@@ -31,27 +31,23 @@ void Invoker::processMessageEvent(const simdjson::dom::object& response)
   std::string message(response["object"]["message"]["text"].get_c_str());
   long peer_id = response["object"]["message"]["peer_id"].get_int64();
 
-  if (message.empty())
-  {
+  if (message.empty()) {
     return;
   }
-  if (message.at(0) == '+')
-  {
+  if (message.at(0) == '+') {
     eventLogger.print(message);
     eventLogger.log(message);
   }
   std::vector<std::string> args = util::split(message);
-  for (const auto& command : commands)
-  {
-    if (command->trigger() == args[0])
-    {
+
+  for (const auto& command : commands) {
+    if (command->trigger() == args[0]) {
       info::processedMessages++;
-      api::send_message(command->execute({util::getArgs(message), peer_id}), peer_id);
+      api::sendMessage(command->execute({util::getArgs(message), peer_id}), peer_id);
       return;
     }
-    if (args[0] == "+помощь")
-    {
-      api::send_message(generateHelp(), peer_id);
+    if (args[0] == "+помощь") {
+      api::sendMessage(generateHelp(), peer_id);
       return;
     }
   }

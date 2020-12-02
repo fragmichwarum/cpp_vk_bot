@@ -1,5 +1,8 @@
 #pragma once
 
+#include <fstream>
+#include <iostream>
+
 #include "Logger.hpp"
 
 namespace bot

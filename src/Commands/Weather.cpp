@@ -2,7 +2,7 @@
 
 #include "Weather.hpp"
 #include "Utils.hpp"
-#include "Curl.hpp"
+//#include "Curl.hpp"
 
 using bot::command::WeatherCommand;
 
@@ -43,10 +43,10 @@ const std::string WeatherCommand::execute(const CommandParams& inputData)
   }
 
   std::string description(parsed["weather"].at(0)["description"].get_c_str());
-  std::string cityName(parsed["name"].get_c_str());
-  double temp = parsed["main"]["temp"].get_double();
-  double feelsLike = parsed["main"]["feels_like"].get_double();
-  long humidity = parsed["main"]["humidity"].get_int64();
+  std::string cityName   (parsed["name"].get_c_str());
+  double temp            (parsed["main"]["temp"].get_double());
+  double feelsLike       (parsed["main"]["feels_like"].get_double());
+  long humidity          (parsed["main"]["humidity"].get_int64());
 
   return
     "Сейчас в  " + cityName + " " + std::to_string(temp) +

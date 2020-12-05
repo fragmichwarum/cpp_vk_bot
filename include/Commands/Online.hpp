@@ -6,14 +6,17 @@ namespace bot
 {
 namespace command
 {
-class OnlineCommand final : public ICommand
+class Online final : public ICommand
 {
+private:
+  VkAPI* api = VkAPI::getInstance();
+
 public:
-  const std::string execute([[maybe_unused]]const CommandParams& inputData) override;
+  const std::string execute([[maybe_unused]]const CommandParams&) override;
   const std::string description() const override;
   const std::string trigger() const override;
- ~OnlineCommand()
+  ~Online()
   { }
 };
-} //namespace command
-} //namespace bot
+}
+}

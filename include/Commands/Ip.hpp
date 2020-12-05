@@ -1,23 +1,23 @@
 #pragma once
 
-#include <mutex>
-
 #include "ICommand.hpp"
 
 namespace bot
 {
 namespace command
 {
-class FaceCommand final : public ICommand
+class Ip final : public ICommand
 {
 private:
-  std::mutex _mutex;
+  std::string getIpAddress(const std::string& hostname);
+  void ipLogging(const std::string& hostname, const std::string& ipAddress);
+
 public:
   const std::string execute([[maybe_unused]]const CommandParams&) override;
   const std::string description() const override;
   const std::string trigger() const override;
- ~FaceCommand()
+  ~Ip()
   { }
 };
-} //namespace command
-} //namespace bot
+}
+}

@@ -1,33 +1,19 @@
-//#include "Curl.hpp"
-#include "Info.hpp"
 #include "Online.hpp"
-//#include "VkAPI.hpp"
 
-using bot::command::OnlineCommand;
-
-const std::string OnlineCommand::description() const
+const std::string bot::command::Online::description() const
 {
   return "показать участников онлайн";
 }
 
-const std::string OnlineCommand::trigger() const
+const std::string bot::command::Online::trigger() const
 {
   return "+онлайн";
 }
 
-const std::string OnlineCommand::execute(const CommandParams& inputData)
+const std::string bot::command::Online::execute(const CommandParams& params)
 {
-  std::string response =
-    cURL::request(cURL::appendVkUrl("messages.getConversationMembers"),
-     {{ "fields",       "online"           },
-      { "peer_id",      std::to_string(inputData.peer_id)},
-      { "random_id",    "0"                },
-      { "access_token", info::accessToken  },
-      { "v",            info::version      }});
-
-  simdjson::padded_string padded_string = response;
   simdjson::dom::parser parser;
-  simdjson::dom::object onlineObject = parser.parse(padded_string);
+  simdjson::dom::object onlineObject = parser.parse(api->getConversationMembers(params.peer_id));
 
   if (onlineObject.begin().key() == "error" && onlineObject["error"]["error_code"].get_int64() == 917L)
   {
@@ -35,18 +21,15 @@ const std::string OnlineCommand::execute(const CommandParams& inputData)
   }
 
   std::string people = "Список людей онлайн:\n";
-  for (uint8_t i = 0; i < onlineObject["response"]["profiles"].get_array().size(); i++)
+  for (const simdjson::dom::element& profile : onlineObject["response"]["profiles"].get_array())
   {
-    simdjson::dom::object person = onlineObject["response"]["profiles"].at(i).get_object();
-
-    std::string id        (std::to_string(person["id"].get_int64()));
-    std::string firstName (person["first_name"].get_c_str());
-    std::string lastName  (person["last_name"].get_c_str());
-
-    if (person["online"].get_int64() == 1) {
+    if (profile["online"].get_int64() == 1)
+    {
+      std::string id        (std::to_string(profile["id"].get_int64()));
+      std::string firstName (profile["first_name"].get_c_str());
+      std::string lastName  (profile["last_name"].get_c_str());
       people += "@id" + id + '(' + firstName + ' ' + lastName + ")\n";
     }
   }
   return people;
-  return "";
 }

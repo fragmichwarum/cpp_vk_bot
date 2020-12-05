@@ -1,13 +1,6 @@
-#include <array>
-#include <memory>
-#include <cstring>
-
 #include "Stat.hpp"
-#include "Info.hpp"
 
-using bot::command::StatCommand;
-
-std::string StatCommand::lineparse(const std::string& line)
+std::string bot::command::Stat::lineparse(const std::string& line)
 {
   std::string result;
   for (char c : line) {
@@ -18,7 +11,7 @@ std::string StatCommand::lineparse(const std::string& line)
   return result;
 }
 
-std::string StatCommand::procinfo(const std::string& filename, const std::string& param)
+std::string bot::command::Stat::procinfo(const std::string& filename, const std::string& param)
 {
   FILE* file = fopen(filename.c_str(), "r");
   std::string result;
@@ -33,7 +26,7 @@ std::string StatCommand::procinfo(const std::string& filename, const std::string
   return "";
 }
 
-std::string StatCommand::os_exec(const std::string& cmd)
+std::string bot::command::Stat::os_exec(const std::string& cmd)
 {
   std::string result;
   std::array<char, 128> buffer;
@@ -44,22 +37,21 @@ std::string StatCommand::os_exec(const std::string& cmd)
   return result;
 }
 
-const std::string StatCommand::description() const
+const std::string bot::command::Stat::description() const
 {
   return "Показать статистику";
 }
 
-const std::string StatCommand::trigger() const
+const std::string bot::command::Stat::trigger() const
 {
   return "+стат";
 }
 
-const std::string StatCommand::execute([[maybe_unused]] const CommandParams& inputData)
+const std::string bot::command::Stat::execute([[maybe_unused]] const CommandParams& inputData)
 {
   return
     "Всего памяти: "      + procinfo("/proc/meminfo", "MemTotal:") + "KiB.\n"
     "Использовано ОЗУ: "  + procinfo("/proc/self/status", "VmRSS:") + "KiB.\n"
     "Потоков занято: "    + procinfo("/proc/self/status", "Threads:") + '\n' +
-    "Аптайм: "            + os_exec("ps -eo lstart,etime,cmd | grep FactoryVK | awk '{print $6}' | head -1") +
-    "Команд обработано: " + std::to_string(info::processedMessages);
+    "Аптайм: "            + os_exec("ps -eo lstart,etime,cmd | grep FactoryVK | awk '{print $6}' | head -1");
 }

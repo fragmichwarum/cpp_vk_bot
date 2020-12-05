@@ -1,28 +1,24 @@
 #include "Picture.hpp"
-#include "Utils.hpp"
-//#include "VkAPI.hpp"
 
-using bot::command::PictureCommand;
-
-const std::string PictureCommand::description() const
+const std::string bot::command::Picture::description() const
 {
-  return "поиск картинок ВК";
+  return "поиск картинок в ВК";
 }
 
-const std::string PictureCommand::trigger() const
+const std::string bot::command::Picture::trigger() const
 {
   return "+пикча";
 }
 
-const std::string PictureCommand::execute(const CommandParams& inputData)
+const std::string bot::command::Picture::execute(const CommandParams& inputData)
 {
   if (inputData.args.empty()) {
     return util::emptyArgs();
   }
-  std::string attachments = api::mediaSearch("photos.search", inputData.args);
+  std::string attachments = api->searchMedia("photos.search", inputData.args);
   if (attachments.empty()) {
-    return "";
+    return "Не найдено картинок.";
   }
-  api::sendMessage("", inputData.peer_id, {{"attachment", attachments}});
+  api->sendMessage("", inputData.peer_id, {{"attachment", attachments}});
   return "";
 }

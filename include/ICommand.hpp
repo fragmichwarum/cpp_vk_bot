@@ -1,9 +1,7 @@
 #pragma once
 
-#include <string>
-
-#include "VkAPI.hpp"
-#include "Curl.hpp"
+#include "Repository.hpp"
+#include "VKAPI.hpp"
 
 namespace bot
 {

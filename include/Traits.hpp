@@ -1,4 +1,6 @@
-#include <bits/stringfwd.h>
+#pragma once
+
+#include <string>
 #include <map>
 
 namespace bot

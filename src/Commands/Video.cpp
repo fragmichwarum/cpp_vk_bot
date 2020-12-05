@@ -1,28 +1,24 @@
 #include "Video.hpp"
-#include "Utils.hpp"
-//#include "VkAPI.hpp"
 
-using bot::command::VideoCommand;
-
-const std::string VideoCommand::description() const
+const std::string bot::command::Video::description() const
 {
-  return "поиск видео ВК";
+  return "поиск видеозаписей ВК";
 }
 
-const std::string VideoCommand::trigger() const
+const std::string bot::command::Video::trigger() const
 {
   return "+видео";
 }
 
-const std::string VideoCommand::execute(const CommandParams& inputData)
+const std::string bot::command::Video::execute(const CommandParams& inputData)
 {
   if (inputData.args.empty()) {
     return util::emptyArgs();
   }
-  std::string attachments = api::mediaSearch("video.search", inputData.args);
+  std::string attachments = api->searchMedia("video.search", inputData.args);
   if (attachments.empty()) {
-    return "";
+    return "Не найдено видеозаписей.";
   }
-  api::sendMessage("", inputData.peer_id, {{"attachment", attachments}});
+  api->sendMessage("", inputData.peer_id, {{"attachment", attachments}});
   return "";
 }

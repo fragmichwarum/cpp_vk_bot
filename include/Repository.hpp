@@ -5,16 +5,21 @@
 
 namespace bot
 {
-class Database
+class Repository
 {
 private:
   SQLite::Database database;
-  std::string      name;
+  std::string name;
   void open();
 
+  static Repository* repository_;
+  Repository();
+
 public:
-  Database();
-  Database(const std::string& name);
+  Repository(Repository&) = delete;
+  void operator=(const Repository&) = delete;
+
+  static Repository* getInstance();
   void insertRole(long user_id, long peer_id, const std::string& role);
   std::vector<long> getRoles(long peer_id, const std::string& role = "");
   std::vector<long> getAllConversations();

@@ -1,35 +1,28 @@
-//#include <simdjson.h>
-
-#include "Utils.hpp"
-//#include "Curl.hpp"
-//#include "VkAPI.hpp"
+#include "Utility.hpp"
 #include "Complete.hpp"
 
-using bot::command::CompleteCommand;
-
-const std::string CompleteCommand::description() const
+const std::string bot::command::Complete::description() const
 {
   return "дополнить текст";
 }
 
-const std::string CompleteCommand::trigger() const
+const std::string bot::command::Complete::trigger() const
 {
   return "+дополни";
 }
 
-const std::string CompleteCommand::execute(const CommandParams& inputData)
+const std::string bot::command::Complete::execute(const CommandParams& inputData)
 {
   if (inputData.args.empty()) {
     return util::emptyArgs();
   }
+
   std::string response =
-    cURL::requestdata("https://pelevin.gpt.dobro.ai/generate/",
-    cURL::toJson({{"prompt", inputData.args}, {"length", "50"}}));
+    net->requestdata("https://pelevin.gpt.dobro.ai/generate/",
+    net->toJson({{"prompt", inputData.args}, {"length", "50"}}));
 
-  simdjson::padded_string padded_string = response;
   simdjson::dom::parser parser;
-  simdjson::dom::object AIObject = parser.parse(padded_string);
-
+  simdjson::dom::object AIObject = parser.parse(response);
 
   return AIObject["replies"].at(0).is_null()
     ? "Ошибка генерации текста."

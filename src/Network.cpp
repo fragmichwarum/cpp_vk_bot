@@ -1,10 +1,21 @@
-#include <string>
-
-#include "Curl.hpp"
+#include "Network.hpp"
 
 #define CURL_DEBUG
 
-const std::string bot::cURL::urlencode(const std::string& url)
+bot::Network* bot::Network::instance_ = nullptr;
+
+bot::Network::Network()
+{ }
+
+bot::Network* bot::Network::getInstance()
+{
+  if (instance_ != nullptr) {
+    instance_ = new Network;
+  }
+  return instance_;
+}
+
+std::string bot::Network::urlencode(const std::string& url)
 {
   char* encoded = curl_easy_escape(NULL, url.c_str(), url.length());
   std::string res{encoded};
@@ -12,18 +23,18 @@ const std::string bot::cURL::urlencode(const std::string& url)
   return res;
 }
 
-static size_t write(void* contents, size_t size, size_t nmemb, void* userp)
+size_t bot::Network::write(void* contents, size_t size, size_t nmemb, void* userp)
 {
   (static_cast<std::string*>(userp))->append(static_cast<char*>(contents), size * nmemb);
   return size * nmemb;
 }
 
-static size_t file_write(void* ptr, size_t size, size_t nmemb, FILE* stream)
+size_t bot::Network::file_write(void* ptr, size_t size, size_t nmemb, FILE* stream)
 {
   return fwrite(ptr, size, nmemb, stream);
 }
 
-const std::string bot::cURL::toJson(const std::map<std::string, std::string>& body)
+std::string bot::Network::toJson(const bot::traits::dictionary& body) const
 {
   std::string result;
   result += '{';
@@ -39,37 +50,24 @@ const std::string bot::cURL::toJson(const std::map<std::string, std::string>& bo
   return result;
 }
 
-const std::string bot::cURL::requestdata(const std::string& method, const std::string& data)
-{
-  std::string buffer;
-  CURL*  curl;
-  curl = curl_easy_init();
-  if (curl) {
-    curl_easy_setopt(curl, CURLOPT_URL, method.c_str());
-    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write);
-    curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, data.size());
-    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data.c_str());
-    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
-    curl_easy_perform(curl);
-  }
-  curl_easy_cleanup(curl);
-  return buffer;
-}
-
-static const std::string genparams(const bot::traits::dictionary& body)
+std::string bot::Network::genparams(const bot::traits::dictionary& body) const
 {
   std::string result;
   for (const auto& element : body) {
-    result += element.first + '=' + bot::cURL::urlencode(element.second) + '&';
+    result += element.first + '=' + urlencode(element.second) + '&';
   }
   return result;
 }
 
-/* Bottleneck. */
-const std::string bot::cURL::request(const std::string& method, const traits::dictionary& body)
+std::string bot::Network::appendVkUrl(const std::string& method) const
+{
+  return "https://api.vk.com/method/" + method + '?';
+}
+
+std::string bot::Network::request(const std::string& method, const bot::traits::dictionary& params) const
 {
   std::string url = method;
-  url += genparams(body);
+  url += genparams(params);
   std::string buffer;
   CURL* curl = curl_easy_init();
 
@@ -91,12 +89,24 @@ const std::string bot::cURL::request(const std::string& method, const traits::di
   return buffer;
 }
 
-const std::string bot::cURL::appendVkUrl(const std::string& method)
+std::string bot::Network::requestdata(const std::string& method, const std::string& data) const
 {
-  return "https://api.vk.com/method/" + method + '?';
+  std::string buffer;
+  CURL*  curl;
+  curl = curl_easy_init();
+  if (curl) {
+    curl_easy_setopt(curl, CURLOPT_URL, method.c_str());
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write);
+    curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, data.size());
+    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data.c_str());
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
+    curl_easy_perform(curl);
+  }
+  curl_easy_cleanup(curl);
+  return buffer;
 }
 
-std::size_t bot::cURL::download(const std::string& filename, const std::string& server)
+std::size_t bot::Network::download(const std::string& filename, const std::string& server) const
 {
   CURL* curl;
   FILE* fp;
@@ -119,7 +129,7 @@ std::size_t bot::cURL::download(const std::string& filename, const std::string& 
   return 0;
 }
 
-const std::string bot::cURL::upload(const std::string& filename, const std::string& server)
+std::string bot::Network::upload(const std::string& filename, const std::string& server) const
 {
   CURL* curl_handle = curl_easy_init();
   CURLcode curl_result;
@@ -127,7 +137,8 @@ const std::string bot::cURL::upload(const std::string& filename, const std::stri
   struct curl_httppost* lastptr=NULL;
   std::string data;
 
-  curl_formadd(&formpost,
+  curl_formadd(
+    &formpost,
     &lastptr,
     CURLFORM_COPYNAME, "file1",
     CURLFORM_FILENAME, filename.c_str(),

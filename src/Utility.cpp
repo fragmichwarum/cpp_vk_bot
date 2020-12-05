@@ -1,9 +1,7 @@
-#include <functional>
 #include <sstream>
-#include <numeric>
 #include <iterator>
 
-#include "Utils.hpp"
+#include "Utility.hpp"
 
 std::vector<std::string> bot::util::split(const std::string& text)
 {
@@ -15,15 +13,7 @@ std::vector<std::string> bot::util::split(const std::string& text)
 
 std::string bot::util::getArgs(const std::string& message)
 {
-  std::vector<std::string> splitted = split(message);
-  splitted.erase(splitted.begin());
-  if (splitted.empty()) {
-    return "";
-  }
-  std::string args = std::accumulate(splitted.begin(), splitted.end(), std::string{ },
-                [](std::string& body, std::string& el){ return body += el + ' '; });
-  args.erase(--args.end());
-  return args;
+  return message.substr(message.find_first_of(" ") + 1);
 }
 
 std::string bot::util::emptyArgs() noexcept

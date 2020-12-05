@@ -6,18 +6,16 @@ namespace bot
 {
 namespace command
 {
-class Role final : public ICommand
+class Host final : public ICommand
 {
 private:
-  Repository* repository;
-  static long extractId(const std::string& user);
+  std::string getHostname(const std::string& ipAddress);
 
 public:
-  Role();
   const std::string execute([[maybe_unused]]const CommandParams&) override;
   const std::string description() const override;
   const std::string trigger() const override;
-  ~Role()
+  ~Host()
   { }
 };
 }

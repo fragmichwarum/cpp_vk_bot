@@ -6,13 +6,16 @@ namespace bot
 {
 namespace command
 {
-class VideoCommand final : public ICommand
+class Video final : public ICommand
 {
+private:
+  VkAPI* api = VkAPI::getInstance();
+
 public:
   const std::string execute([[maybe_unused]]const CommandParams& inputData) override;
   const std::string description() const override;
   const std::string trigger() const override;
- ~VideoCommand()
+ ~Video()
   { }
 };
 } //namespace command

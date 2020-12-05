@@ -6,13 +6,16 @@ namespace bot
 {
 namespace command
 {
-class CompleteCommand final : public ICommand
+class Complete final : public ICommand
 {
+private:
+  Network* net = Network::getInstance();
+
 public:
   const std::string execute([[maybe_unused]]const CommandParams& inputData) override;
   const std::string description() const override;
   const std::string trigger() const override;
- ~CompleteCommand()
+ ~Complete()
   { }
 };
 } //namespace command

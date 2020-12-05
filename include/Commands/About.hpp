@@ -6,16 +6,18 @@ namespace bot
 {
 namespace command
 {
-class AboutCommand final : public ICommand
+class About final : public ICommand
 {
 private:
   std::string buildTime;
+  VkAPI* api = VkAPI::getInstance();
+
 public:
-  AboutCommand();
+  About();
   const std::string execute([[maybe_unused]]const CommandParams& inputData) override;
   const std::string description() const override;
   const std::string trigger() const override;
- ~AboutCommand()
+ ~About()
   { }
 };
 } //namespace command

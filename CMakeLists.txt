@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(AnotherVKRefactoring LANGUAGES CXX)
+project(VK LANGUAGES CXX)
 
 include_directories(src)
 include_directories(include)
@@ -9,6 +9,7 @@ include_directories(include/Commands)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_FLAGS -flto)
 
 set(HEADERS
   include/EventHandler.hpp
@@ -18,16 +19,18 @@ set(HEADERS
   include/MessageEventHandler.hpp
   include/Network.hpp
   include/PostEventHandler.hpp
-  include/Repository.hpp
-  include/Traits.hpp
+  include/Repository/Repository.hpp
+  include/Repository/SQLiteRepository.hpp
   include/Utility.hpp
-  include/VKAPI.hpp
+  include/VkAPI.hpp
   include/VKError.hpp
 )
 set(COMMAND_HEADERS
   include/Commands/About.hpp
   include/Commands/Cat.hpp
+  include/Commands/ChatName.hpp
   include/Commands/Complete.hpp
+  include/Commands/Currency.hpp
   include/Commands/Document.hpp
   include/Commands/Host.hpp
   include/Commands/Ip.hpp
@@ -45,14 +48,16 @@ set(SOURCES
   src/MessageEventHandler.cpp
   src/Network.cpp
   src/PostEventHandler.cpp
-  src/Repository.cpp
+  src/Repository/SQLiteRepository.cpp
   src/Utility.cpp
   src/VkAPI.cpp
 )
 set(COMMAND_SOURCES
   src/Commands/About.cpp
   src/Commands/Cat.cpp
+  src/Commands/ChatName.cpp
   src/Commands/Complete.cpp
+  src/Commands/Currency.cpp
   src/Commands/Document.cpp
   src/Commands/Host.cpp
   src/Commands/Ip.cpp
@@ -64,5 +69,5 @@ set(COMMAND_SOURCES
   src/Commands/Who.cpp
 )
 
-add_executable(AnotherVKRefactoring ${HEADERS} ${SOURCES} ${COMMAND_HEADERS} ${COMMAND_SOURCES})
-target_link_libraries(AnotherVKRefactoring simdjson curl SQLiteCpp cares)
+add_executable(VK ${HEADERS} ${SOURCES} ${COMMAND_HEADERS} ${COMMAND_SOURCES})
+target_link_libraries(VK simdjson curl SQLiteCpp cares)

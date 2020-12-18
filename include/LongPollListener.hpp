@@ -1,25 +1,24 @@
 #pragma once
 
-#include "VKError.hpp"
-#include "EventHandler.hpp"
+#include <simdjson.h>
 
 namespace bot
 {
 class LongPollListener
 {
 private:
-  std::string server;
-  std::string key;
-  std::string ts;
+  std::string server_;
+  std::string key_;
+  std::string ts_;
 
-  simdjson::dom::parser parser;
-  EventHandler eventHandler;
-  VkAPI* api = VkAPI::getInstance();
+  static class EventHandler* eventHandler_;
+  static class VkAPI* api_;
 
-  void updateLongPollData();
-  void processEvents(const simdjson::dom::array& updates);
+  void updateLongPollData_();
+  void processEvents_(const simdjson::dom::array& updates);
 
 public:
   void loop();
+ ~LongPollListener();
 };
 } //namespace bot

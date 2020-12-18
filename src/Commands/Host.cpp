@@ -6,17 +6,12 @@
 
 std::string hostName_;
 
-const std::string bot::command::Host::description() const
+std::string bot::command::Host::description() const
 {
   return "узнать хост по ip адресу";
 }
 
-const std::string bot::command::Host::trigger() const
-{
-  return "+host";
-}
-
-static void dnsCallback([[maybe_unused]]void* arg, [[maybe_unused]]int status, [[maybe_unused]]int timeouts, hostent* host)
+static void dnsCallback([[maybe_unused]] void* arg, [[maybe_unused]] int status, [[maybe_unused]] int timeouts, hostent* host)
 {
   if(status == ARES_SUCCESS) hostName_ = host->h_name;
   else hostName_ = "lookup failed: " + std::to_string(status);
@@ -43,7 +38,7 @@ static void mainLoop(ares_channel& channel)
   }
 }
 
-std::string bot::command::Host::getHostname(const std::string& ipAddress)
+static std::string getHostname(const std::string& ipAddress)
 {
   struct in_addr ip;
   ares_channel channel;
@@ -55,10 +50,9 @@ std::string bot::command::Host::getHostname(const std::string& ipAddress)
   return hostName_;
 }
 
-const std::string bot::command::Host::execute(const CommandParams& params)
+std::string bot::command::Host::execute(const CommandParams& params, [[maybe_unused]] const Dependencies& deps)
 {
   if (params.args.empty()) return "Что-то пошло не так.";
 
-  std::cout << std::endl << getHostname(params.args) << std::endl;
   return getHostname(params.args);
 }

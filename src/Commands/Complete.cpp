@@ -1,25 +1,23 @@
+#include <simdjson.h>
+
+#include "Network.hpp"
 #include "Utility.hpp"
 #include "Complete.hpp"
 
-const std::string bot::command::Complete::description() const
+std::string bot::command::Complete::description() const
 {
   return "дополнить текст";
 }
 
-const std::string bot::command::Complete::trigger() const
-{
-  return "+дополни";
-}
-
-const std::string bot::command::Complete::execute(const CommandParams& inputData)
+std::string bot::command::Complete::execute(const CommandParams& inputData, const Dependencies& deps)
 {
   if (inputData.args.empty()) {
     return util::emptyArgs();
   }
 
   std::string response =
-    net->requestdata("https://pelevin.gpt.dobro.ai/generate/",
-    net->toJson({{"prompt", inputData.args}, {"length", "50"}}));
+    deps.net->requestdata("https://pelevin.gpt.dobro.ai/generate/",
+    util::toJson({{"prompt", inputData.args}, {"length", "50"}}));
 
   simdjson::dom::parser parser;
   simdjson::dom::object AIObject = parser.parse(response);

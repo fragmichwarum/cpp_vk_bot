@@ -1,23 +1,17 @@
-#include "Who.hpp"
 #include "Utility.hpp"
+#include "VkAPI.hpp"
+#include "Who.hpp"
 
-const std::string bot::command::Who::description() const
+std::string bot::command::Who::description() const
 {
   return "выбрать случайного участника";
 }
 
-const std::string bot::command::Who::trigger() const
+std::string bot::command::Who::execute(const CommandParams& inputData, const Dependencies& deps)
 {
-  return "+кто";
-}
+  if (inputData.args.empty()) return util::emptyArgs();
 
-const std::string bot::command::Who::execute(const CommandParams& inputData)
-{
-  if (inputData.args.empty()) {
-    return util::emptyArgs();
-  }
-
-  std::string response = api->getConversationMembers(inputData.peer_id);
+  std::string response = deps.api->getConversationMembers(inputData.peer_id);
 
   simdjson::dom::parser parser;
   simdjson::dom::object parsed = parser.parse(response);

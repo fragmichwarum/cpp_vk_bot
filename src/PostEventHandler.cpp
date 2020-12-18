@@ -1,23 +1,30 @@
+#include "Repository/SQLiteRepository.hpp"
+#include "VkAPI.hpp"
 #include "PostEventHandler.hpp"
 
-bot::PostEventHandler::PostEventHandler()
-  : repository(bot::Repository::getInstance())
-{ }
+bot::VkAPI* bot::PostEventHandler::api_ = new bot::VkAPI;
+bot::Repository* bot::PostEventHandler::repository_ = new SQLiteRepository("USERS");
 
-void bot::PostEventHandler::updateConversations()
+void bot::PostEventHandler::updateConversations_()
 {
-  conversations = repository->getAllConversations();
+  conversations_ = repository_->getAllConversations();
 }
 
 void bot::PostEventHandler::postMailing(const simdjson::dom::object& update)
 {
-  updateConversations();
+  updateConversations_();
   std::string attachment =
     std::to_string(update["object"]["from_id"].get_int64()) + '_' +
     std::to_string(update["object"]["id"].get_int64());
 
-  for(const long& conversation : conversations)
+  for(const long& conversation : conversations_)
   {
-    api->sendMessage("Таки новый пост в группе🌚", conversation, {{"attachment", "wall" + attachment}});
+    api_->sendMessage("Таки новый пост в группе🌚", conversation, {{"attachment", "wall" + attachment}});
   }
+}
+
+bot::PostEventHandler::~PostEventHandler()
+{
+  delete api_;
+  delete repository_;
 }

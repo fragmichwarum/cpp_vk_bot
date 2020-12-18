@@ -14,7 +14,7 @@ public:
     : _code(code)
   { }
 
- ~Vk_exception() noexcept
+ ~Vk_exception()
   { }
 
   const char* what() const noexcept override

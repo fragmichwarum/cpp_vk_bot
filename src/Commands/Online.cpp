@@ -1,19 +1,15 @@
+#include "VkAPI.hpp"
 #include "Online.hpp"
 
-const std::string bot::command::Online::description() const
+std::string bot::command::Online::description() const
 {
   return "показать участников онлайн";
 }
 
-const std::string bot::command::Online::trigger() const
-{
-  return "+онлайн";
-}
-
-const std::string bot::command::Online::execute(const CommandParams& params)
+std::string bot::command::Online::execute(const CommandParams& params, const Dependencies& deps)
 {
   simdjson::dom::parser parser;
-  simdjson::dom::object onlineObject = parser.parse(api->getConversationMembers(params.peer_id));
+  simdjson::dom::object onlineObject = parser.parse(deps.api->getConversationMembers(params.peer_id));
 
   if (onlineObject.begin().key() == "error" && onlineObject["error"]["error_code"].get_int64() == 917L)
   {

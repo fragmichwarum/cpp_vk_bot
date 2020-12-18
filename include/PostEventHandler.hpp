@@ -1,22 +1,20 @@
 #pragma once
 
-#include "Repository.hpp"
-#include "VKAPI.hpp"
+#include <simdjson.h>
 
 namespace bot
 {
 class PostEventHandler
 {
 private:
-  using conversation = long;
-  std::vector<conversation> conversations;
-  Repository* repository;
-  VkAPI* api = VkAPI::getInstance();
+  std::vector<long> conversations_;
+  static class Repository* repository_;
+  static class VkAPI* api_;
 
-  void updateConversations();
+  void updateConversations_();
 
 public:
-  PostEventHandler();
   void postMailing(const simdjson::dom::object& update);
+ ~PostEventHandler();
 };
 }

@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Logger.hpp"
+#include <simdjson.h>
+
 #include "ICommand.hpp"
 
 namespace bot
@@ -8,14 +9,20 @@ namespace bot
 class MessageEventHandler
 {
 private:
-  VkAPI* api = VkAPI::getInstance();
-  Logger logger{api->logPath, api->errPath};
+  static class VkAPI* api_;
+  static class Logger* logger_;
+  static class Network* net_;
+  static class SQLiteRepository* repository_;
 
-  std::vector<std::shared_ptr<ICommand>> commandCollection;
-  void processLogging(const std::string& message);
+  std::unordered_map<std::string, std::shared_ptr<ICommand>> commandCollection_;
+
+  void processLogging_(const std::string& message);
+  void processHelp_(const long& peer_id);
 
 public:
+  MessageEventHandler();
   void tryProcessMessage(const simdjson::dom::object& update);
-  void addCommand(ICommand* command);
+
+ ~MessageEventHandler();
 };
 } //namespace bot

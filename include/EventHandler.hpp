@@ -1,18 +1,17 @@
 #pragma once
 
-#include "PostEventHandler.hpp"
-#include "MessageEventHandler.hpp"
+#include <simdjson.h>
 
 namespace bot
 {
 class EventHandler
 {
 private:
-  PostEventHandler postEventHandler;
-  MessageEventHandler messageEventhandler;
+  static class PostEventHandler* postEventHandler_;
+  static class MessageEventHandler* messageEventhandler_;
 
 public:
-  void initAllCommands();
   void tryProcessEvent(const simdjson::dom::object& update);
+ ~EventHandler();
 };
 }

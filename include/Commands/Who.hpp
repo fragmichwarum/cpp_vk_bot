@@ -8,15 +8,10 @@ namespace command
 {
 class Who final : public ICommand
 {
-private:
-  VkAPI* api = VkAPI::getInstance();
-
 public:
-  const std::string execute([[maybe_unused]]const CommandParams& inputData) override;
-  const std::string description() const override;
-  const std::string trigger() const override;
- ~Who()
-  { }
+  std::string execute(const CommandParams&, const Dependencies&) override;
+  std::string description() const override;
+ ~Who() = default;
 };
 } //namespace command
 } //namespace bot

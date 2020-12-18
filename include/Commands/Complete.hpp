@@ -8,15 +8,10 @@ namespace command
 {
 class Complete final : public ICommand
 {
-private:
-  Network* net = Network::getInstance();
-
 public:
-  const std::string execute([[maybe_unused]]const CommandParams& inputData) override;
-  const std::string description() const override;
-  const std::string trigger() const override;
- ~Complete()
-  { }
+  std::string execute(const CommandParams& inputData, const Dependencies&) override;
+  std::string description() const override;
+ ~Complete() = default;
 };
 } //namespace command
 } //namespace bot

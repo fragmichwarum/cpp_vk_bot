@@ -1,24 +1,19 @@
+#include "Utility.hpp"
+#include "VkAPI.hpp"
 #include "Document.hpp"
 
-const std::string bot::command::Document::description() const
+std::string bot::command::Document::description() const
 {
   return "поиск документов ВК";
 }
 
-const std::string bot::command::Document::trigger() const
+std::string bot::command::Document::execute(const CommandParams& inputData, const Dependencies& deps)
 {
-  return "+доки";
-}
+  if (inputData.args.empty()) return util::emptyArgs();
 
-const std::string bot::command::Document::execute(const CommandParams& inputData)
-{
-  if (inputData.args.empty()) {
-    return util::emptyArgs();
-  }
-  std::string attachments = api->searchMedia("docs.search", inputData.args);
-  if (attachments.empty()) {
-    return "Не найдено документов.";
-  }
-  api->sendMessage("", inputData.peer_id, {{"attachment", attachments}});
+  std::string attachments = deps.api->searchMedia("docs.search", inputData.args);
+  if (attachments.empty()) return "Не найдено документов.";
+
+  deps.api->sendMessage("", inputData.peer_id, {{"attachment", attachments}});
   return "";
 }

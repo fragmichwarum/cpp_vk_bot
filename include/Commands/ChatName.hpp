@@ -6,12 +6,12 @@ namespace bot
 {
 namespace command
 {
-class Picture final : public ICommand
+class ChatNameSetter final : public ICommand
 {
 public:
-  std::string execute(const CommandParams&, const Dependencies&) override;
+  std::string execute(const CommandParams& inputData, const Dependencies&) override;
   std::string description() const override;
- ~Picture() = default;
+ ~ChatNameSetter() = default;
 };
 } //namespace command
 } //namespace bot

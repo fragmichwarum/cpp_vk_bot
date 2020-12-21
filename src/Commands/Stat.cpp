@@ -4,12 +4,12 @@
 
 #include "Stat.hpp"
 
-std::string bot::command::Stat::description() const
+constexpr std::string_view bot::command::Stat::description() const noexcept
 {
   return "Показать статистику";
 }
 
-static std::string lineparse(const std::string& line)
+static std::string lineparse(std::string_view line)
 {
   std::string result;
   for (char c : line) {
@@ -35,11 +35,11 @@ static std::string procinfo(const std::string& filename, const std::string& para
   return "";
 }
 
-static std::string os_exec(const std::string& cmd)
+static std::string os_exec(std::string_view cmd)
 {
   std::string result;
   std::array<char, 128> buffer;
-  std::unique_ptr<FILE, decltype (&pclose)> pipe(popen(cmd.c_str(), "r"), pclose);
+  std::unique_ptr<FILE, decltype (&pclose)> pipe(popen(cmd.data(), "r"), pclose);
   while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
     result += buffer.data();
   }

@@ -4,7 +4,7 @@
 #include "Utility.hpp"
 #include "Complete.hpp"
 
-std::string bot::command::Complete::description() const
+constexpr std::string_view bot::command::Complete::description() const noexcept
 {
   return "дополнить текст";
 }
@@ -15,7 +15,7 @@ std::string bot::command::Complete::execute(const CommandParams& inputData, cons
     return util::emptyArgs();
   }
 
-  std::string response =
+  std::string_view response =
     deps.net->requestdata("https://pelevin.gpt.dobro.ai/generate/",
     util::toJson({{"prompt", inputData.args}, {"length", "50"}}));
 

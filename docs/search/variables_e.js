@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['rc_742',['rc',['../classbot_1_1Database.html#aff43382895aa85f55c3d9c935ec7dbc2',1,'bot::Database']]],
-  ['red_743',['red',['../classbot_1_1Vk__logger.html#afcf5d222c200bedfd9058e2c14a5fc4f',1,'bot::Vk_logger']]],
-  ['reference_5ftokens_744',['reference_tokens',['../classnlohmann_1_1basic__json_1_1json__pointer.html#a04832c52ff9b4237ec15d437390f7637',1,'nlohmann::basic_json::json_pointer']]]
+  ['timelabel_5f_340',['timeLabel_',['../classbot_1_1Logger.html#ab4cbf797e99782ec5f4a386ad611b1ac',1,'bot::Logger']]],
+  ['ts_341',['ts',['../classbot_1_1LongPollListener.html#a81a86678b61cf3c8c0e7bf9c6bc69a4e',1,'bot::LongPollListener::ts()'],['../structbot_1_1LongPollData.html#adb30b27bbb6ca61da7ced3a005119c57',1,'bot::LongPollData::ts()']]]
 ];

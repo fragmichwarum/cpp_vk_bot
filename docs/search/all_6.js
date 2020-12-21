@@ -1,10 +1,14 @@
 var searchData=
 [
-  ['find_84',['find',['../classnlohmann_1_1basic__json.html#aeed33787bd362c7ead59a4ba945392db',1,'nlohmann::basic_json::find(typename object_t::key_type key)'],['../classnlohmann_1_1basic__json.html#a6d2f26a0a84787a43c989c88e2b7023b',1,'nlohmann::basic_json::find(typename object_t::key_type key) const']]],
-  ['flatten_85',['flatten',['../classnlohmann_1_1basic__json.html#ab838f000d76662917ffd6ec529569e03',1,'nlohmann::basic_json']]],
-  ['from_5fcbor_86',['from_cbor',['../classnlohmann_1_1basic__json.html#ab5e3e1758c1a52ffe89b1d379ef7fbe1',1,'nlohmann::basic_json']]],
-  ['from_5fjson_87',['from_json',['../structnlohmann_1_1adl__serializer.html#ab39cad07c1a2bf4414d6cae5215b4e7a',1,'nlohmann::adl_serializer']]],
-  ['from_5fjson_5ffn_88',['from_json_fn',['../structnlohmann_1_1detail_1_1from__json__fn.html',1,'nlohmann::detail']]],
-  ['from_5fmsgpack_89',['from_msgpack',['../classnlohmann_1_1basic__json.html#a3eafe0b1fb2f2c443f1b3fea55c8a470',1,'nlohmann::basic_json']]],
-  ['front_90',['front',['../classnlohmann_1_1basic__json.html#a3acba9c6ceb7214e565fe08c3ba5b352',1,'nlohmann::basic_json::front()'],['../classnlohmann_1_1basic__json.html#a4b1fb3671ade9afc8d33b2c9510acbfc',1,'nlohmann::basic_json::front() const']]]
+  ['getallconversations_44',['getAllConversations',['../classbot_1_1Repository.html#a742f5e89c8316db99ae497fce2440c26',1,'bot::Repository::getAllConversations()'],['../classbot_1_1SQLiteRepository.html#a3260d277cdeca22a24d6965f7665b733',1,'bot::SQLiteRepository::getAllConversations()']]],
+  ['getapiversion_45',['getApiVersion',['../classbot_1_1VkAPI.html#a1dcae0b0ef9136b073be692d8d966a0d',1,'bot::VkAPI']]],
+  ['getargs_46',['getArgs',['../namespacebot_1_1util.html#aa3b51c196bfaa4adb698a7a0d62f8cdd',1,'bot::util']]],
+  ['getattachmenttype_5f_47',['getAttachmentType_',['../classbot_1_1VkAPI.html#a9a2d51e06eeebc9e9a5072587e04da85',1,'bot::VkAPI']]],
+  ['getconversationmembers_48',['getConversationMembers',['../classbot_1_1VkAPI.html#a7ae9893e2b96955c084b5454e4680fc9',1,'bot::VkAPI']]],
+  ['geterrpath_49',['getErrPath',['../classbot_1_1VkAPI.html#a96b69531506be6b9128d2fb7c34b6494',1,'bot::VkAPI']]],
+  ['getlogpath_50',['getLogPath',['../classbot_1_1VkAPI.html#a31d052e6aaad1592de420d50bf3b9cf2',1,'bot::VkAPI']]],
+  ['getlongpollserver_51',['getLongPollServer',['../classbot_1_1VkAPI.html#a0593164c3f147e79a6a682260e06f71d',1,'bot::VkAPI']]],
+  ['getrole_52',['getRole',['../classbot_1_1Repository.html#a1e742f44a4f880457b3e1cf87a4772fe',1,'bot::Repository::getRole()'],['../classbot_1_1SQLiteRepository.html#a2fd0c9e9401d9c6e8ace1de8e6cf4702',1,'bot::SQLiteRepository::getRole()']]],
+  ['getroles_53',['getRoles',['../classbot_1_1Repository.html#a75fa0355f327fab3dc869a85d816906d',1,'bot::Repository::getRoles()'],['../classbot_1_1SQLiteRepository.html#a51e0d21567312704324adecbe4c3ccee',1,'bot::SQLiteRepository::getRoles()']]],
+  ['groupid_5f_54',['groupId_',['../classbot_1_1VkAPI.html#a9a502efcf2af5f0102a547de6ae8af39',1,'bot::VkAPI']]]
 ];

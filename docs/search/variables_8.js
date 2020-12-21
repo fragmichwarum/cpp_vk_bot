@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['mint_478',['mint',['../classbot_1_1Vk__logger.html#a9eab3855f8436e4b9f5dbba3cc866da6',1,'bot::Vk_logger']]],
-  ['moderator_479',['moderator',['../classbot_1_1Cmd__handler.html#a9462fe891776855878cf999c9e4551b9',1,'bot::Cmd_handler']]]
+  ['logger_327',['logger',['../classbot_1_1MessageEventHandler.html#a53d6e18dc2f977189beb3d778881b4ee',1,'bot::MessageEventHandler']]],
+  ['loglabel_5f_328',['logLabel_',['../classbot_1_1Logger.html#a01bbffa3adbaabe661e9a3aa6b7af441',1,'bot::Logger']]],
+  ['logpath_5f_329',['logPath_',['../classbot_1_1Logger.html#a1750aae3a932338ec7d224490846d34a',1,'bot::Logger::logPath_()'],['../classbot_1_1VkAPI.html#a179e2322972c066b40c58987c8325ad4',1,'bot::VkAPI::logPath_()']]]
 ];

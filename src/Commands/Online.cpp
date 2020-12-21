@@ -1,7 +1,7 @@
 #include "VkAPI.hpp"
 #include "Online.hpp"
 
-std::string bot::command::Online::description() const
+constexpr std::string_view bot::command::Online::description() const noexcept
 {
   return "показать участников онлайн";
 }

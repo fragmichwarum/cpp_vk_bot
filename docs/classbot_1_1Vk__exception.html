@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.20"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>C++ bot: bot::Vk_exception Class Reference</title>
+<title>VK bot: bot::Vk_exception Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">C++ bot
+   <div id="projectname">VK bot
    </div>
   </td>
  </tr>
@@ -74,39 +74,45 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Class that represents handling of VK API errors.  
+<p>Error-throwing class depending on VK error codes.  
  <a href="classbot_1_1Vk__exception.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="vk__exception_8hpp_source.html">vk_exception.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="VKError_8hpp_source.html">VKError.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for bot::Vk_exception:</div>
 <div class="dyncontent">
- <div class="center">
-  <img src="classbot_1_1Vk__exception.png" alt=""/>
- </div></div>
+<div class="center"><img src="classbot_1_1Vk__exception__inherit__graph.png" border="0" usemap="#abot_1_1Vk__exception_inherit__map" alt="Inheritance graph"/></div>
+<map name="bot_1_1Vk__exception_inherit__map" id="bot_1_1Vk__exception_inherit__map">
+<area shape="rect" title="Error&#45;throwing class depending on VK error codes." alt="" coords="5,80,144,107"/>
+<area shape="rect" title=" " alt="" coords="17,5,132,32"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for bot::Vk_exception:</div>
+<div class="dyncontent">
+<div class="center"><img src="classbot_1_1Vk__exception__coll__graph.png" border="0" usemap="#abot_1_1Vk__exception_coll__map" alt="Collaboration graph"/></div>
+<map name="bot_1_1Vk__exception_coll__map" id="bot_1_1Vk__exception_coll__map">
+<area shape="rect" title="Error&#45;throwing class depending on VK error codes." alt="" coords="5,80,144,107"/>
+<area shape="rect" title=" " alt="" coords="17,5,132,32"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a2fb1b2080230a8da80844ca17167c454"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1Vk__exception.html#a2fb1b2080230a8da80844ca17167c454">Vk_exception</a> (long code) noexcept</td></tr>
-<tr class="memdesc:a2fb1b2080230a8da80844ca17167c454"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vk_error constructor.  <a href="classbot_1_1Vk__exception.html#a2fb1b2080230a8da80844ca17167c454">More...</a><br /></td></tr>
 <tr class="separator:a2fb1b2080230a8da80844ca17167c454"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d5566798e17abd853ba5243c6829487"><td class="memItemLeft" align="right" valign="top"><a id="a3d5566798e17abd853ba5243c6829487"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1Vk__exception.html#a3d5566798e17abd853ba5243c6829487">~Vk_exception</a> () noexcept</td></tr>
-<tr class="memdesc:a3d5566798e17abd853ba5243c6829487"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default destructor. <br /></td></tr>
-<tr class="separator:a3d5566798e17abd853ba5243c6829487"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcb5c25d030853bc7d93ee10f6c44118"><td class="memItemLeft" align="right" valign="top"><a id="abcb5c25d030853bc7d93ee10f6c44118"></a>
-const char *&#160;</td><td class="memItemRight" valign="bottom"><b>what</b> () const noexcept override</td></tr>
+<tr class="memitem:ab89ecb0fe686829b8ef9432db78e03ea"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1Vk__exception.html#ab89ecb0fe686829b8ef9432db78e03ea">~Vk_exception</a> ()</td></tr>
+<tr class="separator:ab89ecb0fe686829b8ef9432db78e03ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcb5c25d030853bc7d93ee10f6c44118"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1Vk__exception.html#abcb5c25d030853bc7d93ee10f6c44118">what</a> () const noexcept override</td></tr>
 <tr class="separator:abcb5c25d030853bc7d93ee10f6c44118"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:ad7248c86c7565badb1b165e390a7d8d0"><td class="memItemLeft" align="right" valign="top"><a id="ad7248c86c7565badb1b165e390a7d8d0"></a>
-long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1Vk__exception.html#ad7248c86c7565badb1b165e390a7d8d0">_code</a></td></tr>
-<tr class="memdesc:ad7248c86c7565badb1b165e390a7d8d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">An error code. <br /></td></tr>
+<tr class="memitem:ad7248c86c7565badb1b165e390a7d8d0"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1Vk__exception.html#ad7248c86c7565badb1b165e390a7d8d0">_code</a></td></tr>
 <tr class="separator:ad7248c86c7565badb1b165e390a7d8d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Class that represents handling of VK API errors. </p>
+<div class="textblock"><p>Error-throwing class depending on VK error codes. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a2fb1b2080230a8da80844ca17167c454"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2fb1b2080230a8da80844ca17167c454">&#9670;&nbsp;</a></span>Vk_exception()</h2>
@@ -132,18 +138,84 @@ long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </table>
 </div><div class="memdoc">
 
-<p>Vk_error constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">An</td><td>error code. </td></tr>
-  </table>
-  </dd>
-</dl>
+</div>
+</div>
+<a id="ab89ecb0fe686829b8ef9432db78e03ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab89ecb0fe686829b8ef9432db78e03ea">&#9670;&nbsp;</a></span>~Vk_exception()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bot::Vk_exception::~Vk_exception </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="abcb5c25d030853bc7d93ee10f6c44118"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abcb5c25d030853bc7d93ee10f6c44118">&#9670;&nbsp;</a></span>what()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* bot::Vk_exception::what </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ad7248c86c7565badb1b165e390a7d8d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7248c86c7565badb1b165e390a7d8d0">&#9670;&nbsp;</a></span>_code</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">long bot::Vk_exception::_code</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/<a class="el" href="vk__exception_8hpp_source.html">vk_exception.hpp</a></li>
+<li>include/<a class="el" href="VKError_8hpp_source.html">VKError.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

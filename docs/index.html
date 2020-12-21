@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.20"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>C++ bot: Detailed description of https://github.com/oxfffffe/cpp_vk_bot</title>
+<title>VK bot: Detailed description of https://github.com/oxfffffe/cpp_vk_bot</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">C++ bot
+   <div id="projectname">VK bot
    </div>
   </td>
  </tr>
@@ -83,54 +83,18 @@ How to start?</h2>
 <div class="line">}</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md1"></a>
 Build</h2>
-<p>There are multiple options to choose.</p>
-<h3><a class="anchor" id="autotoc_md2"></a>
-QMake</h3>
-<div class="fragment"><div class="line">qmake vk.pro</div>
-<div class="line">make (optional) -j &lt;the number of your CPU cores&gt;</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md3"></a>
-GCC</h3>
-<div class="fragment"><div class="line">g++ -c -pipe -Wall -Os -std=gnu++1z -fPIC -I. -Iinclude lib/src<span class="comment">/* src/* &amp;&amp; g++ -Wl,-O1 -o vk *.o -lcurl -lsqlite3 -lpthread &amp;&amp; rm *.o -rf</span></div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md4"></a>
-Clang</h3>
-<div class="fragment"><div class="line">clang++ -c -pipe -Wall -Os -std=gnu++1z -fPIC -I. -Iinclude lib/src<span class="comment">/* src/* &amp;&amp; clang++ -Wl,-O1 -o vk *.o -lcurl -lsqlite3 -lpthread &amp;&amp; rm *.o -rf</span></div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md5"></a>
+<p>at <em><b>cpp_vk_bot</b></em> directory:</p><ul>
+<li><b>mkdir build</b></li>
+<li><b>cd build</b></li>
+<li><b>cmake ..</b></li>
+<li><b>make</b></li>
+</ul>
+<h2><a class="anchor" id="autotoc_md2"></a>
 Used libraries</h2>
 <ul>
-<li>sqlite3</li>
-<li>libcurl</li>
-<li><a class="el" href="namespacenlohmann.html#a2bfd99e845a2e5cd90aeaf1b1431f474">Nlohmann JSON</a></li>
-</ul>
-<h2><a class="anchor" id="autotoc_md6"></a>
-Reference</h2>
-<ul>
-<li>Namespace <a class="el" href="namespacebot.html">bot</a>:<ul>
-<li>Classes:<ul>
-<li><a class="el" href="classbot_1_1Cmd__handler.html">Cmd_handler</a></li>
-<li><a class="el" href="classbot_1_1Cmd__traits.html">Cmd_traits</a></li>
-<li><a class="el" href="classbot_1_1Database.html">Database</a></li>
-<li><a class="el" href="classbot_1_1Long__poll__handler.html">Long_poll_handler</a></li>
-<li><a class="el" href="classbot_1_1Vk__api.html">Vk_api</a></li>
-<li><a class="el" href="classbot_1_1Vk__exception.html">Vk_exception</a></li>
-<li><a class="el" href="classbot_1_1Vk__logger.html">Vk_logger</a></li>
-</ul>
-</li>
-<li>Nested namespaces:<ul>
-<li><a class="el" href="namespacebot_1_1cURL.html">cURL</a></li>
-<li><a class="el" href="namespacebot_1_1util.html">util</a></li>
-<li><a class="el" href="namespacebot_1_1info.html">info</a></li>
-</ul>
-</li>
-<li>Type definitions:<ul>
-<li><a class="el" href="namespacebot.html#a9b159e5a4785878828b776ebb40e3ef5">cmd_type</a></li>
-</ul>
-</li>
-<li>Enumerations:<ul>
-<li><a class="el" href="namespacebot.html#ab9df5ed5506e15f975c49f345c9c12ec">LOGTYPE</a> </li>
-</ul>
-</li>
-</ul>
-</li>
+<li>SQLiteCpp</li>
+<li>simdjson</li>
+<li>libcurl </li>
 </ul>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->

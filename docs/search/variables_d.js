@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['primitive_5fiterator_740',['primitive_iterator',['../structnlohmann_1_1basic__json_1_1internal__iterator.html#ac1938c3d3d3d713b68a7a82d7cb569eb',1,'nlohmann::basic_json::internal_iterator']]],
-  ['processed_5fchars_741',['processed_chars',['../classnlohmann_1_1basic__json_1_1cached__input__stream__adapter.html#a83df4e24444c7e626a34769bf50959b8',1,'nlohmann::basic_json::cached_input_stream_adapter']]]
+  ['server_339',['server',['../classbot_1_1LongPollListener.html#ae163d47ef2dc46f4043c95fa7d6e7e95',1,'bot::LongPollListener::server()'],['../structbot_1_1LongPollData.html#a091291d8bac3800593c273b0d07905ca',1,'bot::LongPollData::server()']]]
 ];

@@ -1,6 +1,6 @@
 #include "Repository/SQLiteRepository.hpp"
 
-bot::SQLiteRepository::SQLiteRepository(const std::string& name)
+bot::SQLiteRepository::SQLiteRepository(std::string_view name)
   : name_(name)
   , database_(name_ + ".db3", SQLite::OPEN_CREATE | SQLite::OPEN_READWRITE)
 {
@@ -17,7 +17,7 @@ void bot::SQLiteRepository::open_()
   );
 }
 
-void bot::SQLiteRepository::insertRole(long user_id, long peer_id, const std::string& role)
+void bot::SQLiteRepository::insertRole(long user_id, long peer_id, std::string_view role)
 {
   database_.exec(
     "DELETE FROM " + name_ + " WHERE USER_ID = " + std::to_string(user_id) +
@@ -25,16 +25,16 @@ void bot::SQLiteRepository::insertRole(long user_id, long peer_id, const std::st
   );
   database_.exec(
     "INSERT INTO " + name_ + " ('USER_ID','PEER_ID','ROLE')"
-    "VALUES ('" + std::to_string(user_id) + "','" + std::to_string(peer_id) + "','" + role + "');"
+    "VALUES ('" + std::to_string(user_id) + "','" + std::to_string(peer_id) + "','" + role.data() + "');"
   );
 }
 
-std::vector<long> bot::SQLiteRepository::getRoles(long peer_id, const std::string& role)
+std::vector<long> bot::SQLiteRepository::getRoles(long peer_id, std::string_view role)
 {
   std::string query =
     role == "" ?
       "SELECT USER_ID FROM " + name_ + " WHERE PEER_ID = " + std::to_string(peer_id) + "  GROUP BY USER_ID;"
-    : "SELECT USER_ID FROM " + name_ + " WHERE ROLE = '" + role + "' AND PEER_ID = '" + std::to_string(peer_id) + "';";
+    : "SELECT USER_ID FROM " + name_ + " WHERE ROLE = '" + role.data() + "' AND PEER_ID = '" + std::to_string(peer_id) + "';";
 
   std::vector<long> userIds;
   SQLite::Statement statement(database_, query);

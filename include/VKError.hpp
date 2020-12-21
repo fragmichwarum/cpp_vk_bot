@@ -4,6 +4,9 @@
 
 namespace bot
 {
+/*!
+ * @brief Error-throwing class depending on VK error codes.
+ */
 class Vk_exception : public std::exception
 {
 protected:

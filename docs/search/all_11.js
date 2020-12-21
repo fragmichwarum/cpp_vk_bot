@@ -1,13 +1,8 @@
 var searchData=
 [
-  ['rbegin_214',['rbegin',['../classnlohmann_1_1basic__json.html#a1ef93e2006dbe52667294f5ef38b0b10',1,'nlohmann::basic_json::rbegin() noexcept'],['../classnlohmann_1_1basic__json.html#a515e7618392317dbf4b72d3e18bf2ab2',1,'nlohmann::basic_json::rbegin() const noexcept']]],
-  ['red_215',['red',['../classbot_1_1Vk__logger.html#afcf5d222c200bedfd9058e2c14a5fc4f',1,'bot::Vk_logger']]],
-  ['reference_216',['reference',['../classnlohmann_1_1basic__json.html#ac6a5eddd156c776ac75ff54cfe54a5bc',1,'nlohmann::basic_json::reference()'],['../classnlohmann_1_1basic__json_1_1iter__impl.html#ae09599e9cb4a947020a0265c0c4f3d5e',1,'nlohmann::basic_json::iter_impl::reference()'],['../classnlohmann_1_1basic__json_1_1json__reverse__iterator.html#ab0021ef2007fd338615360af404dcd4e',1,'nlohmann::basic_json::json_reverse_iterator::reference()']]],
-  ['rend_217',['rend',['../classnlohmann_1_1basic__json.html#ac77aed0925d447744676725ab0b6d535',1,'nlohmann::basic_json::rend() noexcept'],['../classnlohmann_1_1basic__json.html#a4f73d4cee67ea328d785979c22af0ae1',1,'nlohmann::basic_json::rend() const noexcept']]],
-  ['repeat_5fcmd_218',['repeat_cmd',['../classbot_1_1Cmd__handler.html#a93996a3ff12adb6fa7ed7e9ae8031795',1,'bot::Cmd_handler']]],
-  ['request_219',['request',['../namespacebot_1_1cURL.html#add48325996c0a345ef879905dd73cb0b',1,'bot::cURL']]],
-  ['requestdata_220',['requestdata',['../namespacebot_1_1cURL.html#a1972d297d4d31f17b112773576bc0f47',1,'bot::cURL']]],
-  ['reverse_5fcmd_221',['reverse_cmd',['../classbot_1_1Cmd__handler.html#addf8248a0c80a13dfd80971e6c21c108',1,'bot::Cmd_handler']]],
-  ['reverse_5fiterator_222',['reverse_iterator',['../classnlohmann_1_1basic__json.html#ac223d5560c2b05a208c88de67376c5f2',1,'nlohmann::basic_json']]],
-  ['role_5fcmd_223',['role_cmd',['../classbot_1_1Cmd__handler.html#affc5e41d1e123ce7af0fa0bc32b13556',1,'bot::Cmd_handler']]]
+  ['timelabel_5f_123',['timeLabel_',['../classbot_1_1Logger.html#ab4cbf797e99782ec5f4a386ad611b1ac',1,'bot::Logger']]],
+  ['tojson_124',['toJson',['../namespacebot_1_1util.html#abe4888930e95894b8bb8e31ae4e21aa6',1,'bot::util']]],
+  ['tryprocessevent_125',['tryProcessEvent',['../classbot_1_1EventHandler.html#a078958c23d813adae75872b521fda212',1,'bot::EventHandler']]],
+  ['tryprocessmessage_126',['tryProcessMessage',['../classbot_1_1MessageEventHandler.html#afb485c69df6daa445094a3bacab03fe6',1,'bot::MessageEventHandler']]],
+  ['ts_127',['ts',['../classbot_1_1LongPollListener.html#a81a86678b61cf3c8c0e7bf9c6bc69a4e',1,'bot::LongPollListener::ts()'],['../structbot_1_1LongPollData.html#adb30b27bbb6ca61da7ced3a005119c57',1,'bot::LongPollData::ts()']]]
 ];

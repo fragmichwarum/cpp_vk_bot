@@ -1,14 +1,12 @@
 var searchData=
 [
-  ['database_55',['Database',['../classbot_1_1Database.html',1,'bot']]],
-  ['deprecated_20list_56',['Deprecated List',['../deprecated.html',1,'']]],
-  ['description_57',['description',['../classbot_1_1Cmd__traits.html#aabea2ede1057e11641f744411837c77a',1,'bot::Cmd_traits']]],
-  ['diff_58',['diff',['../classnlohmann_1_1basic__json.html#a543bd5f7490de54c875b2c0912dc9a49',1,'nlohmann::basic_json']]],
-  ['difference_5ftype_59',['difference_type',['../classnlohmann_1_1basic__json.html#afe7c1303357e19cea9527af4e9a31d8f',1,'nlohmann::basic_json::difference_type()'],['../classnlohmann_1_1basic__json_1_1iter__impl.html#aa3d908ee643e5938d32e5f6d261d7715',1,'nlohmann::basic_json::iter_impl::difference_type()']]],
-  ['discarded_60',['discarded',['../namespacenlohmann_1_1detail.html#a90aa5ef615aa8305e9ea20d8a947980fa94708897ec9db8647dfe695714c98e46',1,'nlohmann::detail']]],
-  ['document_5fcmd_61',['document_cmd',['../classbot_1_1Cmd__handler.html#a255642db97c0034c0bc4eda66b67f04b',1,'bot::Cmd_handler']]],
-  ['download_62',['download',['../namespacebot_1_1cURL.html#af6182f0e69a666b7e42369f088c5c142',1,'bot::cURL']]],
-  ['download_5fcmd_63',['download_cmd',['../classbot_1_1Cmd__handler.html#ab098fd0cbf002d44b55aff7e421eed65',1,'bot::Cmd_handler']]],
-  ['dump_64',['dump',['../classnlohmann_1_1basic__json.html#a83af9d861cf4ecc12e4dac5479b818ed',1,'nlohmann::basic_json']]],
-  ['detailed_20description_20of_20https_3a_2f_2fgithub_2ecom_2foxfffffe_2fcpp_5fvk_5fbot_65',['Detailed description of https://github.com/oxfffffe/cpp_vk_bot',['../index.html',1,'']]]
+  ['data_5f_26',['data_',['../classbot_1_1VkAPI.html#ac1a3c7eef7711bcbdd4f90974f261fd2',1,'bot::VkAPI']]],
+  ['database_5f_27',['database_',['../classbot_1_1SQLiteRepository.html#a148e91030330c3c837fc6e7a992a3ee5',1,'bot::SQLiteRepository']]],
+  ['dependencies_28',['Dependencies',['../structbot_1_1Dependencies.html',1,'bot']]],
+  ['description_29',['description',['../classbot_1_1ICommand.html#ac7dd59952fb665f6730afdeb91b84c36',1,'bot::ICommand::description()'],['../classbot_1_1command_1_1About.html#a88c942eda7f2e4008060cfbf79b475b1',1,'bot::command::About::description()'],['../classbot_1_1command_1_1Cat.html#a46527bb2263bc3d266bca70ac1a0bc99',1,'bot::command::Cat::description()'],['../classbot_1_1command_1_1ChatNameSetter.html#a86c4b484bc81c03b610ec86347132b2b',1,'bot::command::ChatNameSetter::description()'],['../classbot_1_1command_1_1Complete.html#afe07e258c72c17db9292032bbb9e151e',1,'bot::command::Complete::description()'],['../classbot_1_1command_1_1Currency.html#a06548ca9caef3a937f9cb2942c4b19ed',1,'bot::command::Currency::description()'],['../classbot_1_1command_1_1Document.html#a5c2a680fc1af96974b1547a6b1d8c262',1,'bot::command::Document::description()'],['../classbot_1_1command_1_1Host.html#ab5507d1b2befeb76c3bb6058ac0b11a1',1,'bot::command::Host::description()'],['../classbot_1_1command_1_1Ip.html#ae48123929909ca15f8ddcc6973f6afc9',1,'bot::command::Ip::description()'],['../classbot_1_1command_1_1Online.html#a86b02fbb5be3f2c8756a97fdc21e6f87',1,'bot::command::Online::description()'],['../classbot_1_1command_1_1Picture.html#aeba1041ae72d044073d7900d15e75453',1,'bot::command::Picture::description()'],['../classbot_1_1command_1_1Role.html#ae63440420baf7c3b445121529ed068c6',1,'bot::command::Role::description()'],['../classbot_1_1command_1_1Stat.html#a0b99b96fc56a5e193327b8c512f94fd3',1,'bot::command::Stat::description()'],['../classbot_1_1command_1_1Video.html#a1bb237cc4a56c73f0a70797e6d6b32ec',1,'bot::command::Video::description()'],['../classbot_1_1command_1_1Who.html#a91d8bc63cc50a2e01a32ba503c7b8e2e',1,'bot::command::Who::description()']]],
+  ['dictionary_30',['dictionary',['../namespacebot.html#ada32ca06d92b7fe771c214c9c6d46b8b',1,'bot']]],
+  ['document_31',['Document',['../classbot_1_1command_1_1Document.html',1,'bot::command']]],
+  ['document_2ehpp_32',['Document.hpp',['../Document_8hpp.html',1,'']]],
+  ['download_33',['download',['../classbot_1_1Network.html#a2358b078652a43f65db63881c197fa3e',1,'bot::Network']]],
+  ['detailed_20description_20of_20https_3a_2f_2fgithub_2ecom_2foxfffffe_2fcpp_5fvk_5fbot_34',['Detailed description of https://github.com/oxfffffe/cpp_vk_bot',['../index.html',1,'']]]
 ];

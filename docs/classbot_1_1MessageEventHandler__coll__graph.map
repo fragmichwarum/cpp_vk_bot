@@ -1,0 +1,7 @@
+<map id="bot::MessageEventHandler" name="bot::MessageEventHandler">
+<area shape="rect" id="node1" title="Incoming messages handler." alt="" coords="5,184,203,211"/>
+<area shape="rect" id="node2" href="$classbot_1_1Logger.html" title=" " alt="" coords="19,95,114,121"/>
+<area shape="rect" id="node3" href="$classbot_1_1VkAPI.html" title="The Vkontakte API handler." alt="" coords="138,95,227,121"/>
+<area shape="rect" id="node4" href="$classbot_1_1Network.html" title="The network wrapper." alt="" coords="61,5,168,32"/>
+<area shape="rect" id="node5" href="$classbot_1_1__UserData.html" title="The bot::VkAPI private fields initializer." alt="" coords="193,5,311,32"/>
+</map>

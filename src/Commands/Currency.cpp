@@ -4,7 +4,7 @@
 #include "Network.hpp"
 #include "Currency.hpp"
 
-std::string bot::command::Currency::description() const
+constexpr std::string_view bot::command::Currency::description() const noexcept
 {
   return "показать курс валют";
 }

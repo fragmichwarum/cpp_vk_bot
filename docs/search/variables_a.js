@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['user_481',['user',['../classbot_1_1Cmd__handler.html#a8b2a846da35d987a823d7ddd2ee35b29',1,'bot::Cmd_handler']]],
-  ['user_5ftoken_482',['user_token',['../namespacebot_1_1info.html#a4c8104a1d62702117cc046fdf17ae8ce',1,'bot::info']]]
+  ['name_5f_331',['name_',['../classbot_1_1SQLiteRepository.html#aec5b1eb70ba26eaee7808e4066bce4f8',1,'bot::SQLiteRepository']]],
+  ['net_332',['net',['../structbot_1_1Dependencies.html#a3e1968413d69cdd0a12a7fa984ee6bbc',1,'bot::Dependencies']]],
+  ['net_5f_333',['net_',['../classbot_1_1VkAPI.html#a25616a2070e0356772d65919e4ae5124',1,'bot::VkAPI']]]
 ];

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.20"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>C++ bot: bot::util Namespace Reference</title>
+<title>VK bot: bot::util Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">C++ bot
+   <div id="projectname">VK bot
    </div>
   </td>
  </tr>
@@ -72,29 +72,31 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Namespace, that contains utilities for convenient work with <a class="el" href="classbot_1_1Cmd__handler.html">bot::Cmd_handler</a> and <a class="el" href="classbot_1_1Vk__api.html">bot::Vk_api</a>.  
+<p>Collection of helper functions.  
 <a href="namespacebot_1_1util.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a570fbe5d8f6900fea3bf88a401071a92"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebot_1_1util.html#a570fbe5d8f6900fea3bf88a401071a92">long_to_hex_str</a> (unsigned long digit) noexcept</td></tr>
-<tr class="memdesc:a570fbe5d8f6900fea3bf88a401071a92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert number to hex string.  <a href="namespacebot_1_1util.html#a570fbe5d8f6900fea3bf88a401071a92">More...</a><br /></td></tr>
-<tr class="separator:a570fbe5d8f6900fea3bf88a401071a92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68eab5b142d549ecfafd9431f71d4f71"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebot_1_1util.html#a68eab5b142d549ecfafd9431f71d4f71">split</a> (const std::string &amp;text)</td></tr>
-<tr class="memdesc:a68eab5b142d549ecfafd9431f71d4f71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Split string by spaces.  <a href="namespacebot_1_1util.html#a68eab5b142d549ecfafd9431f71d4f71">More...</a><br /></td></tr>
-<tr class="separator:a68eab5b142d549ecfafd9431f71d4f71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac32a0993a55afccace26abf3abb9317e"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebot_1_1util.html#ac32a0993a55afccace26abf3abb9317e">get_args</a> (const std::string &amp;message)</td></tr>
-<tr class="memdesc:ac32a0993a55afccace26abf3abb9317e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get all words from second to end of string.  <a href="namespacebot_1_1util.html#ac32a0993a55afccace26abf3abb9317e">More...</a><br /></td></tr>
-<tr class="separator:ac32a0993a55afccace26abf3abb9317e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a551c3b47fdf816ba75c77f8c6ed2e93c"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebot_1_1util.html#a551c3b47fdf816ba75c77f8c6ed2e93c">empty_args</a> () noexcept</td></tr>
-<tr class="memdesc:a551c3b47fdf816ba75c77f8c6ed2e93c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns message if the command received no arguments.  <a href="namespacebot_1_1util.html#a551c3b47fdf816ba75c77f8c6ed2e93c">More...</a><br /></td></tr>
-<tr class="separator:a551c3b47fdf816ba75c77f8c6ed2e93c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe4888930e95894b8bb8e31ae4e21aa6"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebot_1_1util.html#abe4888930e95894b8bb8e31ae4e21aa6">toJson</a> (const std::map&lt; std::string, std::string &gt; &amp;body)</td></tr>
+<tr class="memdesc:abe4888930e95894b8bb8e31ae4e21aa6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert std::map to JSON string.  <a href="namespacebot_1_1util.html#abe4888930e95894b8bb8e31ae4e21aa6">More...</a><br /></td></tr>
+<tr class="separator:abe4888930e95894b8bb8e31ae4e21aa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a0e3ae6a373b0724eccf824c4d4c45e"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebot_1_1util.html#a8a0e3ae6a373b0724eccf824c4d4c45e">longToHexStr</a> (unsigned long digit)</td></tr>
+<tr class="separator:a8a0e3ae6a373b0724eccf824c4d4c45e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a1b131cb084ba17959147ccb4d99c7f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebot_1_1util.html#a4a1b131cb084ba17959147ccb4d99c7f">split</a> (std::string_view text)</td></tr>
+<tr class="memdesc:a4a1b131cb084ba17959147ccb4d99c7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Split text by space.  <a href="namespacebot_1_1util.html#a4a1b131cb084ba17959147ccb4d99c7f">More...</a><br /></td></tr>
+<tr class="separator:a4a1b131cb084ba17959147ccb4d99c7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3b51c196bfaa4adb698a7a0d62f8cdd"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebot_1_1util.html#aa3b51c196bfaa4adb698a7a0d62f8cdd">getArgs</a> (std::string_view message) noexcept</td></tr>
+<tr class="separator:aa3b51c196bfaa4adb698a7a0d62f8cdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a1105e5815eff69a896cb41f1e5c7a7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebot_1_1util.html#a8a1105e5815eff69a896cb41f1e5c7a7">emptyArgs</a> () noexcept</td></tr>
+<tr class="separator:a8a1105e5815eff69a896cb41f1e5c7a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fe5d964234d79ab806598810044362d"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebot_1_1util.html#a6fe5d964234d79ab806598810044362d">extractId</a> (std::string_view user) noexcept</td></tr>
+<tr class="separator:a6fe5d964234d79ab806598810044362d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Namespace, that contains utilities for convenient work with <a class="el" href="classbot_1_1Cmd__handler.html">bot::Cmd_handler</a> and <a class="el" href="classbot_1_1Vk__api.html">bot::Vk_api</a>. </p>
+<div class="textblock"><p>Collection of helper functions. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a551c3b47fdf816ba75c77f8c6ed2e93c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a551c3b47fdf816ba75c77f8c6ed2e93c">&#9670;&nbsp;</a></span>empty_args()</h2>
+<a id="a8a1105e5815eff69a896cb41f1e5c7a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a1105e5815eff69a896cb41f1e5c7a7">&#9670;&nbsp;</a></span>emptyArgs()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -103,7 +105,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::string bot::util::empty_args </td>
+          <td class="memname">std::string bot::util::emptyArgs </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -115,41 +117,12 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Returns message if the command received no arguments. </p>
-<dl class="section return"><dt>Returns</dt><dd>No arguments message. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Message notifying that no arguments were passed to the command. </dd></dl>
 
 </div>
 </div>
-<a id="ac32a0993a55afccace26abf3abb9317e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac32a0993a55afccace26abf3abb9317e">&#9670;&nbsp;</a></span>get_args()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string bot::util::get_args </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>message</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Get all words from second to end of string. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">text</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>String with cutted first word. </dd></dl>
-
-</div>
-</div>
-<a id="a570fbe5d8f6900fea3bf88a401071a92"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a570fbe5d8f6900fea3bf88a401071a92">&#9670;&nbsp;</a></span>long_to_hex_str()</h2>
+<a id="a6fe5d964234d79ab806598810044362d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fe5d964234d79ab806598810044362d">&#9670;&nbsp;</a></span>extractId()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -158,10 +131,10 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::string bot::util::long_to_hex_str </td>
+          <td class="memname">long bot::util::extractId </td>
           <td>(</td>
-          <td class="paramtype">unsigned long&#160;</td>
-          <td class="paramname"><em>digit</em></td><td>)</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>user</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -171,20 +144,77 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Convert number to hex string. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">digit</td><td>- unsigned number to be transofmed </td></tr>
+    <tr><td class="paramname">user</td><td>- VK user link. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Number converted into hex string. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Extracted digits that represents VK user id. </dd></dl>
 
 </div>
 </div>
-<a id="a68eab5b142d549ecfafd9431f71d4f71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a68eab5b142d549ecfafd9431f71d4f71">&#9670;&nbsp;</a></span>split()</h2>
+<a id="aa3b51c196bfaa4adb698a7a0d62f8cdd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3b51c196bfaa4adb698a7a0d62f8cdd">&#9670;&nbsp;</a></span>getArgs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string bot::util::getArgs </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>message</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">The</td><td>text to extract the part from. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>All after first word. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>This functions does not check count of words. </dd></dl>
+
+</div>
+</div>
+<a id="a8a0e3ae6a373b0724eccf824c4d4c45e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a0e3ae6a373b0724eccf824c4d4c45e">&#9670;&nbsp;</a></span>longToHexStr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string bot::util::longToHexStr </td>
+          <td>(</td>
+          <td class="paramtype">unsigned long&#160;</td>
+          <td class="paramname"><em>digit</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Digit</td><td>to be converted. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Digit converted to hex string. WITHOUT "0x"! </dd></dl>
+
+</div>
+</div>
+<a id="a4a1b131cb084ba17959147ccb4d99c7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a1b131cb084ba17959147ccb4d99c7f">&#9670;&nbsp;</a></span>split()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -192,21 +222,48 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">std::vector&lt;std::string&gt; bot::util::split </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">std::string_view&#160;</td>
           <td class="paramname"><em>text</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Split string by spaces. </p>
+<p>Split text by space. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">text</td><td>- string to be transformed </td></tr>
+    <tr><td class="paramname">Text</td><td>to be splitted. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Splitted string represented as std::vector&lt;std::string&gt;. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Vector of words. </dd></dl>
+
+</div>
+</div>
+<a id="abe4888930e95894b8bb8e31ae4e21aa6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe4888930e95894b8bb8e31ae4e21aa6">&#9670;&nbsp;</a></span>toJson()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string bot::util::toJson </td>
+          <td>(</td>
+          <td class="paramtype">const std::map&lt; std::string, std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>body</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convert std::map to JSON string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">body</td><td>- content to be transformed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>JSON string. </dd></dl>
 
 </div>
 </div>

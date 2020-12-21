@@ -5,7 +5,7 @@ bot::command::About::About()
   : buildTime(std::string(__DATE__) + ' ' + std::string(__TIME__))
 { }
 
-std::string bot::command::About::description() const
+constexpr std::string_view bot::command::About::description() const noexcept
 {
   return "показать информацию о боте";
 }

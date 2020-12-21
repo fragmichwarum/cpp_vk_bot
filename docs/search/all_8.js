@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['has_5ffrom_5fjson_105',['has_from_json',['../structnlohmann_1_1detail_1_1has__from__json.html',1,'nlohmann::detail']]],
-  ['has_5fnon_5fdefault_5ffrom_5fjson_106',['has_non_default_from_json',['../structnlohmann_1_1detail_1_1has__non__default__from__json.html',1,'nlohmann::detail']]],
-  ['has_5fto_5fjson_107',['has_to_json',['../structnlohmann_1_1detail_1_1has__to__json.html',1,'nlohmann::detail']]],
-  ['hash_3c_20nlohmann_3a_3ajson_20_3e_108',['hash&lt; nlohmann::json &gt;',['../structstd_1_1hash_3_01nlohmann_1_1json_01_4.html',1,'std']]],
-  ['help_5fcmd_109',['help_cmd',['../classbot_1_1Cmd__handler.html#aed2f5c02052ceb28dbd32d3fe130ddef',1,'bot::Cmd_handler']]]
+  ['icommand_57',['ICommand',['../classbot_1_1ICommand.html',1,'bot']]],
+  ['icommand_2ehpp_58',['ICommand.hpp',['../ICommand_8hpp.html',1,'']]],
+  ['insertrole_59',['insertRole',['../classbot_1_1Repository.html#a3e4451a23c554b6f8fa71f69fb06dd91',1,'bot::Repository::insertRole()'],['../classbot_1_1SQLiteRepository.html#a61a0f29d2237d979acde6d06018577a6',1,'bot::SQLiteRepository::insertRole()']]],
+  ['ip_60',['Ip',['../classbot_1_1command_1_1Ip.html',1,'bot::command']]],
+  ['ip_2ehpp_61',['Ip.hpp',['../Ip_8hpp.html',1,'']]]
 ];

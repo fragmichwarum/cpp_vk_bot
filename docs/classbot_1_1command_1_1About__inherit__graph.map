@@ -1,0 +1,4 @@
+<map id="bot::command::About" name="bot::command::About">
+<area shape="rect" id="node1" title="Command that returns common information about bot." alt="" coords="5,80,168,107"/>
+<area shape="rect" id="node2" href="$classbot_1_1ICommand.html" title="The command interface." alt="" coords="25,5,148,32"/>
+</map>

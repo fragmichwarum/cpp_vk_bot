@@ -2,7 +2,7 @@
 #include "VkAPI.hpp"
 #include "Document.hpp"
 
-std::string bot::command::Document::description() const
+constexpr std::string_view bot::command::Document::description() const noexcept
 {
   return "поиск документов ВК";
 }

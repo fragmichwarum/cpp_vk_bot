@@ -1,15 +1,11 @@
 var searchData=
 [
-  ['parse_202',['parse',['../classnlohmann_1_1basic__json.html#a86f339e8449cce96b89e86635a7d389e',1,'nlohmann::basic_json::parse(T(&amp;array)[N], const parser_callback_t cb=nullptr)'],['../classnlohmann_1_1basic__json.html#ab275a3e00a40189e96d244de6c8f311a',1,'nlohmann::basic_json::parse(const CharT s, const parser_callback_t cb=nullptr)'],['../classnlohmann_1_1basic__json.html#a4cd30efe5c33a7cf73a0c6495bb16054',1,'nlohmann::basic_json::parse(std::istream &amp;i, const parser_callback_t cb=nullptr)'],['../classnlohmann_1_1basic__json.html#a3bd712a1351ba28e5440fac2359da1cb',1,'nlohmann::basic_json::parse(std::istream &amp;&amp;i, const parser_callback_t cb=nullptr)'],['../classnlohmann_1_1basic__json.html#a360d37260add46be89881db2366fe343',1,'nlohmann::basic_json::parse(IteratorType first, IteratorType last, const parser_callback_t cb=nullptr)'],['../classnlohmann_1_1basic__json.html#a6efc9ad86394fc7d07a2f29662875cbf',1,'nlohmann::basic_json::parse(const ContiguousContainer &amp;c, const parser_callback_t cb=nullptr)']]],
-  ['parse_5ferror_203',['parse_error',['../classnlohmann_1_1detail_1_1parse__error.html',1,'nlohmann::detail::parse_error'],['../classnlohmann_1_1basic__json.html#af1efc2468e6022be6e35fc2944cabe4d',1,'nlohmann::basic_json::parse_error()']]],
-  ['parse_5fevent_5ft_204',['parse_event_t',['../classnlohmann_1_1basic__json.html#aea1c863b719b4ca5b77188c171bbfafe',1,'nlohmann::basic_json']]],
-  ['parser_5fcallback_5ft_205',['parser_callback_t',['../classnlohmann_1_1basic__json.html#aecae491e175f8767c550ae3c59e180e3',1,'nlohmann::basic_json']]],
-  ['patch_206',['patch',['../classnlohmann_1_1basic__json.html#a81e0c41a4a9dff4df2f6973f7f8b2a83',1,'nlohmann::basic_json']]],
-  ['picture_5fcmd_207',['picture_cmd',['../classbot_1_1Cmd__handler.html#a4fdfdcff8b016d5ccd4d8e4a21ebfd61',1,'bot::Cmd_handler']]],
-  ['ping_5fcmd_208',['ping_cmd',['../classbot_1_1Cmd__handler.html#aa68ebfce3dbed3625ac6175ee32de622',1,'bot::Cmd_handler']]],
-  ['pointer_209',['pointer',['../classnlohmann_1_1basic__json.html#aefee1f777198c68724bd127e0c8abbe4',1,'nlohmann::basic_json::pointer()'],['../classnlohmann_1_1basic__json_1_1iter__impl.html#a3dddd7fa38b36e2531700ceb4a1ce9a8',1,'nlohmann::basic_json::iter_impl::pointer()']]],
-  ['print_210',['print',['../classbot_1_1Vk__logger.html#a6079e34fc494dbd953680c6cf0f8837e',1,'bot::Vk_logger']]],
-  ['priority_5ftag_211',['priority_tag',['../structnlohmann_1_1detail_1_1priority__tag.html',1,'nlohmann::detail']]],
-  ['priority_5ftag_3c_200_20_3e_212',['priority_tag&lt; 0 &gt;',['../structnlohmann_1_1detail_1_1priority__tag_3_010_01_4.html',1,'nlohmann::detail']]],
-  ['push_5fback_213',['push_back',['../classnlohmann_1_1basic__json.html#ac8e523ddc8c2dd7e5d2daf0d49a9c0d7',1,'nlohmann::basic_json::push_back(basic_json &amp;&amp;val)'],['../classnlohmann_1_1basic__json.html#ab4384af330b79de0e5f279576803a2c7',1,'nlohmann::basic_json::push_back(const basic_json &amp;val)'],['../classnlohmann_1_1basic__json.html#ae11a3a51782c058fff2f6550cdfb9b3c',1,'nlohmann::basic_json::push_back(const typename object_t::value_type &amp;val)'],['../classnlohmann_1_1basic__json.html#ab2716cbe2e997ab8309926b87f044434',1,'nlohmann::basic_json::push_back(std::initializer_list&lt; basic_json &gt; init)']]]
+  ['searchmedia_115',['searchMedia',['../classbot_1_1VkAPI.html#a6d1d58d4236b9b9c7286adaa25d5aba9',1,'bot::VkAPI']]],
+  ['sendmessage_116',['sendMessage',['../classbot_1_1VkAPI.html#a43deb7a3a46d0761b2649152605d207a',1,'bot::VkAPI']]],
+  ['server_117',['server',['../classbot_1_1LongPollListener.html#ae163d47ef2dc46f4043c95fa7d6e7e95',1,'bot::LongPollListener::server()'],['../structbot_1_1LongPollData.html#a091291d8bac3800593c273b0d07905ca',1,'bot::LongPollData::server()']]],
+  ['split_118',['split',['../namespacebot_1_1util.html#a4a1b131cb084ba17959147ccb4d99c7f',1,'bot::util']]],
+  ['sqliterepository_119',['SQLiteRepository',['../classbot_1_1SQLiteRepository.html',1,'bot::SQLiteRepository'],['../classbot_1_1SQLiteRepository.html#a9e68e56063f9579104313f22371ff675',1,'bot::SQLiteRepository::SQLiteRepository()']]],
+  ['sqliterepository_2ehpp_120',['SQLiteRepository.hpp',['../SQLiteRepository_8hpp.html',1,'']]],
+  ['stat_121',['Stat',['../classbot_1_1command_1_1Stat.html',1,'bot::command']]],
+  ['stat_2ehpp_122',['Stat.hpp',['../Stat_8hpp.html',1,'']]]
 ];

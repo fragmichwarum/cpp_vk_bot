@@ -5,7 +5,7 @@
 
 #include "Ip.hpp"
 
-std::string bot::command::Ip::description() const
+constexpr std::string_view bot::command::Ip::description() const noexcept
 {
 	return "узнать ip адрес по хосту";
 }

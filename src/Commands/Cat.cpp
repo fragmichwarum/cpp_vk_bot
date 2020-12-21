@@ -2,7 +2,7 @@
 #include "VkAPI.hpp"
 #include "Cat.hpp"
 
-std::string bot::command::Cat::description() const
+constexpr std::string_view bot::command::Cat::description() const noexcept
 {
   return "Рандомный котик";
 }

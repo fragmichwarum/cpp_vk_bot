@@ -2,7 +2,7 @@
 #include "Utility.hpp"
 #include "Role.hpp"
 
-std::string bot::command::Role::description() const
+constexpr std::string_view bot::command::Role::description() const noexcept
 {
   return "установить/удалить роль участника";
 }

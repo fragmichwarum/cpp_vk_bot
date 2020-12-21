@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['adl_5fserializer_264',['adl_serializer',['../structnlohmann_1_1adl__serializer.html',1,'nlohmann']]]
+  ['_5fuserdata_168',['_UserData',['../classbot_1_1__UserData.html',1,'bot']]]
 ];

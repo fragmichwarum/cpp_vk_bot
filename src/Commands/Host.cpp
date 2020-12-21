@@ -6,12 +6,12 @@
 
 std::string hostName_;
 
-std::string bot::command::Host::description() const
+constexpr std::string_view bot::command::Host::description() const noexcept
 {
   return "узнать хост по ip адресу";
 }
 
-static void dnsCallback([[maybe_unused]] void* arg, [[maybe_unused]] int status, [[maybe_unused]] int timeouts, hostent* host)
+static void dnsCallback([[maybe_unused]] void* arg, [[maybe_unused]] int status, [[maybe_unused]] int timeouts, hostent* host) noexcept
 {
   if(status == ARES_SUCCESS) hostName_ = host->h_name;
   else hostName_ = "lookup failed: " + std::to_string(status);
@@ -38,12 +38,12 @@ static void mainLoop(ares_channel& channel)
   }
 }
 
-static std::string getHostname(const std::string& ipAddress)
+static std::string getHostname(std::string_view ipAddress)
 {
   struct in_addr ip;
   ares_channel channel;
 
-  inet_aton(ipAddress.c_str(), &ip);
+  inet_aton(ipAddress.data(), &ip);
   if (ares_init(&channel) != ARES_SUCCESS) return "Failed.";
   ares_gethostbyaddr(channel, &ip, sizeof ip, AF_INET, dnsCallback, NULL);
   mainLoop(channel);

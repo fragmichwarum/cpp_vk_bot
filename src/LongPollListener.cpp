@@ -2,46 +2,43 @@
 #include "EventHandler.hpp"
 #include "LongPollListener.hpp"
 
-bot::VkAPI* bot::LongPollListener::api_ = new bot::VkAPI;
-bot::EventHandler* bot::LongPollListener::eventHandler_ = new bot::EventHandler;
+bot::VkAPI* api = new bot::VkAPI;
+bot::EventHandler* bot::LongPollListener::eventHandler = new bot::EventHandler;
 
 void bot::LongPollListener::updateLongPollData_()
 {
-  LongPollData data = api_->getLongPollServer();
+  LongPollData data = api->getLongPollServer();
 
-  server_ = data.server;
-  key_    = data.key;
-  ts_     = data.ts;
+  server = data.server;
+  key    = data.key;
+  ts     = data.ts;
 }
 
 void bot::LongPollListener::processEvents_(const simdjson::dom::array& updates)
 {
   for (const simdjson::dom::object& update : updates) {
-    eventHandler_->tryProcessEvent(update);
+    eventHandler->tryProcessEvent(update);
   }
 }
 
 void bot::LongPollListener::loop()
 {
   updateLongPollData_();
-  simdjson::dom::parser parser_;
 
-  while (true) {
-    std::string response = api_->listenLongPoll(key_, server_, ts_);
+  while(true) {
+    std::string lp = api->listenLongPoll(key, server, ts);
 
-    simdjson::dom::array updates = parser_.parse(response)["updates"].get_array();
+    simdjson::dom::parser parser;
+    simdjson::dom::array updates = parser.parse(lp)["updates"].get_array();
+    ts = parser.parse(lp)["ts"].get_c_str();
 
-    if (updates.size() == 0) {
-      updateLongPollData_();
-      continue;
-    }
+    if (updates.size() == 0) { updateLongPollData_(); continue; }
 
-    ts_ = parser_.parse(response)["ts"].get_c_str();
     processEvents_(updates);
   }
 }
 
 bot::LongPollListener::~LongPollListener()
 {
-  delete api_;
+  delete api;
 }

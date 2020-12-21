@@ -1,0 +1,17 @@
+<map id="bot::ICommand" name="bot::ICommand">
+<area shape="rect" id="node1" title="The command interface." alt="" coords="5,335,128,361"/>
+<area shape="rect" id="node2" href="$classbot_1_1command_1_1About.html" title="Command that returns common information about bot." alt="" coords="211,5,373,32"/>
+<area shape="rect" id="node3" href="$classbot_1_1command_1_1Cat.html" title="Command looking for random cat images." alt="" coords="219,56,365,83"/>
+<area shape="rect" id="node4" href="$classbot_1_1command_1_1ChatNameSetter.html" title="Command that changes the name of a chat." alt="" coords="176,107,408,133"/>
+<area shape="rect" id="node5" href="$classbot_1_1command_1_1Complete.html" title="https://pelevin.gpt.dobro.ai API based text padding command." alt="" coords="199,157,385,184"/>
+<area shape="rect" id="node6" href="$classbot_1_1command_1_1Currency.html" title="Command looking currencies." alt="" coords="201,208,383,235"/>
+<area shape="rect" id="node7" href="$classbot_1_1command_1_1Document.html" title="VK documents search command." alt="" coords="197,259,387,285"/>
+<area shape="rect" id="node8" href="$classbot_1_1command_1_1Host.html" title="Hostname resolve command." alt="" coords="215,309,369,336"/>
+<area shape="rect" id="node9" href="$classbot_1_1command_1_1Ip.html" title="Ip address resolve command." alt="" coords="224,360,360,387"/>
+<area shape="rect" id="node10" href="$classbot_1_1command_1_1Online.html" title="Conversation online showing command." alt="" coords="209,411,375,437"/>
+<area shape="rect" id="node11" href="$classbot_1_1command_1_1Picture.html" title="VK pictures search command." alt="" coords="207,461,377,488"/>
+<area shape="rect" id="node12" href="$classbot_1_1command_1_1Role.html" title="Role setter/deleter." alt="" coords="215,512,369,539"/>
+<area shape="rect" id="node13" href="$classbot_1_1command_1_1Stat.html" title="Statistics showing command." alt="" coords="217,563,367,589"/>
+<area shape="rect" id="node14" href="$classbot_1_1command_1_1Video.html" title="VK videos search command." alt="" coords="211,613,373,640"/>
+<area shape="rect" id="node15" href="$classbot_1_1command_1_1Who.html" title="Random person picker command." alt="" coords="215,664,369,691"/>
+</map>

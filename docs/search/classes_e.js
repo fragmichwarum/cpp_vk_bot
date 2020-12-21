@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['to_5fjson_5ffn_308',['to_json_fn',['../structnlohmann_1_1detail_1_1to__json__fn.html',1,'nlohmann::detail']]],
-  ['type_5ferror_309',['type_error',['../classnlohmann_1_1detail_1_1type__error.html',1,'nlohmann::detail']]]
+  ['video_193',['Video',['../classbot_1_1command_1_1Video.html',1,'bot::command']]],
+  ['vk_5fexception_194',['Vk_exception',['../classbot_1_1Vk__exception.html',1,'bot']]],
+  ['vkapi_195',['VkAPI',['../classbot_1_1VkAPI.html',1,'bot']]]
 ];

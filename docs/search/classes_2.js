@@ -1,9 +1,8 @@
 var searchData=
 [
-  ['cmd_5fargs_266',['cmd_args',['../structbot_1_1cmd__args.html',1,'bot']]],
-  ['cmd_5fhandler_267',['Cmd_handler',['../classbot_1_1Cmd__handler.html',1,'bot']]],
-  ['cmd_5ftraits_268',['Cmd_traits',['../classbot_1_1Cmd__traits.html',1,'bot']]],
-  ['conjunction_269',['conjunction',['../structnlohmann_1_1detail_1_1conjunction.html',1,'nlohmann::detail']]],
-  ['conjunction_3c_20b1_20_3e_270',['conjunction&lt; B1 &gt;',['../structnlohmann_1_1detail_1_1conjunction_3_01B1_01_4.html',1,'nlohmann::detail']]],
-  ['conjunction_3c_20b1_2c_20bn_2e_2e_2e_20_3e_271',['conjunction&lt; B1, Bn... &gt;',['../structnlohmann_1_1detail_1_1conjunction_3_01B1_00_01Bn_8_8_8_01_4.html',1,'nlohmann::detail']]]
+  ['cat_170',['Cat',['../classbot_1_1command_1_1Cat.html',1,'bot::command']]],
+  ['chatnamesetter_171',['ChatNameSetter',['../classbot_1_1command_1_1ChatNameSetter.html',1,'bot::command']]],
+  ['commandparams_172',['CommandParams',['../structbot_1_1CommandParams.html',1,'bot']]],
+  ['complete_173',['Complete',['../classbot_1_1command_1_1Complete.html',1,'bot::command']]],
+  ['currency_174',['Currency',['../classbot_1_1command_1_1Currency.html',1,'bot::command']]]
 ];

@@ -2,6 +2,8 @@
 #include "VkAPI.hpp"
 #include "PostEventHandler.hpp"
 
+//extern template class std::vector<long>;
+
 bot::VkAPI* bot::PostEventHandler::api_ = new bot::VkAPI;
 bot::Repository* bot::PostEventHandler::repository_ = new SQLiteRepository("USERS");
 

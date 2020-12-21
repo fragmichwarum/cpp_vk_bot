@@ -1,15 +1,5 @@
 var searchData=
 [
-  ['cat_5fcmd_327',['cat_cmd',['../classbot_1_1Cmd__handler.html#a628cfd90429fd7b6d760e3e224dec544',1,'bot::Cmd_handler']]],
-  ['cbegin_328',['cbegin',['../classnlohmann_1_1basic__json.html#ad865d6c291b237ae508d5cb2146b5877',1,'nlohmann::basic_json']]],
-  ['cend_329',['cend',['../classnlohmann_1_1basic__json.html#a8dba7b7d2f38e6b0c614030aa43983f6',1,'nlohmann::basic_json']]],
-  ['clear_330',['clear',['../classnlohmann_1_1basic__json.html#abfeba47810ca72f2176419942c4e1952',1,'nlohmann::basic_json']]],
-  ['colorize_331',['colorize',['../classbot_1_1Vk__logger.html#a762886dbfd71270e7d2d9f6e2fc8af88',1,'bot::Vk_logger']]],
-  ['complete_5fcmd_332',['complete_cmd',['../classbot_1_1Cmd__handler.html#ace8e11019e0001f1edd6b8302a5eb2b9',1,'bot::Cmd_handler']]],
-  ['count_333',['count',['../classnlohmann_1_1basic__json.html#a5261eba9637f59d17d6cab5f14ce5747',1,'nlohmann::basic_json']]],
-  ['crbegin_334',['crbegin',['../classnlohmann_1_1basic__json.html#a1e0769d22d54573f294da0e5c6abc9de',1,'nlohmann::basic_json']]],
-  ['crc32_5fcmd_335',['crc32_cmd',['../classbot_1_1Cmd__handler.html#ae365ebfddb7a95d6acb6dd555431173f',1,'bot::Cmd_handler']]],
-  ['create_336',['create',['../classnlohmann_1_1detail_1_1parse__error.html#a53dd6b47379f42dbf3fe12500614adcb',1,'nlohmann::detail::parse_error']]],
-  ['crend_337',['crend',['../classnlohmann_1_1basic__json.html#a5795b029dbf28e0cb2c7a439ec5d0a88',1,'nlohmann::basic_json']]],
-  ['currency_5fcmd_338',['currency_cmd',['../classbot_1_1Cmd__handler.html#af1ff87a06fa598954aea67bf2e59794b',1,'bot::Cmd_handler']]]
+  ['description_230',['description',['../classbot_1_1ICommand.html#ac7dd59952fb665f6730afdeb91b84c36',1,'bot::ICommand::description()'],['../classbot_1_1command_1_1About.html#a88c942eda7f2e4008060cfbf79b475b1',1,'bot::command::About::description()'],['../classbot_1_1command_1_1Cat.html#a46527bb2263bc3d266bca70ac1a0bc99',1,'bot::command::Cat::description()'],['../classbot_1_1command_1_1ChatNameSetter.html#a86c4b484bc81c03b610ec86347132b2b',1,'bot::command::ChatNameSetter::description()'],['../classbot_1_1command_1_1Complete.html#afe07e258c72c17db9292032bbb9e151e',1,'bot::command::Complete::description()'],['../classbot_1_1command_1_1Currency.html#a06548ca9caef3a937f9cb2942c4b19ed',1,'bot::command::Currency::description()'],['../classbot_1_1command_1_1Document.html#a5c2a680fc1af96974b1547a6b1d8c262',1,'bot::command::Document::description()'],['../classbot_1_1command_1_1Host.html#ab5507d1b2befeb76c3bb6058ac0b11a1',1,'bot::command::Host::description()'],['../classbot_1_1command_1_1Ip.html#ae48123929909ca15f8ddcc6973f6afc9',1,'bot::command::Ip::description()'],['../classbot_1_1command_1_1Online.html#a86b02fbb5be3f2c8756a97fdc21e6f87',1,'bot::command::Online::description()'],['../classbot_1_1command_1_1Picture.html#aeba1041ae72d044073d7900d15e75453',1,'bot::command::Picture::description()'],['../classbot_1_1command_1_1Role.html#ae63440420baf7c3b445121529ed068c6',1,'bot::command::Role::description()'],['../classbot_1_1command_1_1Stat.html#a0b99b96fc56a5e193327b8c512f94fd3',1,'bot::command::Stat::description()'],['../classbot_1_1command_1_1Video.html#a1bb237cc4a56c73f0a70797e6d6b32ec',1,'bot::command::Video::description()'],['../classbot_1_1command_1_1Who.html#a91d8bc63cc50a2e01a32ba503c7b8e2e',1,'bot::command::Who::description()']]],
+  ['download_231',['download',['../classbot_1_1Network.html#a2358b078652a43f65db63881c197fa3e',1,'bot::Network']]]
 ];

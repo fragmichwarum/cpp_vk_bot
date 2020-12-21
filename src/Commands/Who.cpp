@@ -2,7 +2,7 @@
 #include "VkAPI.hpp"
 #include "Who.hpp"
 
-std::string bot::command::Who::description() const
+constexpr std::string_view bot::command::Who::description() const noexcept
 {
   return "выбрать случайного участника";
 }
@@ -11,7 +11,7 @@ std::string bot::command::Who::execute(const CommandParams& inputData, const Dep
 {
   if (inputData.args.empty()) return util::emptyArgs();
 
-  std::string response = deps.api->getConversationMembers(inputData.peer_id);
+  std::string_view response = deps.api->getConversationMembers(inputData.peer_id);
 
   simdjson::dom::parser parser;
   simdjson::dom::object parsed = parser.parse(response);
@@ -30,5 +30,5 @@ std::string bot::command::Who::execute(const CommandParams& inputData, const Dep
   std::string firstName (person["first_name"].get_c_str());
   std::string lastName  (person["last_name"].get_c_str());
 
-  return "Хмм, я думаю, что @id" + id + '('  + firstName + ' ' + lastName + ") " + inputData.args;
+  return "Хмм, я думаю, что @id" + id + '('  + firstName + ' ' + lastName + ") " + inputData.args + '.';
 }

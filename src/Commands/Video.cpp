@@ -2,7 +2,7 @@
 #include "VkAPI.hpp"
 #include "Video.hpp"
 
-std::string bot::command::Video::description() const
+constexpr std::string_view bot::command::Video::description() const noexcept
 {
   return "поиск видеозаписей ВК";
 }

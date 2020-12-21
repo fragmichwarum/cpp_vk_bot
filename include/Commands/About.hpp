@@ -6,6 +6,9 @@ namespace bot
 {
 namespace command
 {
+/*!
+ * @brief Command that returns common information about bot.
+ */
 class About final : public ICommand
 {
 private:
@@ -14,7 +17,7 @@ private:
 public:
   About();
   std::string execute(const CommandParams&, const Dependencies&) override;
-  std::string description() const override;
+  constexpr std::string_view description() const noexcept override;
  ~About() = default;
 };
 } //namespace command

@@ -1,15 +1,7 @@
 var searchData=
 [
-  ['back_15',['back',['../classnlohmann_1_1basic__json.html#a011397134847f36db0ed7d7a93753677',1,'nlohmann::basic_json::back()'],['../classnlohmann_1_1basic__json.html#a83fe4a151b3a591f357527d5d9aa1b9f',1,'nlohmann::basic_json::back() const']]],
-  ['base_5fiterator_16',['base_iterator',['../classnlohmann_1_1basic__json_1_1json__reverse__iterator.html#a5b7f3c5d86fe89a65d9552c1cac37261',1,'nlohmann::basic_json::json_reverse_iterator']]],
-  ['basic_5fjson_17',['basic_json',['../classnlohmann_1_1basic__json.html',1,'nlohmann::basic_json&lt; ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer &gt;'],['../classnlohmann_1_1basic__json_1_1iter__impl.html#ada3100cdb8700566051828f1355fa745',1,'nlohmann::basic_json::iter_impl::basic_json()'],['../classnlohmann_1_1basic__json_1_1json__pointer.html#ada3100cdb8700566051828f1355fa745',1,'nlohmann::basic_json::json_pointer::basic_json()'],['../classnlohmann_1_1basic__json.html#a32124a16dc80729d964d9caf607c2bc8',1,'nlohmann::basic_json::basic_json(const value_t value_type)'],['../classnlohmann_1_1basic__json.html#ae9be9e956bfc4658f35d17c6aa72b063',1,'nlohmann::basic_json::basic_json(std::nullptr_t=nullptr) noexcept'],['../classnlohmann_1_1basic__json.html#a7639e0834df2bc719a04ffea89b31abc',1,'nlohmann::basic_json::basic_json(CompatibleType &amp;&amp;val) noexcept(noexcept(JSONSerializer&lt; U &gt;::to_json(std::declval&lt; basic_json_t &amp; &gt;(), std::forward&lt; CompatibleType &gt;(val))))'],['../classnlohmann_1_1basic__json.html#afbad48316e7cd37366ba3ac5d7e5859e',1,'nlohmann::basic_json::basic_json(std::initializer_list&lt; basic_json &gt; init, bool type_deduction=true, value_t manual_type=value_t::array)'],['../classnlohmann_1_1basic__json.html#ab6816ae5100409254ed0a8bc21c387bb',1,'nlohmann::basic_json::basic_json(size_type cnt, const basic_json &amp;val)'],['../classnlohmann_1_1basic__json.html#abe197e9f3184487805cfb5bba6fd5938',1,'nlohmann::basic_json::basic_json(InputIT first, InputIT last)'],['../classnlohmann_1_1basic__json.html#af5de621bcf646c332343f9c1e011126c',1,'nlohmann::basic_json::basic_json(const basic_json &amp;other)'],['../classnlohmann_1_1basic__json.html#a9a06d1efd50a00f4889f831f851ce124',1,'nlohmann::basic_json::basic_json(basic_json &amp;&amp;other) noexcept']]],
-  ['begin_18',['begin',['../classnlohmann_1_1basic__json.html#a0ff28dac23f2bdecee9564d07f51dcdc',1,'nlohmann::basic_json::begin() noexcept'],['../classnlohmann_1_1basic__json.html#a4f0f5dd42b2987ff20306ed78bd31d1d',1,'nlohmann::basic_json::begin() const noexcept']]],
-  ['blacklist_5fcmd_19',['blacklist_cmd',['../classbot_1_1Cmd__handler.html#a66411198f8daa4a85c9f5c75914cba02',1,'bot::Cmd_handler']]],
-  ['boolean_20',['boolean',['../namespacenlohmann_1_1detail.html#a90aa5ef615aa8305e9ea20d8a947980fa84e2c64f38f78ba3ea5c905ab5a2da27',1,'nlohmann::detail']]],
-  ['boolean_5ft_21',['boolean_t',['../classnlohmann_1_1basic__json.html#a4c919102a9b4fe0d588af64801436082',1,'nlohmann::basic_json']]],
-  ['bot_22',['bot',['../namespacebot.html',1,'']]],
-  ['byte_23',['byte',['../classnlohmann_1_1detail_1_1parse__error.html#aa03a5254e185a08cc01502344f8b92fe',1,'nlohmann::detail::parse_error']]],
-  ['curl_24',['cURL',['../namespacebot_1_1cURL.html',1,'bot']]],
-  ['info_25',['info',['../namespacebot_1_1info.html',1,'bot']]],
-  ['util_26',['util',['../namespacebot_1_1util.html',1,'bot']]]
+  ['bot_10',['bot',['../namespacebot.html',1,'']]],
+  ['buildtime_11',['buildTime',['../classbot_1_1command_1_1About.html#a26fd045588fbe03f7ca4ee1e8fce3e85',1,'bot::command::About']]],
+  ['command_12',['command',['../namespacebot_1_1command.html',1,'bot']]],
+  ['util_13',['util',['../namespacebot_1_1util.html',1,'bot']]]
 ];

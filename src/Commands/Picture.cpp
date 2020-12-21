@@ -2,7 +2,7 @@
 #include "Utility.hpp"
 #include "Picture.hpp"
 
-std::string bot::command::Picture::description() const
+constexpr std::string_view bot::command::Picture::description() const noexcept
 {
   return "поиск картинок в ВК";
 }

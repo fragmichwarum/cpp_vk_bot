@@ -2,6 +2,7 @@
 #include "VkAPI.hpp"
 #include "VKError.hpp"
 
+
 bot::Network* bot::VkAPI::net_ = new bot::Network;
 simdjson::dom::parser parser;
 
@@ -35,9 +36,9 @@ std::string bot::VkAPI::getLogPath()
   return logPath_;
 }
 
-std::string bot::VkAPI::appendVkUrl_(const std::string& method)
+std::string bot::VkAPI::appendVkUrl_(std::string_view method)
 {
-  return "https://api.vk.com/method/" + method + '?';
+  return "https://api.vk.com/method/" + std::string { method.data() } + '?';
 }
 
 bot::LongPollData bot::VkAPI::getLongPollServer()
@@ -54,22 +55,22 @@ bot::LongPollData bot::VkAPI::getLongPollServer()
   if (parsed.begin().key() == "error") throw Vk_exception(parsed["error"]["error_code"].get_int64());
 
   return {
-    std::string{parser.parse(response)["response"]["key"].get_c_str()},
-    std::string{parser.parse(response)["response"]["server"].get_c_str()},
-    std::string{parser.parse(response)["response"]["ts"].get_c_str()}
+    std::string { parser.parse(response)["response"]["key"].get_c_str()    },
+    std::string { parser.parse(response)["response"]["server"].get_c_str() },
+    std::string { parser.parse(response)["response"]["ts"].get_c_str()     }
   };
 }
 
-std::string bot::VkAPI::listenLongPoll(const std::string& key, const std::string& server, const std::string& ts)
+std::string bot::VkAPI::listenLongPoll(std::string_view key, std::string_view server, std::string_view ts)
 {
-  return net_->request(server + '?', {{"act", "a_check"}, {"key", key}, {"ts", ts}, {"wait", "90"}});
+  return net_->request(std::string { server.data() } + '?', {{"act", "a_check"}, {"key", key.data()}, {"ts", ts.data()}, {"wait", "90"}});
 }
 
-void bot::VkAPI::sendMessage(const std::string& text, long peerId, const bot::dictionary& options)
+void bot::VkAPI::sendMessage(std::string_view text, long peer_id, const bot::dictionary& options)
 {
   dictionary parameters = {
-    { "message",      text         },
-    { "peer_id",      std::to_string(peerId) },
+    { "message",      text.data()  },
+    { "peer_id",      std::to_string(peer_id) },
     { "random_id",    "0"          },
     { "access_token", accessToken_ },
     { "v",            apiVersion_  },
@@ -81,7 +82,7 @@ void bot::VkAPI::sendMessage(const std::string& text, long peerId, const bot::di
   net_->request(appendVkUrl_("messages.send"), parameters);
 }
 
-std::string bot::VkAPI::getAttachmentType_(const std::string& method)
+std::string bot::VkAPI::getAttachmentType_(std::string_view method) noexcept
 {
   if (method == "photos.search") return "photo";
   if (method == "video.search") return "video";
@@ -89,14 +90,14 @@ std::string bot::VkAPI::getAttachmentType_(const std::string& method)
   return "";
 }
 
-std::string bot::VkAPI::searchMedia(const std::string& method, const std::string& keyword)
+std::string bot::VkAPI::searchMedia(std::string_view method, std::string_view keyword)
 {
   std::string response =
-      net_->request(appendVkUrl_(method),
-       {{ "q",            keyword     },
-        { "access_token", userToken_  },
-        { "v",            apiVersion_ },
-        { "count",        "50"        }});
+    net_->request(appendVkUrl_(method),
+     {{ "q",            keyword.data() },
+      { "access_token", userToken_     },
+      { "v",            apiVersion_    },
+      { "count",        "50"           }});
 
   simdjson::dom::array items = parser.parse(response)["response"]["items"].get_array();
 
@@ -114,12 +115,12 @@ std::string bot::VkAPI::searchMedia(const std::string& method, const std::string
   return docs;
 }
 
-std::string bot::VkAPI::kick(long chatId, long userId)
+std::string bot::VkAPI::kick(long chat_id, long user_id)
 {
   std::string response =
     net_->request(appendVkUrl_("messages.removeChatUser"),
-     {{ "chat_id",      std::to_string(chatId) },
-      { "user_id",      std::to_string(userId) },
+     {{ "chat_id",      std::to_string(chat_id) },
+      { "user_id",      std::to_string(user_id) },
       { "random_id",    "0"          },
       { "access_token", accessToken_ },
       { "v",            apiVersion_  }});
@@ -139,30 +140,30 @@ std::string bot::VkAPI::kick(long chatId, long userId)
   return "Arbeit macht frei.";
 }
 
-std::string bot::VkAPI::getConversationMembers(long peerId)
+std::string bot::VkAPI::getConversationMembers(long peer_id)
 {
   return
     net_->request(appendVkUrl_("messages.getConversationMembers"),
      {{ "fields",       "online"      },
-      { "peer_id",      std::to_string(peerId) },
+      { "peer_id",      std::to_string(peer_id) },
       { "random_id",    "0"           },
       { "access_token", accessToken_  },
       { "v",            apiVersion_   }});
 }
 
-void bot::VkAPI::editChat(long chat_id, const std::string& title)
+void bot::VkAPI::editChat(long chat_id, std::string_view title)
 {
   net_->request(appendVkUrl_("messages.editChat"),
    {{ "chat_id",      std::to_string(chat_id - 2000000000) },
-    { "title",        title        },
+    { "title",        title.data() },
     { "random_id",    "0"          },
     { "access_token", accessToken_ },
     { "v",            apiVersion_  }});
 }
 
-std::pair<long, long> bot::VkAPI::uploadAttachment_(const std::string& type, const std::string& file, const std::string& server)
+std::pair<long, long> bot::VkAPI::uploadAttachment_(std::string_view type, std::string_view file, std::string_view server)
 {
-  std::string uploadedFile = net_->upload(file, server);
+  std::string uploadedFile = net_->upload(file.data(), server.data());
   std::string url = "https://api.vk.com/method/";
 
   if (type == "photo") url += "photos.saveMessagesPhoto";
@@ -184,9 +185,9 @@ std::pair<long, long> bot::VkAPI::uploadAttachment_(const std::string& type, con
            uploadedAttachmentObject["response"].at(0)["id"].get_int64() };
 }
 
-std::string bot::VkAPI::processAttachmentUploading(const std::string& type, const std::string& file, const std::string& server, long peer_id)
+std::string bot::VkAPI::processAttachmentUploading(std::string_view type, std::string_view file, std::string_view server, long peer_id)
 {
-  if (net_->download(file, server) != 0) return "Ошибка при скачивании файла.";
+  if (net_->download(file.data(), server.data()) != 0) return "Ошибка при скачивании файла.";
 
   std::string uploadServer =
     net_->request(appendVkUrl_("photos.getMessagesUploadServer"),

@@ -1,8 +1,27 @@
 var searchData=
 [
-  ['send_5fmessage_440',['send_message',['../classbot_1_1Vk__api.html#a71ac1501b08a6fa69f32c0e563f6f4e6',1,'bot::Vk_api']]],
-  ['size_441',['size',['../classnlohmann_1_1basic__json.html#a25e27ad0c6d53c01871c5485e1f75b96',1,'nlohmann::basic_json']]],
-  ['split_442',['split',['../namespacebot_1_1util.html#a68eab5b142d549ecfafd9431f71d4f71',1,'bot::util']]],
-  ['stat_5fcmd_443',['stat_cmd',['../classbot_1_1Cmd__handler.html#a4663669d31dce0bd3e4c82099929b2ab',1,'bot::Cmd_handler']]],
-  ['swap_444',['swap',['../classnlohmann_1_1basic__json.html#a8c9d932353e1ab98a7dc2fc27e002031',1,'nlohmann::basic_json::swap(reference other) noexcept(std::is_nothrow_move_constructible&lt; value_t &gt;::value and std::is_nothrow_move_assignable&lt; value_t &gt;::value and std::is_nothrow_move_constructible&lt; json_value &gt;::value and std::is_nothrow_move_assignable&lt; json_value &gt;::value)'],['../classnlohmann_1_1basic__json.html#a65b0a24e1361a030ad0a661de22f6c8e',1,'nlohmann::basic_json::swap(array_t &amp;other)'],['../classnlohmann_1_1basic__json.html#ac31f12587d2f1a3be5ffc394aa9d72a4',1,'nlohmann::basic_json::swap(object_t &amp;other)'],['../classnlohmann_1_1basic__json.html#adaa1ed0a889d86c8e0216a3d66980f76',1,'nlohmann::basic_json::swap(string_t &amp;other)']]]
+  ['_7eabout_285',['~About',['../classbot_1_1command_1_1About.html#a41079d2ff0d3db0a1f1ebed557354059',1,'bot::command::About']]],
+  ['_7ecat_286',['~Cat',['../classbot_1_1command_1_1Cat.html#a575ecbe908fffb7324de1dfb414c8117',1,'bot::command::Cat']]],
+  ['_7echatnamesetter_287',['~ChatNameSetter',['../classbot_1_1command_1_1ChatNameSetter.html#a732277a26d4318228b5d47a7d4fe001f',1,'bot::command::ChatNameSetter']]],
+  ['_7ecomplete_288',['~Complete',['../classbot_1_1command_1_1Complete.html#a53fa4b4fdcc01831a5488dec08d7bbf2',1,'bot::command::Complete']]],
+  ['_7ecurrency_289',['~Currency',['../classbot_1_1command_1_1Currency.html#abba20ad910016657d7446c09a80f08bc',1,'bot::command::Currency']]],
+  ['_7edocument_290',['~Document',['../classbot_1_1command_1_1Document.html#abc4e28b42cff6a2a064dfa5e176830b3',1,'bot::command::Document']]],
+  ['_7eeventhandler_291',['~EventHandler',['../classbot_1_1EventHandler.html#ada5739fce4a826f505a1d41a911379cd',1,'bot::EventHandler']]],
+  ['_7ehost_292',['~Host',['../classbot_1_1command_1_1Host.html#a5e7d1119b4ce1725f09917f9c0ed8e62',1,'bot::command::Host']]],
+  ['_7eicommand_293',['~ICommand',['../classbot_1_1ICommand.html#a2b81cab2197b61688c510b2d1173dc9d',1,'bot::ICommand']]],
+  ['_7eip_294',['~Ip',['../classbot_1_1command_1_1Ip.html#a5929727a3c13134f9879e0961c722cb7',1,'bot::command::Ip']]],
+  ['_7elongpolllistener_295',['~LongPollListener',['../classbot_1_1LongPollListener.html#ac7ab8d64eea06eb4b5cfb117b5c29bb5',1,'bot::LongPollListener']]],
+  ['_7emessageeventhandler_296',['~MessageEventHandler',['../classbot_1_1MessageEventHandler.html#ac8ad229c6209c1fe8f295cac767635e2',1,'bot::MessageEventHandler']]],
+  ['_7enetwork_297',['~Network',['../classbot_1_1Network.html#ac64bf5f3c1dfa1ccc4fcb8608627ac25',1,'bot::Network']]],
+  ['_7eonline_298',['~Online',['../classbot_1_1command_1_1Online.html#a6959bc96d36a7e68b6f96f570d7032a2',1,'bot::command::Online']]],
+  ['_7epicture_299',['~Picture',['../classbot_1_1command_1_1Picture.html#a7d15c620eb4f3eac1f53d877ec45544f',1,'bot::command::Picture']]],
+  ['_7eposteventhandler_300',['~PostEventHandler',['../classbot_1_1PostEventHandler.html#a50d7b3146d4f736193df10e2d0309489',1,'bot::PostEventHandler']]],
+  ['_7erepository_301',['~Repository',['../classbot_1_1Repository.html#ae9ec4354bac8a7fa6e2c2333e1aaf415',1,'bot::Repository']]],
+  ['_7erole_302',['~Role',['../classbot_1_1command_1_1Role.html#a337208c7a6ea55d9becf8659041abeb6',1,'bot::command::Role']]],
+  ['_7esqliterepository_303',['~SQLiteRepository',['../classbot_1_1SQLiteRepository.html#a488129b781a173fe548e41d0d23cf6d0',1,'bot::SQLiteRepository']]],
+  ['_7estat_304',['~Stat',['../classbot_1_1command_1_1Stat.html#a117955e198b0b551508f326c61d0d47c',1,'bot::command::Stat']]],
+  ['_7evideo_305',['~Video',['../classbot_1_1command_1_1Video.html#a0fea2832e60bf93461a7c2b3a854deb1',1,'bot::command::Video']]],
+  ['_7evk_5fexception_306',['~Vk_exception',['../classbot_1_1Vk__exception.html#ab89ecb0fe686829b8ef9432db78e03ea',1,'bot::Vk_exception']]],
+  ['_7evkapi_307',['~VkAPI',['../classbot_1_1VkAPI.html#ae5f1a690a994af383654a0b03f373619',1,'bot::VkAPI']]],
+  ['_7ewho_308',['~Who',['../classbot_1_1command_1_1Who.html#a13536a50ccbc3313bdba2d653a175e9a',1,'bot::command::Who']]]
 ];

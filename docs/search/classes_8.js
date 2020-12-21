@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['json_5fpointer_297',['json_pointer',['../classnlohmann_1_1basic__json_1_1json__pointer.html',1,'nlohmann::basic_json']]],
-  ['json_5freverse_5fiterator_298',['json_reverse_iterator',['../classnlohmann_1_1basic__json_1_1json__reverse__iterator.html',1,'nlohmann::basic_json']]]
+  ['messageeventhandler_184',['MessageEventHandler',['../classbot_1_1MessageEventHandler.html',1,'bot']]]
 ];

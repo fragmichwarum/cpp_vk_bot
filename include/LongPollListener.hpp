@@ -4,20 +4,32 @@
 
 namespace bot
 {
+/*!
+ * @brief The LongPollListener class
+ */
 class LongPollListener
 {
 private:
-  std::string server_;
-  std::string key_;
-  std::string ts_;
+  std::string server;
+  std::string key;
+  std::string ts;
 
-  static class EventHandler* eventHandler_;
-  static class VkAPI* api_;
+  static class EventHandler* eventHandler;
 
+  /*!
+   * @brief get Long Poll server and initialize @ref server, @ref key and @ref ts
+   */
   void updateLongPollData_();
+  /*!
+   * @brief Iterate through updates.
+   * @param JSON update.
+   */
   void processEvents_(const simdjson::dom::array& updates);
 
 public:
+  /*!
+   * @brief Start point of application.
+   */
   void loop();
  ~LongPollListener();
 };

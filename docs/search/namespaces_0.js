@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['bot_313',['bot',['../namespacebot.html',1,'']]],
-  ['curl_314',['cURL',['../namespacebot_1_1cURL.html',1,'bot']]],
-  ['info_315',['info',['../namespacebot_1_1info.html',1,'bot']]],
-  ['util_316',['util',['../namespacebot_1_1util.html',1,'bot']]]
+  ['bot_197',['bot',['../namespacebot.html',1,'']]],
+  ['command_198',['command',['../namespacebot_1_1command.html',1,'bot']]],
+  ['util_199',['util',['../namespacebot_1_1util.html',1,'bot']]]
 ];

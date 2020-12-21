@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['static_5fconst_307',['static_const',['../structnlohmann_1_1detail_1_1static__const.html',1,'nlohmann::detail']]]
+  ['sqliterepository_191',['SQLiteRepository',['../classbot_1_1SQLiteRepository.html',1,'bot']]],
+  ['stat_192',['Stat',['../classbot_1_1command_1_1Stat.html',1,'bot::command']]]
 ];

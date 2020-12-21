@@ -11,7 +11,7 @@ std::string bot::command::Who::execute(const CommandParams& inputData, const Dep
 {
   if (inputData.args.empty()) return util::emptyArgs();
 
-  std::string_view response = deps.api->getConversationMembers(inputData.peer_id);
+  std::string response = deps.api->getConversationMembers(inputData.peer_id);
 
   simdjson::dom::parser parser;
   simdjson::dom::object parsed = parser.parse(response);

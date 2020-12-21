@@ -20,10 +20,10 @@
 #include "Video.hpp"
 #include "Who.hpp"
 
-bot::Network* net           = new bot::Network;
-bot::Repository* repository = new bot::SQLiteRepository("USRES");
-bot::VkAPI*   bot::MessageEventHandler::api           = new bot::VkAPI;
-bot::Logger*  bot::MessageEventHandler::logger        = new bot::Logger(api->getLogPath(), api->getErrPath());
+bot::Network* net                              = new bot::Network;
+bot::Repository* repository                    = new bot::SQLiteRepository("USRES");
+bot::VkAPI*   bot::MessageEventHandler::api    = new bot::VkAPI;
+bot::Logger*  bot::MessageEventHandler::logger = new bot::Logger(api->getLogPath(), api->getErrPath());
 
 bot::MessageEventHandler::MessageEventHandler()
 {

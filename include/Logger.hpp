@@ -8,9 +8,15 @@ namespace bot
 class Logger
 {
 private:
+#if defined(__linux__) || defined(__FreeBSD__)
   const std::string timeLabel_  = "\033[0;35m[ TIME    ]\033[0;0m";
   const std::string logLabel_   = "\033[0;35m[ LOG     ]\033[0;0m";
   const std::string errorLabel_ = "\033[0;31m[ ERROR   ]\033[0;0m";
+#else
+  const std::string timeLabel_  = "[ TIME    ]";
+  const std::string logLabel_   = "[ LOG     ]";
+  const std::string errorLabel_ = "[ ERROR   ]";
+#endif
 
   const std::string logPath_;
   const std::string errPath_;

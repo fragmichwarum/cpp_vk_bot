@@ -99,7 +99,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a175cc8a7881e6de41ddf8171428a0cc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="classbot_1_1MessageEventHandler.html" title="Incoming messages handler.">MessageEventHandler</a> constructor.  <a href="classbot_1_1MessageEventHandler.html#a175cc8a7881e6de41ddf8171428a0cc7">More...</a><br /></td></tr>
 <tr class="separator:a175cc8a7881e6de41ddf8171428a0cc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb485c69df6daa445094a3bacab03fe6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1MessageEventHandler.html#afb485c69df6daa445094a3bacab03fe6">tryProcessMessage</a> (const simdjson::dom::object &amp;update)</td></tr>
-<tr class="memdesc:afb485c69df6daa445094a3bacab03fe6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterate through <a class="el" href="classbot_1_1MessageEventHandler.html#a31e55a9905a12c03689a25743de84eb0">commandCollection_</a> and try match command trigger. Execute the command if successful, otherwise do nothing.  <a href="classbot_1_1MessageEventHandler.html#afb485c69df6daa445094a3bacab03fe6">More...</a><br /></td></tr>
+<tr class="memdesc:afb485c69df6daa445094a3bacab03fe6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterate through commandCollection_ and try match command trigger. Execute the command if successful, otherwise do nothing.  <a href="classbot_1_1MessageEventHandler.html#afb485c69df6daa445094a3bacab03fe6">More...</a><br /></td></tr>
 <tr class="separator:afb485c69df6daa445094a3bacab03fe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8ad229c6209c1fe8f295cac767635e2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1MessageEventHandler.html#ac8ad229c6209c1fe8f295cac767635e2">~MessageEventHandler</a> ()</td></tr>
 <tr class="separator:ac8ad229c6209c1fe8f295cac767635e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -115,9 +115,9 @@ Private Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a31e55a9905a12c03689a25743de84eb0"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::string, std::shared_ptr&lt; <a class="el" href="classbot_1_1ICommand.html">ICommand</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1MessageEventHandler.html#a31e55a9905a12c03689a25743de84eb0">commandCollection_</a></td></tr>
-<tr class="memdesc:a31e55a9905a12c03689a25743de84eb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of commands.  <a href="classbot_1_1MessageEventHandler.html#a31e55a9905a12c03689a25743de84eb0">More...</a><br /></td></tr>
-<tr class="separator:a31e55a9905a12c03689a25743de84eb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3a0e6dc19ff16b10d91c40b8b3200dd"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::string, std::shared_ptr&lt; <a class="el" href="classbot_1_1ICommand.html">ICommand</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbot_1_1MessageEventHandler.html#ac3a0e6dc19ff16b10d91c40b8b3200dd">commandCollection</a></td></tr>
+<tr class="memdesc:ac3a0e6dc19ff16b10d91c40b8b3200dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of commands.  <a href="classbot_1_1MessageEventHandler.html#ac3a0e6dc19ff16b10d91c40b8b3200dd">More...</a><br /></td></tr>
+<tr class="separator:ac3a0e6dc19ff16b10d91c40b8b3200dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
@@ -145,7 +145,7 @@ Static Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The <a class="el" href="classbot_1_1MessageEventHandler.html" title="Incoming messages handler.">MessageEventHandler</a> constructor. </p>
-<p>Initializes <a class="el" href="classbot_1_1MessageEventHandler.html#a31e55a9905a12c03689a25743de84eb0">commandCollection_</a>. </p>
+<p>Initializes commandCollection_. </p>
 
 </div>
 </div>
@@ -245,7 +245,7 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Iterate through <a class="el" href="classbot_1_1MessageEventHandler.html#a31e55a9905a12c03689a25743de84eb0">commandCollection_</a> and try match command trigger. Execute the command if successful, otherwise do nothing. </p>
+<p>Iterate through commandCollection_ and try match command trigger. Execute the command if successful, otherwise do nothing. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">JSON</td><td>update. </td></tr>
@@ -278,8 +278,8 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a31e55a9905a12c03689a25743de84eb0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31e55a9905a12c03689a25743de84eb0">&#9670;&nbsp;</a></span>commandCollection_</h2>
+<a id="ac3a0e6dc19ff16b10d91c40b8b3200dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3a0e6dc19ff16b10d91c40b8b3200dd">&#9670;&nbsp;</a></span>commandCollection</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -288,7 +288,7 @@ Static Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_map&lt;std::string, std::shared_ptr&lt;<a class="el" href="classbot_1_1ICommand.html">ICommand</a>&gt; &gt; bot::MessageEventHandler::commandCollection_</td>
+          <td class="memname">std::unordered_map&lt;std::string, std::shared_ptr&lt;<a class="el" href="classbot_1_1ICommand.html">ICommand</a>&gt; &gt; bot::MessageEventHandler::commandCollection</td>
         </tr>
       </table>
   </td>

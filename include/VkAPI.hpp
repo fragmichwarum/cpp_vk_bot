@@ -52,7 +52,7 @@ private:
   /*!
    * @brief Internal data initializer.
    */
-  _UserData data_;
+  _UserData data;
   /*!
    * @brief Vkontakte group token.
    *
@@ -85,7 +85,7 @@ private:
   /*!
    * @brief Network handler.
    */
-  static class Network* net_;
+  static class Network* net;
 
   /*!
    * @param VK API media search method name.
@@ -113,15 +113,15 @@ public:
   /*!
    * @return @ref apiVersion_
    */
-  std::string getApiVersion();
+  vk_always_inline std::string getApiVersion() { return apiVersion_; }
   /*!
    * @return @ref logPath_
    */
-  std::string getLogPath();
+  vk_always_inline std::string getLogPath() { return logPath_; }
   /*!
    * @return @ref errPath_
    */
-  std::string getErrPath();
+  vk_always_inline std::string getErrPath() { return errPath_; }
   /*!
    * @brief Set new chat name.
    * @param chat_id     - id of chat.

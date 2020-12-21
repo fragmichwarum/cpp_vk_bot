@@ -13,15 +13,15 @@ private:
   /*!
    * @brief list of conversations.
    */
-  std::vector<long> conversations_;
+  std::vector<long> conversations;
   /*!
    * @brief Database object.
    */
-  static class Repository* repository_;
+  static class Repository* repository;
   /*!
    * @brief VK API instance.
    */
-  static class VkAPI* api_;
+  static class VkAPI* api;
   /*!
    * @brief Get conversations from Database.
    */

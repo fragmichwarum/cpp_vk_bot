@@ -1,5 +1,6 @@
 #include "Repository/SQLiteRepository.hpp"
 
+
 bot::SQLiteRepository::SQLiteRepository(std::string_view name)
   : name_(name)
   , database_(name_ + ".db3", SQLite::OPEN_CREATE | SQLite::OPEN_READWRITE)

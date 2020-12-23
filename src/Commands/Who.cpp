@@ -1,6 +1,9 @@
+#include <simdjson.h>
+
 #include "Utility.hpp"
 #include "VkAPI.hpp"
 #include "Who.hpp"
+
 
 constexpr std::string_view bot::command::Who::description() const noexcept
 {
@@ -9,7 +12,7 @@ constexpr std::string_view bot::command::Who::description() const noexcept
 
 std::string bot::command::Who::execute(const CommandParams& inputData, const Dependencies& deps)
 {
-  if (inputData.args.empty()) return util::emptyArgs();
+  if (inputData.args.empty()) return util::emptyArgs().data();
 
   std::string response = deps.api->getConversationMembers(inputData.peer_id);
 

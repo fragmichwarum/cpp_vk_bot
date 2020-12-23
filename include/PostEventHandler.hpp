@@ -1,6 +1,11 @@
 #pragma once
 
-#include <simdjson.h>
+#include <vector>
+
+namespace simdjson::dom
+{
+class object;
+}
 
 namespace bot
 {
@@ -32,7 +37,8 @@ public:
    * @brief Sends messages to chats about new post event.
    * @param update    - VK API response with new post event.
    */
-  void postMailing(const simdjson::dom::object& update);
+//  void postMailing(const simdjson::dom::object& update);
+  void postMailing(long from_id, long id);
  ~PostEventHandler();
 };
 }

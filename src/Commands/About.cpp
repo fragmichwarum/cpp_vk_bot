@@ -1,6 +1,7 @@
 #include "VkAPI.hpp"
 #include "About.hpp"
 
+
 bot::command::About::About()
   : buildTime(std::string(__DATE__) + ' ' + std::string(__TIME__))
 { }

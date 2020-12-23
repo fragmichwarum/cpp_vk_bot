@@ -2,7 +2,6 @@
 #include "VkAPI.hpp"
 #include "PostEventHandler.hpp"
 
-//extern template class std::vector<long>;
 
 bot::VkAPI* bot::PostEventHandler::api = new bot::VkAPI;
 bot::Repository* bot::PostEventHandler::repository = new SQLiteRepository("USERS");
@@ -12,12 +11,12 @@ void bot::PostEventHandler::updateConversations_()
   conversations = repository->getAllConversations();
 }
 
-void bot::PostEventHandler::postMailing(const simdjson::dom::object& update)
+void bot::PostEventHandler::postMailing(long from_id, long id)
 {
   updateConversations_();
   std::string attachment =
-    std::to_string(update["object"]["from_id"].get_int64()) + '_' +
-    std::to_string(update["object"]["id"].get_int64());
+    std::to_string(from_id) + '_' +
+    std::to_string(id);
 
   for(const long& conversation : conversations)
   {

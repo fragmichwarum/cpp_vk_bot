@@ -1,6 +1,7 @@
 #include "VkAPI.hpp"
 #include "ChatName.hpp"
 
+
 constexpr std::string_view bot::command::ChatNameSetter::description() const noexcept
 {
   return "установить имя чата";

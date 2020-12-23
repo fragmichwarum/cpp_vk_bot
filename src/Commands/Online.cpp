@@ -1,5 +1,8 @@
+#include <simdjson.h>
+
 #include "VkAPI.hpp"
 #include "Online.hpp"
+
 
 constexpr std::string_view bot::command::Online::description() const noexcept
 {

@@ -4,6 +4,7 @@
 
 #include "Stat.hpp"
 
+
 constexpr std::string_view bot::command::Stat::description() const noexcept
 {
   return "Показать статистику";

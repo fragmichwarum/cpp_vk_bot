@@ -6,6 +6,7 @@
 
 std::string hostName_;
 
+
 constexpr std::string_view bot::command::Host::description() const noexcept
 {
   return "узнать хост по ip адресу";

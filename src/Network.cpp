@@ -2,6 +2,7 @@
 
 //#define CURL_DEBUG
 
+
 bot::Network::~Network()
 {
   curl_easy_cleanup(curl_handle_);
@@ -35,7 +36,7 @@ static std::string genparams(const bot::dictionary& body)
   return result;
 }
 
-std::string bot::Network::request(std::string_view method, const bot::dictionary& params) const noexcept
+std::string bot::Network::request(std::string_view method, const bot::dictionary& params) const
 {
   std::string url = method.data() + genparams(params);
   std::string buffer;
@@ -58,7 +59,7 @@ std::string bot::Network::request(std::string_view method, const bot::dictionary
   return buffer;
 }
 
-std::string bot::Network::requestdata(std::string_view method, std::string_view data) const noexcept
+std::string bot::Network::requestdata(std::string_view method, std::string_view data) const
 {
   std::string buffer;
 
@@ -74,7 +75,7 @@ std::string bot::Network::requestdata(std::string_view method, std::string_view 
   return buffer;
 }
 
-std::size_t bot::Network::download(std::string_view filename, std::string_view server) const noexcept
+std::size_t bot::Network::download(std::string_view filename, std::string_view server) const
 {
   FILE* fp;
 
@@ -96,7 +97,7 @@ std::size_t bot::Network::download(std::string_view filename, std::string_view s
   return 0;
 }
 
-std::string bot::Network::upload(std::string_view filename, std::string_view server) const noexcept
+std::string bot::Network::upload(std::string_view filename, std::string_view server) const
 {
   CURLcode curl_result;
   struct curl_httppost* formpost = NULL;

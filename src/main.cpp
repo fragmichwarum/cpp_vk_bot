@@ -1,5 +1,3 @@
-#include "LongPollListener.hpp"
-
 #if defined(__clang__) || defined(__GNUC__) || defined(__GNUG__)
 #  pragma GCC diagnostic push
 #  pragma GCC diagnostic ignored "-Wcomment"
@@ -29,7 +27,6 @@
  * ```
  *
  * ## Build
- *
  * at <em><b>cpp_vk_bot</b></em> directory:
  *  - <b>mkdir build</b>
  *  - <b>cd build</b>
@@ -44,6 +41,8 @@
 #if defined(__clang__) || defined(__GNUC__) || defined(__GNUG__)
 #  pragma GCC diagnostic pop
 #endif
+
+#include "LongPollListener.hpp"
 
 int main()
 {

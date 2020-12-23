@@ -1,6 +1,9 @@
+#include <simdjson.h>
+
 #include "Network.hpp"
 #include "VkAPI.hpp"
 #include "Cat.hpp"
+
 
 constexpr std::string_view bot::command::Cat::description() const noexcept
 {

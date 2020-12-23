@@ -1,6 +1,9 @@
 #pragma once
 
-#include <simdjson.h>
+namespace simdjson::dom
+{
+class object;
+}
 
 namespace bot
 {

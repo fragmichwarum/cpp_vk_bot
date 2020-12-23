@@ -3,7 +3,6 @@
 
 #include "Utility.hpp"
 
-extern template class std::pair<const std::string, std::string>;
 
 std::string bot::util::toJson(const std::map<std::string, std::string>& body)
 {
@@ -22,18 +21,12 @@ std::vector<std::string> bot::util::split(std::string_view text)
   std::vector<std::string> splitted;
   std::size_t start = 0;
   std::size_t end = 0;
-  while ((end = text.find(' ', start)) != std::string::npos)
-  {
+  while ((end = text.find(' ', start)) != std::string::npos) {
     splitted.push_back(text.substr(start, end - start).data());
     start = end + 1;
   }
   splitted.push_back(text.substr(start).data());
   return splitted;
-}
-
-std::string bot::util::getArgs(std::string_view message) noexcept
-{
-  return message.substr(message.find_first_of(" ") + 1).data();
 }
 
 long bot::util::extractId(std::string_view user) noexcept
@@ -42,11 +35,6 @@ long bot::util::extractId(std::string_view user) noexcept
   /**    ^        ^      */
   /**    from     to     */
   return std::stol(user.substr(3, 9).data());
-}
-
-std::string bot::util::emptyArgs() noexcept
-{
-  return "Задана пустая строка.";
 }
 
 std::string bot::util::longToHexStr(unsigned long digit)

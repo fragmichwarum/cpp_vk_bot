@@ -1,20 +1,55 @@
+#include <simdjson.h>
+
 #include "Network.hpp"
 #include "VkAPI.hpp"
 #include "VKError.hpp"
 
 
+namespace
+{
+/*!
+ * @brief The @ref bot::VkAPI private fields initializer.
+ *
+ * All functions marked as `noexcept` due to the better object code optimization.
+ * There is no reason to handle exceptions from these functions.
+ * The program should crash if the unsuccessful attempt to open the config file was occured.
+ */
+class _VkConfig
+{
+public:
+  _VkConfig(const _VkConfig&)            = delete;
+  _VkConfig& operator=(const _VkConfig&) = delete;
+  _VkConfig& operator=(_VkConfig&&)      = delete;
+  friend class bot::VkAPI;
+
+private:
+  simdjson::dom::parser parser_;
+  simdjson::dom::element element_;
+
+  _VkConfig(std::string_view file) { element_ = parser_.load(file.data()); }
+  vk_always_inline std::string_view loadAccessToken() const noexcept { return static_cast<const char*>(element_["token"]["access_token"]); }
+  vk_always_inline std::string_view loadUserToken()   const noexcept { return static_cast<const char*>(element_["token"]["user_token"]); }
+  vk_always_inline std::string_view loadApiVersion()  const noexcept { return static_cast<const char*>(element_["api_v"]); }
+  vk_always_inline std::string_view loadGroupId()     const noexcept { return static_cast<const char*>(element_["group_id"]); }
+  vk_always_inline std::string_view loadLogPath()     const noexcept { return static_cast<const char*>(element_["path"]["log"]); }
+  vk_always_inline std::string_view loadErrorPath()   const noexcept { return static_cast<const char*>(element_["path"]["err"]); }
+};
+}
+
 bot::Network* bot::VkAPI::net = new bot::Network;
 simdjson::dom::parser parser;
 
-bot::VkAPI::VkAPI()
-  : data("./init.json")
-  , accessToken_(data.loadAccessToken())
-  , userToken_  (data.loadUserToken())
-  , groupId_    (data.loadGroupId())
-  , apiVersion_ (data.loadApiVersion())
-  , logPath_    (data.loadLogPath())
-  , errPath_    (data.loadErrorPath())
-{ }
+bot::VkAPI::VkAPI(const std::string& path)
+{
+  _VkConfig config(path);
+
+  accessToken_  = config.loadAccessToken();
+  userToken_    = config.loadUserToken();
+  groupId_      = config.loadGroupId();
+  apiVersion_   = config.loadApiVersion();
+  logPath_      = config.loadLogPath();
+  errPath_      = config.loadErrorPath();
+}
 
 bot::VkAPI::~VkAPI()
 {

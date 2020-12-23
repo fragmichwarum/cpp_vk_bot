@@ -7,7 +7,7 @@ include_directories(include)
 include_directories(src/Commands)
 include_directories(include/Commands)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS -flto)
 
@@ -45,6 +45,7 @@ set(SOURCES
   src/EventHandler.cpp
   src/main.cpp
   src/LongPollListener.cpp
+  src/Logger.cpp
   src/MessageEventHandler.cpp
   src/Network.cpp
   src/PostEventHandler.cpp
@@ -71,3 +72,4 @@ set(COMMAND_SOURCES
 
 add_executable(VK ${HEADERS} ${SOURCES} ${COMMAND_HEADERS} ${COMMAND_SOURCES})
 target_link_libraries(VK simdjson curl SQLiteCpp cares)
+target_compile_options(VK PRIVATE -Wall -Wextra -pedantic #[[-Werror]])

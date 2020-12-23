@@ -33,13 +33,13 @@ std::vector<std::string> split(std::string_view text);
  * @return All after first word.
  * @warning This functions does not check count of words.
  */
-std::string getArgs(std::string_view message) noexcept;
+constexpr std::string_view getArgs(std::string_view message) noexcept { return message.substr(message.find_first_of(" ") + 1).data(); }
 /*!
  * @return Message notifying that no arguments were passed to the command.
  */
-std::string emptyArgs() noexcept;
+constexpr std::string_view emptyArgs() noexcept { return "Задана пустая строка."; }
 /*!
- * @param user      - VK user link.
+ * @param user    - VK user link.
  * @return Extracted digits that represents VK user id.
  */
 long extractId(std::string_view user) noexcept;

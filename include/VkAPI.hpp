@@ -1,36 +1,15 @@
 #pragma once
 
-#include <simdjson.h>
 #include <map>
+#include <string_view>
+#include <string>
 
 #define vk_always_inline inline __attribute__((always_inline))
 
+//class _VkConfig;
+
 namespace bot
 {
-/*!
- * @brief The @ref bot::VkAPI private fields initializer.
- */
-class _UserData
-{
-public:
-  _UserData(const _UserData&)            = delete;
-  _UserData& operator=(const _UserData&) = delete;
-  _UserData& operator=(_UserData&&)      = delete;
-  friend class VkAPI;
-
-private:
-  simdjson::dom::parser parser_;
-  simdjson::dom::element element_;
-
-  _UserData(std::string_view file) { element_ = parser_.load(file.data()); }
-  vk_always_inline std::string_view loadAccessToken() const noexcept { return static_cast<const char*>(element_["token"]["access_token"].get_c_str()); }
-  vk_always_inline std::string_view loadUserToken()   const noexcept { return static_cast<const char*>(element_["token"]["user_token"].get_c_str()); }
-  vk_always_inline std::string_view loadApiVersion()  const noexcept { return static_cast<const char*>(element_["api_v"].get_c_str()); }
-  vk_always_inline std::string_view loadGroupId()     const noexcept { return static_cast<const char*>(element_["group_id"].get_c_str()); }
-  vk_always_inline std::string_view loadLogPath()     const noexcept { return static_cast<const char*>(element_["path"]["log"].get_c_str()); }
-  vk_always_inline std::string_view loadErrorPath()   const noexcept { return static_cast<const char*>(element_["path"]["err"].get_c_str()); }
-};
-
 /*!
  * @brief Data type needed by @ref bot::VkAPI::getLongPollServer.
  */
@@ -50,37 +29,33 @@ class VkAPI
 {
 private:
   /*!
-   * @brief Internal data initializer.
-   */
-  _UserData data;
-  /*!
    * @brief Vkontakte group token.
    *
    * To get it, please go to Settings -> API usage -> Create token.
    */
-  const std::string accessToken_;
+  /*const*/ std::string accessToken_;
   /*!
    * @brief Vkontakte user token.
    *
    * To get it, please go to https://vkhost.github.io/.
    */
-  const std::string userToken_;
+  /*const*/ std::string userToken_;
   /*!
    * @brief Your group ID.
    */
-  const std::string groupId_;
+  /*const*/ std::string groupId_;
   /*!
    * @brief Vkontakte API version.
    */
-  const std::string apiVersion_;
+  /*const*/ std::string apiVersion_;
   /*!
    * @brief Path to log file.
    */
-  const std::string logPath_;
+  /*const*/ std::string logPath_;
   /*!
    * @brief Path to error log file.
    */
-  const std::string errPath_;
+  /*const*/ std::string errPath_;
 
   /*!
    * @brief Network handler.
@@ -107,7 +82,7 @@ private:
   std::pair<long, long> uploadAttachment_(std::string_view type, std::string_view file, std::string_view server);
 
 public:
-  VkAPI();
+  VkAPI(const std::string& path = "./init.json");
  ~VkAPI();
 
   /*!

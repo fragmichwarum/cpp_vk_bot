@@ -1,6 +1,9 @@
+#include <simdjson.h>
+
 #include "VkAPI.hpp"
 #include "EventHandler.hpp"
 #include "LongPollListener.hpp"
+
 
 bot::VkAPI* api = new bot::VkAPI;
 bot::EventHandler* bot::LongPollListener::eventHandler = new bot::EventHandler;

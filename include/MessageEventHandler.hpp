@@ -1,8 +1,14 @@
 #pragma once
 
-#include <simdjson.h>
+#include <unordered_map>
+#include <memory>
 
 #include "ICommand.hpp"
+
+namespace simdjson::dom
+{
+class object;
+}
 
 namespace bot
 {
@@ -18,17 +24,17 @@ private:
   /*!
    * @brief List of commands.
    */
-  std::unordered_map<std::string, std::shared_ptr<ICommand>> commandCollection;
+  std::unordered_map<std::string_view, std::unique_ptr<ICommand>> commandCollection;
 
   /*!
    * @brief Write and print message.
    */
-  void processLogging_(std::string_view message);
+  void processLogging(std::string_view message);
   /*!
    * @brief Generate help from <em><b>description()</b></em> methods of Command classes.
    * @param peer_id     - destination.
    */
-  void processHelp_(const long& peer_id);
+  void processHelp(long peer_id);
 
 public:
   /*!
@@ -38,11 +44,13 @@ public:
    */
   MessageEventHandler();
   /*!
-   * @brief Iterate through @ref commandCollection_ and try match command trigger.
-   * Execute the command if successful, otherwise do nothing.
+   * @brief Try match command by trigger.
+   *
+   * Execute the command if first word was matched with any trigger, do nothing otherwise.
    * @param JSON update.
    */
-  void tryProcessMessage(const simdjson::dom::object& update);
+//  void tryProcessMessage(const simdjson::dom::object& update);
+  void tryProcessMessage(std::string_view message, long peer_id);
 
  ~MessageEventHandler();
 };

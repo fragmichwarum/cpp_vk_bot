@@ -33,7 +33,7 @@ std::vector<std::string> split(std::string_view text);
  * @return All after first word.
  * @warning This functions does not check count of words.
  */
-constexpr std::string_view getArgs(std::string_view message) noexcept { return message.substr(message.find_first_of(" ") + 1).data(); }
+std::string getArgs(std::string_view message) noexcept;
 /*!
  * @return Message notifying that no arguments were passed to the command.
  */

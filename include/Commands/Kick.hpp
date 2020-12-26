@@ -5,14 +5,14 @@
 namespace bot::command
 {
 /*!
- * @brief Conversation online showing command.
+ * @brief User kick command.
  */
-class Online final : public ICommand
+class Kick final : public ICommand
 {
 public:
   constexpr std::uint8_t access() const noexcept override;
   constexpr std::string_view description() const noexcept override;
   std::string execute(const CommandParams&, const Dependencies&) override;
- ~Online() = default;
+ ~Kick() = default;
 };
 } //namespace bot::command

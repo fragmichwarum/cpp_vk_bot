@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <memory>
 
 namespace simdjson::dom
 {
@@ -14,12 +15,27 @@ namespace bot
  */
 class LongPollListener
 {
+public:
+  explicit
+  LongPollListener();
+  /*!
+   * @brief Destructor marked as <em>default</em>.
+   *
+   * It must be defined in place, when <em>std::unique_ptr</em> pointed-to type is complete.
+   */
+ ~LongPollListener();
+  /*!
+   * @brief Start point of application.
+   */
+  void loop();
+
 private:
   std::string server;
   std::string key;
   std::string ts;
 
-  static class EventHandler* eventHandler;
+  std::unique_ptr<class EventHandler> eventHandler;
+  std::unique_ptr<class VkAPI> api;
 
   /*!
    * @brief get Long Poll server and initialize @ref server, @ref key and @ref ts
@@ -30,12 +46,5 @@ private:
    * @param JSON update.
    */
   void processEvents_(const simdjson::dom::array& updates);
-
-public:
-  /*!
-   * @brief Start point of application.
-   */
-  void loop();
- ~LongPollListener();
 };
 } //namespace bot

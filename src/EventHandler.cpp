@@ -5,8 +5,12 @@
 #include "EventHandler.hpp"
 
 
-bot::PostEventHandler* bot::EventHandler::postEventHandler = new bot::PostEventHandler;
-bot::MessageEventHandler* bot::EventHandler::messageEventhandler = new bot::MessageEventHandler;
+bot::EventHandler::EventHandler()
+  : postEventHandler(std::make_unique<PostEventHandler>())
+  , messageEventhandler(std::make_unique<MessageEventHandler>())
+{ }
+
+bot::EventHandler::~EventHandler() = default;
 
 void bot::EventHandler::tryProcessEvent(const simdjson::dom::object& update)
 {
@@ -14,9 +18,10 @@ void bot::EventHandler::tryProcessEvent(const simdjson::dom::object& update)
 
   if (updateType == "message_new")
   {
-    messageEventhandler->tryProcessMessage(
+    messageEventhandler->process(
       update["object"]["message"]["text"].get_string(),
-      update["object"]["message"]["peer_id"].get_int64()
+      update["object"]["message"]["peer_id"].get_int64(),
+      update["object"]["message"]["from_id"].get_int64()
     );
   }
   if (updateType == "wall_post_new")
@@ -26,10 +31,4 @@ void bot::EventHandler::tryProcessEvent(const simdjson::dom::object& update)
       update["object"]["id"].get_int64()
     );
   }
-}
-
-bot::EventHandler::~EventHandler()
-{
-  delete postEventHandler;
-  delete messageEventhandler;
 }

@@ -1,20 +1,19 @@
-#include "Utility.hpp"
-#include "VkAPI.hpp"
+#include "JsonUtils.hpp"
 #include "Video.hpp"
 
+constexpr std::uint8_t bot::command::Video::access() const noexcept
+{
+  return static_cast<std::uint8_t>(bot::Access::user);
+}
 
 constexpr std::string_view bot::command::Video::description() const noexcept
 {
   return "поиск видеозаписей ВК";
 }
 
-std::string bot::command::Video::execute(const CommandParams& inputData, const Dependencies& deps)
+std::string bot::command::Video::execute(const CommandParams& params, const Dependencies& deps)
 {
-  if (inputData.args.empty()) return util::emptyArgs().data();
+  if (params.args.empty()) return "Задана пустая строка.";
 
-  std::string attachments = deps.api->searchMedia("video.search", inputData.args);
-  if (attachments.empty()) return "Не найдено видеозаписей.";
-
-  deps.api->sendMessage("", inputData.peer_id, {{"attachment", attachments}});
-  return "";
+  return deps.jsonUtils->sendRandomMedia("video.search", params.args, params.peer_id);
 }

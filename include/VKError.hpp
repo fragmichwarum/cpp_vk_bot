@@ -9,11 +9,9 @@ namespace bot
  */
 class Vk_exception : public std::exception
 {
-protected:
-  long _code;
-
 public:
-  explicit Vk_exception(long code) noexcept
+  explicit
+  Vk_exception(long code) noexcept
     : _code(code)
   { }
 
@@ -70,5 +68,8 @@ public:
         return "***Unknown***";
     }
   }
+
+protected:
+  long _code;
 };
 }

@@ -2,9 +2,7 @@
 
 #include "ICommand.hpp"
 
-namespace bot
-{
-namespace command
+namespace bot::command
 {
 /*!
  * @brief Random person picker command.
@@ -12,9 +10,9 @@ namespace command
 class Who final : public ICommand
 {
 public:
-  std::string execute(const CommandParams&, const Dependencies&) override;
+  constexpr std::uint8_t access() const noexcept override;
   constexpr std::string_view description() const noexcept override;
+  std::string execute(const CommandParams&, const Dependencies&) override;
  ~Who() = default;
 };
-} //namespace command
-} //namespace bot
+} //namespace bot::command

@@ -6,13 +6,17 @@
 
 std::string hostName_;
 
+constexpr std::uint8_t bot::command::Host::access() const noexcept
+{
+  return static_cast<std::uint8_t>(bot::Access::user);
+}
 
 constexpr std::string_view bot::command::Host::description() const noexcept
 {
   return "узнать хост по ip адресу";
 }
 
-static void dnsCallback([[maybe_unused]] void* arg, [[maybe_unused]] int status, [[maybe_unused]] int timeouts, hostent* host) noexcept
+static void dnsCallback(void* /* unused */, int status, int /* unused */, hostent* host) noexcept
 {
   if(status == ARES_SUCCESS) hostName_ = host->h_name;
   else hostName_ = "lookup failed: " + std::to_string(status);
@@ -51,7 +55,7 @@ static std::string getHostname(std::string_view ipAddress)
   return hostName_;
 }
 
-std::string bot::command::Host::execute(const CommandParams& params, [[maybe_unused]] const Dependencies& deps)
+std::string bot::command::Host::execute(const CommandParams& params, const Dependencies& /* unused */)
 {
   if (params.args.empty()) return "Что-то пошло не так.";
 

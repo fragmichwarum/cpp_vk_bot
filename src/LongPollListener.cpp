@@ -5,8 +5,12 @@
 #include "LongPollListener.hpp"
 
 
-bot::VkAPI* api = new bot::VkAPI;
-bot::EventHandler* bot::LongPollListener::eventHandler = new bot::EventHandler;
+bot::LongPollListener::LongPollListener()
+  : eventHandler(std::make_unique<EventHandler>())
+  , api(std::make_unique<VkAPI>())
+{ }
+
+bot::LongPollListener::~LongPollListener() = default;
 
 void bot::LongPollListener::updateLongPollData_()
 {
@@ -27,21 +31,16 @@ void bot::LongPollListener::processEvents_(const simdjson::dom::array& updates)
 void bot::LongPollListener::loop()
 {
   updateLongPollData_();
+  simdjson::dom::parser parser;
 
   while(true) {
     std::string lp = api->listenLongPoll(key, server, ts);
 
-    simdjson::dom::parser parser;
     simdjson::dom::array updates = parser.parse(lp)["updates"].get_array();
-    ts = parser.parse(lp)["ts"].get_c_str();
 
     if (updates.size() == 0) { updateLongPollData_(); continue; }
 
+    ts = parser.parse(lp)["ts"].get_c_str();
     processEvents_(updates);
   }
-}
-
-bot::LongPollListener::~LongPollListener()
-{
-  delete api;
 }

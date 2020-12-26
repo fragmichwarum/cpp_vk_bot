@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 namespace simdjson::dom
 {
 class object;
@@ -12,16 +14,23 @@ namespace bot
  */
 class EventHandler
 {
-private:
-  static class PostEventHandler* postEventHandler;
-  static class MessageEventHandler* messageEventhandler;
-
 public:
+  explicit
+  EventHandler();
+  /*!
+   * @brief Destructor marked as <em>default</em>.
+   *
+   * It must be defined in place, when <em>std::unique_ptr</em> pointed-to type is complete.
+   */
+ ~EventHandler();
   /*!
    * @brief Check update type and try process it.
    * @param JSON update.
    */
   void tryProcessEvent(const simdjson::dom::object& update);
- ~EventHandler();
+
+private:
+  std::unique_ptr<class PostEventHandler> postEventHandler;
+  std::unique_ptr<class MessageEventHandler> messageEventhandler;
 };
 }

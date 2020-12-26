@@ -29,6 +29,13 @@ std::vector<std::string> bot::util::split(std::string_view text)
   return splitted;
 }
 
+std::string bot::util::getArgs(std::string_view message) noexcept
+{
+  return (message.find(' ') == std::string::npos)
+    ? ""
+    : message.substr(message.find_first_of(" ") + 1).data();
+}
+
 long bot::util::extractId(std::string_view user) noexcept
 {
   /** [@id123456789|...] */

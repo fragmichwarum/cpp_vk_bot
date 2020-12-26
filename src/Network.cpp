@@ -1,12 +1,19 @@
+#include <curlpp/cURLpp.hpp>
+#include <curlpp/Easy.hpp>
+#include <curlpp/Options.hpp>
+
+#include <sstream>
+
 #include "Network.hpp"
 
-//#define CURL_DEBUG
+#define CURL_DEBUG
 
+bot::Network::Network()
+  : cleaner(std::make_unique<curlpp::Cleanup>())
+  , curl_easy(std::make_unique<curlpp::Easy>())
+{ }
 
-bot::Network::~Network()
-{
-  curl_easy_cleanup(curl_handle_);
-}
+bot::Network::~Network() = default;
 
 static std::string escape(std::string_view url)
 {
@@ -16,18 +23,12 @@ static std::string escape(std::string_view url)
   return res;
 }
 
-static size_t write(void* contents, size_t size, size_t n, void* userp)
+static size_t file_write(FILE *f, char* ptr, size_t size, size_t nmemb)
 {
-  (static_cast<std::string*>(userp))->append(static_cast<char*>(contents), size * n);
-  return size * n;
+  return fwrite(ptr, size, nmemb, f);
 }
 
-static size_t file_write(void* ptr, size_t size, size_t n, FILE* stream)
-{
-  return fwrite(ptr, size, n, stream);
-}
-
-static std::string genparams(const bot::dictionary& body)
+static std::string genparams(const std::map<std::string, std::string>& body)
 {
   std::string result;
   for (const auto& element : body) {
@@ -36,92 +37,59 @@ static std::string genparams(const bot::dictionary& body)
   return result;
 }
 
-std::string bot::Network::request(std::string_view method, const bot::dictionary& params) const
+std::string bot::Network::request(std::string_view method, const std::map<std::string, std::string>& params) const
 {
   std::string url = method.data() + genparams(params);
-  std::string buffer;
+  std::ostringstream response;
 
-  if (curl_handle_) {
-#if defined CURL_DEBUG
-    printf("source: %s\n", url.c_str());
-#endif
-    curl_easy_setopt(curl_handle_, CURLOPT_URL, url.c_str());
-    curl_easy_setopt(curl_handle_, CURLOPT_WRITEFUNCTION, write);
-    curl_easy_setopt(curl_handle_, CURLOPT_WRITEDATA, &buffer);
-    curl_easy_setopt(curl_handle_, CURLOPT_USERAGENT, "oxfffffe");
-    curl_easy_setopt(curl_handle_, CURLOPT_TIMEOUT, 600L);
-    curl_easy_perform(curl_handle_);
-    curl_easy_reset(curl_handle_);
-#if defined CURL_DEBUG
-    printf("buffer: %s\n", buffer.data());
-#endif
-  }
-  return buffer;
+  curl_easy->setOpt(new curlpp::options::Url(url));
+  curl_easy->setOpt(new curlpp::options::WriteStream(&response));
+  curl_easy->perform();
+
+  return response.str();
 }
 
 std::string bot::Network::requestdata(std::string_view method, std::string_view data) const
 {
-  std::string buffer;
+  std::ostringstream response;
 
-  if (curl_handle_) {
-    curl_easy_setopt(curl_handle_, CURLOPT_URL, method.data());
-    curl_easy_setopt(curl_handle_, CURLOPT_WRITEFUNCTION, write);
-    curl_easy_setopt(curl_handle_, CURLOPT_POSTFIELDSIZE, data.size());
-    curl_easy_setopt(curl_handle_, CURLOPT_POSTFIELDS, data.data());
-    curl_easy_setopt(curl_handle_, CURLOPT_WRITEDATA, &buffer);
-    curl_easy_perform(curl_handle_);
-    curl_easy_reset(curl_handle_);
-  }
-  return buffer;
+  curl_easy->setOpt(new curlpp::options::Url(method.data()));
+  curl_easy->setOpt(new curlpp::options::PostFields(data.data()));
+  curl_easy->setOpt(new curlpp::options::PostFieldSize(data.size()));
+  curl_easy->setOpt(new curlpp::options::WriteStream(&response));
+  curl_easy->perform();
+
+  return response.str();
 }
 
 std::size_t bot::Network::download(std::string_view filename, std::string_view server) const
 {
-  FILE* fp;
+  FILE* fp = fopen(filename.data(), "w");
+  if (not fp) return -1;
 
-  if (curl_handle_) {
-    fp = fopen(filename.data(), "wb");
-    curl_easy_setopt(curl_handle_, CURLOPT_URL, server.data());
-    curl_easy_setopt(curl_handle_, CURLOPT_WRITEFUNCTION, file_write);
-    curl_easy_setopt(curl_handle_, CURLOPT_WRITEDATA, fp);
-    CURLcode res = curl_easy_perform(curl_handle_);
-    curl_easy_reset(curl_handle_);
-    fclose(fp);
-    if (res != CURLE_OK) {
-      printf(
-        "curl_easy_perform() failed: %s\b",
-        curl_easy_strerror(res));
-      return -1;
-    }
-  }
+  curlpp::options::WriteFunction* writef
+    = new curlpp::options::WriteFunction(std::bind(
+      &file_write, fp,
+      std::placeholders::_1,
+      std::placeholders::_2,
+      std::placeholders::_3));
+  curl_easy->setOpt(writef);
+  curl_easy->setOpt(new curlpp::options::Url(server.data()));
+  curl_easy->perform();
   return 0;
 }
 
 std::string bot::Network::upload(std::string_view filename, std::string_view server) const
 {
-  CURLcode curl_result;
-  struct curl_httppost* formpost = NULL;
-  struct curl_httppost* lastptr = NULL;
-  std::string data;
+  std::ostringstream response;
+  curlpp::Forms formParts;
+  formParts.push_back(new curlpp::FormParts::File("file1", filename.data()));
 
-  curl_formadd(
-    &formpost,
-    &lastptr,
-    CURLFORM_COPYNAME, "file1",
-    CURLFORM_FILENAME, filename.data(),
-    CURLFORM_FILE, filename.data(),
-    CURLFORM_CONTENTTYPE, "image/png",
-    CURLFORM_END);
-  curl_easy_setopt(curl_handle_, CURLOPT_WRITEFUNCTION, write);
-  curl_easy_setopt(curl_handle_, CURLOPT_WRITEDATA, &data);
-  curl_easy_setopt(curl_handle_, CURLOPT_URL, server.data());
-  curl_easy_setopt(curl_handle_, CURLOPT_HTTPPOST, formpost);
-  curl_result = curl_easy_perform(curl_handle_);
-  curl_easy_reset(curl_handle_);
+  curl_easy->setOpt(new curlpp::options::Url(server.data()));
+  curl_easy->setOpt(new curlpp::options::HttpPost(formParts));
+  curl_easy->setOpt(new curlpp::options::WriteStream(&response));
+  curl_easy->perform();
+  curl_easy->reset();
 
-  if (curl_result != CURLE_OK) {
-     data = std::string{"curl_easy_perform() failed: "} + curl_easy_strerror(curl_result);
-  }
-  curl_formfree(formpost);
-  return data;
+  return response.str();
 }

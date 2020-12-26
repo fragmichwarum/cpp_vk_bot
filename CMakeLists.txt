@@ -23,6 +23,7 @@ set(HEADERS
   include/Repository/SQLiteRepository.hpp
   include/Utility.hpp
   include/VkAPI.hpp
+  include/JsonUtils.hpp
   include/VKError.hpp
 )
 set(COMMAND_HEADERS
@@ -32,10 +33,13 @@ set(COMMAND_HEADERS
   include/Commands/Complete.hpp
   include/Commands/Currency.hpp
   include/Commands/Document.hpp
+  include/Commands/Exit.hpp
   include/Commands/Host.hpp
   include/Commands/Ip.hpp
+  include/Commands/Kick.hpp
   include/Commands/Online.hpp
   include/Commands/Picture.hpp
+  include/Commands/Ping.hpp
   include/Commands/Role.hpp
   include/Commands/Stat.hpp
   include/Commands/Video.hpp
@@ -52,6 +56,7 @@ set(SOURCES
   src/Repository/SQLiteRepository.cpp
   src/Utility.cpp
   src/VkAPI.cpp
+  src/JsonUtils.cpp
 )
 set(COMMAND_SOURCES
   src/Commands/About.cpp
@@ -60,10 +65,13 @@ set(COMMAND_SOURCES
   src/Commands/Complete.cpp
   src/Commands/Currency.cpp
   src/Commands/Document.cpp
+  src/Commands/Exit.cpp
   src/Commands/Host.cpp
   src/Commands/Ip.cpp
+  src/Commands/Kick.cpp
   src/Commands/Online.cpp
   src/Commands/Picture.cpp
+  src/Commands/Ping.cpp
   src/Commands/Role.cpp
   src/Commands/Stat.cpp
   src/Commands/Video.cpp
@@ -71,5 +79,5 @@ set(COMMAND_SOURCES
 )
 
 add_executable(VK ${HEADERS} ${SOURCES} ${COMMAND_HEADERS} ${COMMAND_SOURCES})
-target_link_libraries(VK simdjson curl SQLiteCpp cares)
-target_compile_options(VK PRIVATE -Wall -Wextra -pedantic #[[-Werror]])
+target_link_libraries(VK simdjson curl curlpp SQLiteCpp cares)
+target_compile_options(VK PRIVATE -Wall -Wextra -pedantic)

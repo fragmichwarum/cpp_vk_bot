@@ -4,6 +4,10 @@
 
 #include "Stat.hpp"
 
+constexpr std::uint8_t bot::command::Stat::access() const noexcept
+{
+  return static_cast<std::uint8_t>(bot::Access::user);
+}
 
 constexpr std::string_view bot::command::Stat::description() const noexcept
 {
@@ -29,6 +33,7 @@ static std::string procinfo(const std::string& filename, const std::string& para
 
   while (fgets(line.data(), 128, file) != NULL) {
     if (strncmp(line.data(), param.c_str(), param.size()) == 0) {
+      fclose(file);
       return lineparse(line.data());
     }
   }
@@ -47,7 +52,7 @@ static std::string os_exec(std::string_view cmd)
   return result;
 }
 
-std::string bot::command::Stat::execute([[maybe_unused]] const CommandParams& inputData, [[maybe_unused]] const Dependencies& deps)
+std::string bot::command::Stat::execute([[maybe_unused]] const CommandParams& inputData, const Dependencies& /* unused */)
 {
   return
     "Всего памяти: "      + procinfo("/proc/meminfo", "MemTotal:") + "KiB.\n"

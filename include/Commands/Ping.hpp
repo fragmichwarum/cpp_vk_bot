@@ -5,14 +5,14 @@
 namespace bot::command
 {
 /*!
- * @brief Conversation online showing command.
+ * @brief Ping checker.
  */
-class Online final : public ICommand
+class Ping final : public ICommand
 {
 public:
   constexpr std::uint8_t access() const noexcept override;
   constexpr std::string_view description() const noexcept override;
   std::string execute(const CommandParams&, const Dependencies&) override;
- ~Online() = default;
+ ~Ping() = default;
 };
 } //namespace bot::command

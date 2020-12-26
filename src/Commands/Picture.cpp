@@ -1,20 +1,19 @@
-#include "VkAPI.hpp"
-#include "Utility.hpp"
+#include "JsonUtils.hpp"
 #include "Picture.hpp"
 
+constexpr std::uint8_t bot::command::Picture::access() const noexcept
+{
+  return static_cast<std::uint8_t>(bot::Access::user);
+}
 
 constexpr std::string_view bot::command::Picture::description() const noexcept
 {
   return "поиск картинок в ВК";
 }
 
-std::string bot::command::Picture::execute(const CommandParams& inputData, const Dependencies& deps)
+std::string bot::command::Picture::execute(const CommandParams& params, const Dependencies& deps)
 {
-  if (inputData.args.empty()) return util::emptyArgs().data();
+  if (params.args.empty()) return "Задана пустая строка.";
 
-  std::string attachments = deps.api->searchMedia("photos.search", inputData.args);
-  if (attachments.empty()) return "Не найдено картинок.";
-
-  deps.api->sendMessage("", inputData.peer_id, {{"attachment", attachments}});
-  return "";
+  return deps.jsonUtils->sendRandomMedia("photos.search", params.args, params.peer_id);
 }

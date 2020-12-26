@@ -11,13 +11,8 @@ namespace bot
  */
 class SQLiteRepository final : public Repository
 {
-private:
-  const std::string name_;
-  SQLite::Database database_;
-
-  void open_();
-
 public:
+
   SQLiteRepository(std::string_view tableName);
   /*!
    * @brief Insert role to table.
@@ -44,5 +39,11 @@ public:
    */
   std::string getRole(long user_id, long peer_id) override;
  ~SQLiteRepository() = default;
+
+private:
+  const std::string name;
+  SQLite::Database database;
+
+  void open_();
 };
 }

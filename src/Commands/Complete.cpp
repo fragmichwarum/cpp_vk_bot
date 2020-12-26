@@ -1,29 +1,20 @@
-#include <simdjson.h>
-
-#include "Network.hpp"
 #include "Utility.hpp"
 #include "Complete.hpp"
+#include "JsonUtils.hpp"
 
+constexpr std::uint8_t bot::command::Complete::access() const noexcept
+{
+  return static_cast<std::uint8_t>(bot::Access::user);
+}
 
 constexpr std::string_view bot::command::Complete::description() const noexcept
 {
   return "дополнить текст";
 }
 
-std::string bot::command::Complete::execute(const CommandParams& inputData, const Dependencies& deps)
+std::string bot::command::Complete::execute(const CommandParams& params, const Dependencies& deps)
 {
-  if (inputData.args.empty()) {
-    return util::emptyArgs().data();
-  }
+  if (params.args.empty()) return util::emptyArgs().data();
 
-  std::string response =
-    deps.net->requestdata("https://pelevin.gpt.dobro.ai/generate/",
-    util::toJson({{"prompt", inputData.args}, {"length", "50"}}));
-
-  simdjson::dom::parser parser;
-  simdjson::dom::object AIObject = parser.parse(response);
-
-  return AIObject["replies"].at(0).is_null()
-    ? "Ошибка генерации текста."
-    : inputData.args + std::string{AIObject["replies"].at(0).get_c_str()};
+  return deps.jsonUtils->completeText(params.args);
 }

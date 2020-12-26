@@ -16,17 +16,12 @@ namespace
  */
 class _VkConfig
 {
-public:
-  _VkConfig(const _VkConfig&)            = delete;
-  _VkConfig& operator=(const _VkConfig&) = delete;
-  _VkConfig& operator=(_VkConfig&&)      = delete;
-  friend class bot::VkAPI;
-
 private:
+  friend class bot::VkAPI;
   simdjson::dom::parser parser_;
   simdjson::dom::element element_;
 
-  _VkConfig(std::string_view file) { element_ = parser_.load(file.data()); }
+  vk_always_inline _VkConfig(std::string_view file)         noexcept { element_ = parser_.load(file.data()); }
   vk_always_inline std::string_view loadAccessToken() const noexcept { return static_cast<const char*>(element_["token"]["access_token"]); }
   vk_always_inline std::string_view loadUserToken()   const noexcept { return static_cast<const char*>(element_["token"]["user_token"]); }
   vk_always_inline std::string_view loadApiVersion()  const noexcept { return static_cast<const char*>(element_["api_v"]); }
@@ -86,9 +81,9 @@ std::string bot::VkAPI::listenLongPoll(std::string_view key, std::string_view se
   return net->request(std::string { server.data() } + '?', {{"act", "a_check"}, {"key", key.data()}, {"ts", ts.data()}, {"wait", "90"}});
 }
 
-void bot::VkAPI::sendMessage(std::string_view text, long peer_id, const bot::dictionary& options)
+void bot::VkAPI::sendMessage(std::string_view text, long peer_id, const std::map<std::string, std::string>& options)
 {
-  dictionary parameters = {
+  std::map<std::string, std::string> parameters = {
     { "message",      text.data()  },
     { "peer_id",      std::to_string(peer_id) },
     { "random_id",    "0"          },
@@ -100,39 +95,6 @@ void bot::VkAPI::sendMessage(std::string_view text, long peer_id, const bot::dic
   if (options.size() != 0) parameters.insert(options.begin(), options.end());
 
   net->request(appendVkUrl_("messages.send"), parameters);
-}
-
-std::string bot::VkAPI::getAttachmentType_(std::string_view method) noexcept
-{
-  if (method == "photos.search") return "photo";
-  if (method == "video.search") return "video";
-  if (method == "docs.search") return "doc";
-  return "";
-}
-
-std::string bot::VkAPI::searchMedia(std::string_view method, std::string_view keyword)
-{
-  std::string response =
-    net->request(appendVkUrl_(method),
-     {{ "q",            keyword.data() },
-      { "access_token", userToken_     },
-      { "v",            apiVersion_    },
-      { "count",        "50"           }});
-
-  simdjson::dom::array items = parser.parse(response)["response"]["items"].get_array();
-
-  if (items.size() == 0) return "";
-
-  std::string docs;
-  for (uint8_t i = 0; i < items.size() && i < 10; i++) {
-    long index = rand() % items.size();
-    docs +=
-      getAttachmentType_(method) +
-      std::to_string(items.at(index)["owner_id"].get_int64()) + '_' +
-      std::to_string(items.at(index)["id"].get_int64()) + ',';
-  }
-
-  return docs;
 }
 
 std::string bot::VkAPI::kick(long chat_id, long user_id)

@@ -21,7 +21,6 @@ struct CommandParams
 struct Dependencies
 {
   class Repository* repository;
-  class JsonUtils* jsonUtils;
   class VkAPI* api;
 };
 /*!

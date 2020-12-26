@@ -10,7 +10,7 @@ constexpr std::string_view bot::command::Exit::description() const noexcept
   return "выключить бота";
 }
 
-std::string bot::command::Exit::execute(const CommandParams&, const Dependencies&)
+std::string bot::command::Exit::execute(const CommandParams& /* unused */, const Dependencies& /* unused */)
 {
   exit(0);
 }

@@ -17,15 +17,15 @@ bot::Network::~Network() = default;
 
 static std::string escape(std::string_view url)
 {
-  char* encoded = curl_easy_escape(NULL, url.data(), url.length());
+  char* encoded = curl_easy_escape(nullptr, url.data(), url.length());
   std::string res{encoded};
   curl_free(encoded);
   return res;
 }
 
-static size_t file_write(FILE *f, char* ptr, size_t size, size_t nmemb)
+static size_t file_write(FILE* file, char* ptr, size_t size, size_t nmemb)
 {
-  return fwrite(ptr, size, nmemb, f);
+  return fwrite(ptr, size, nmemb, file);
 }
 
 static std::string genparams(const std::map<std::string, std::string>& body)
@@ -39,10 +39,9 @@ static std::string genparams(const std::map<std::string, std::string>& body)
 
 std::string bot::Network::request(std::string_view method, const std::map<std::string, std::string>& params) const
 {
-  std::string url = method.data() + genparams(params);
   std::ostringstream response;
 
-  curl_easy->setOpt(new curlpp::options::Url(url));
+  curl_easy->setOpt(new curlpp::options::Url(method.data() + genparams(params)));
   curl_easy->setOpt(new curlpp::options::WriteStream(&response));
   curl_easy->perform();
 
@@ -76,6 +75,7 @@ std::size_t bot::Network::download(std::string_view filename, std::string_view s
   curl_easy->setOpt(writef);
   curl_easy->setOpt(new curlpp::options::Url(server.data()));
   curl_easy->perform();
+  curl_easy->reset();
   return 0;
 }
 
@@ -91,5 +91,6 @@ std::string bot::Network::upload(std::string_view filename, std::string_view ser
   curl_easy->perform();
   curl_easy->reset();
 
+  printf("upload response: %s\n", response.str().c_str());
   return response.str();
 }

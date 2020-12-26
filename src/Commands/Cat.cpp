@@ -11,7 +11,7 @@ constexpr std::string_view bot::command::Cat::description() const noexcept
   return "Рандомный котик";
 }
 
-std::string bot::command::Cat::execute(const CommandParams& params, const Dependencies& deps)
+std::string bot::command::Cat::execute(const CommandParams& params, const Dependencies& /* unused */)
 {
-  return deps.jsonUtils->uploadCatImage(params.peer_id);
+  return jsonUtils::uploadCatImage(params.peer_id);
 }

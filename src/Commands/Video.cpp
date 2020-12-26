@@ -11,9 +11,9 @@ constexpr std::string_view bot::command::Video::description() const noexcept
   return "поиск видеозаписей ВК";
 }
 
-std::string bot::command::Video::execute(const CommandParams& params, const Dependencies& deps)
+std::string bot::command::Video::execute(const CommandParams& params, const Dependencies& /* unused */)
 {
   if (params.args.empty()) return "Задана пустая строка.";
 
-  return deps.jsonUtils->sendRandomMedia("video.search", params.args, params.peer_id);
+  return jsonUtils::sendRandomMedia("video.search", params.args, params.peer_id);
 }

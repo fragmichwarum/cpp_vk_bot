@@ -11,9 +11,9 @@ constexpr std::string_view bot::command::Picture::description() const noexcept
   return "поиск картинок в ВК";
 }
 
-std::string bot::command::Picture::execute(const CommandParams& params, const Dependencies& deps)
+std::string bot::command::Picture::execute(const CommandParams& params, const Dependencies& /* unused */)
 {
   if (params.args.empty()) return "Задана пустая строка.";
 
-  return deps.jsonUtils->sendRandomMedia("photos.search", params.args, params.peer_id);
+  return jsonUtils::sendRandomMedia("photos.search", params.args, params.peer_id);
 }

@@ -53,7 +53,7 @@ bot::VkAPI::~VkAPI()
 
 std::string bot::VkAPI::appendVkUrl_(std::string_view method)
 {
-  return "https://api.vk.com/method/" + std::string { method.data() } + '?';
+  return "https://api.vk.com/method/" + std::string { method } + '?';
 }
 
 bot::LongPollData bot::VkAPI::getLongPollServer()
@@ -79,6 +79,16 @@ bot::LongPollData bot::VkAPI::getLongPollServer()
 std::string bot::VkAPI::listenLongPoll(std::string_view key, std::string_view server, std::string_view ts)
 {
   return net->request(std::string { server.data() } + '?', {{"act", "a_check"}, {"key", key.data()}, {"ts", ts.data()}, {"wait", "90"}});
+}
+
+std::string bot::VkAPI::mediaSearch(std::string_view method, std::string_view keyword, long count)
+{
+  return
+    net->request(appendVkUrl_(method),
+     {{ "q",            keyword.data() },
+      { "access_token", userToken_     },
+      { "v",            apiVersion_    },
+      { "count",        std::to_string(count) }});
 }
 
 void bot::VkAPI::sendMessage(std::string_view text, long peer_id, const std::map<std::string, std::string>& options)
@@ -151,6 +161,8 @@ std::pair<long, long> bot::VkAPI::uploadAttachment_(std::string_view type, std::
   if (type == "photo") url += "photos.saveMessagesPhoto";
 
   simdjson::dom::object uploadObject = parser.parse(uploadedFile);
+
+  if (std::string{uploadObject["photo"].get_c_str()} == "") return {0, 0};
 
   std::string uploadServer =
     net->request(url + "?",

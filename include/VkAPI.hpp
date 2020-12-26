@@ -28,9 +28,6 @@ public:
   explicit
   VkAPI(const std::string& path = "./init.json");
  ~VkAPI();
-
-  friend class JsonUtils;
-
   /*!
    * @return @ref apiVersion_
    */
@@ -49,6 +46,14 @@ public:
    * @param title       - new title of a chat.
    */
   void editChat(long chat_id, std::string_view title);
+  /*!
+   * @brief Search media (photo, video, documents)
+   * @param method      - name of method - <em>video.search</em>, <em>photos.search</em> or <em>docs.search</em>.
+   * @param keyword     - search query
+   * @param count       - count of returned attachments
+   * @return Raw JSON response.
+   */
+  std::string mediaSearch(std::string_view method, std::string_view keyword, long count);
   /*!
    * @brief Send message.
    * @param text        - message content.

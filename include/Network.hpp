@@ -47,10 +47,6 @@ public:
   std::string requestdata(std::string_view body, std::string_view data) const;
 
 private:
-  /*!
-   * @brief CURL instance.
-   */
-//  void* curl_handle_;
   std::unique_ptr<curlpp::Cleanup> cleaner;
   std::unique_ptr<curlpp::Easy> curl_easy;
 };

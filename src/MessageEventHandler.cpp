@@ -1,7 +1,6 @@
 #include "Utility.hpp"
 #include "Logger.hpp"
 #include "VkAPI.hpp"
-#include "JsonUtils.hpp"
 #include "Repository/SQLiteRepository.hpp"
 #include "MessageEventHandler.hpp"
 
@@ -25,7 +24,6 @@
 
 
 std::unique_ptr<bot::Repository> repository = std::make_unique<bot::SQLiteRepository>("USERS");
-std::unique_ptr<bot::JsonUtils> jsonUtils = std::make_unique<bot::JsonUtils>();
 
 bot::MessageEventHandler::MessageEventHandler()
   : api   (std::make_unique<VkAPI>())
@@ -98,7 +96,7 @@ void bot::MessageEventHandler::tryProcessCommand(std::string_view message, long 
     {
       return;
     }
-    std::string commandAnswer = commandCollection[trigger]->execute({util::getArgs(message).data(), peer_id, from_id}, {repository.get(), jsonUtils.get(), api.get()});
+    std::string commandAnswer = commandCollection[trigger]->execute({util::getArgs(message).data(), peer_id, from_id}, {repository.get(), api.get()});
     if (not commandAnswer.empty()) api->sendMessage(commandAnswer, peer_id);
   }
 }

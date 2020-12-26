@@ -11,7 +11,7 @@ constexpr std::string_view bot::command::Currency::description() const noexcept
   return "показать курс валют";
 }
 
-std::string bot::command::Currency::execute(const CommandParams& /* unused */, const Dependencies& deps)
+std::string bot::command::Currency::execute(const CommandParams& /* unused */, const Dependencies& /* unused */)
 {
-  return deps.jsonUtils->getCurrencyList();
+  return jsonUtils::getCurrencyList();
 }

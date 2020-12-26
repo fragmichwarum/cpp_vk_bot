@@ -11,9 +11,9 @@ constexpr std::string_view bot::command::Document::description() const noexcept
   return "поиск документов ВК";
 }
 
-std::string bot::command::Document::execute(const CommandParams& params, const Dependencies& deps)
+std::string bot::command::Document::execute(const CommandParams& params, const Dependencies& /* unused */)
 {
   if (params.args.empty()) return "Задана пустая строка.";
 
-  return deps.jsonUtils->sendRandomMedia("docs.search", params.args, params.peer_id);
+  return jsonUtils::sendRandomMedia("docs.search", params.args, params.peer_id);
 }

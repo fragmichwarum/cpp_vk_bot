@@ -11,7 +11,7 @@ constexpr std::string_view bot::command::Ping::description() const noexcept
   return "проверить время ответа";
 }
 
-std::string bot::command::Ping::execute(const CommandParams&, const Dependencies&)
+std::string bot::command::Ping::execute(const CommandParams&, const Dependencies& /* unused */)
 {
   Network net;
   std::string pingdata = "Пинг до ВК:\n";

@@ -52,7 +52,7 @@ static std::string os_exec(std::string_view cmd)
   return result;
 }
 
-std::string bot::command::Stat::execute([[maybe_unused]] const CommandParams& inputData, const Dependencies& /* unused */)
+std::string bot::command::Stat::execute(const CommandParams& /* unused */, const Dependencies& /* unused */)
 {
   return
     "Всего памяти: "      + procinfo("/proc/meminfo", "MemTotal:") + "KiB.\n"

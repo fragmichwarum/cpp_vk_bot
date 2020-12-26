@@ -12,9 +12,9 @@ constexpr std::string_view bot::command::Complete::description() const noexcept
   return "дополнить текст";
 }
 
-std::string bot::command::Complete::execute(const CommandParams& params, const Dependencies& deps)
+std::string bot::command::Complete::execute(const CommandParams& params, const Dependencies& /* unused */)
 {
   if (params.args.empty()) return util::emptyArgs().data();
 
-  return deps.jsonUtils->completeText(params.args);
+  return jsonUtils::completeText(params.args);
 }

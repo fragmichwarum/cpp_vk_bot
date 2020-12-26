@@ -5,12 +5,8 @@
 #include "VkAPI.hpp"
 #include "JsonUtils.hpp"
 
-bot::JsonUtils::JsonUtils()
-  : api(std::make_unique<VkAPI>())
-  , net(std::make_unique<Network>())
-{ }
-
-bot::JsonUtils::~JsonUtils() = default;
+static bot::Network net;
+static bot::VkAPI api;
 
 static inline std::string getAttachmentType(std::string_view method) noexcept
 {
@@ -34,14 +30,9 @@ static inline std::string attachmentList(std::string_view method, const simdjson
   return docs;
 }
 
-std::string bot::JsonUtils::searchMedia(std::string_view method, std::string_view keyword)
+static inline std::string getMedia(std::string_view method, std::string_view keyword)
 {
-  std::string response =
-    net->request(api->appendVkUrl_(method),
-     {{ "q",            keyword.data()   },
-      { "access_token", api->userToken_  },
-      { "v",            api->apiVersion_ },
-      { "count",        "50"           }});
+  std::string response = api.mediaSearch(method, keyword, /* count = */ 25);
 
   static
   simdjson::dom::parser parser;
@@ -52,18 +43,18 @@ std::string bot::JsonUtils::searchMedia(std::string_view method, std::string_vie
   return attachmentList(method, items);
 }
 
-std::string bot::JsonUtils::sendRandomMedia(std::string_view type, std::string_view keyword, long peer_id)
+std::string bot::jsonUtils::sendRandomMedia(std::string_view type, std::string_view keyword, long peer_id)
 {
-  std::string attachments = searchMedia(type, keyword);
+  std::string attachments = getMedia(type, keyword);
   if (attachments.empty()) return "Не найдено документов.";
 
-  api->sendMessage("", peer_id, {{"attachment", attachments}});
+  api.sendMessage("", peer_id, {{"attachment", attachments}});
   return "";
 }
 
-std::string bot::JsonUtils::pickRandomChatUser(long peer_id)
+std::string bot::jsonUtils::pickRandomChatUser(long peer_id)
 {
-  std::string response = api->getConversationMembers(peer_id);
+  std::string response = api.getConversationMembers(peer_id);
 
   static
   simdjson::dom::parser parser;
@@ -103,11 +94,11 @@ static inline std::string onlineUsersList(const simdjson::dom::object& response)
   return people;
 }
 
-std::string bot::JsonUtils::getOnlineUsers(long peer_id)
+std::string bot::jsonUtils::getOnlineUsers(long peer_id)
 {
   static
   simdjson::dom::parser parser;
-  simdjson::dom::object response = parser.parse(api->getConversationMembers(peer_id));
+  simdjson::dom::object response = parser.parse(api.getConversationMembers(peer_id));
 
   if (response.begin().key() == "error" && response["error"]["error_code"].get_int64() == 917L)
   {
@@ -117,10 +108,10 @@ std::string bot::JsonUtils::getOnlineUsers(long peer_id)
   return onlineUsersList(response);
 }
 
-std::string bot::JsonUtils::completeText(std::string_view text)
+std::string bot::jsonUtils::completeText(std::string_view text)
 {
   std::string response =
-    net->requestdata("https://pelevin.gpt.dobro.ai/generate/",
+    net.requestdata("https://pelevin.gpt.dobro.ai/generate/",
     util::toJson({{"prompt", text.data()}, {"length", "50"}}));
 
   static
@@ -132,15 +123,15 @@ std::string bot::JsonUtils::completeText(std::string_view text)
   return text.data() + std::string{AIObject["replies"].at(0).get_c_str()};
 }
 
-std::string bot::JsonUtils::uploadCatImage(long peer_id)
+std::string bot::jsonUtils::uploadCatImage(long peer_id)
 {
   static
   simdjson::dom::parser parser;
-  simdjson::dom::array catAPIArray = parser.parse(net->request("https://api.thecatapi.com/v1/images/search", {}));
+  simdjson::dom::array catAPIArray = parser.parse(net.request("https://api.thecatapi.com/v1/images/search", {}));
 
   if (catAPIArray.at(0)["url"].is_null()) return "Что-то пошло не по плану.";
 
-  return api->processAttachmentUploading("photo", "cat.jpg", static_cast<const char*>(catAPIArray.at(0)["url"]), peer_id);
+  return api.processAttachmentUploading("photo", "cat.jpg", static_cast<const char*>(catAPIArray.at(0)["url"]), peer_id);
 }
 
 static inline std::string currencyList(const simdjson::dom::object& response)
@@ -162,10 +153,10 @@ static inline std::string currencyList(const simdjson::dom::object& response)
   return list;
 }
 
-std::string bot::JsonUtils::getCurrencyList()
+std::string bot::jsonUtils::getCurrencyList()
 {
   static
   simdjson::dom::parser parser;
 
-  return currencyList(parser.parse(net->request("https://www.cbr-xml-daily.ru/daily_json.js", {})));
+  return currencyList(parser.parse(net.request("https://www.cbr-xml-daily.ru/daily_json.js", {})));
 }

@@ -11,7 +11,7 @@ constexpr std::string_view bot::command::Online::description() const noexcept
   return "показать участников онлайн";
 }
 
-std::string bot::command::Online::execute(const CommandParams& params, const Dependencies& deps)
+std::string bot::command::Online::execute(const CommandParams& params, const Dependencies& /* unused */)
 {
-  return deps.jsonUtils->getOnlineUsers(params.peer_id);
+  return jsonUtils::getOnlineUsers(params.peer_id);
 }

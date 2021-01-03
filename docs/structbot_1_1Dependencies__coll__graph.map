@@ -1,7 +1,0 @@
-<map id="bot::Dependencies" name="bot::Dependencies">
-<area shape="rect" id="node1" title="Command Dependencies." alt="" coords="82,184,225,211"/>
-<area shape="rect" id="node2" href="$classbot_1_1VkAPI.html" title="The Vkontakte API handler." alt="" coords="109,95,198,121"/>
-<area shape="rect" id="node3" href="$classbot_1_1Network.html" title="The network wrapper." alt="" coords="5,5,112,32"/>
-<area shape="rect" id="node4" href="$classbot_1_1__UserData.html" title="The bot::VkAPI private fields initializer." alt="" coords="137,5,255,32"/>
-<area shape="rect" id="node5" href="$classbot_1_1Repository.html" title="The Database interface." alt="" coords="222,95,343,121"/>
-</map>

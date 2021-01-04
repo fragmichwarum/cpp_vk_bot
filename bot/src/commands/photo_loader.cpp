@@ -4,8 +4,8 @@
 #include "lib/include/lib/network.hpp"
 #include "lib/include/methods/photos.hpp"
 
-#include "bot/include/3rd_party/string_utils.hpp"
-#include "bot/include/commands/photo_loader.hpp"
+#include "../bot/include/3rd_party/string_utils.hpp"
+#include "../bot/include/commands/photo_loader.hpp"
 
 
 static std::size_t download(vk::lib::network& network, std::string_view filename, std::string_view server)

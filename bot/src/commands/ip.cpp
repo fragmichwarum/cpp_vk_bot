@@ -2,8 +2,8 @@
 #include <netdb.h>
 #include <arpa/inet.h>
 
-#include "bot/include/3rd_party/string_utils.hpp"
-#include "bot/include/commands/ip.hpp"
+#include "../bot/include/3rd_party/string_utils.hpp"
+#include "../bot/include/commands/ip.hpp"
 
 
 static std::string get_ip(const std::string& hostname)

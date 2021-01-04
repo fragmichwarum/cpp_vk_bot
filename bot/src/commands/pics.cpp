@@ -1,8 +1,8 @@
 #include "lib/include/methods/photos.hpp"
 #include "lib/include/methods/messages.hpp"
 
-#include "bot/include/3rd_party/string_utils.hpp"
-#include "bot/include/commands/pics.hpp"
+#include "../bot/include/3rd_party/string_utils.hpp"
+#include "../bot/include/commands/pics.hpp"
 
 
 bot::command::pics::~pics() = default;

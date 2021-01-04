@@ -1,6 +1,6 @@
 #include <cstring>
 
-#include "bot/include/commands/stat.hpp"
+#include "../bot/include/commands/stat.hpp"
 
 
 static std::string lineparse(std::string_view line)

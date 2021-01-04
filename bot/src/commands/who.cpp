@@ -1,7 +1,7 @@
 #include <random>
 
-#include "bot/include/3rd_party/string_utils.hpp"
-#include "bot/include/commands/who.hpp"
+#include "../bot/include/3rd_party/string_utils.hpp"
+#include "../bot/include/commands/who.hpp"
 
 
 template <class Iterator, class Random_generator>

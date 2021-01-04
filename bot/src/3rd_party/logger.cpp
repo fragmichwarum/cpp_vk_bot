@@ -1,7 +1,7 @@
 #include <iostream>
 #include <ctime>
 
-#include "bot/include/3rd_party/logger.hpp"
+#include "../bot/include/3rd_party/logger.hpp"
 
 
 std::string bot::third_party::logger::time() noexcept

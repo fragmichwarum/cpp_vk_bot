@@ -1,4 +1,4 @@
-#include "bot/include/3rd_party/string_utils.hpp"
+#include "../bot/include/3rd_party/string_utils.hpp"
 
 
 

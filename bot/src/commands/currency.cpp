@@ -1,7 +1,8 @@
 #include <simdjson.h>
 
 #include "lib/include/lib/network.hpp"
-#include "bot/include/commands/currency.hpp"
+
+#include "../bot/include/commands/currency.hpp"
 
 void bot::command::currency::execute(const vk::event::message_new& event) const
 {

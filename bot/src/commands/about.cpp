@@ -1,4 +1,4 @@
-#include "bot/include/commands/about.hpp"
+#include "../bot/include/commands/about.hpp"
 
 
 void bot::command::about::execute(const vk::event::message_new& event) const

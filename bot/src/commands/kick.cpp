@@ -1,5 +1,5 @@
-#include "bot/include/3rd_party/string_utils.hpp"
-#include "bot/include/commands/kick.hpp"
+#include "../bot/include/3rd_party/string_utils.hpp"
+#include "../bot/include/commands/kick.hpp"
 
 
 static long get_user_id(std::string_view screen_name)

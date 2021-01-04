@@ -2,7 +2,7 @@
 
 #include <unordered_map>
 
-#include "bot/include/commands/base_command.hpp"
+#include "../bot/include/commands/base_command.hpp"
 
 namespace bot::third_party  { class logger;       }
 

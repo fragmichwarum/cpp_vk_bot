@@ -2,8 +2,8 @@
 
 #include "lib/include/lib/network.hpp"
 
-#include "bot/include/3rd_party/string_utils.hpp"
-#include "bot/include/commands/complete.hpp"
+#include "../bot/include/3rd_party/string_utils.hpp"
+#include "../bot/include/commands/complete.hpp"
 
 
 void bot::command::complete::execute(const vk::event::message_new& event) const

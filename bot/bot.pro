@@ -12,13 +12,12 @@ QMAKE_CXXFLAGS	+= \
             -Wredundant-decls -Wsign-conversion     \
 
 LIBS        += ../vkapi.so -lcurlpp -lsimdjson -lcares
-INCLUDEPATH += ../
+INCLUDEPATH += ../cpp_vk_lib
 
 
 HEADERS     += \
             include/3rd_party/logger.hpp                          \
             include/3rd_party/string_utils.hpp                    \
-  include/commands/photo_loader.hpp \
             include/long_poll_api/long_poll_api.hpp               \
             include/event_handler/message_event_handler.hpp       \
             include/commands/base_command.hpp                     \
@@ -37,6 +36,7 @@ HEADERS     += \
             include/commands/kick.hpp                             \
             include/commands/mandelbrot_set.hpp                   \
             include/commands/online.hpp                           \
+            include/commands/photo_loader.hpp                     \
             include/commands/role.hpp                             \
             include/commands/stat.hpp                             \
             include/commands/who.hpp                              \
@@ -44,7 +44,6 @@ HEADERS     += \
 SOURCES     += \
             src/3rd_party/logger.cpp                              \
             src/3rd_party/string_utils.cpp                        \
-  src/commands/photo_loader.cpp \
             src/event_handler/message_event_handler.cpp           \
             src/long_poll_api/long_poll_api.cpp                   \
             \
@@ -62,6 +61,7 @@ SOURCES     += \
             src/commands/kick.cpp                                 \
             src/commands/mandelbrot_set.cpp                       \
             src/commands/online.cpp                               \
+            src/commands/photo_loader.cpp                         \
             src/commands/role.cpp                                 \
             src/commands/stat.cpp                                 \
             src/commands/who.cpp                                  \

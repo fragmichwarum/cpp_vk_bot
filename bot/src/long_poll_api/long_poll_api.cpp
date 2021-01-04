@@ -1,7 +1,7 @@
 #include "lib/include/api/long_poll_api.hpp"
 
-#include "bot/include/event_handler/message_event_handler.hpp"
-#include "bot/include/long_poll_api/long_poll_api.hpp"
+#include "../bot/include/event_handler/message_event_handler.hpp"
+#include "../bot/include/long_poll_api/long_poll_api.hpp"
 
 
 bot::long_poll_handler::long_poll_handler()

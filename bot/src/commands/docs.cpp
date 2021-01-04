@@ -1,8 +1,8 @@
 #include "lib/include/methods/docs.hpp"
 #include "lib/include/methods/messages.hpp"
 
-#include "bot/include/3rd_party/string_utils.hpp"
-#include "bot/include/commands/docs.hpp"
+#include "../bot/include/3rd_party/string_utils.hpp"
+#include "../bot/include/commands/docs.hpp"
 
 
 bot::command::docs::~docs() = default;

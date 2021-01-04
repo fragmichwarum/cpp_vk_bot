@@ -3,7 +3,7 @@
 #include "lib/include/lib/network.hpp"
 #include "lib/include/methods/photos.hpp"
 
-#include "bot/include/commands/cat.hpp"
+#include "../bot/include/commands/cat.hpp"
 
 
 void bot::command::cat::execute(const vk::event::message_new& event) const

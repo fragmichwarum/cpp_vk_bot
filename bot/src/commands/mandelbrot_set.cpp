@@ -4,9 +4,9 @@
 #include <ctime>
 
 #include "lib/include/methods/photos.hpp"
-#include "bot/include/commands/mandelbrot_set.hpp"
+#include "../bot/include/commands/mandelbrot_set.hpp"
 
-/*constexpr*/ std::int16_t mandelbrot_point(std::int16_t size, std::int16_t x, std::int16_t y)
+std::int16_t mandelbrot_point(std::int16_t size, std::int16_t x, std::int16_t y)
 {
   constexpr
   std::int8_t intensivity = 100;

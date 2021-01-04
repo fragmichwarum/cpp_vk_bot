@@ -1,4 +1,4 @@
-#include "bot/include/commands/online.hpp"
+#include "../bot/include/commands/online.hpp"
 
 
 void bot::command::online::execute(const vk::event::message_new& event) const

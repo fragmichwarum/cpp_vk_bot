@@ -1,8 +1,9 @@
 #include "lib/include/methods/video.hpp"
 #include "lib/include/methods/messages.hpp"
+#include "lib/include/events/message_new.hpp"
 
-#include "bot/include/3rd_party/string_utils.hpp"
-#include "bot/include/commands/videos.hpp"
+#include "../bot/include/3rd_party/string_utils.hpp"
+#include "../bot/include/commands/videos.hpp"
 
 
 bot::command::videos::~videos() = default;

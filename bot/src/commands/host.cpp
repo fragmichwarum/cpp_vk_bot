@@ -2,8 +2,8 @@
 #include <arpa/inet.h>
 #include <ares.h>
 
-#include "bot/include/3rd_party/string_utils.hpp"
-#include "bot/include/commands/host.hpp"
+#include "../bot/include/3rd_party/string_utils.hpp"
+#include "../bot/include/commands/host.hpp"
 
 std::string hostname;
 

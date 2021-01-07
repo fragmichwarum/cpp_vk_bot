@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/inl">
-        <file>include/3rd_party/logger.inl</file>
-    </qresource>
-</RCC>

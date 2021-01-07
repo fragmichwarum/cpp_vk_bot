@@ -1,3 +1,6 @@
 [submodule "cpp_vk_lib"]
 	path = cpp_vk_lib
 	url = https://github.com/fragmichwarum/cpp_vk_lib
+[submodule "logger"]
+	path = logger
+	url = https://github.com/fragmichwarum/logger.git

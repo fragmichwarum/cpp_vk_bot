@@ -14,9 +14,7 @@ QMAKE_CXXFLAGS	+= \
 LIBS        += ../vkapi.so -lcurlpp -lsimdjson -lcares
 INCLUDEPATH += ../cpp_vk_lib
 
-
 HEADERS     += \
-            include/3rd_party/logger.hpp                          \
             include/3rd_party/string_utils.hpp                    \
             include/long_poll_api/long_poll_api.hpp               \
             include/event_handler/message_event_handler.hpp       \
@@ -42,7 +40,6 @@ HEADERS     += \
             include/commands/who.hpp                              \
 
 SOURCES     += \
-            src/3rd_party/logger.cpp                              \
             src/3rd_party/string_utils.cpp                        \
             src/event_handler/message_event_handler.cpp           \
             src/long_poll_api/long_poll_api.cpp                   \
@@ -66,3 +63,5 @@ SOURCES     += \
             src/commands/stat.cpp                                 \
             src/commands/who.cpp                                  \
             main.cpp                                              \
+
+RESOURCES +=

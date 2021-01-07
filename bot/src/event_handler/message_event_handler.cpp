@@ -1,4 +1,6 @@
-#include "../bot/include/3rd_party/logger.hpp"
+#include <iostream>
+
+#include "../cpp_vk_lib/logger/logger.hpp"
 #include "../bot/include/event_handler/message_event_handler.hpp"
 
 #include "../bot/include/commands/about.hpp"
@@ -24,7 +26,6 @@
 bot::message_event_handler::~message_event_handler() = default;
 
 bot::message_event_handler::message_event_handler()
-  : logger(std::make_unique<third_party::logger>("empty path..."))
 {
   command_collection.emplace("+оботе",        std::make_unique<command::about>());
   command_collection.emplace("+котик",        std::make_unique<command::cat>());
@@ -47,11 +48,11 @@ bot::message_event_handler::message_event_handler()
 
 void bot::message_event_handler::process(const vk::event::message_new& event)
 {
-  logger->print(event.text());
   std::string trigger = event.text().substr(0, event.text().find(' '));
 
   if (command_collection.find(trigger) != command_collection.end())
   {
-      command_collection[trigger]->execute(event);
+    logger("/home/gentoo/botlog.txt", logflag::info | logflag::yellow | logflag::spaces) << event.text();
+    command_collection[trigger]->execute(event);
   }
 }

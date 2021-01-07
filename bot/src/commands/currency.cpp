@@ -4,6 +4,7 @@
 
 #include "../bot/include/commands/currency.hpp"
 
+
 void bot::command::currency::execute(const vk::event::message_new& event) const
 {
   static constexpr const char* codes[] = { "GBP", "BYN", "USD", "EUR", "KZT", "PLN", "UAH", "JPY" };

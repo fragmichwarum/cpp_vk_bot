@@ -2,6 +2,7 @@
 
 #include "../bot/include/commands/base_command.hpp"
 
+
 namespace vk { class photos; }
 
 namespace bot::command

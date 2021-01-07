@@ -2,6 +2,7 @@
 
 #include <memory>
 
+
 namespace vk    { class long_poll_api;  }
 namespace vk    { struct long_poll_data; }
 namespace bot   { class message_event_handler; }

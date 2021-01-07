@@ -6,6 +6,7 @@
 #include "lib/include/methods/photos.hpp"
 #include "../bot/include/commands/mandelbrot_set.hpp"
 
+
 std::int16_t mandelbrot_point(std::int16_t size, std::int16_t x, std::int16_t y)
 {
   constexpr
